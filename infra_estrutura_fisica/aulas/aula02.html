@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aula 02 — Como as Redes Nasceram</title>
+  <style>
+    :root {
+      color-scheme: light;
+      background-color: #f6f4ef;
+      color: #1f2933;
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 1rem;
+      line-height: 1.75;
+      text-rendering: optimizeLegibility;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      padding: 1.5rem 1.25rem;
+    }
+
+    main {
+      margin: 0 auto;
+      max-width: 42rem;
+      padding: 1.5rem;
+      background: #ffffff;
+      border: 1px solid #d8d5cc;
+      border-radius: 1rem;
+      box-shadow: 0 12px 30px rgba(31, 41, 51, 0.08);
+    }
+
+    header {
+      margin-bottom: 2rem;
+    }
+
+    h1,
+    h2,
+    h3 {
+      color: #0f172a;
+      line-height: 1.2;
+      margin-top: 2rem;
+      margin-bottom: 0.8rem;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 4vw, 2.8rem);
+    }
+
+    h2 {
+      font-size: clamp(1.5rem, 3vw, 2rem);
+    }
+
+    p,
+    li,
+    blockquote,
+    .eyebrow {
+      font-size: 1.05rem;
+      color: #232f3d;
+    }
+
+    p {
+      margin: 1rem 0;
+    }
+
+    strong {
+      color: #111827;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      margin-bottom: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #475569;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid #d8d5cc;
+      margin: 2rem 0;
+    }
+
+    blockquote {
+      margin: 1.5rem 0;
+      padding: 1rem 1.25rem;
+      border-left: 6px solid #94a3b8;
+      background: #f8fafc;
+      color: #1f2933;
+      border-radius: 0.75rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+      background: #f8fafc;
+      color: #1f2933;
+    }
+
+    th,
+    td {
+      text-align: left;
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid #d8d5cc;
+    }
+
+    th {
+      background: #e2e8f0;
+      font-weight: 700;
+    }
+
+    ul {
+      margin: 1rem 0 1rem 1.35rem;
+      padding: 0;
+      list-style: disc;
+    }
+
+    li {
+      margin: 0.6rem 0;
+    }
+
+    pre {
+      background: #e2e8f0;
+      padding: 1rem;
+      border-radius: 0.85rem;
+      overflow-x: auto;
+      font-size: 0.95rem;
+      margin: 1rem 0;
+      line-height: 1.5;
+    }
+
+    .note {
+      margin: 1.5rem 0;
+      font-size: 1rem;
+      color: #475569;
+    }
+
+    .section-number {
+      display: inline-block;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 0.25rem;
+    }
+
+    .meta {
+      display: grid;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+      padding: 1rem 1rem;
+      border-radius: 0.75rem;
+      background: #eef2ff;
+      color: #0f172a;
+    }
+
+    .meta span {
+      display: block;
+    }
+
+    @media (max-width: 640px) {
+      body {
+        padding: 1rem;
+      }
+
+      main {
+        padding: 1.25rem;
+      }
+
+      table,
+      th,
+      td,
+      pre {
+        font-size: 0.98rem;
+      }
+
+      ul {
+        margin-left: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <p class="eyebrow">Infraestrutura Física de Redes</p>
+      <h1>AULA 02 — Como as Redes Nasceram: da Guerra Fria à Internet</h1>
+      <div class="meta" aria-label="Informações da aula">
+        <span><strong>Carga horária:</strong> 50 minutos</span>
+        <span><strong>Objetivo da aula:</strong> Compreender o contexto histórico que originou as redes de computadores, conhecer os idealizadores e organizações envolvidas, entender como a primeira rede funcionava fisicamente e como dados eram transmitidos por linhas telefônicas.</span>
+      </div>
+    </header>
+
+    <section>
+      <h2><span class="section-number">1.</span> O Contexto Histórico — A Faísca</h2>
+      <p>Para entender por que as redes de computadores foram inventadas, é preciso voltar a <strong>4 de outubro de 1957</strong>.</p>
+      <p>Nessa data, a União Soviética lançou o <strong>Sputnik</strong> — o primeiro satélite artificial da história. Para o mundo ocidental, e especialmente para os Estados Unidos, o impacto foi de choque profundo. O raciocínio era direto: se os soviéticos conseguiam colocar um objeto em órbita ao redor da Terra, tinham capacidade técnica para lançar mísseis balísticos intercontinentais com ogivas nucleares.</p>
+      <p>O presidente <strong>Dwight Eisenhower</strong> respondeu em fevereiro de 1958 criando a <strong>ARPA</strong> — <em>Advanced Research Projects Agency</em> — uma agência federal ligada diretamente ao Departamento de Defesa dos EUA, com missão explícita: garantir superioridade tecnológica americana através de pesquisa de alto risco e alto impacto.</p>
+      <p>Uma das questões colocadas imediatamente à ARPA foi: <strong>como garantir comunicações militares que sobrevivam a um ataque nuclear?</strong></p>
+      <p>O sistema de telecomunicações existente tinha um defeito fatal: era <strong>centralizado</strong>. Funcionava como uma estrela — tudo passava por pontos centrais de comutação. Destruir esses pontos destruía a comunicação. Um único míssil bem posicionado poderia paralisar toda a cadeia de comando militar.</p>
+
+      <blockquote>
+        <p><em>"É possível construir uma rede de comunicações que continue funcionando mesmo que parte dela seja destruída?"</em></p>
+      </blockquote>
+
+      <p>Essa pergunta militar, feita por razões de sobrevivência em contexto de guerra, gerou — inadvertidamente — a tecnologia que conectaria o mundo inteiro.</p>
+    </section>
+
+    <hr>
+
+    <section>
+      <h2><span class="section-number">2.</span> Os Idealizadores</h2>
+      <h3>J.C.R. Licklider — O Visionário</h3>
+      <p><strong>Joseph Carl Robnett Licklider</strong> (1915–1990) era psicólogo e cientista da computação no MIT. Em agosto de 1962 escreveu um memorando interno chamado <em>"On-Line Man-Computer Communication"</em>, onde descrevia uma <em>"Intergalactic Computer Network"</em> — uma rede global onde qualquer pessoa poderia acessar dados e programas de qualquer computador do mundo.</p>
+      <p>Era uma visão radicalmente à frente do seu tempo. Em 1962 sequer existia a ideia de conectar dois computadores — Licklider estava falando em conectar todos os computadores do planeta. Naquele mesmo ano foi contratado pela ARPA para dirigir o <strong>IPTO</strong> (<em>Information Processing Techniques Office</em>), o departamento que financiaria toda a pesquisa subsequente.</p>
+      <p>Licklider não construiu a ARPANET. Ele plantou a ideia e colocou as pessoas certas nos lugares certos.</p>
+
+      <h3>Paul Baran — O Arquiteto Conceitual</h3>
+      <p><strong>Paul Baran</strong> (1926–2011) era engenheiro na <strong>RAND Corporation</strong>, contratado pelo Departamento de Defesa. Entre 1960 e 1962 produziu uma série de 11 relatórios técnicos respondendo diretamente ao problema levantado pela ARPA.</p>
+      <p>Sua proposta tinha dois pilares fundamentais:</p>
+      <p><strong>Rede distribuída:</strong> em vez de uma topologia em estrela (centralizada) ou em árvore (hierárquica), Baran propôs uma <strong>malha</strong> onde cada nó se conecta a vários outros. Destruir qualquer nó não isola os demais — existem sempre caminhos alternativos.</p>
+      <p><strong>Comutação de pacotes:</strong> em vez de reservar um circuito dedicado entre dois pontos para toda a duração de uma comunicação (como funcionava o sistema telefônico), Baran propôs quebrar a mensagem em blocos independentes que viajam separadamente pela rede e se remontam no destino.</p>
+      <p>O Departamento de Defesa recebeu os relatórios, achou a ideia interessante — e não fez nada por anos. A AT&T, consultada sobre viabilidade, declarou que a comutação de pacotes era tecnicamente impossível.</p>
+
+      <h3>Donald Davies — O Inventor Paralelo</h3>
+      <p><strong>Donald Davies</strong> (1924–2000) era cientista do <strong>NPL</strong> (<em>National Physical Laboratory</em>) no Reino Unido. Entre 1965 e 1966, sem ter conhecimento do trabalho de Baran, chegou <strong>independentemente</strong> às mesmas conclusões sobre redes distribuídas e comutação de pacotes.</p>
+      <p>Foi Davies quem cunhou o termo <strong>"packet switching"</strong> — comutação de pacotes — que é usado até hoje. Seus trabalhos chegaram aos engenheiros americanos e influenciaram diretamente o design técnico da ARPANET. Em 1969 o NPL operou a primeira rede local experimental com comutação de pacotes do mundo.</p>
+
+      <h3>Lawrence Roberts — O Construtor</h3>
+      <p><strong>Lawrence Roberts</strong> (1937–2018) era engenheiro no MIT Lincoln Laboratory. Em 1966 foi recrutado pela ARPA para se tornar o <strong>diretor técnico do projeto ARPANET</strong> — o homem que transformaria teoria em engenharia real.</p>
+      <p>Foi Roberts quem escreveu o plano técnico detalhado, definiu as especificações dos componentes de hardware, organizou a licitação que contratou a empresa construtora, supervisionou a construção e os testes, e coordenou os grupos universitários que desenvolveram os protocolos de software.</p>
+
+      <h3>Wesley Clark — A Ideia do IMP</h3>
+      <p>Em 1967, durante uma conferência técnica, o cientista <strong>Wesley Clark</strong> sugeriu a Roberts uma solução elegante para um problema central: em vez de modificar cada computador host para lidar com o roteamento de pacotes — o que exigiria customizar cada máquina individualmente — criar um <strong>computador intermediário padronizado</strong>, dedicado exclusivamente ao roteamento. Roberts adotou a ideia imediatamente. Esse dispositivo se tornaria o <strong>IMP</strong> — e é o ancestral direto do roteador moderno.</p>
+
+      <h3>Vint Cerf e Bob Kahn — Os Pais da Internet Moderna</h3>
+      <p>Na fase seguinte — início dos anos 1970 — <strong>Robert Kahn</strong> e <strong>Vinton Cerf</strong> enfrentaram um novo problema: a ARPANET funcionava bem como rede única, mas como conectar redes <strong>diferentes</strong> entre si? Uma rede de rádio militar, uma rede de satélites e a ARPANET usavam tecnologias incompatíveis.</p>
+      <p>Kahn identificou o problema; Cerf desenvolveu a solução matemática. Em 1974 publicaram juntos o paper que definiu o <strong>TCP/IP</strong> — o protocolo que deu à internet sua linguagem universal e que continua sendo a base da internet global até hoje. Vint Cerf é frequentemente chamado de <em>"pai da internet"</em>.</p>
+    </section>
+
+    <hr>
+
+    <section>
+      <h2><span class="section-number">3.</span> As Organizações</h2>
+      <p><strong>ARPA / DARPA:</strong> financiou e coordenou todo o projeto. Criada em 1958 como resposta ao Sputnik. Renomeada DARPA (com o D de <em>Defense</em>) em 1972. Sem o financiamento e a coordenação da ARPA, nenhuma universidade ou empresa privada teria assumido o risco e o custo do projeto naquele momento.</p>
+      <p><strong>RAND Corporation:</strong> think tank militar americano onde Paul Baran desenvolveu a teoria da rede distribuída. Financiado pelo governo dos EUA para pesquisa estratégica de defesa.</p>
+      <p><strong>NPL — National Physical Laboratory (Reino Unido):</strong> laboratório nacional britânico onde Donald Davies conduziu seus experimentos com comutação de pacotes e montou a primeira rede local experimental do mundo em 1969.</p>
+      <p><strong>MIT — Massachusetts Institute of Technology:</strong> berço intelectual de grande parte dos pesquisadores envolvidos, incluindo Licklider e Roberts. O Projeto MAC do MIT foi um dos primeiros nós da ARPANET.</p>
+      <p><strong>BBN Technologies — Bolt Beranek and Newman:</strong> empresa de Cambridge, Massachusetts, contratada pela ARPA em 1968 para construir fisicamente os IMPs. A equipe, liderada por <strong>Frank Heart</strong>, transformou o projeto em hardware real dentro do prazo exigido. Foi a BBN que operacionalizou a rede.</p>
+      <p><strong>Network Working Group (NWG):</strong> grupo informal de estudantes de pós-graduação das universidades conectadas, liderado por <strong>Steve Crocker</strong>. Desenvolveram os protocolos de software da ARPANET. Crocker criou o formato <strong>RFC</strong> (<em>Request for Comments</em>) — documentos técnicos abertos para revisão coletiva pela comunidade. O formato RFC existe até hoje como base do desenvolvimento dos protocolos da internet.</p>
+    </section>
+
+    <hr>
+
+    <section>
+      <h2><span class="section-number">4.</span> A ARPANET — Estrutura Física e Funcionamento</h2>
+      <h3>O Problema Central: Comutação de Pacotes vs. Comutação de Circuitos</h3>
+      <p>Para entender a inovação da ARPANET, é preciso entender o modelo anterior.</p>
+      <p>O sistema telefônico funcionava — e em parte ainda funciona — por <strong>comutação de circuitos</strong>: quando você faz uma ligação, um caminho físico dedicado é reservado entre você e o outro lado durante toda a conversa. Esse caminho fica ocupado mesmo nos momentos de silêncio. Não há eficiência, e um corte em qualquer ponto desse caminho encerra a comunicação.</p>
+      <p>A ARPANET foi construída sobre <strong>comutação de pacotes</strong>:</p>
+      <ul>
+        <li>A mensagem é quebrada em blocos pequenos chamados <strong>pacotes</strong></li>
+        <li>Cada pacote recebe um cabeçalho com endereço de origem, endereço de destino e número de sequência</li>
+        <li>Os pacotes são enviados <strong>independentemente</strong> pela rede — podem tomar caminhos diferentes</li>
+        <li>Se um caminho está congestionado ou destruído, os pacotes desviam por outro</li>
+        <li>No destino, os pacotes são <strong>remontados</strong> na ordem correta usando os números de sequência</li>
+      </ul>
+      <p>Isso tornava a rede simultaneamente mais eficiente (sem circuitos dedicados ociosos) e mais resiliente (sem ponto único de falha).</p>
+
+      <h3>Os IMPs — Interface Message Processors</h3>
+      <p>A ARPANET não conectava computadores diretamente entre si. Entre cada computador host e a rede havia um dispositivo intermediário chamado <strong>IMP — Interface Message Processor</strong>.</p>
+      <p>O IMP era o roteador primitivo da ARPANET:</p>
+      <ul>
+        <li>Fabricado pela BBN com base no minicomputador <strong>Honeywell DDP-516</strong></li>
+        <li>Dimensões de um armário — pesava cerca de 400 kg</li>
+        <li>Memória de 12 KB (doze kilobytes)</li>
+        <li>Recebia pacotes do host local via cabo serial</li>
+        <li>Lia o endereço de destino e encaminhava para o IMP vizinho mais adequado</li>
+        <li>Confirmava o recebimento de cada pacote antes de repassar (protocolo <em>store-and-forward</em>)</li>
+        <li>Cada IMP se conectava a até quatro outros IMPs por linhas alugadas a 50 Kbps</li>
+      </ul>
+      <p>O host — o computador da universidade — não precisava saber nada sobre roteamento. Ele apenas "conversava" com seu IMP local. A inteligência de roteamento ficava no IMP.</p>
+
+      <h3>A Topologia Física Original</h3>
+      <p>A ARPANET começou com <strong>quatro nós em 1969</strong>, instalados em quatro universidades americanas:</p>
+      <pre>         UCLA ─────────── SRI (Stanford)
+           │                     │
+           │                     │
+         UCSB ─────────── Universidade de Utah</pre>
+      <p>Cada linha representa uma conexão física entre dois IMPs por linhas telefônicas alugadas da AT&T a 50 Kbps. Já nesse desenho mínimo existia redundância parcial — UCLA podia chegar a Utah diretamente ou passando por SRI ou UCSB.</p>
+      <p>À medida que a rede crescia, a topologia se tornava uma malha irregular com múltiplos caminhos entre quaisquer dois pontos — exatamente o objetivo original de sobrevivência a falhas.</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Data</th>
+            <th>Local</th>
+            <th>Computador Host</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Setembro 1969</td>
+            <td>UCLA</td>
+            <td>SDS Sigma 7</td>
+          </tr>
+          <tr>
+            <td>Outubro 1969</td>
+            <td>SRI — Stanford Research Institute</td>
+            <td>SDS 940</td>
+          </tr>
+          <tr>
+            <td>Novembro 1969</td>
+            <td>UCSB</td>
+            <td>IBM 360/75</td>
+          </tr>
+          <tr>
+            <td>Dezembro 1969</td>
+            <td>Universidade de Utah</td>
+            <td>DEC PDP-10</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>Os quatro computadores eram de fabricantes e arquiteturas completamente diferentes — isso era proposital. A ARPANET precisava provar que redes podiam conectar hardware heterogêneo.</p>
+
+      <h3>O Primeiro Contato — 29 de outubro de 1969</h3>
+      <p>Às 22h30 do dia 29 de outubro de 1969, <strong>Charley Kline</strong>, estudante de pós-graduação da UCLA, tentou fazer login remotamente no computador do SRI em Menlo Park, a 600 km de distância. Do outro lado, <strong>Bill Duvall</strong> acompanhava pelo telefone.</p>
+      <ul>
+        <li>Kline digitou <strong>"L"</strong> → Duvall confirmou: chegou.</li>
+        <li>Kline digitou <strong>"O"</strong> → Duvall confirmou: chegou.</li>
+        <li>Kline digitou <strong>"G"</strong> → o sistema do SRI <strong>travou</strong>.</li>
+      </ul>
+      <p>A primeira mensagem transmitida pela história das redes de computadores foi, acidentalmente, <strong>"LO"</strong>. Uma hora depois o sistema foi reiniciado e o login completo funcionou. Mas "LO" ficou para a história.</p>
+    </section>
+
+    <hr>
+
+    <section>
+      <h2><span class="section-number">5.</span> Como Dados Trafegavam por Linhas Telefônicas</h2>
+      <h3>O Conflito Fundamental</h3>
+      <p>A ARPANET usava as linhas telefônicas da AT&T para interligar seus IMPs. Mas aqui havia um conflito técnico fundamental:</p>
+      <ul>
+        <li><strong>Computadores</strong> operam com <strong>sinais digitais</strong> — pulsos elétricos discretos representando 0 ou 1</li>
+        <li><strong>Linhas telefônicas</strong> foram projetadas para transportar <strong>sinais analógicos</strong> — ondas contínuas representando a voz humana, em frequências entre 300 Hz e 3.400 Hz</li>
+      </ul>
+      <p>São tecnologias incompatíveis. Para um computador usar uma linha telefônica, era necessário um dispositivo capaz de <strong>traduzir</strong> entre os dois mundos.</p>
+      <p>Esse dispositivo é o <strong>modem</strong>.</p>
+
+      <h3>O Modem — Modulador/Demodulador</h3>
+      <p>A palavra <strong>modem</strong> vem de <strong>Mo</strong>dulador/<strong>Dem</strong>odulador, e descreve exatamente sua função:</p>
+      <p><strong>Na transmissão:</strong> o modem recebe o sinal digital do computador (sequência de 0s e 1s) e o <strong>modula</strong> — converte em uma onda analógica que a linha telefônica consegue transportar.</p>
+      <p><strong>Na recepção:</strong> o modem recebe a onda analógica vinda da linha e a <strong>demodula</strong> — reconverte em sinal digital que o computador entende.</p>
+
+      <pre>COMPUTADOR      MODEM           LINHA TELEFÔNICA        MODEM       COMPUTADOR
+ 0 1 0 1   →  modulação   →    onda analógica    →  demodulação →   0 1 0 1
+ (digital)                       (analógica)                         (digital)</pre>
+
+      <h3>Tipos de Modulação</h3>
+      <p><strong>Modulação de Amplitude (AM):</strong> a altura da onda (amplitude) varia para codificar os bits. Amplitude alta representa 1, amplitude baixa representa 0. É simples, mas muito sensível a ruídos na linha — qualquer interferência pode alterar a amplitude e corromper o dado.</p>
+      <p><strong>Modulação de Frequência (FM):</strong> a velocidade de oscilação da onda (frequência) varia para codificar os bits. Frequência alta representa 1, frequência baixa representa 0. Mais resistente a ruídos que a AM.</p>
+      <p><strong>Modulação de Fase (PM):</strong> o ponto de início de cada ciclo da onda (fase) é alterado para representar bits. Uma inversão de fase sinaliza uma mudança de bit. Mais sofisticada e eficiente que AM e FM.</p>
+      <p><strong>QAM — Modulação em Quadratura de Amplitude:</strong> combina simultaneamente variações de amplitude e de fase, criando dezenas de estados distintos. Cada estado representa vários bits de uma vez — em vez de 1 bit por símbolo, transmite 4, 6 ou até 8 bits por símbolo. Foi essa técnica que permitiu aos modems analógicos atingirem 56 Kbps nos anos 1990.</p>
+
+      <h3>O Limite de Shannon</h3>
+      <p>Em 1948, o matemático <strong>Claude Shannon</strong> demonstrou que existe um limite teórico máximo para a quantidade de dados que pode ser transmitida por qualquer canal de comunicação, dado por:</p>
+      <blockquote>
+        <p><strong>Capacidade máxima = largura de banda × log₂(1 + sinal/ruído)</strong></p>
+      </blockquote>
+      <p>Para uma linha telefônica comum — com sua faixa estreita de frequências e o ruído típico — esse limite teórico é de aproximadamente <strong>56 Kbps</strong>. Décadas depois, quando os modems analógicos finalmente atingiram exatamente essa velocidade nos anos 1990, eles confirmaram na prática o que Shannon havia calculado na teoria em 1948.</p>
+      <p>Isso explica por que, por mais que se tentasse, era impossível fazer um modem analógico passar de 56 Kbps em uma linha telefônica convencional. Era um limite físico, não tecnológico.</p>
+
+      <h3>A Evolução: do Analógico ao Digital</h3>
+      <p>As limitações da linha telefônica analógica levaram ao desenvolvimento de tecnologias que eliminam a conversão analógica/digital e exploram muito mais da capacidade física do cabo de cobre:</p>
+      <p><strong>DSL — Digital Subscriber Line:</strong> usa o mesmo par de cobre do telefone comum, mas opera em frequências muito mais altas do que as usadas pela voz (acima dos 3.400 Hz). Transmite dados em formato digital diretamente, sem conversão analógica. Velocidades de 1 Mbps a 100 Mbps, dependendo da distância e da qualidade do cabo.</p>
+      <p><strong>Fibra óptica:</strong> substitui o par de cobre por filamentos de vidro e o sinal elétrico por pulsos de luz. Sem as limitações físicas do cobre, a largura de banda disponível sobe para dezenas de Gbps. Não há mais modem no sentido clássico — há um <strong>ONT</strong> (<em>Optical Network Terminal</em>), que converte o sinal óptico em sinal elétrico digital para os dispositivos da casa ou empresa.</p>
+      <p>A lógica, porém, permanece a mesma em todas as tecnologias: pegar o sinal de um meio, adaptá-lo ao canal de transmissão disponível, e revertê-lo fielmente no destino.</p>
+    </section>
+
+    <hr>
+
+    <section>
+      <h2><span class="section-number">6.</span> Linha do Tempo: da ARPANET à Internet Moderna</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Ano</th>
+            <th>Evento</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1957</td>
+            <td>URSS lança o Sputnik. EUA cria a ARPA.</td>
+          </tr>
+          <tr>
+            <td>1962</td>
+            <td>Licklider escreve sobre a "Intergalactic Computer Network".</td>
+          </tr>
+          <tr>
+            <td>1962</td>
+            <td>Paul Baran publica proposta de rede distribuída com comutação de pacotes.</td>
+          </tr>
+          <tr>
+            <td>1965</td>
+            <td>Donald Davies desenvolve independentemente a comutação de pacotes no Reino Unido e cria o termo <em>packet switching</em>.</td>
+          </tr>
+          <tr>
+            <td>1968</td>
+            <td>ARPA contrata a BBN para construir os IMPs.</td>
+          </tr>
+          <tr>
+            <td>1969</td>
+            <td>ARPANET entra em operação com 4 nós. Primeira mensagem: "LO".</td>
+          </tr>
+          <tr>
+            <td>1971</td>
+            <td>ARPANET chega a 15 nós. Primeiro e-mail enviado por Ray Tomlinson.</td>
+          </tr>
+          <tr>
+            <td>1973</td>
+            <td>Primeiras conexões internacionais: Londres e Noruega.</td>
+          </tr>
+          <tr>
+            <td>1974</td>
+            <td>Cerf e Kahn publicam o paper do TCP/IP.</td>
+          </tr>
+          <tr>
+            <td>1983</td>
+            <td>ARPANET adota oficialmente o TCP/IP. Considera-se esta a data de nascimento formal da Internet.</td>
+          </tr>
+          <tr>
+            <td>1990</td>
+            <td>ARPANET é desativada — substituída pela infraestrutura civil da NSFNET.</td>
+          </tr>
+          <tr>
+            <td>1991</td>
+            <td>Tim Berners-Lee cria a World Wide Web no CERN.</td>
+          </tr>
+          <tr>
+            <td>1993</td>
+            <td>Primeiro navegador gráfico (Mosaic) torna a Web acessível ao público geral.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Uma Distinção Importante: Internet ≠ World Wide Web</h3>
+      <p>É comum — mesmo entre profissionais de TI — confundir internet com World Wide Web. São coisas diferentes:</p>
+      <p><strong>Internet</strong> é a infraestrutura de rede global — os cabos, os roteadores, os protocolos TCP/IP. Existe desde 1983. Antes da Web, já havia e-mail, transferência de arquivos (FTP), login remoto (Telnet) e outros serviços rodando sobre ela.</p>
+      <p><strong>World Wide Web</strong> é uma aplicação que roda <em>sobre</em> a internet — o sistema de páginas interligadas por hiperlinks, acessadas por um navegador. Foi criada por Tim Berners-Lee no CERN em 1991 e tornou a internet acessível e utilizável pelo público geral.</p>
+      <p>Tim Berners-Lee não criou a internet. Ele criou o sistema HTTP + HTML + URLs que transformou a internet numa ferramenta para todos.</p>
+    </section>
+
+    <hr>
+
+    <section>
+      <h2><span class="section-number">7.</span> O que a ARPANET Provou ao Mundo</h2>
+      <p>A ARPANET foi muito mais do que uma rede militar experimental. Ela demonstrou, pela primeira vez em escala real, três princípios que pareciam improváveis antes dela:</p>
+      <ul>
+        <li><strong>Comutação de pacotes funciona:</strong> não era apenas teoria matemática. Dados reais, aplicações reais, usuários reais — e os pacotes chegavam, eram remontados e faziam sentido no destino.</li>
+        <li><strong>Computadores heterogêneos podem se comunicar:</strong> os quatro nós originais usavam máquinas de fabricantes completamente diferentes. A rede funcionou. Isso provou que protocolos bem definidos podem abstrair diferenças de hardware.</li>
+        <li><strong>Redes descentralizadas são robustas:</strong> sem servidor central, sem ponto único de colapso. A rede continuava funcionando mesmo com falhas em partes dela.</li>
+      </ul>
+      <p>Esses três princípios são a fundação sobre a qual toda a infraestrutura de redes moderna — incluindo o que você aprenderá a instalar e configurar neste curso — foi construída.</p>
+    </section>
+  </main>
+</body>
+</html>

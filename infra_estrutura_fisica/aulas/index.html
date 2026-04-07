@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Infraestrutura Física de Redes — Aulas</title>
+  <style>
+    :root {
+      color-scheme: light;
+      background-color: #f6f4ef;
+      color: #1f2933;
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 1rem;
+      line-height: 1.75;
+      text-rendering: optimizeLegibility;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      padding: 1.5rem 1.25rem;
+      background: linear-gradient(180deg, #f6f4ef 0%, #e2e8f0 100%);
+    }
+
+    main {
+      margin: 0 auto;
+      max-width: 42rem;
+      padding: 2rem;
+      background: #ffffff;
+      border: 1px solid #d8d5cc;
+      border-radius: 1rem;
+      box-shadow: 0 16px 40px rgba(31, 41, 51, 0.08);
+    }
+
+    header {
+      margin-bottom: 2rem;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      color: #0f172a;
+      margin: 0 0 0.75rem;
+    }
+
+    p {
+      margin: 0.75rem 0 1.5rem;
+      color: #334155;
+      font-size: 1.05rem;
+    }
+
+    .lesson-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 1rem;
+    }
+
+    .lesson-list li {
+      border: 1px solid #cbd5e1;
+      border-radius: 1rem;
+      background: #f8fafc;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .lesson-list li:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 24px rgba(15, 23, 42, 0.08);
+    }
+
+    .lesson-link {
+      display: block;
+      padding: 1.25rem 1.25rem;
+      color: #0f172a;
+      text-decoration: none;
+    }
+
+    .lesson-link h2 {
+      margin: 0 0 0.5rem;
+      font-size: 1.35rem;
+    }
+
+    .lesson-link p {
+      margin: 0;
+      color: #475569;
+    }
+
+    .footer {
+      margin-top: 2rem;
+      color: #64748b;
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 640px) {
+      body {
+        padding: 1rem;
+      }
+
+      main {
+        padding: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <h1>Aulas de Infraestrutura Física de Redes</h1>
+      <p>Escolha a aula para abrir o conteúdo em formato HTML acessível e responsivo.</p>
+    </header>
+
+    <ul class="lesson-list">
+      <li>
+        <a class="lesson-link" href="aula01.html">
+          <h2>AULA 01 — O que é uma Rede de Computadores</h2>
+          <p>Definição de rede, dispositivos, interligação, protocolos e distinção entre rede e internet.</p>
+        </a>
+      </li>
+      <li>
+        <a class="lesson-link" href="aula02.html">
+          <h2>AULA 02 — Como as Redes Nasceram: da Guerra Fria à Internet</h2>
+          <p>História da ARPANET, idealizadores, comutação de pacotes, modems e a transição para a internet moderna.</p>
+        </a>
+      </li>
+    </ul>
+
+    <p class="footer">Arquivo index para navegar entre as aulas de forma simples e direta.</p>
+  </main>
+</body>
+</html>
