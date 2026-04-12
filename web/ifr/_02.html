@@ -11,14 +11,14 @@
     <header>
       <p class="eyebrow">Infraestrutura Física de Redes</p>
       <h1>AULA 02 — Como as Redes Nasceram: da Guerra Fria à Internet</h1>
-      <div class="meta" aria-label="Informações da aula">
-        <span><strong>Carga horária:</strong> 50 minutos</span>
+      <div class="meta" aria-label="Informações da aula">        
         <span><strong>Objetivo da aula:</strong> Compreender o contexto histórico que originou as redes de computadores, conhecer os idealizadores e organizações envolvidas, entender como a primeira rede funcionava fisicamente e como dados eram transmitidos por linhas telefônicas.</span>
       </div>
     </header>
 
     <section>
-      <h2><span class="section-number">1.</span> O Contexto Histórico — A Faísca</h2>
+      <h2>1. O Contexto Histórico — A Faísca</h2>
+      <img src="../assets/images/ifr/02/sputnik.png" alt="">
       <p>Para entender por que as redes de computadores foram inventadas, é preciso voltar a <strong>4 de outubro de 1957</strong>.</p>
       <p>Nessa data, a União Soviética lançou o <strong>Sputnik</strong> — o primeiro satélite artificial da história. Para o mundo ocidental, e especialmente para os Estados Unidos, o impacto foi de choque profundo. O raciocínio era direto: se os soviéticos conseguiam colocar um objeto em órbita ao redor da Terra, tinham capacidade técnica para lançar mísseis balísticos intercontinentais com ogivas nucleares.</p>
       <p>O presidente <strong>Dwight Eisenhower</strong> respondeu em fevereiro de 1958 criando a <strong>ARPA</strong> — <em>Advanced Research Projects Agency</em> — uma agência federal ligada diretamente ao Departamento de Defesa dos EUA, com missão explícita: garantir superioridade tecnológica americana através de pesquisa de alto risco e alto impacto.</p>
@@ -35,7 +35,7 @@
     <hr>
 
     <section>
-      <h2><span class="section-number">2.</span> Os Idealizadores</h2>
+      <h2>2. Os Idealizadores</h2>
       <h3>J.C.R. Licklider — O Visionário</h3>
       <p><strong>Joseph Carl Robnett Licklider</strong> (1915–1990) era psicólogo e cientista da computação no MIT. Em agosto de 1962 escreveu um memorando interno chamado <em>"On-Line Man-Computer Communication"</em>, onde descrevia uma <em>"Intergalactic Computer Network"</em> — uma rede global onde qualquer pessoa poderia acessar dados e programas de qualquer computador do mundo.</p>
       <p>Era uma visão radicalmente à frente do seu tempo. Em 1962 sequer existia a ideia de conectar dois computadores — Licklider estava falando em conectar todos os computadores do planeta. Naquele mesmo ano foi contratado pela ARPA para dirigir o <strong>IPTO</strong> (<em>Information Processing Techniques Office</em>), o departamento que financiaria toda a pesquisa subsequente.</p>
@@ -45,6 +45,7 @@
       <p><strong>Paul Baran</strong> (1926–2011) era engenheiro na <strong>RAND Corporation</strong>, contratado pelo Departamento de Defesa. Entre 1960 e 1962 produziu uma série de 11 relatórios técnicos respondendo diretamente ao problema levantado pela ARPA.</p>
       <p>Sua proposta tinha dois pilares fundamentais:</p>
       <p><strong>Rede distribuída:</strong> em vez de uma topologia em estrela (centralizada) ou em árvore (hierárquica), Baran propôs uma <strong>malha</strong> onde cada nó se conecta a vários outros. Destruir qualquer nó não isola os demais — existem sempre caminhos alternativos.</p>
+      <img src="../assets/images/ifr/02/redes.png" alt="">
       <p><strong>Comutação de pacotes:</strong> em vez de reservar um circuito dedicado entre dois pontos para toda a duração de uma comunicação (como funcionava o sistema telefônico), Baran propôs quebrar a mensagem em blocos independentes que viajam separadamente pela rede e se remontam no destino.</p>
       <p>O Departamento de Defesa recebeu os relatórios, achou a ideia interessante — e não fez nada por anos. A AT&T, consultada sobre viabilidade, declarou que a comutação de pacotes era tecnicamente impossível.</p>
 
@@ -67,7 +68,7 @@
     <hr>
 
     <section>
-      <h2><span class="section-number">3.</span> As Organizações</h2>
+      <h2>3. As Organizações</h2>
       <p><strong>ARPA / DARPA:</strong> financiou e coordenou todo o projeto. Criada em 1958 como resposta ao Sputnik. Renomeada DARPA (com o D de <em>Defense</em>) em 1972. Sem o financiamento e a coordenação da ARPA, nenhuma universidade ou empresa privada teria assumido o risco e o custo do projeto naquele momento.</p>
       <p><strong>RAND Corporation:</strong> think tank militar americano onde Paul Baran desenvolveu a teoria da rede distribuída. Financiado pelo governo dos EUA para pesquisa estratégica de defesa.</p>
       <p><strong>NPL — National Physical Laboratory (Reino Unido):</strong> laboratório nacional britânico onde Donald Davies conduziu seus experimentos com comutação de pacotes e montou a primeira rede local experimental do mundo em 1969.</p>
@@ -79,7 +80,7 @@
     <hr>
 
     <section>
-      <h2><span class="section-number">4.</span> A ARPANET — Estrutura Física e Funcionamento</h2>
+      <h2>4.</span> A ARPANET — Estrutura Física e Funcionamento</h2>
       <h3>O Problema Central: Comutação de Pacotes vs. Comutação de Circuitos</h3>
       <p>Para entender a inovação da ARPANET, é preciso entender o modelo anterior.</p>
       <p>O sistema telefônico funcionava — e em parte ainda funciona — por <strong>comutação de circuitos</strong>: quando você faz uma ligação, um caminho físico dedicado é reservado entre você e o outro lado durante toda a conversa. Esse caminho fica ocupado mesmo nos momentos de silêncio. Não há eficiência, e um corte em qualquer ponto desse caminho encerra a comunicação.</p>
@@ -92,9 +93,10 @@
         <li>No destino, os pacotes são <strong>remontados</strong> na ordem correta usando os números de sequência</li>
       </ul>
       <p>Isso tornava a rede simultaneamente mais eficiente (sem circuitos dedicados ociosos) e mais resiliente (sem ponto único de falha).</p>
-
+      
       <h3>Os IMPs — Interface Message Processors</h3>
       <p>A ARPANET não conectava computadores diretamente entre si. Entre cada computador host e a rede havia um dispositivo intermediário chamado <strong>IMP — Interface Message Processor</strong>.</p>
+      <img src="../assets/images/ifr/02/ipm.png" alt="">
       <p>O IMP era o roteador primitivo da ARPANET:</p>
       <ul>
         <li>Fabricado pela BBN com base no minicomputador <strong>Honeywell DDP-516</strong></li>
@@ -109,10 +111,7 @@
 
       <h3>A Topologia Física Original</h3>
       <p>A ARPANET começou com <strong>quatro nós em 1969</strong>, instalados em quatro universidades americanas:</p>
-      <pre>         UCLA ─────────── SRI (Stanford)
-           │                     │
-           │                     │
-         UCSB ─────────── Universidade de Utah</pre>
+      <img src="../assets/images/ifr/02/topologia_inicial.png" alt="">
       <p>Cada linha representa uma conexão física entre dois IMPs por linhas telefônicas alugadas da AT&T a 50 Kbps. Já nesse desenho mínimo existia redundância parcial — UCLA podia chegar a Utah diretamente ou passando por SRI ou UCSB.</p>
       <p>À medida que a rede crescia, a topologia se tornava uma malha irregular com múltiplos caminhos entre quaisquer dois pontos — exatamente o objetivo original de sobrevivência a falhas.</p>
 
@@ -150,6 +149,7 @@
       <p>Os quatro computadores eram de fabricantes e arquiteturas completamente diferentes — isso era proposital. A ARPANET precisava provar que redes podiam conectar hardware heterogêneo.</p>
 
       <h3>O Primeiro Contato — 29 de outubro de 1969</h3>
+      <img src="../assets/images/ifr/02/lo.png" alt="">
       <p>Às 22h30 do dia 29 de outubro de 1969, <strong>Charley Kline</strong>, estudante de pós-graduação da UCLA, tentou fazer login remotamente no computador do SRI em Menlo Park, a 600 km de distância. Do outro lado, <strong>Bill Duvall</strong> acompanhava pelo telefone.</p>
       <ul>
         <li>Kline digitou <strong>"L"</strong> → Duvall confirmou: chegou.</li>
@@ -162,7 +162,7 @@
     <hr>
 
     <section>
-      <h2><span class="section-number">5.</span> Como Dados Trafegavam por Linhas Telefônicas</h2>
+      <h2>5. Como Dados Trafegavam por Linhas Telefônicas</h2>
       <h3>O Conflito Fundamental</h3>
       <p>A ARPANET usava as linhas telefônicas da AT&T para interligar seus IMPs. Mas aqui havia um conflito técnico fundamental:</p>
       <ul>
@@ -176,10 +176,8 @@
       <p>A palavra <strong>modem</strong> vem de <strong>Mo</strong>dulador/<strong>Dem</strong>odulador, e descreve exatamente sua função:</p>
       <p><strong>Na transmissão:</strong> o modem recebe o sinal digital do computador (sequência de 0s e 1s) e o <strong>modula</strong> — converte em uma onda analógica que a linha telefônica consegue transportar.</p>
       <p><strong>Na recepção:</strong> o modem recebe a onda analógica vinda da linha e a <strong>demodula</strong> — reconverte em sinal digital que o computador entende.</p>
-
-      <pre>COMPUTADOR      MODEM           LINHA TELEFÔNICA        MODEM       COMPUTADOR
- 0 1 0 1   →  modulação   →    onda analógica    →  demodulação →   0 1 0 1
- (digital)                       (analógica)                         (digital)</pre>
+      
+      <img src="../assets/images/ifr/02/modem.png" alt="">
 
       <h3>Tipos de Modulação</h3>
       <p><strong>Modulação de Amplitude (AM):</strong> a altura da onda (amplitude) varia para codificar os bits. Amplitude alta representa 1, amplitude baixa representa 0. É simples, mas muito sensível a ruídos na linha — qualquer interferência pode alterar a amplitude e corromper o dado.</p>
@@ -187,25 +185,31 @@
       <p><strong>Modulação de Fase (PM):</strong> o ponto de início de cada ciclo da onda (fase) é alterado para representar bits. Uma inversão de fase sinaliza uma mudança de bit. Mais sofisticada e eficiente que AM e FM.</p>
       <p><strong>QAM — Modulação em Quadratura de Amplitude:</strong> combina simultaneamente variações de amplitude e de fase, criando dezenas de estados distintos. Cada estado representa vários bits de uma vez — em vez de 1 bit por símbolo, transmite 4, 6 ou até 8 bits por símbolo. Foi essa técnica que permitiu aos modems analógicos atingirem 56 Kbps nos anos 1990.</p>
 
+      <img src="../assets/images/ifr/02/tipos_modulacao.png" alt="">
+
       <h3>O Limite de Shannon</h3>
       <p>Em 1948, o matemático <strong>Claude Shannon</strong> demonstrou que existe um limite teórico máximo para a quantidade de dados que pode ser transmitida por qualquer canal de comunicação, dado por:</p>
       <blockquote>
         <p><strong>Capacidade máxima = largura de banda × log₂(1 + sinal/ruído)</strong></p>
       </blockquote>
+      <img src="../assets/images/ifr/02/limite_shannon.png" alt="Limite de Shannon">
       <p>Para uma linha telefônica comum — com sua faixa estreita de frequências e o ruído típico — esse limite teórico é de aproximadamente <strong>56 Kbps</strong>. Décadas depois, quando os modems analógicos finalmente atingiram exatamente essa velocidade nos anos 1990, eles confirmaram na prática o que Shannon havia calculado na teoria em 1948.</p>
       <p>Isso explica por que, por mais que se tentasse, era impossível fazer um modem analógico passar de 56 Kbps em uma linha telefônica convencional. Era um limite físico, não tecnológico.</p>
+      <h3>Veja esta demonstração visual gŕafica de uma conexão dicada por um modem analógico</h3>
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/OGwlwZs9PxE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
       <h3>A Evolução: do Analógico ao Digital</h3>
       <p>As limitações da linha telefônica analógica levaram ao desenvolvimento de tecnologias que eliminam a conversão analógica/digital e exploram muito mais da capacidade física do cabo de cobre:</p>
       <p><strong>DSL — Digital Subscriber Line:</strong> usa o mesmo par de cobre do telefone comum, mas opera em frequências muito mais altas do que as usadas pela voz (acima dos 3.400 Hz). Transmite dados em formato digital diretamente, sem conversão analógica. Velocidades de 1 Mbps a 100 Mbps, dependendo da distância e da qualidade do cabo.</p>
       <p><strong>Fibra óptica:</strong> substitui o par de cobre por filamentos de vidro e o sinal elétrico por pulsos de luz. Sem as limitações físicas do cobre, a largura de banda disponível sobe para dezenas de Gbps. Não há mais modem no sentido clássico — há um <strong>ONT</strong> (<em>Optical Network Terminal</em>), que converte o sinal óptico em sinal elétrico digital para os dispositivos da casa ou empresa.</p>
       <p>A lógica, porém, permanece a mesma em todas as tecnologias: pegar o sinal de um meio, adaptá-lo ao canal de transmissão disponível, e revertê-lo fielmente no destino.</p>
+
     </section>
 
     <hr>
 
     <section>
-      <h2><span class="section-number">6.</span> Linha do Tempo: da ARPANET à Internet Moderna</h2>
+      <h2>6. Linha do Tempo: da ARPANET à Internet Moderna</h2>
       <table>
         <thead>
           <tr>
@@ -279,7 +283,7 @@
     <hr>
 
     <section>
-      <h2><span class="section-number">7.</span> O que a ARPANET Provou ao Mundo</h2>
+      <h2>7. O que a ARPANET Provou ao Mundo</h2>
       <p>A ARPANET foi muito mais do que uma rede militar experimental. Ela demonstrou, pela primeira vez em escala real, três princípios que pareciam improváveis antes dela:</p>
       <ul>
         <li><strong>Comutação de pacotes funciona:</strong> não era apenas teoria matemática. Dados reais, aplicações reais, usuários reais — e os pacotes chegavam, eram remontados e faziam sentido no destino.</li>
