@@ -186,6 +186,7 @@
       <p><strong>QAM — Modulação em Quadratura de Amplitude:</strong> combina simultaneamente variações de amplitude e de fase, criando dezenas de estados distintos. Cada estado representa vários bits de uma vez — em vez de 1 bit por símbolo, transmite 4, 6 ou até 8 bits por símbolo. Foi essa técnica que permitiu aos modems analógicos atingirem 56 Kbps nos anos 1990.</p>
 
       <img src="../assets/images/ifr/02/tipos_modulacao.png" alt="">
+      <img src="../assets/images/ifr/02/modulacao.svg" alt="">
 
       <h3>O Limite de Shannon</h3>
       <p>Em 1948, o matemático <strong>Claude Shannon</strong> demonstrou que existe um limite teórico máximo para a quantidade de dados que pode ser transmitida por qualquer canal de comunicação, dado por:</p>
@@ -195,10 +196,11 @@
       <img src="../assets/images/ifr/02/limite_shannon.png" alt="Limite de Shannon">
       <p>Para uma linha telefônica comum — com sua faixa estreita de frequências e o ruído típico — esse limite teórico é de aproximadamente <strong>56 Kbps</strong>. Décadas depois, quando os modems analógicos finalmente atingiram exatamente essa velocidade nos anos 1990, eles confirmaram na prática o que Shannon havia calculado na teoria em 1948.</p>
       <p>Isso explica por que, por mais que se tentasse, era impossível fazer um modem analógico passar de 56 Kbps em uma linha telefônica convencional. Era um limite físico, não tecnológico.</p>
-      <h3>Veja esta demonstração visual gŕafica de uma conexão dicada por um modem analógico</h3>
+      <h3>Veja como era o som de uma conexão discada pelo Modem</h3>
       <iframe width="560" height="315" src="https://www.youtube.com/embed/OGwlwZs9PxE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
+      <p>Pode-se ver na animação gráfica os dados sendo transmitidos através da modulação de Amplitude e Fase. Também se ouve o ruído de fundo característico dos modems analógicos.</p>
       <h3>A Evolução: do Analógico ao Digital</h3>
+      <img src="../assets/images/ifr/02/evolucao.png" alt="">
       <p>As limitações da linha telefônica analógica levaram ao desenvolvimento de tecnologias que eliminam a conversão analógica/digital e exploram muito mais da capacidade física do cabo de cobre:</p>
       <p><strong>DSL — Digital Subscriber Line:</strong> usa o mesmo par de cobre do telefone comum, mas opera em frequências muito mais altas do que as usadas pela voz (acima dos 3.400 Hz). Transmite dados em formato digital diretamente, sem conversão analógica. Velocidades de 1 Mbps a 100 Mbps, dependendo da distância e da qualidade do cabo.</p>
       <p><strong>Fibra óptica:</strong> substitui o par de cobre por filamentos de vidro e o sinal elétrico por pulsos de luz. Sem as limitações físicas do cobre, a largura de banda disponível sobe para dezenas de Gbps. Não há mais modem no sentido clássico — há um <strong>ONT</strong> (<em>Optical Network Terminal</em>), que converte o sinal óptico em sinal elétrico digital para os dispositivos da casa ou empresa.</p>
