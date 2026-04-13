@@ -1,34 +1,49 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Infraestrutura Física de Redes — Aula 01</title>
   <link rel="stylesheet" href="../../web/assets/css/style.css">
 </head>
+
 <body>
   <main>
     <header>
       <p class="eyebrow">Infraestrutura Física de Redes</p>
       <h1>AULA 01 — O que é uma Rede de Computadores</h1>
       <div class="meta" aria-label="Informações da aula">
-        <span><strong>Objetivo da aula:</strong> Compreender o conceito de rede de computadores, suas motivações, componentes fundamentais e distinguir rede local de internet.</span>
+        <span><strong>Objetivo da aula:</strong> Compreender o conceito de rede de computadores, suas motivações,
+          componentes fundamentais e distinguir rede local de internet.</span>
       </div>
     </header>
 
     <section>
       <h2><span class="section-number">1.</span> Definição Fundamental</h2>
-      <p>Uma <strong>rede de computadores</strong> é um conjunto de dois ou mais dispositivos computacionais interligados por meios de comunicação, com a finalidade de compartilhar recursos e trocar informações segundo regras previamente estabelecidas.</p>
+      <p>Uma <strong>rede de computadores</strong> é um conjunto de dois ou mais dispositivos computacionais
+        interligados por meios de comunicação, com a finalidade de compartilhar recursos e trocar informações segundo
+        regras previamente estabelecidas.</p>
       <p>Essa definição contém três elementos que precisam existir simultaneamente para que uma rede exista:</p>
-      
-      <p><strong>Dispositivos (nós da rede):</strong> são todos os equipamentos capazes de enviar ou receber dados — computadores, servidores, impressoras, smartphones, câmeras de segurança, sensores industriais, televisões inteligentes. Qualquer equipamento com capacidade de comunicação digital é um potencial integrante de uma rede.</p>
-      
-      <p><strong>Interligação:</strong> é o meio pelo qual os dispositivos se conectam. Pode ser física, por meio de cabos, ou sem fio, por meio de ondas de rádio. O importante é que exista um canal de comunicação entre os dispositivos — sem ele, os dispositivos são apenas máquinas isoladas.</p>
-      
-      <p><strong>Protocolos:</strong> são as regras que definem como os dados devem ser formatados, transmitidos, recebidos e interpretados. Sem protocolos, dois dispositivos conectados pelo mesmo cabo ainda não conseguiriam se entender — seria como duas pessoas falando idiomas completamente diferentes ao mesmo tempo.</p>
+
+      <p><strong>Dispositivos (nós da rede):</strong> são todos os equipamentos capazes de enviar ou receber dados —
+        computadores, servidores, impressoras, smartphones, câmeras de segurança, sensores industriais, televisões
+        inteligentes. Qualquer equipamento com capacidade de comunicação digital é um potencial integrante de uma rede.
+      </p>
+
+      <p><strong>Interligação:</strong> é o meio pelo qual os dispositivos se conectam. Pode ser física, por meio de
+        cabos, ou sem fio, por meio de ondas de rádio. O importante é que exista um canal de comunicação entre os
+        dispositivos — sem ele, os dispositivos são apenas máquinas isoladas.</p>
+
+      <p><strong>Protocolos:</strong> são as regras que definem como os dados devem ser formatados, transmitidos,
+        recebidos e interpretados. Sem protocolos, dois dispositivos conectados pelo mesmo cabo ainda não conseguiriam
+        se entender — seria como duas pessoas falando idiomas completamente diferentes ao mesmo tempo.</p>
 
       <blockquote>
-        <p><strong>Analogia para sala de aula:</strong> imagine uma sala com 30 alunos. Os alunos são os dispositivos. O ar entre eles é o meio de transmissão. As regras de convivência — esperar a vez de falar, usar a língua portuguesa, respeitar o tom de voz — são os protocolos. Sem essas regras, mesmo num mesmo ambiente, a comunicação colapsa.</p>
+        <p><strong>Analogia para sala de aula:</strong> imagine uma sala com 30 alunos. Os alunos são os dispositivos. O
+          ar entre eles é o meio de transmissão. As regras de convivência — esperar a vez de falar, usar a língua
+          portuguesa, respeitar o tom de voz — são os protocolos. Sem essas regras, mesmo num mesmo ambiente, a
+          comunicação colapsa.</p>
       </blockquote>
     </section>
 
@@ -36,22 +51,34 @@
 
     <section>
       <h2><span class="section-number">2.</span> Por que Redes Existem</h2>
-      <p>Redes não surgiram por acaso. Elas respondem a necessidades concretas e práticas que aparecem sempre que mais de um computador precisa trabalhar junto.</p>
-      
-      <p><strong>Compartilhamento de recursos físicos:</strong> antes das redes, cada computador precisava de sua própria impressora, seu próprio disco de armazenamento, sua própria conexão com a internet. Com uma rede, uma única impressora de alta qualidade pode atender a 30 máquinas simultaneamente. Um único servidor de arquivos pode centralizar os documentos de toda uma empresa.</p>
-      
-      <p><strong>Comunicação entre pessoas e sistemas:</strong> o e-mail, as mensagens instantâneas, as videoconferências, os sistemas de gestão empresarial — tudo isso depende de redes. A troca de informação em tempo real entre pessoas e sistemas é o motor que move organizações inteiras.</p>
-      
-      <p><strong>Centralização e facilidade de gestão:</strong> sem rede, atualizar o antivírus de 100 computadores significa ir máquina por máquina. Com rede, o administrador faz isso de um único ponto em minutos. Backups, atualizações de sistema, controle de acesso, autenticação de usuários — tudo se torna gerenciável em escala.</p>
-      
-      <p><strong>Redundância e disponibilidade:</strong> redes bem projetadas garantem que a falha de um componente não derrube o sistema inteiro. Se um servidor cai, outro assume. Se um caminho de rede falha, os dados tomam outro caminho. Isso é fundamental para ambientes que não podem parar — hospitais, bancos, sistemas de controle de tráfego aéreo.</p>
+      <p>Redes não surgiram por acaso. Elas respondem a necessidades concretas e práticas que aparecem sempre que mais
+        de um computador precisa trabalhar junto.</p>
+
+      <p><strong>Compartilhamento de recursos físicos:</strong> antes das redes, cada computador precisava de sua
+        própria impressora, seu próprio disco de armazenamento, sua própria conexão com a internet. Com uma rede, uma
+        única impressora de alta qualidade pode atender a 30 máquinas simultaneamente. Um único servidor de arquivos
+        pode centralizar os documentos de toda uma empresa.</p>
+
+      <p><strong>Comunicação entre pessoas e sistemas:</strong> o e-mail, as mensagens instantâneas, as
+        videoconferências, os sistemas de gestão empresarial — tudo isso depende de redes. A troca de informação em
+        tempo real entre pessoas e sistemas é o motor que move organizações inteiras.</p>
+
+      <p><strong>Centralização e facilidade de gestão:</strong> sem rede, atualizar o antivírus de 100 computadores
+        significa ir máquina por máquina. Com rede, o administrador faz isso de um único ponto em minutos. Backups,
+        atualizações de sistema, controle de acesso, autenticação de usuários — tudo se torna gerenciável em escala.</p>
+
+      <p><strong>Redundância e disponibilidade:</strong> redes bem projetadas garantem que a falha de um componente não
+        derrube o sistema inteiro. Se um servidor cai, outro assume. Se um caminho de rede falha, os dados tomam outro
+        caminho. Isso é fundamental para ambientes que não podem parar — hospitais, bancos, sistemas de controle de
+        tráfego aéreo.</p>
     </section>
 
     <hr>
 
     <section>
       <h2><span class="section-number">3.</span> Componentes Conceituais de Qualquer Rede</h2>
-      <p>Independentemente do tamanho, da tecnologia usada ou do propósito, toda rede do mundo é composta pelos mesmos elementos conceituais:</p>
+      <p>Independentemente do tamanho, da tecnologia usada ou do propósito, toda rede do mundo é composta pelos mesmos
+        elementos conceituais:</p>
 
       <table>
         <thead>
@@ -80,19 +107,29 @@
         </tbody>
       </table>
 
-      <p>O <strong>endereço</strong> merece atenção especial. Assim como cada casa tem um endereço postal único que permite ao carteiro entregar uma carta no lugar certo, cada dispositivo numa rede precisa de um endereço único que permita que os dados cheguem ao destino correto. Na internet, esse endereço é o <strong>endereço IP</strong>. Dentro de cada equipamento de rede, existe ainda um segundo endereço chamado <strong>endereço MAC</strong>, gravado fisicamente no hardware pelo fabricante.</p>
+      <p>O <strong>endereço</strong> merece atenção especial. Assim como cada casa tem um endereço postal único que
+        permite ao carteiro entregar uma carta no lugar certo, cada dispositivo numa rede precisa de um endereço único
+        que permita que os dados cheguem ao destino correto. Na internet, esse endereço é o <strong>endereço
+          IP</strong>. Dentro de cada equipamento de rede, existe ainda um segundo endereço chamado <strong>endereço
+          MAC</strong>, gravado fisicamente no hardware pelo fabricante.</p>
     </section>
 
     <hr>
 
     <section>
       <h2><span class="section-number">4.</span> Rede vs. Internet — Uma Distinção Fundamental</h2>
-      <p>Esta é uma confusão extremamente comum, inclusive entre profissionais iniciantes, e precisa ser desfeita logo no início do curso.</p>
-      
-      <p><strong>Rede</strong> é qualquer conjunto de dispositivos interligados. Uma rede pode existir completamente isolada do mundo externo — o laboratório de informática desta escola, por exemplo, é uma rede. Os computadores se comunicam entre si, compartilham a impressora, acessam o servidor de arquivos. Nada disso exige internet.</p>
-      
-      <p><strong>Internet</strong> é uma rede específica — a maior rede pública do mundo, formada pela interligação de milhões de redes menores ao redor do planeta. Quando você acessa um site, seu computador (parte da sua rede local) se comunica com um servidor (parte de outra rede, em outro país) através da internet, que funciona como a "estrada" entre essas redes.</p>
-      
+      <p>Esta é uma confusão extremamente comum, inclusive entre profissionais iniciantes, e precisa ser desfeita logo
+        no início do curso.</p>
+
+      <p><strong>Rede</strong> é qualquer conjunto de dispositivos interligados. Uma rede pode existir completamente
+        isolada do mundo externo — o laboratório de informática desta escola, por exemplo, é uma rede. Os computadores
+        se comunicam entre si, compartilham a impressora, acessam o servidor de arquivos. Nada disso exige internet.</p>
+
+      <p><strong>Internet</strong> é uma rede específica — a maior rede pública do mundo, formada pela interligação de
+        milhões de redes menores ao redor do planeta. Quando você acessa um site, seu computador (parte da sua rede
+        local) se comunica com um servidor (parte de outra rede, em outro país) através da internet, que funciona como a
+        "estrada" entre essas redes.</p>
+
       <p>A relação entre os dois conceitos é simples:</p>
       <ul>
         <li>Toda internet é uma rede — mas nem toda rede é a internet.</li>
@@ -101,7 +138,9 @@
       </ul>
 
       <blockquote>
-        <p><strong>Exemplo prático:</strong> uma fábrica pode ter centenas de computadores em rede interna, controlando máquinas, registrando produção e gerenciando estoque — tudo isso sem nenhuma conexão com a internet, por razões de segurança. Essa rede existe, funciona e é completamente real.</p>
+        <p><strong>Exemplo prático:</strong> uma fábrica pode ter centenas de computadores em rede interna, controlando
+          máquinas, registrando produção e gerenciando estoque — tudo isso sem nenhuma conexão com a internet, por
+          razões de segurança. Essa rede existe, funciona e é completamente real.</p>
       </blockquote>
     </section>
 
@@ -109,27 +148,45 @@
 
     <section>
       <h2><span class="section-number">5.</span> Tipos de Redes pelo Alcance Geográfico</h2>
-      <p>As redes são classificadas de acordo com a área geográfica que cobrem. Essa classificação será aprofundada em aulas posteriores, mas é importante introduzi-la desde o início:</p>
-      
-      <p><strong>LAN — Local Area Network (Rede de Área Local):</strong> cobre um espaço físico limitado — uma sala, um andar, um prédio ou um campus. É o tipo de rede que este curso trata com mais profundidade. Velocidades típicas: 100 Mbps a 10 Gbps.</p>
-      
-      <p><strong>MAN — Metropolitan Area Network (Rede de Área Metropolitana):</strong> interliga diferentes prédios ou instalações dentro de uma cidade. Exemplo: a rede que interliga as escolas municipais de uma cidade ao servidor central da Secretaria de Educação.</p>
-      
-      <p><strong>WAN — Wide Area Network (Rede de Área Ampla):</strong> cobre grandes distâncias geográficas — estados, países, continentes. A internet é o maior exemplo de WAN existente.</p>
-      
-      <p><strong>PAN — Personal Area Network (Rede de Área Pessoal):</strong> rede de curtíssimo alcance ao redor de uma pessoa. Exemplo: o Bluetooth conectando seu celular ao fone de ouvido.</p>
+      <p>As redes são classificadas de acordo com a área geográfica que cobrem. Essa classificação será aprofundada em
+        aulas posteriores, mas é importante introduzi-la desde o início:</p>
+
+      <p><strong>LAN — Local Area Network (Rede de Área Local):</strong> cobre um espaço físico limitado — uma sala, um
+        andar, um prédio ou um campus. É o tipo de rede que este curso trata com mais profundidade. Velocidades típicas:
+        100 Mbps a 10 Gbps.</p>
+
+      <p><strong>MAN — Metropolitan Area Network (Rede de Área Metropolitana):</strong> interliga diferentes prédios ou
+        instalações dentro de uma cidade. Exemplo: a rede que interliga as escolas municipais de uma cidade ao servidor
+        central da Secretaria de Educação.</p>
+
+      <p><strong>WAN — Wide Area Network (Rede de Área Ampla):</strong> cobre grandes distâncias geográficas — estados,
+        países, continentes. A internet é o maior exemplo de WAN existente.</p>
+
+      <p><strong>PAN — Personal Area Network (Rede de Área Pessoal):</strong> rede de curtíssimo alcance ao redor de uma
+        pessoa. Exemplo: o Bluetooth conectando seu celular ao fone de ouvido.</p>
     </section>
 
     <hr>
 
     <section>
       <h2><span class="section-number">6.</span> A Ideia Central que Guiará o Curso</h2>
-      <p>Antes de estudar cabos, conectores, racks e normas técnicas — que são o coração desta disciplina — é fundamental ter clareza sobre <strong>o que estamos construindo e por quê</strong>.</p>
-      
-      <p>Toda a infraestrutura física de rede — os cabos enterrados nas paredes, os conectores RJ-45, os patch panels organizados no rack, os switches interligando andares — existe por uma única razão: <strong>permitir que dispositivos separados troquem informações de forma confiável, rápida e organizada</strong>.</p>
-      
-      <p>Quando você aprende a crimpar um cabo da categoria correta, ou a organizar um patch panel seguindo as normas ABNT, você está garantindo que essa troca de informações aconteça sem falhas. A qualidade da infraestrutura física determina diretamente a qualidade da comunicação que ela suporta.</p>
+      <p>Antes de estudar cabos, conectores, racks e normas técnicas — que são o coração desta disciplina — é
+        fundamental ter clareza sobre <strong>o que estamos construindo e por quê</strong>.</p>
+
+      <p>Toda a infraestrutura física de rede — os cabos enterrados nas paredes, os conectores RJ-45, os patch panels
+        organizados no rack, os switches interligando andares — existe por uma única razão: <strong>permitir que
+          dispositivos separados troquem informações de forma confiável, rápida e organizada</strong>.</p>
+
+      <p>Quando você aprende a crimpar um cabo da categoria correta, ou a organizar um patch panel seguindo as normas
+        ABNT, você está garantindo que essa troca de informações aconteça sem falhas. A qualidade da infraestrutura
+        física determina diretamente a qualidade da comunicação que ela suporta.</p>
     </section>
+    <footer>
+      <p>
+        Curso Técnico em Redes | Infraestrutura Física de Redes
+      </p>
+    </footer>
   </main>
 </body>
+
 </html>

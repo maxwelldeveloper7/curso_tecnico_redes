@@ -120,7 +120,7 @@ li {
 }
 
 
-img{
+img {
     max-width: 80%;
     border-radius: 0.75rem;
 }
@@ -130,6 +130,23 @@ iframe {
     border: none;
     border-radius: 0.75rem;
     margin: 1.5rem 0;
+}
+
+footer {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid #d8d5cc;
+    color: #64748b;
+    font-size: 0.9rem;
+}
+
+footer p {
+    font-size: 0.85rem;
+    margin-top: 1rem;
+}
+
+footer img {
+    width:10%;
 }
 
 
@@ -194,7 +211,7 @@ iframe {
 
     }
 
-    p{
+    p {
         text-wrap: inherit;
     }
 }
