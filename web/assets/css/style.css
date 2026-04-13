@@ -59,6 +59,7 @@ blockquote,
 
 p {
     margin: 1rem 0;
+    text-align: justify;
 }
 
 strong {
@@ -188,11 +189,11 @@ footer img {
     }
 
     h1 {
-        font-size: clamp(1.75rem, 5vw, 2.5rem);
+        font-size: clamp(1.75rem, 5vw, 1.75rem);
     }
 
     h2 {
-        font-size: clamp(1.25rem, 4vw, 1.5rem);
+        font-size: clamp(1.25rem, 4vw, 1rem);
     }
 
     table,
