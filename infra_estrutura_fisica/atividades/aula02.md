@@ -397,11 +397,3 @@ Este conjunto avalia de forma integrada:
 * Associação
 * Sequenciamento lógico
 * Identificação de erros conceituais
-
----
-
-Se desejar, posso avançar para:
-
-* Construção de **avaliação somativa completa (Aula 01 + Aula 02)**
-* Elaboração de **situações-problema mais complexas (nível técnico profissionalizante)**
-* Ou criação de **roteiro de aula com metodologia ativa (gamificação ou estudo de caso)**
