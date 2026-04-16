@@ -157,14 +157,6 @@ footer img {
     color: #475569;
 }
 
-.section-number {
-    display: inline-block;
-    font-size: 2rem;
-    font-weight: 700;
-    color: #0f172a;
-    margin-bottom: 0.25rem;
-}
-
 .meta {
     display: grid;
     gap: 0.5rem;
