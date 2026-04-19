@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infraestrutura Física de Redes — Aula 03</title>
+    <link rel="stylesheet" href="../../web/assets/css/style.css">
+</head>
+
+<body>
+    <main>
+        <header>
+            <p class="eyebrow">Infraestrutura Física de Redes</p>
+            <h1>AULA 03 — O Modelo OSI</h1>
+            <img src="../assets/images/ifr/03/modelo_osi.png" alt="">
+            <div class="meta" aria-label="Informações da aula">
+                <span><strong>Objetivo da aula:</strong> Compreender a origem, a estrutura e a lógica do Modelo OSI,
+                    entender o papel de cada uma das sete camadas e relacionar esse modelo com as decisões práticas de
+                    infraestrutura física de redes.</span>
+            </div>
+        </header>
+
+        <section>
+            <h2>1. Por que Precisamos de um Modelo em Camadas</h2>
+            <p>Para entender o valor do Modelo OSI, é preciso entender o problema que ele veio resolver.</p>
+            <p>Nos anos 1970, cada fabricante de computadores desenvolvia seus próprios protocolos de comunicação — e
+                esses protocolos eram proprietários e incompatíveis entre si. Um computador da IBM não conseguia se
+                comunicar com um computador da DEC. Um equipamento da Honeywell não entendia o que um equipamento da
+                Burroughs transmitia. Cada empresa tinha seu próprio "idioma" de rede, e esses idiomas não se traduziam.
+            </p>
+            <p>Para uma empresa que comprava equipamentos de fabricantes diferentes — o que era a regra, não a exceção —
+                isso era um problema grave. Redes corporativas precisavam ser homogêneas para funcionar, o que criava
+                dependência total de um único fornecedor.</p>
+            <p>A solução conceitual foi dividir o problema de comunicação em partes menores, independentes e
+                padronizadas. Em vez de tentar criar um protocolo único que resolvesse tudo de uma vez, a ideia foi
+                definir <strong>camadas</strong> — onde cada camada resolve um problema específico e bem delimitado, e
+                cada camada só precisa saber o que a camada abaixo entrega para ela, sem precisar conhecer os detalhes
+                internos de como isso é feito.</p>
+            <p>Esse princípio tem um nome: <strong>abstração</strong>. É o mesmo princípio que permite a um motorista
+                dirigir um carro sem precisar entender a combustão interna do motor, ou que permite a você postar uma
+                carta sem precisar saber a rota que o caminhão dos Correios vai percorrer.</p>
+            <blockquote>
+                <p><strong>Analogia para sala de aula:</strong> quando você envia uma carta pelos Correios, você escreve
+                    o conteúdo, coloca no envelope, escreve o endereço e deposita na caixa de coleta. Você não precisa
+                    saber se a carta vai de caminhão, avião ou moto. Os Correios não precisam saber o que está escrito
+                    dentro — só precisam saber para onde entregar. O carteiro não precisa saber como a carta chegou à
+                    agência — só precisa entregar na porta certa. Cada parte do sistema resolve seu próprio problema, de
+                    forma independente.</p>
+            </blockquote>
+        </section>
+
+        <hr>
+
+        <section>
+            <h2>2. O que é o Modelo OSI</h2>
+            <p>O <strong>Modelo OSI</strong> — <em>Open Systems Interconnection</em> — foi publicado em 1984 pela
+                <strong>ISO</strong> (<em>International Organization for Standardization</em>) como um modelo de
+                referência universal para comunicação entre sistemas computacionais.</p>
+            <p>É fundamental entender o que o OSI é — e o que ele não é:</p>
+            <p><strong>O OSI é um modelo de referência</strong>, não um protocolo implementável. Ele não descreve
+                <em>como</em> a comunicação deve acontecer em termos de código ou sinal elétrico — ele descreve <em>o
+                    que</em> cada parte do sistema de comunicação deve fazer. É um mapa, não uma estrada.</p>
+            <p><strong>A diferença entre modelo e protocolo:</strong> o OSI define que deve existir uma camada
+                responsável pelo roteamento de pacotes entre redes — mas não define qual protocolo faz isso. O IP, o IPX
+                e outros protocolos são implementações possíveis para essa função. O modelo é o conceito; o protocolo é
+                a implementação.</p>
+            <p><strong>Por que o OSI ainda é ensinado hoje</strong>, mesmo sendo o TCP/IP o modelo dominante na prática?
+                Porque o OSI é o melhor instrumento conceitual para entender qualquer tecnologia de rede — passada,
+                presente ou futura. Quando um novo protocolo surge, analistas o descrevem em termos de camadas OSI.
+                Quando um problema de rede ocorre, técnicos o diagnosticam identificando em qual camada OSI ele está
+                acontecendo. O modelo é uma linguagem comum da área.</p>
+        </section>
+
+        <hr>
+
+        <section>
+            <h2>3. As 7 Camadas — Estrutura Geral</h2>
+            <p>O Modelo OSI divide a comunicação em <strong>7 camadas</strong>, numeradas de 1 a 7:</p>
+            <ul>
+                <li>A <strong>camada 1</strong> é a mais próxima do hardware físico</li>
+                <li>A <strong>camada 7</strong> é a mais próxima do usuário e das aplicações</li>
+                <li>Os dados <strong>descem</strong> as camadas na máquina de origem (da 7 para a 1)</li>
+                <li>Os dados <strong>sobem</strong> as camadas na máquina de destino (da 1 para a 7)</li>
+            </ul>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Camada</th>
+                        <th>Nome</th>
+                        <th>Unidade de dados</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>7</td>
+                        <td>Aplicação</td>
+                        <td>Dados</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>Apresentação</td>
+                        <td>Dados</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>Sessão</td>
+                        <td>Dados</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Transporte</td>
+                        <td>Segmento</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Rede</td>
+                        <td>Pacote</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Enlace de Dados</td>
+                        <td>Quadro (frame)</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>Física</td>
+                        <td>Bits</td>
+                    </tr>
+                </tbody>
+            </table>
+            <blockquote>
+                <p><strong>Mnemônico — de baixo para cima (camada 1 → 7):</strong><br>
+                    <em>"Por Favor, Não Tire o Servidor de Aplicação"</em><br>
+                    Física · Enlace · Rede · Transporte · Sessão · Apresentação · Aplicação
+                </p>
+            </blockquote>
+            <blockquote>
+                <p><strong>Mnemônico em inglês</strong> (útil para leitura de materiais internacionais, de cima para
+                    baixo):<br>
+                    <em>"All People Seem To Need Data Processing"</em><br>
+                    Application · Presentation · Session · Transport · Network · Data Link · Physical
+                </p>
+            </blockquote>
+        </section>
+
+        <hr>
+
+        <section>
+            <h2>4. Camada 1 — Física</h2>
+            <p><strong>Responsabilidade:</strong> transmitir bits brutos pelo meio físico — e apenas isso.</p>
+            <p>A camada física não interpreta os bits que transmite. Ela não sabe se um bit 1 representa parte de um
+                e-mail, de um vídeo ou de um arquivo. Sua única função é garantir que o bit gerado na origem chegue ao
+                destino como um sinal físico — elétrico, óptico ou de rádio.</p>
+            <p><strong>O que a camada física define:</strong></p>
+            <ul>
+                <li>Tensões elétricas que representam 0 e 1 nos cabos de cobre</li>
+                <li>Comprimentos de onda de luz que representam 0 e 1 na fibra óptica</li>
+                <li>Frequências de rádio usadas na comunicação sem fio</li>
+                <li>Timing dos bits — por quanto tempo cada bit dura no meio</li>
+                <li>Conectores físicos e sua pinagem — formato, número de pinos, função de cada pino</li>
+                <li>Distâncias máximas de transmissão para cada tipo de meio</li>
+            </ul>
+            <p><strong>Exemplos de componentes e tecnologias desta camada:</strong> cabos de par trançado (Cat5e, Cat6,
+                Cat6A), fibra óptica monomodo e multimodo, cabo coaxial, conectores RJ-45, hubs, repetidores, sinais
+                Wi-Fi no nível do sinal de rádio.</p>
+            <p><strong>Problemas típicos da camada 1:</strong></p>
+            <ul>
+                <li>Cabo fisicamente danificado ou partido</li>
+                <li>Conector RJ-45 mal crimpado</li>
+                <li>Cabo com comprimento além do limite especificado (100 m para par trançado)</li>
+                <li>Interferência eletromagnética de motores, lâmpadas fluorescentes ou outros cabos</li>
+                <li>Conector oxidado ou sujo</li>
+            </ul>
+            <blockquote>
+                <p><strong>Relevância direta para este curso:</strong> todo o conteúdo prático desta disciplina —
+                    cabeamento estruturado, crimpagem, patch panels, tomadas RJ-45, racks, canaletas — vive inteiramente
+                    na camada 1. Quando você crimpa um cabo incorretamente, o problema é de camada 1. Quando você excede
+                    os 90 metros de cabeamento horizontal permitidos pela norma, o problema é de camada 1.</p>
+            </blockquote>
+        </section>
+
+        <hr>
+
+        <section>
+            <h2>5. Camada 2 — Enlace de Dados</h2>
+            <p><strong>Responsabilidade:</strong> comunicação confiável entre dois dispositivos <strong>diretamente
+                    conectados</strong> — ou seja, no mesmo segmento de rede, sem passar por um roteador.</p>
+            <p>A camada 2 pega o fluxo de bits entregue pela camada 1 e os organiza em unidades chamadas
+                <strong>quadros</strong> (<em>frames</em>). Cada quadro tem uma estrutura definida: cabeçalho, dados e
+                trailer de verificação de erros.</p>
+            <p><strong>O endereço MAC:</strong><br>
+                A camada 2 introduz o conceito de <strong>endereço MAC</strong> (<em>Media Access Control</em>) — um
+                identificador físico único, gravado permanentemente em cada placa de rede pelo fabricante. São 48 bits,
+                representados em hexadecimal no formato <code>AA:BB:CC:DD:EE:FF</code>. Os primeiros 24 bits identificam
+                o fabricante; os últimos 24 bits são únicos para aquele equipamento específico.</p>
+            <p>O endereço MAC não muda — é como o número de série de um produto. Não importa em qual rede o equipamento
+                seja conectado, seu MAC permanece o mesmo.</p>
+            <p><strong>Outras funções da camada 2:</strong></p>
+            <ul>
+                <li>Detecção de erros de transmissão usando técnicas como CRC (<em>Cyclic Redundancy Check</em>)</li>
+                <li>Controle de acesso ao meio: define quem pode transmitir e quando, evitando colisões — no Ethernet
+                    isso é feito pelo protocolo CSMA/CD</li>
+                <li>Dupla subcamadas: <strong>LLC</strong> (<em>Logical Link Control</em>) — controla o fluxo e detecta
+                    erros; <strong>MAC</strong> (<em>Media Access Control</em>) — controla o acesso ao meio físico</li>
+            </ul>
+            <p><strong>Exemplos de tecnologias:</strong> Ethernet (IEEE 802.3), Wi-Fi (IEEE 802.11), PPP.</p>
+            <p><strong>Dispositivo que opera nesta camada:</strong> o switch. O switch lê o endereço MAC de destino de
+                cada quadro recebido e o encaminha apenas para a porta onde aquele dispositivo está conectado —
+                diferente do hub (camada 1), que replica o sinal para todas as portas indiscriminadamente. Essa
+                inteligência de camada 2 é o que torna o switch muito mais eficiente que o hub.</p>
+        </section>
+
+        <hr>
+
+        <section>
+            <h2>6. Camada 3 — Rede</h2>
+            <p><strong>Responsabilidade:</strong> roteamento de dados entre redes <strong>diferentes</strong> —
+                permitindo que um pacote saia da sua rede local e chegue a um servidor do outro lado do mundo.</p>
+            <p>A camada 3 opera com unidades chamadas <strong>pacotes</strong> e introduz o conceito de <strong>endereço
+                    IP</strong> — um endereço lógico, configurável por software, que identifica um dispositivo numa
+                rede.</p>
+            <p><strong>A diferença fundamental entre endereço MAC e endereço IP:</strong></p>
+            <table>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Endereço MAC</th>
+                        <th>Endereço IP</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Tipo</td>
+                        <td>Físico</td>
+                        <td>Lógico</td>
+                    </tr>
+                    <tr>
+                        <td>Gravado por</td>
+                        <td>Fabricante do hardware</td>
+                        <td>Administrador de rede ou DHCP</td>
+                    </tr>
+                    <tr>
+                        <td>Muda?</td>
+                        <td>Não</td>
+                        <td>Sim — pode mudar a cada conexão</td>
+                    </tr>
+                    <tr>
+                        <td>Alcance</td>
+                        <td>Rede local (segmento)</td>
+                        <td>Global (internet)</td>
+                    </tr>
+                    <tr>
+                        <td>Usado por</td>
+                        <td>Switch (camada 2)</td>
+                        <td>Roteador (camada 3)</td>
+                    </tr>
+                </tbody>
+            </table>
+            <blockquote>
+                <p><strong>Analogia:</strong> o endereço MAC é como o nome de uma pessoa — único e permanente. O
+                    endereço IP é como o endereço postal dessa pessoa — pode mudar se ela se mudar, mas permite que
+                    qualquer carta do mundo chegue até ela.</p>
+            </blockquote>
+            <p><strong>Funções da camada 3:</strong></p>
+            <ul>
+                <li>Determinar o melhor caminho (<em>rota</em>) para que o pacote chegue ao destino, mesmo atravessando
+                    dezenas de redes intermediárias</li>
+                <li>Fragmentar pacotes grandes em partes menores quando necessário</li>
+                <li>Identificar redes de origem e destino através dos endereços IP</li>
+            </ul>
+            <p><strong>A camada 3 não garante:</strong> entrega, ordem de chegada ou ausência de duplicatas. Ela faz o
+                melhor esforço (<em>best effort</em>) para entregar — a responsabilidade de garantir a entrega é da
+                camada 4.</p>
+            <p><strong>Exemplos de protocolos:</strong> IP (IPv4 e IPv6), ICMP (usado pelo comando <code>ping</code>),
+                protocolos de roteamento como OSPF e BGP.</p>
+            <p><strong>Dispositivo que opera nesta camada:</strong> o roteador. O roteador lê o endereço IP de destino
+                de cada pacote e decide para qual próximo salto (<em>hop</em>) encaminhá-lo, consultando sua tabela de
+                roteamento.</p>
+        </section>
+
+        <hr>
+
+        <section>
+            <h2>7. Camada 4 — Transporte</h2>
+            <p><strong>Responsabilidade:</strong> comunicação fim a fim entre <strong>processos</strong> (aplicações) em
+                hosts diferentes — garantindo que os dados cheguem corretamente da aplicação de origem até a aplicação
+                de destino.</p>
+            <p>A camada 4 opera com unidades chamadas <strong>segmentos</strong> e introduz o conceito de
+                <strong>porta</strong> — um número de 16 bits que identifica qual aplicação dentro do computador deve
+                receber os dados.</p>
+            <p><strong>Exemplos de portas conhecidas:</strong></p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Porta</th>
+                        <th>Protocolo</th>
+                        <th>Serviço</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>80</td>
+                        <td>HTTP</td>
+                        <td>Navegação web</td>
+                    </tr>
+                    <tr>
+                        <td>443</td>
+                        <td>HTTPS</td>
+                        <td>Navegação web segura</td>
+                    </tr>
+                    <tr>
+                        <td>22</td>
+                        <td>SSH</td>
+                        <td>Acesso remoto seguro</td>
+                    </tr>
+                    <tr>
+                        <td>25</td>
+                        <td>SMTP</td>
+                        <td>Envio de e-mail</td>
+                    </tr>
+                    <tr>
+                        <td>53</td>
+                        <td>DNS</td>
+                        <td>Resolução de nomes</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Os dois modos principais de transporte:</strong></p>
+            <p><strong>TCP — <em>Transmission Control Protocol</em>:</strong> orientado à conexão. Antes de transmitir
+                dados, estabelece uma conexão com o destino (<em>handshake</em> de três vias). Garante entrega, ordem e
+                integridade dos dados. Se um segmento se perder, o TCP solicita retransmissão. É mais lento — a
+                confiabilidade tem custo. Usado em: navegação web, e-mail, transferência de arquivos.</p>
+            <p><strong>UDP — <em>User Datagram Protocol</em>:</strong> sem conexão. Envia os dados sem verificar se
+                chegaram. Não garante entrega, ordem ou integridade. É mais rápido — a ausência de controle reduz a
+                latência. Usado em: streaming de vídeo, jogos online, VoIP, DNS. Nesses casos, perder um pacote
+                ocasional é aceitável; atrasar para retransmitir não é.</p>
+            <p><strong>Outras funções da camada 4:</strong></p>
+            <ul>
+                <li>Controle de fluxo: ajusta a velocidade de transmissão para não sobrecarregar o receptor</li>
+                <li>Controle de congestionamento: detecta e reage ao congestionamento da rede, reduzindo a taxa de envio
+                    quando necessário</li>
+            </ul>
+        </section>
+
+        <hr>
+
+        <section>
+            <h2>8. Camada 5 — Sessão</h2>
+            <p><strong>Responsabilidade:</strong> estabelecer, gerenciar e encerrar <strong>sessões</strong> de
+                comunicação entre aplicações.</p>
+            <p>Uma <strong>sessão</strong> é uma conversa organizada entre dois processos — com início, meio e fim
+                claramente definidos. A camada 5 garante que essa conversa seja coordenada.</p>
+            <p><strong>Funções da camada 5:</strong></p>
+            <ul>
+                <li><strong>Estabelecimento de sessão:</strong> negocia os parâmetros da comunicação antes que os dados
+                    comecem a fluir</li>
+                <li><strong>Sincronização:</strong> define pontos de verificação (<em>checkpoints</em>) ao longo da
+                    transmissão. Se a comunicação for interrompida, pode ser retomada a partir do último checkpoint —
+                    sem precisar recomeçar do zero. Útil em transferências longas de arquivos</li>
+                <li><strong>Controle de diálogo:</strong> define o modo de comunicação:
+                    <ul>
+                        <li><strong>Simplex:</strong> um sentido apenas (ex: rádio AM — a emissora fala, o ouvinte
+                            escuta)</li>
+                        <li><strong>Half-duplex:</strong> dois sentidos, mas não simultaneamente (ex: rádio comunicador
+                            — um fala enquanto o outro escuta, depois invertem)</li>
+                        <li><strong>Full-duplex:</strong> dois sentidos simultaneamente (ex: telefone — os dois podem
+                            falar e ouvir ao mesmo tempo)</li>
+                    </ul>
+                </li>
+            </ul>
+            <p><strong>Na prática moderna:</strong> as funções de sessão são frequentemente absorvidas pela camada de
+                aplicação ou pelo TCP. É a camada menos visível do modelo OSI, mas conceitualmente importante para
+                entender como sessões são gerenciadas.</p>
+            <p><strong>Exemplos:</strong> NetBIOS, RPC (<em>Remote Procedure Call</em>), sockets de rede.</p>
+        </section>
+
+        <hr>
+
+        <section>
+            <h2>9. Camada 6 — Apresentação</h2>
+            <p><strong>Responsabilidade:</strong> garantir que os dados sejam apresentados num formato que a aplicação
+                receptora consiga interpretar — independentemente das diferenças internas entre os sistemas.</p>
+            <p>O problema que a camada 6 resolve é o da <strong>representação</strong>: sistemas diferentes podem
+                codificar os mesmos dados de formas diferentes. O caractere "A" pode ser representado como 65 em ASCII,
+                como 0x0041 em Unicode UTF-16 ou como 193 em EBCDIC (sistema da IBM). Se os dois lados não concordam
+                sobre a codificação, os dados chegam corrompidos mesmo que a transmissão tenha sido perfeita.</p>
+            <p><strong>Funções da camada 6:</strong></p>
+            <ul>
+                <li><strong>Tradução de formato:</strong> converte entre diferentes representações de dados, garantindo
+                    que o receptor interprete corretamente o que o transmissor enviou.</li>
+                <li><strong>Criptografia e descriptografia:</strong> protege os dados em trânsito, tornando-os ilegíveis
+                    para qualquer interceptador. O protocolo TLS/SSL — que garante o "S" do HTTPS — opera
+                    conceitualmente nesta camada.</li>
+                <li><strong>Compressão e descompressão:</strong> reduz o volume de dados antes da transmissão,
+                    aumentando a eficiência. O receptor descomprime ao receber.</li>
+            </ul>
+            <p><strong>Exemplos de formatos e tecnologias associados a esta camada:</strong> JPEG (imagens), MP3
+                (áudio), MP4 (vídeo), PDF (documentos), SSL/TLS (criptografia).</p>
+        </section>
+
+        <hr>
+
+        <section>
+            <h2>10. Camada 7 — Aplicação</h2>
+            <p><strong>Responsabilidade:</strong> fornecer a interface entre a rede e o software utilizado pelo usuário.
+            </p>
+            <p>É importante esclarecer um equívoco comum: a camada 7 <strong>não é</strong> o navegador, o cliente de
+                e-mail ou o aplicativo de mensagens. A camada 7 é a camada que fornece os <strong>serviços de
+                    rede</strong> que esses aplicativos usam — define quais operações são possíveis, qual o formato das
+                requisições e respostas, como autenticação funciona.</p>
+            <p><strong>Exemplos de protocolos da camada 7:</strong></p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Protocolo</th>
+                        <th>Função</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>HTTP / HTTPS</td>
+                        <td>Navegação web</td>
+                    </tr>
+                    <tr>
+                        <td>SMTP / IMAP / POP3</td>
+                        <td>Envio e recebimento de e-mail</td>
+                    </tr>
+                    <tr>
+                        <td>FTP / SFTP</td>
+                        <td>Transferência de arquivos</td>
+                    </tr>
+                    <tr>
+                        <td>DNS</td>
+                        <td>Resolução de nomes de domínio em endereços IP</td>
+                    </tr>
+                    <tr>
+                        <td>DHCP</td>
+                        <td>Atribuição automática de endereços IP</td>
+                    </tr>
+                    <tr>
+                        <td>SSH</td>
+                        <td>Acesso remoto seguro a servidores</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>É a camada mais próxima do usuário e a mais visível no cotidiano. Quando você digita um endereço no
+                navegador, o HTTP (camada 7) formula a requisição — que então desce todas as camadas até virar bits num
+                cabo (camada 1), atravessa a rede, e sobe todas as camadas no servidor até chegar à aplicação que vai
+                responder.</p>
+        </section>
+
+        <hr>
+
+        <section>
+            <h2>11. Encapsulamento e Desencapsulamento</h2>
+            <p>O encapsulamento é o processo pelo qual os dados percorrem as camadas do modelo OSI.</p>
+            <p><strong>Na máquina de origem — encapsulamento (descendo as camadas):</strong></p>
+            <p>A aplicação gera os dados. Ao passar por cada camada abaixo, um <strong>cabeçalho</strong>
+                (<em>header</em>) é adicionado — contendo as informações de controle que aquela camada precisa para
+                fazer seu trabalho no destino. O dado cresce a cada camada.</p>
+            <ul>
+                <li style="font-size: small;">Camada 7 → [  DADOS  ]</li>
+                <li style="font-size: small;">Camada 4 → [ SEG | DADOS ]</li>
+                <li style="font-size: small;">Camada 3 → [ PKT | SEG | DADOS ]</li>
+                <li style="font-size: small;">Camada 2 → [ FRAME | PKT | SEG | DADOS | TRAILER ]</li>
+                <li style="font-size: small;">Camada 1 → 0101001101010010101... (bits no cabo)</li>
+            </ul>
+            <p><strong>Na máquina de destino — desencapsulamento (subindo as camadas):</strong></p>
+            <p>Cada camada lê e remove o cabeçalho que lhe corresponde, processa as informações de controle e passa o
+                restante para a camada acima. O dado encolhe a cada camada. Quando chega à camada 7, a aplicação recebe
+                apenas os dados originais — sem nenhum dos cabeçalhos adicionados no caminho.</p>
+            <blockquote>
+                <p><strong>Analogia com envelopes:</strong> imagine uma mensagem importante sendo embalada para envio
+                    internacional. Você escreve a mensagem (dados), coloca na envelope com o nome do destinatário
+                    (camada 4 — transporte), coloca esse envelope numa caixa com o endereço completo (camada 3 — rede),
+                    coloca a caixa num container com a etiqueta da transportadora (camada 2 — enlace). No destino, o
+                    container é aberto, a caixa retirada, o envelope aberto — e o destinatário recebe apenas a mensagem
+                    original.</p>
+            </blockquote>
+            <p><strong>Os nomes corretos das unidades de dados em cada camada:</strong></p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Camada</th>
+                        <th>Unidade</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>7, 6, 5</td>
+                        <td>Dados (<em>data</em>)</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Segmento</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Pacote</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Quadro (<em>frame</em>)</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>Bits</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <hr>
+
+        <section>
+            <h2>12. Comunicação Lógica entre Pares de Camadas</h2>
+            <p>Cada camada na máquina de origem se comunica <strong>logicamente</strong> com a mesma camada na máquina
+                de destino — como se houvesse um canal direto entre elas.</p>
+            <p>A camada 3 da máquina A "conversa" com a camada 3 da máquina B usando o protocolo IP — mesmo que
+                fisicamente os pacotes passem por dezenas de roteadores e switches intermediários. Cada dispositivo
+                intermediário processa apenas as camadas que lhe são relevantes:</p>
+            <ul>
+                <li>Um <strong>switch</strong> recebe o quadro (camada 2), lê o endereço MAC de destino, encaminha pela
+                    porta correta e reconstrói o quadro — sem nunca olhar para as camadas 3 a 7.</li>
+                <li>Um <strong>roteador</strong> vai um nível acima: desencapsula até a camada 3, lê o endereço IP,
+                    decide a rota, e reencapsula o pacote num novo quadro de camada 2 para o próximo salto.</li>
+            </ul>
+            <p>Essa separação é o que torna possível construir redes complexas com equipamentos de diferentes
+                fabricantes e tecnologias — cada camada faz seu trabalho de forma independente.</p>
+        </section>
+
+        <hr>
+
+        <section>
+            <h2>13. Por que o OSI Importa para Infraestrutura Física</h2>
+            <p>Toda decisão de infraestrutura física de rede tem uma camada OSI correspondente. Conhecer esse mapeamento
+                é fundamental tanto para projetar redes quanto para diagnosticar problemas.</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Componente / Dispositivo</th>
+                        <th>Camada OSI</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Cabos, conectores, tomadas RJ-45</td>
+                        <td>Camada 1 — Física</td>
+                    </tr>
+                    <tr>
+                        <td>Patch panels, canaletas, racks</td>
+                        <td>Camada 1 — Física</td>
+                    </tr>
+                    <tr>
+                        <td>Hubs, repetidores</td>
+                        <td>Camada 1 — Física</td>
+                    </tr>
+                    <tr>
+                        <td>Switches, bridges</td>
+                        <td>Camada 2 — Enlace</td>
+                    </tr>
+                    <tr>
+                        <td>Roteadores</td>
+                        <td>Camada 3 — Rede</td>
+                    </tr>
+                    <tr>
+                        <td>Firewalls básicos (filtragem por IP/porta)</td>
+                        <td>Camadas 3 e 4</td>
+                    </tr>
+                    <tr>
+                        <td>Firewalls de próxima geração, proxies</td>
+                        <td>Camadas 3 a 7</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>O modelo OSI como ferramenta de diagnóstico:</strong></p>
+            <p>Quando um problema de rede ocorre, identificar em qual camada ele está acontecendo é o primeiro passo
+                para resolvê-lo — e evita perder tempo procurando a solução no lugar errado.</p>
+        </section>
+
+        <footer>
+            <p>Curso Técnico em Redes | Infraestrutura Física de Redes</p>
+        </footer>
+    </main>
+</body>
+
+</html>
