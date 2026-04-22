@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AULA 03 — PINAGEM E FUNÇÃO DOS CONECTORES DA FONTE</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <main>
+        <header>
+            <h1>📘 AULA 03 — PINAGEM E FUNÇÃO DOS CONECTORES DA FONTE</h1>
+        </header>
+
+        <h2>🔹 Convenção de Cores dos Fios (Padrão ATX)</h2>
+
+        <p>Antes de analisar cada conector, é essencial conhecer a convenção de cores adotada pelo padrão ATX. Ela é universal entre fabricantes e permite identificar rapidamente a função de qualquer fio.</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Cor do fio</th>
+                    <th>Tensão / Sinal</th>
+                    <th>Função</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Amarelo</strong></td>
+                    <td>+12V</td>
+                    <td>Alimentação de alta potência (CPU, GPU, motores)</td>
+                </tr>
+                <tr>
+                    <td><strong>Vermelho</strong></td>
+                    <td>+5V</td>
+                    <td>Alimentação intermediária (USB, lógica)</td>
+                </tr>
+                <tr>
+                    <td><strong>Laranja</strong></td>
+                    <td>+3,3V</td>
+                    <td>Alimentação de circuitos sensíveis (chipset, RAM)</td>
+                </tr>
+                <tr>
+                    <td><strong>Azul</strong></td>
+                    <td>-12V</td>
+                    <td>Circuitos legados (portas seriais RS-232)</td>
+                </tr>
+                <tr>
+                    <td><strong>Branco</strong></td>
+                    <td>-5V</td>
+                    <td>Obsoleto (removido no ATX 2.01+)</td>
+                </tr>
+                <tr>
+                    <td><strong>Roxo</strong></td>
+                    <td>+5V Standby (VSB)</td>
+                    <td>Energia em modo de espera; mantém Wake-on-LAN, USB</td>
+                </tr>
+                <tr>
+                    <td><strong>Verde</strong></td>
+                    <td>PS_ON#</td>
+                    <td>Sinal de ligar: curto com GND aciona a fonte</td>
+                </tr>
+                <tr>
+                    <td><strong>Cinza</strong></td>
+                    <td>PWR_OK</td>
+                    <td>Sinal de "energia estável" enviado à placa-mãe</td>
+                </tr>
+                <tr>
+                    <td><strong>Preto</strong></td>
+                    <td>GND (terra)</td>
+                    <td>Referência de retorno para todos os trilhos</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <blockquote>
+            <p>💡 O fio <strong>roxo (+5VSB)</strong> é o único que permanece energizado enquanto o computador está desligado mas plugado na tomada. É ele que permite o Wake-on-LAN e carrega dispositivos USB em modo de espera.</p>
+        </blockquote>
+
+        <blockquote>
+            <p>💡 O fio <strong>verde (PS_ON#)</strong> é o que a placa-mãe aciona ao receber o comando de ligar. Em bancada, curto-circuitar o verde com qualquer preto é o método para testar uma fonte fora do computador.</p>
+        </blockquote>
+
+        <hr>
+
+        <h2>🔹 Conector ATX Principal — 24 Pinos</h2>
+
+        <h3>Função geral</h3>
+
+        <p>Alimenta a placa-mãe com todos os trilhos de tensão simultaneamente. É a principal interface elétrica entre a fonte e o sistema.</p>
+
+        <h3>Pinagem (layout 2×12)</h3>
+
+        <img src="../assets/images/omc/03/pinagem_24.png" alt="">
+
+        <blockquote>
+            <p>⚠️ Conectores mais antigos eram de 20 pinos (ATX 1.x). Os pinos 11, 12, 23 e 24 foram adicionados no ATX 2.x para suportar maior demanda no trilho +12V. Placas ATX 20 pinos aceitam o conector 24 pinos encaixado parcialmente, mas com limitação de corrente.</p>
+        </blockquote>
+
+        <h3>Grupos funcionais</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Grupo</th>
+                    <th>Pinos</th>
+                    <th>Função na placa-mãe</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>+3,3V</strong></td>
+                    <td>1, 2, 12, 13</td>
+                    <td>Alimenta chipset, slots PCI, memória RAM</td>
+                </tr>
+                <tr>
+                    <td><strong>+5V</strong></td>
+                    <td>4, 6, 21, 22, 23</td>
+                    <td>Alimenta controladores USB, drives, lógica geral</td>
+                </tr>
+                <tr>
+                    <td><strong>+12V</strong></td>
+                    <td>10, 11</td>
+                    <td>Alimenta reguladores de tensão (VRM) da CPU e outros circuitos de alta potência</td>
+                </tr>
+                <tr>
+                    <td><strong>GND</strong></td>
+                    <td>3, 5, 7, 15, 17, 18, 19, 24</td>
+                    <td>Retorno elétrico de todos os trilhos</td>
+                </tr>
+                <tr>
+                    <td><strong>Sinais</strong></td>
+                    <td>8 (PWR_OK), 9 (+5VSB), 16 (PS_ON#)</td>
+                    <td>Controle de inicialização e standby</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Implicações práticas</h3>
+
+        <ul>
+            <li>Se o trilho <strong>+3,3V</strong> estiver instável: erros de memória RAM, falhas em slots PCI/PCIe.</li>
+            <li>Se o trilho <strong>+5V</strong> estiver instável: problemas em USB, comportamento errático de periféricos.</li>
+            <li>Se o trilho <strong>+12V</strong> estiver subfornecido: instabilidade de CPU, travamentos sob carga.</li>
+            <li>Se o <strong>PWR_OK</strong> não subir: a placa-mãe não completa o POST, mesmo com os demais trilhos corretos.</li>
+        </ul>
+
+        <hr>
+
+        <h2>🔹 Conector CPU / EPS — 4 e 8 Pinos</h2>
+
+        <h3>Função geral</h3>
+
+        <p>Fornece energia exclusivamente ao <strong>VRM (Voltage Regulator Module)</strong> da placa-mãe, que converte a tensão para o nível exigido pelo processador (geralmente 0,8V–1,5V). Este conector é dedicado ao trilho <strong>+12V</strong>.</p>
+
+        <h3>Por que existe um conector separado para a CPU?</h3>
+
+        <p>O conector ATX 24 pinos distribui +12V pela placa-mãe de forma geral, mas a demanda do processador moderno é alta e concentrada. Um conector dedicado garante entrega direta de corrente ao VRM sem sobrecarregar o caminho elétrico principal.</p>
+
+        <h3>Pinagem — Conector 4 pinos (ATX12V)</h3>
+       
+        <table>
+            <thead>
+                <tr>
+                    <th>Pino</th>
+                    <th>Cor</th>
+                    <th>Tensão</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Preto</td>
+                    <td>GND</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Preto</td>
+                    <td>GND</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Amarelo</td>
+                    <td>+12V</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>Amarelo</td>
+                    <td>+12V</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Pinagem — Conector 8 pinos (EPS12V)</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Pino</th>
+                    <th>Cor</th>
+                    <th>Tensão</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Preto</td>
+                    <td>GND</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Preto</td>
+                    <td>GND</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Preto</td>
+                    <td>GND</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>Preto</td>
+                    <td>GND</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>Amarelo</td>
+                    <td>+12V</td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>Amarelo</td>
+                    <td>+12V</td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td>Amarelo</td>
+                    <td>+12V</td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td>Amarelo</td>
+                    <td>+12V</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <blockquote>
+            <p>💡 O conector 8 pinos é formado por dois blocos de 4 pinos. Muitas fontes fornecem o cabo EPS como dois conectores 4+4, permitindo usar 4 pinos em placas básicas e 8 pinos em placas de alto desempenho.</p>
+        </blockquote>
+
+        <blockquote>
+            <p>⚠️ Algumas placas entusiastas (workstation, overclocking) possuem conector <strong>4+4+4+4 (16 pinos)</strong>, exigindo fontes específicas com esse cabo.</p>
+        </blockquote>
+
+        <h3>Implicações práticas</h3>
+
+        <ul>
+            <li><strong>Ausência do conector CPU:</strong> a maioria das placas-mãe não completa o POST. O sistema não inicia.</li>
+            <li><strong>Conector 4 pinos em placa que exige 8 pinos:</strong> o sistema pode iniciar, mas instabilidade ou throttling sob carga são esperados.</li>
+            <li><strong>Fonte sem cabo EPS 8 pinos:</strong> problema comum em fontes genéricas ou antigas; exige adaptador Molex → EPS, o que é tecnicamente desaconselhável.</li>
+        </ul>
+
+        <hr>
+
+        <h2>🔹 Conector SATA Power — 15 Pinos</h2>
+
+        <h3>Função geral</h3>
+
+        <p>Alimenta HDs, SSDs SATA e drives ópticos. Substituiu o conector Molex de 4 pinos como padrão para dispositivos de armazenamento.</p>
+
+        <h3>Pinagem</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Pino</th>
+                    <th>Cor</th>
+                    <th>Tensão</th>
+                    <th>Função</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1-3</td>
+                    <td>Laranja</td>
+                    <td><strong>+3,3V</strong></td>
+                    <td>Lógica de controle, circuitos internos</td>
+                </tr>
+                <tr>
+                    <td>4-6</td>
+                    <td>Preto</td>
+                    <td>GND</td>
+                    <td>Retorno elétrico</td>
+                </tr>
+                <tr>
+                    <td>7-9</td>
+                    <td>Vermelho</td>
+                    <td><strong>+5V</strong></td>
+                    <td>Eletrônica de controle, circuitos auxiliares</td>
+                </tr>
+                <tr>
+                    <td>10-12</td>
+                    <td>Preto</td>
+                    <td>GND</td>
+                    <td>Retorno elétrico</td>
+                </tr>
+                <tr>
+                    <td>13-15</td>
+                    <td>Amarelo</td>
+                    <td><strong>+12V</strong></td>
+                    <td>Motor de rotação (HDDs), não utilizado em SSDs</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <blockquote>
+            <p>💡 SSDs SATA geralmente utilizam apenas os trilhos +3,3V e +5V. HDDs utilizam também o +12V para acionar o motor de rotação do prato.</p>
+        </blockquote>
+
+        <blockquote>
+            <p>⚠️ O pino 3 (+3,3V) em alguns SSDs aciona o modo de <strong>power disable</strong> se energizado inesperadamente. Em adaptadores Molex → SATA, esse pino pode não ser implementado corretamente, causando falha de inicialização do dispositivo.</p>
+        </blockquote>
+
+        <h3>Implicações práticas</h3>
+
+        <ul>
+            <li><strong>Instabilidade em HD:</strong> verificar trilho +12V (motor) e +5V (eletrônica).</li>
+            <li><strong>SSD não reconhecido após adaptador Molex→SATA:</strong> provável problema no pino 3 (+3,3V).</li>
+        </ul>
+
+        <hr>
+
+        <h2>🔹 Conector SATA — 4 Pinos</h2>
+
+        <h3>Função geral</h3>
+
+        <p>Alimenta <strong>HD, SSD, DVD</strong> e alguns dispositivos em gabinetes compactos e all-in-ones. É uma versão reduzida do conector SATA Power de 15 pinos, presente na maioria das fontes ATX modernas em quantidade de dois ou mais cabos.</p>
+
+        <h3>Pinagem</h3>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Pino</th>
+                    <th>Cor</th>
+                    <th>Tensão</th>
+                    <th>Função</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Vermelho</td>
+                    <td><strong>+5V</strong></td>
+                    <td>Eletrônica de controle, circuitos auxiliares</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Preto</td>
+                    <td>GND</td>
+                    <td>Retorno elétrico</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Preto</td>
+                    <td>GND</td>
+                    <td>Retorno elétrico</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>Amarelo</td>
+                    <td><strong>+12V</strong></td>
+                    <td>Motor de rotação (HDDs), não utilizado em SSDs</td>
+                </tr>
+            </tbody>
+        </table>
+        <blockquote>
+            <p>💡 Diferente do SATA Power 15 pinos, este conector <strong>não possui o trilho +3,3V</strong>. Dispositivos que dependem desse trilho (como alguns SSDs) não devem ser alimentados por ele.</p>
+        </blockquote>
+
+        <blockquote>
+            <p>⚠️ O conector SATA slim é fisicamente menor e possui travas frágeis. Forçar a inserção invertida danifica tanto o conector quanto o dispositivo — verificar orientação antes de encaixar.</p>
+        </blockquote>
+
+        <h3>Implicações práticas</h3>
+
+        <ul>
+            <li><strong>Drive óptico slim não reconhecido:</strong> verificar trilho +5V no conector e integridade do cabo de dados SATA separadamente.</li>
+            <li><strong>Uso em gabinetes compactos:</strong> é comum encontrar este conector em builds mini-ITX e HTPCs, onde drives slim são padrão.</li>
+        </ul>
+
+        <hr>
+
+        <h2>🔹 Conector PCIe — 6 e 8 Pinos</h2>
+
+        <h3>Função geral</h3>
+
+        <p>Alimenta <strong>placas de vídeo dedicadas</strong> diretamente pela fonte, complementando a energia fornecida pelo slot PCIe da placa-mãe (que entrega no máximo 75W).</p>
+
+        <h3>Capacidade por conector</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Conector</th>
+                    <th>Potência máxima adicional</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>6 pinos</strong></td>
+                    <td>75W</td>
+                </tr>
+                <tr>
+                    <td><strong>8 pinos</strong></td>
+                    <td>150W</td>
+                </tr>
+                <tr>
+                    <td><strong>6+8 pinos</strong></td>
+                    <td>225W</td>
+                </tr>
+                <tr>
+                    <td><strong>8+8 pinos</strong></td>
+                    <td>300W</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Pinagem — 6 pinos</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Pino</th>
+                    <th>Cor</th>
+                    <th>Tensão</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1-3</td>
+                    <td>Amarelo</td>
+                    <td><strong>+12V</strong></td>
+                </tr>
+                <tr>
+                    <td>4-6</td>
+                    <td>Preto</td>
+                    <td>GND</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Pinagem — 8 pinos (6+2)</h3>
+       
+        <table>
+            <thead>
+                <tr>
+                    <th>Pino</th>
+                    <th>Cor</th>
+                    <th>Tensão</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1-3</td>
+                    <td>Amarelo</td>
+                    <td><strong>+12V</strong></td>
+                </tr>
+                <tr>
+                    <td>4-6</td>
+                    <td>Preto</td>
+                    <td>GND</td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td>Preto</td>
+                    <td>GND (sense)</td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td>Preto</td>
+                    <td>GND (sense)</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <blockquote>
+            <p>💡 Os dois pinos extras do conector 8 pinos (7 e 8) são sinais de detecção que informam à GPU quantos pinos estão conectados, permitindo que ela ajuste seu TDP máximo.</p>
+        </blockquote>
+
+        <blockquote>
+            <p>⚠️ Conectar uma GPU de alto consumo com apenas um dos conectores necessários resulta em: artefatos visuais, crashes em jogos/renderização, ou desligamento por proteção da própria GPU.</p>
+        </blockquote>
+
+        <h3>Implicações práticas</h3>
+
+        <ul>
+            <li><strong>GPU com dois conectores 8 pinos e fonte com apenas um cabo PCIe:</strong> limitação de potência; desempenho reduzido ou instabilidade.</li>
+            <li><strong>Adaptadores Molex → PCIe:</strong> solução emergencial não recomendada para GPUs acima de 75W — risco de sobrecarga nos fios Molex.</li>
+        </ul>
+
+        <hr>
+
+        <h2>🔹 Conector Molex — 4 Pinos (AMP/Molex)</h2>
+
+        <h3>Função geral</h3>
+
+        <p>Conector legado, ainda presente em fontes modernas para retrocompatibilidade. Utilizado em coolers de 12V, barramentos de adaptadores e alguns gabinetes.</p>
+
+        <h3>Pinagem</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Pino</th>
+                    <th>Cor</th>
+                    <th>Tensão</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Amarelo</td>
+                    <td><strong>+12V</strong></td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Preto</td>
+                    <td>GND</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Preto</td>
+                    <td>GND</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>Vermelho</td>
+                    <td><strong>+5V</strong></td>
+                </tr>
+            </tbody>
+        </table>
+        <blockquote>
+            <p>⚠️ Molex não possui travas de retenção robustas. Em ambiente de vibração (servidores, sistemas com múltiplos HDDs), pode se desconectar. Verificar encaixe firme durante montagem.</p>
+        </blockquote>
+
+        <hr>
+
+        <h2>🎯 Síntese do Anexo</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Conector</th>
+                    <th>Trilhos presentes</th>
+                    <th>O que alimenta</th>
+                    <th>Sinal crítico</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>ATX 24 pinos</strong></td>
+                    <td>+12V, +5V, +3,3V, -12V, GND, sinais</td>
+                    <td>Placa-mãe (geral)</td>
+                    <td>PWR_OK, PS_ON#, +5VSB</td>
+                </tr>
+                <tr>
+                    <td><strong>CPU 4/8 pinos</strong></td>
+                    <td>+12V, GND</td>
+                    <td>VRM da CPU</td>
+                    <td>Ausência impede POST</td>
+                </tr>
+                <tr>
+                    <td><strong>SATA 15 pinos</strong></td>
+                    <td>+12V, +5V, +3,3V, GND</td>
+                    <td>HDs, SSDs, ópticos</td>
+                    <td>Pino 3 (+3,3V) em SSDs</td>
+                </tr>
+                <tr>
+                    <td><strong>PCIe 6/8 pinos</strong></td>
+                    <td>+12V, GND</td>
+                    <td>GPU dedicada</td>
+                    <td>Pinos sense (7,8)</td>
+                </tr>
+                <tr>
+                    <td><strong>Molex 4 pinos</strong></td>
+                    <td>+12V, +5V, GND</td>
+                    <td>Dispositivos legados</td>
+                    <td>—</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <blockquote>
+            <p>🔧 <strong>Regra prática de bancada:</strong> ao diagnosticar uma falha de inicialização, verificar nesta ordem: ATX 24 pinos encaixado → CPU 8 pinos conectado → PWR_OK no multímetro → trilhos sob carga com multímetro.</p>
+        </blockquote>
+    </main>
+</body>
+</html>
