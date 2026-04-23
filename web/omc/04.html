@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AULA 04 — COMPONENTES E SLOTS DA PLACA-MÃE</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <main>
+        <header>
+            <h1>📘 AULA 04 — COMPONENTES E SLOTS DA PLACA-MÃE</h1>
+        </header>
+        <img src="../assets/images/omc/04/placa_mae.png" alt="">
+        <h2>🔹 1. Introdução</h2>
+
+        <p>A placa-mãe é o componente central de qualquer computador. É ela que <strong>interliga fisicamente e eletricamente</strong> todos os demais componentes: processador, memória, armazenamento, placa de vídeo e periféricos.</p>
+
+        <blockquote>
+            <p><strong>Definição:</strong> circuito impresso principal que fornece os barramentos, slots, conectores e controladores necessários para o funcionamento integrado do sistema.</p>
+        </blockquote>
+
+        <p>Sem a placa-mãe, os componentes não se comunicam entre si — mesmo que cada um funcione individualmente.</p>
+
+        <hr>
+
+        <h2>🔹 2. Alimentação da Placa-Mãe</h2>
+        <img src="../assets/images/omc/04/conectores.png" alt="">
+
+        <p>A placa-mãe recebe energia diretamente da fonte por dois conectores obrigatórios, já estudados na Aula 03:</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Conector</th>
+                    <th>Pinos</th>
+                    <th>Função</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>ATX 24 pinos</strong></td>
+                    <td>24</td>
+                    <td>Distribui +12V, +5V, +3,3V e sinais de controle para toda a placa</td>
+                </tr>
+                <tr>
+                    <td><strong>CPU / EPS</strong></td>
+                    <td>4 ou 8</td>
+                    <td>Alimenta exclusivamente o VRM que regula a tensão do processador</td>
+                </tr>
+            </tbody>
+        </table>
+        <blockquote>
+            <p>⚠️ A ausência de qualquer um desses conectores impede a inicialização do sistema. O conector ATX 24 pinos é o primeiro a ser verificado em qualquer diagnóstico de bancada.</p>
+        </blockquote>
+
+        <hr>
+
+        <h2>🔹 3. Socket do Processador (CPU)</h2>
+        <img src="../assets/images/omc/04/sockete.png" alt="">
+        <h3>O que é</h3>
+
+        <p>O socket é o encaixe mecânico e elétrico onde o processador é instalado. Cada geração e fabricante utiliza um socket diferente — <strong>processador e socket devem ser compatíveis</strong>.</p>
+
+        <h3>Tipos principais</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Fabricante</th>
+                    <th>Socket atual</th>
+                    <th>Característica</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Intel</strong></td>
+                    <td>LGA1700 (12ª–13ª–14ª geração)</td>
+                    <td>Pinos na placa-mãe; CPU tem contatos planos</td>
+                </tr>
+                <tr>
+                    <td><strong>Intel</strong></td>
+                    <td>LGA1851 (Core Ultra 200)</td>
+                    <td>Pinos na placa-mãe; nova geração</td>
+                </tr>
+                <tr>
+                    <td><strong>AMD</strong></td>
+                    <td>AM5 (Ryzen 7000+)</td>
+                    <td>Pinos na CPU; placa tem contatos</td>
+                </tr>
+                <tr>
+                    <td><strong>AMD</strong></td>
+                    <td>AM4 (Ryzen 1000–5000)</td>
+                    <td>Pinos na CPU; ainda amplamente usado</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Mecanismo de fixação</h3>
+
+        <ul>
+            <li><strong>LGA (Land Grid Array):</strong> pinos na placa-mãe, contatos planos na CPU. Requer cuidado extremo — pinos dobrados na placa são difíceis de reparar.</li>
+            <li><strong>PGA (Pin Grid Array):</strong> pinos na CPU, furos na placa. Erro de instalação dobra os pinos da CPU.</li>
+        </ul>
+
+        <blockquote>
+            <p>💡 O socket define quais processadores são compatíveis com a placa. Trocar de geração de CPU frequentemente exige troca de placa-mãe.</p>
+        </blockquote>
+
+        <hr>
+
+        <h2>🔹 4. VRM — Voltage Regulator Module</h2>
+        <img src="../assets/images/omc/04/vrm.png" alt="">
+        <h3>O que é</h3>
+
+        <p>O VRM é o conjunto de componentes eletrônicos (MOSFETs, indutores e capacitores) localizado ao redor do socket que <strong>converte a tensão do conector CPU EPS (+12V) para a tensão real de operação do processador</strong> (tipicamente entre 0,8V e 1,5V).</p>
+
+        <h3>Por que é importante</h3>
+
+        <ul>
+            <li>Processadores modernos exigem tensão precisa e estável.</li>
+            <li>Um VRM de baixa qualidade limita o desempenho e pode causar throttling (redução automática de clock para proteção térmica).</li>
+            <li>Placas de entrada possuem VRMs simples; placas de alto desempenho possuem VRMs com mais fases para maior estabilidade.</li>
+        </ul>
+
+        <hr>
+
+        <h2>🔹 5. Slots de Memória RAM</h2>
+        <img src="../assets/images/omc/04/slots.png" alt="">
+        <h3>O que é</h3>
+
+        <p>Slots onde os módulos de memória RAM são instalados. A quantidade varia conforme o padrão da placa: 2 slots (placas compactas) ou 4 slots (placas ATX padrão).</p>
+
+        <h3>Padrões atuais</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Padrão</th>
+                    <th>Velocidade base</th>
+                    <th>Tensão</th>
+                    <th>Compatibilidade</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>DDR4</strong></td>
+                    <td>2133–3200 MHz</td>
+                    <td>1,2V</td>
+                    <td>AM4, LGA1200, LGA1700</td>
+                </tr>
+                <tr>
+                    <td><strong>DDR5</strong></td>
+                    <td>4800–6400 MHz+</td>
+                    <td>1,1V</td>
+                    <td>AM5, LGA1700, LGA1851</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <blockquote>
+            <p>⚠️ DDR4 e DDR5 são <strong>fisicamente incompatíveis</strong> — o entalhe (notch) está em posição diferente. Não é possível instalar DDR5 em placa DDR4 ou vice-versa.</p>
+        </blockquote>
+
+        <h3>Dual Channel</h3>
+
+        <p>A maioria das placas-mãe suporta <strong>dual channel</strong>: ao instalar dois módulos nos slots corretos (geralmente A2 e B2, indicados na placa), a largura de banda da memória dobra.</p>
+
+        <blockquote>
+            <p>💡 Instalar apenas um módulo de RAM desativa o dual channel e reduz o desempenho do sistema, especialmente em CPUs com GPU integrada.</p>
+        </blockquote>
+
+        <hr>
+
+        <h2>🔹 6. Chipset</h2>
+        <img src="../assets/images/omc/04/chipset.png" alt="">
+        <h3>O que é</h3>
+
+        <p>O chipset é o circuito integrado da placa-mãe responsável por <strong>gerenciar a comunicação entre o processador e os demais componentes</strong>: armazenamento, USB, PCIe adicional, áudio e rede.</p>
+
+        <h3>Localização</h3>
+
+        <p>Posicionado abaixo do socket, geralmente coberto por um dissipador.</p>
+
+        <h3>Função prática</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Função</th>
+                    <th>Quem controla</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Comunicação CPU ↔ RAM</td>
+                    <td>Direto pela CPU (IMC)</td>
+                </tr>
+                <tr>
+                    <td>Comunicação CPU ↔ GPU (slot PCIe x16 primário)</td>
+                    <td>Direto pela CPU</td>
+                </tr>
+                <tr>
+                    <td>USB, SATA, PCIe adicional, áudio, rede</td>
+                    <td>Chipset</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <blockquote>
+            <p>💡 O chipset define os recursos disponíveis na placa: quantidade de portas USB, suporte a overclocking, número de lanes PCIe adicionais. Exemplos: Intel Z790 (overclock), B760 (intermediário), H610 (básico); AMD X670 (topo), B650 (intermediário), A620 (básico).</p>
+        </blockquote>
+
+        <hr>
+
+        <h2>🔹 7. Slots PCIe (Peripheral Component Interconnect Express)</h2>
+        <img src="../assets/images/omc/04/slot_pcie.png" alt="">
+        <h3>O que é</h3>
+
+        <p>Barramento de alta velocidade utilizado para instalar placas de expansão: <strong>placa de vídeo, placa de rede, SSD M.2 em adaptador, placa de captura</strong>, entre outros.</p>
+
+        <h3>Tamanhos físicos</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Slot</th>
+                    <th>Lanes elétricas típicas</th>
+                    <th>Uso principal</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>x16</strong></td>
+                    <td>x16 ou x8</td>
+                    <td>Placa de vídeo dedicada</td>
+                </tr>
+                <tr>
+                    <td><strong>x4</strong></td>
+                    <td>x4</td>
+                    <td>SSDs NVMe em adaptador, placas de captura</td>
+                </tr>
+                <tr>
+                    <td><strong>x1</strong></td>
+                    <td>x1</td>
+                    <td>Placas de rede, áudio, USB adicional</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <blockquote>
+            <p>💡 Um slot x16 físico pode operar eletricamente em x8 ou x4. O tamanho do slot não garante as lanes disponíveis — consultar o manual da placa-mãe.</p>
+        </blockquote>
+
+        <h3>Gerações PCIe</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Geração</th>
+                    <th>Velocidade por lane</th>
+                    <th>Largura de banda x16</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>PCIe 3.0</strong></td>
+                    <td>~1 GB/s</td>
+                    <td>~16 GB/s</td>
+                </tr>
+                <tr>
+                    <td><strong>PCIe 4.0</strong></td>
+                    <td>~2 GB/s</td>
+                    <td>~32 GB/s</td>
+                </tr>
+                <tr>
+                    <td><strong>PCIe 5.0</strong></td>
+                    <td>~4 GB/s</td>
+                    <td>~64 GB/s</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <blockquote>
+            <p>⚠️ PCIe é retrocompatível: uma GPU PCIe 4.0 funciona em slot PCIe 3.0, mas com largura de banda reduzida. Para SSDs NVMe de alta performance, a geração do slot impacta diretamente a velocidade.</p>
+        </blockquote>
+
+        <hr>
+
+        <h2>🔹 8. Slots M.2</h2>
+        <img src="../assets/images/omc/04/m2.png" alt="">
+        <h3>O que é</h3>
+
+        <p>Slot compacto para SSDs de alta velocidade no padrão <strong>M.2</strong>, diretamente na placa-mãe, sem cabos.</p>
+
+        <h3>Protocolos suportados</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Protocolo</th>
+                    <th>Interface</th>
+                    <th>Velocidade típica</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>SATA</strong></td>
+                    <td>SATA III</td>
+                    <td>até ~550 MB/s</td>
+                </tr>
+                <tr>
+                    <td><strong>NVMe</strong></td>
+                    <td>PCIe 3.0 x4</td>
+                    <td>até ~3.500 MB/s</td>
+                </tr>
+                <tr>
+                    <td><strong>NVMe</strong></td>
+                    <td>PCIe 4.0 x4</td>
+                    <td>até ~7.000 MB/s</td>
+                </tr>
+                <tr>
+                    <td><strong>NVMe</strong></td>
+                    <td>PCIe 5.0 x4</td>
+                    <td>até ~14.000 MB/s</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <blockquote>
+            <p>⚠️ Nem todo slot M.2 suporta NVMe — alguns suportam apenas SATA. Verificar especificação no manual antes de instalar.</p>
+        </blockquote>
+
+        <blockquote>
+            <p>💡 SSDs M.2 NVMe são a opção de armazenamento principal recomendada para sistemas novos, substituindo HDDs e SSDs SATA na função de disco do sistema operacional.</p>
+        </blockquote>
+
+        <hr>
+
+        <h2>🔹 9. Conectores SATA na Placa-Mãe</h2>
+        <img src="../assets/images/omc/04/sata.png" alt="">
+        <h3>O que é</h3>
+
+        <p>Conectores para cabos de dados SATA, que ligam a placa-mãe a HDDs, SSDs SATA e drives ópticos.</p>
+
+        <h3>Características</h3>
+
+        <ul>
+            <li>Padrão atual: <strong>SATA III (6 Gb/s)</strong></li>
+            <li>Quantidade típica: 4 a 6 conectores por placa</li>
+            <li>Cada conector SATA de dados requer também um <strong>cabo de alimentação SATA</strong> da fonte (estudado na Aula 03)</li>
+        </ul>
+
+        <blockquote>
+            <p>💡 O conector SATA na placa-mãe transmite apenas <strong>dados</strong>. A alimentação do dispositivo vem exclusivamente da fonte, pelo cabo SATA power.</p>
+        </blockquote>
+
+        <hr>
+
+        <h2>🔹 10. Conectores Internos (Headers)</h2>
+
+        <h3>O que são</h3>
+
+        <p>Conectores de baixa tensão na placa-mãe que ligam componentes internos do gabinete e do sistema.</p>
+
+        <h3>Principais headers</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Header</th>
+                    <th>Função</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Front Panel (F_PANEL)</strong></td>
+                    <td>Botão power, reset, LED de power e LED de HDD</td>
+                </tr>
+                <tr>
+                    <td><strong>USB 2.0 interno</strong></td>
+                    <td>Portas USB frontais de baixa velocidade</td>
+                </tr>
+                <tr>
+                    <td><strong>USB 3.0 interno</strong></td>
+                    <td>Portas USB frontais de alta velocidade</td>
+                </tr>
+                <tr>
+                    <td><strong>USB 3.2 Gen2 Type-C</strong></td>
+                    <td>Porta USB-C frontal</td>
+                </tr>
+                <tr>
+                    <td><strong>Fan (CPU_FAN, SYS_FAN)</strong></td>
+                    <td>Controle de velocidade dos coolers (PWM ou DC)</td>
+                </tr>
+                <tr>
+                    <td><strong>Áudio frontal (AAFP)</strong></td>
+                    <td>Conector de fone e microfone do painel frontal</td>
+                </tr>
+            </tbody>
+        </table>
+        <img src="../assets/images/omc/04/f_panel.png" alt="">
+        <blockquote>
+            <p>⚠️ O header <strong>Front Panel</strong> é o mais crítico na montagem: se os pinos de Power SW (botão liga) estiverem incorretos, o computador não liga mesmo com tudo funcionando. Sempre consultar o manual da placa-mãe para o mapeamento exato.</p>
+        </blockquote>
+
+        <hr>
+
+        <h2>🔹 11. BIOS / UEFI</h2>
+        <img src="../assets/images/omc/04/bios.png" alt="">
+        <h3>O que é</h3>
+
+        <p>Firmware armazenado em um chip da placa-mãe responsável por <strong>inicializar o hardware antes do sistema operacional</strong>.</p>
+
+        <h3>Funções principais</h3>
+
+        <ul>
+            <li>Realiza o <strong>POST (Power-On Self Test)</strong>: verifica se os componentes essenciais estão presentes e funcionando</li>
+            <li>Configura parâmetros de hardware: clock de memória, sequência de boot, tensões</li>
+            <li>Detecta dispositivos conectados (CPU, RAM, armazenamento)</li>
+        </ul>
+
+        <h3>BIOS vs UEFI</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>BIOS (legado)</th>
+                    <th>UEFI (atual)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Interface</td>
+                    <td>Texto, navegação por teclado</td>
+                    <td>Gráfica, suporte a mouse</td>
+                </tr>
+                <tr>
+                    <td>Suporte a disco</td>
+                    <td>MBR (até 2 TB)</td>
+                    <td>GPT (acima de 2 TB)</td>
+                </tr>
+                <tr>
+                    <td>Boot seguro</td>
+                    <td>Não</td>
+                    <td>Sim (Secure Boot)</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <blockquote>
+            <p>💡 O chip de BIOS/UEFI é o primeiro componente ativo quando a fonte energiza a placa. Se ele falhar ou estiver corrompido, o sistema não realiza POST.</p>
+        </blockquote>
+
+        <hr>
+
+        <h2>🔹 12. Bateria CMOS</h2>
+        <img src="../assets/images/omc/04/bateria.png" alt="">
+        <h3>O que é</h3>
+
+        <p>Pequena bateria (CR2032, 3V) localizada na placa-mãe que <strong>mantém as configurações de BIOS e o relógio do sistema (RTC)</strong> quando o computador está desligado e desconectado da tomada.</p>
+
+        <h3>Sintomas de bateria fraca ou ausente</h3>
+
+        <ul>
+            <li>Data e hora reiniciam para um valor padrão a cada boot</li>
+            <li>Configurações de BIOS são perdidas</li>
+            <li>Erros de POST relacionados a CMOS checksum</li>
+        </ul>
+
+        <blockquote>
+            <p>🔧 <strong>Procedimento de bancada:</strong> remover a bateria CMOS por 30 segundos com o computador desligado e desconectado é um dos métodos para resetar as configurações de BIOS (equivalente ao jumper CLR_CMOS).</p>
+        </blockquote>
+
+        <hr>
+
+        <h2>🎯 Síntese da Aula</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Componente</th>
+                    <th>Função principal</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Conectores ATX / EPS</strong></td>
+                    <td>Entrada de energia da fonte</td>
+                </tr>
+                <tr>
+                    <td><strong>Socket CPU</strong></td>
+                    <td>Instalação e conexão do processador</td>
+                </tr>
+                <tr>
+                    <td><strong>VRM</strong></td>
+                    <td>Conversão de tensão para a CPU</td>
+                </tr>
+                <tr>
+                    <td><strong>Slots RAM</strong></td>
+                    <td>Instalação da memória (DDR4/DDR5)</td>
+                </tr>
+                <tr>
+                    <td><strong>Chipset</strong></td>
+                    <td>Gerenciamento de periféricos e barramentos</td>
+                </tr>
+                <tr>
+                    <td><strong>Slots PCIe</strong></td>
+                    <td>Expansão: GPU, redes, armazenamento</td>
+                </tr>
+                <tr>
+                    <td><strong>Slots M.2</strong></td>
+                    <td>SSDs de alta velocidade (SATA ou NVMe)</td>
+                </tr>
+                <tr>
+                    <td><strong>Conectores SATA</strong></td>
+                    <td>Dados para HDs, SSDs e drives ópticos</td>
+                </tr>
+                <tr>
+                    <td><strong>Headers internos</strong></td>
+                    <td>Front panel, USB, fan, áudio</td>
+                </tr>
+                <tr>
+                    <td><strong>BIOS/UEFI</strong></td>
+                    <td>Inicialização e configuração do hardware</td>
+                </tr>
+                <tr>
+                    <td><strong>Bateria CMOS</strong></td>
+                    <td>Manutenção de configurações e relógio</td>
+                </tr>
+            </tbody>
+        </table>
+    </main>
+</body>
+</html>
