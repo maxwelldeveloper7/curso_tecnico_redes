@@ -207,6 +207,12 @@ footer img {
     p {
         text-wrap: inherit;
     }
+    
+    .quebra {
+    /* max-width: 150px; */
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
 }
 
 /* Estilos específicos para index.html */
