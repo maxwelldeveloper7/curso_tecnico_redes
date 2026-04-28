@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AULA 05 — PROCESSADORES: ARQUITETURA, SOQUETES E ENERGIA</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <main>
+        <header>
+            <h1>AULA 05 — PROCESSADORES: ARQUITETURA, SOQUETES E ENERGIA</h1>
+        </header>
+
+        <h2>1. Introdução</h2>
+        <p>O processador, também chamado de <strong>CPU (Central Processing Unit)</strong>, é o componente responsável por executar as instruções dos programas. É o "cérebro" do computador — tudo que acontece no sistema passa, em algum momento, pelo processador.</p>
+        <p>Para funcionar, a CPU depende de:</p>
+        <ul>
+            <li>Um <strong>socket compatível</strong> na placa-mãe</li>
+            <li><strong>Energia estável e precisa</strong> fornecida pelo VRM</li>
+            <li><strong>Comunicação direta</strong> com a memória RAM e os demais componentes</li>
+        </ul>
+
+        <h2>2. Fabricantes e Linhas Desktop</h2>
+
+        <h3>Intel — Linha Core</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Segmento</th>
+                    <th>Exemplos</th>
+                    <th>Característica</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Core i3</strong></td>
+                    <td>i3-12100, i3-13100</td>
+                    <td>Entrada, uso básico</td>
+                </tr>
+                <tr>
+                    <td><strong>Core i5</strong></td>
+                    <td>i5-12400, i5-13600K</td>
+                    <td>Intermediário, melhor custo-benefício</td>
+                </tr>
+                <tr>
+                    <td><strong>Core i7</strong></td>
+                    <td>i7-13700K</td>
+                    <td>Alto desempenho</td>
+                </tr>
+                <tr>
+                    <td><strong>Core i9</strong></td>
+                    <td>i9-13900K</td>
+                    <td>Topo de linha desktop</td>
+                </tr>
+                <tr>
+                    <td><strong>Core Ultra</strong></td>
+                    <td>Ultra 5, Ultra 7, Ultra 9</td>
+                    <td>Nova nomenclatura (14ª+ geração)</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>AMD — Linha Ryzen</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Segmento</th>
+                    <th>Exemplos</th>
+                    <th>Característica</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Ryzen 3</strong></td>
+                    <td>Ryzen 3 4100</td>
+                    <td>Entrada</td>
+                </tr>
+                <tr>
+                    <td><strong>Ryzen 5</strong></td>
+                    <td>Ryzen 5 5600, 7600X</td>
+                    <td>Intermediário, amplamente usado</td>
+                </tr>
+                <tr>
+                    <td><strong>Ryzen 7</strong></td>
+                    <td>Ryzen 7 7700X</td>
+                    <td>Alto desempenho</td>
+                </tr>
+                <tr>
+                    <td><strong>Ryzen 9</strong></td>
+                    <td>Ryzen 9 7950X</td>
+                    <td>Topo de linha desktop</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <blockquote>
+            <p>💡 O sufixo no nome do processador indica características importantes: <strong>K</strong> (Intel, desbloqueado para overclock), <strong>X</strong> (AMD, alto desempenho), <strong>G</strong> (AMD, com GPU integrada), <strong>F</strong> (Intel, sem GPU integrada).</p>
+        </blockquote>
+
+        <h2>3. Soquetes e Compatibilidade</h2>
+        <p>O socket define a interface mecânica e elétrica entre a CPU e a placa-mãe. <strong>Cada socket aceita apenas os processadores projetados para ele.</strong></p>
+
+        <h3>Intel — Soquetes recentes</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Socket</th>
+                    <th>Gerações compatíveis</th>
+                    <th>Mecanismo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>LGA1200</strong></td>
+                    <td>10ª e 11ª geração</td>
+                    <td>LGA (pinos na placa)</td>
+                </tr>
+                <tr>
+                    <td><strong>LGA1700</strong></td>
+                    <td>12ª, 13ª e 14ª geração</td>
+                    <td>LGA (pinos na placa)</td>
+                </tr>
+                <tr>
+                    <td><strong>LGA1851</strong></td>
+                    <td>Core Ultra 200 (Arrow Lake)</td>
+                    <td>LGA (pinos na placa)</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>AMD — Soquetes recentes</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Socket</th>
+                    <th>Gerações compatíveis</th>
+                    <th>Mecanismo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>AM4</strong></td>
+                    <td>Ryzen 1000 a 5000</td>
+                    <td>PGA (pinos na CPU)</td>
+                </tr>
+                <tr>
+                    <td><strong>AM5</strong></td>
+                    <td>Ryzen 7000+</td>
+                    <td>LGA (pinos na placa)</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <blockquote>
+            <p>⚠️ A Intel historicamente troca de socket a cada uma ou duas gerações. A AMD manteve o AM4 por seis anos (2017–2022), o que foi uma vantagem econômica relevante para o mercado — o AM5 segue a mesma proposta de longevidade.</p>
+        </blockquote>
+
+        <h2>4. Arquitetura Interna — Conceitos Fundamentais</h2>
+
+        <h3>4.1 Núcleos (Cores)</h3>
+        <p>Cada núcleo é uma unidade de processamento independente. Um processador com 6 núcleos pode executar 6 tarefas simultaneamente.</p>
+        <ul>
+            <li>Processadores modernos possuem entre 4 e 24 núcleos no segmento desktop.</li>
+            <li>Intel (a partir da 12ª geração) adota arquitetura híbrida: <strong>P-cores</strong> (Performance) para tarefas exigentes e <strong>E-cores</strong> (Efficiency) para tarefas em segundo plano.</li>
+        </ul>
+
+        <h3>4.2 Threads</h3>
+        <p>Thread é o fluxo de execução de instruções. Com <strong>Hyper-Threading (Intel)</strong> ou <strong>SMT (AMD)</strong>, cada núcleo físico pode processar 2 threads simultaneamente.</p>
+        <blockquote>
+            <p>Exemplo: processador com 6 núcleos e HT/SMT ativo → 12 threads visíveis pelo sistema operacional.</p>
+        </blockquote>
+
+        <h3>4.3 Clock (Frequência)</h3>
+        <p>Medido em <strong>GHz (gigahertz)</strong>, indica quantos ciclos de processamento ocorrem por segundo.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Modo</th>
+                    <th>Descrição</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Clock base</strong></td>
+                    <td>Frequência mínima garantida em operação normal</td>
+                </tr>
+                <tr>
+                    <td><strong>Clock boost (Turbo/Precision Boost)</strong></td>
+                    <td>Frequência máxima atingida automaticamente em cargas pontuais</td>
+                </tr>
+            </tbody>
+        </table>
+        <blockquote>
+            <p>💡 Um processador com clock base de 3,6 GHz e boost de 5,0 GHz opera na maioria do tempo entre esses dois valores, ajustado automaticamente conforme a demanda e a temperatura.</p>
+        </blockquote>
+
+        <h3>4.4 Cache</h3>
+        <p>Memória ultrarrápida integrada ao processador, organizada em níveis hierárquicos:</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nível</th>
+                    <th>Velocidade</th>
+                    <th>Capacidade típica</th>
+                    <th>Localização</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>L1</strong></td>
+                    <td>~1 ns</td>
+                    <td class="quebra">32–64 KB por núcleo</td>
+                    <td class="quebra">Dentro de cada núcleo</td>
+                </tr>
+                <tr>
+                    <td><strong>L2</strong></td>
+                    <td>~3–5 ns</td>
+                    <td>256 KB–1 MB por núcleo</td>
+                    <td>Dentro de cada núcleo</td>
+                </tr>
+                <tr>
+                    <td><strong>L3</strong></td>
+                    <td>~10–30 ns</td>
+                    <td>16–96 MB (compartilhado)</td>
+                    <td>Compartilhado entre núcleos</td>
+                </tr>
+            </tbody>
+        </table>
+        <blockquote>
+            <p>💡 Quanto maior o cache L3, menos o processador precisa buscar dados na RAM (que é significativamente mais lenta). Isso impacta diretamente o desempenho em jogos e aplicações que manipulam grandes volumes de dados.</p>
+        </blockquote>
+
+        <h2>5. TDP — Thermal Design Power</h2>
+
+        <h3>O que é</h3>
+        <p>O TDP é a quantidade máxima de calor que o sistema de resfriamento precisa ser capaz de dissipar, expressa em <strong>Watts (W)</strong>. Na prática, é usado como referência de consumo de energia do processador.</p>
+        <blockquote>
+            <p>⚠️ TDP não é exatamente o consumo real de energia — é uma especificação térmica. Processadores modernos podem ultrapassar o TDP em boost, especialmente com coolers mais robustos.</p>
+        </blockquote>
+
+        <h3>Valores de referência por segmento</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Segmento</th>
+                    <th>TDP típico</th>
+                    <th>Observação</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Entrada (i3 / Ryzen 3)</strong></td>
+                    <td>60–65W</td>
+                    <td>Cooler de caixa geralmente suficiente</td>
+                </tr>
+                <tr>
+                    <td><strong>Intermediário (i5 / Ryzen 5)</strong></td>
+                    <td>65–125W</td>
+                    <td>Cooler aftermarket recomendado para K/X</td>
+                </tr>
+                <tr>
+                    <td><strong>Alto desempenho (i7–i9 / Ryzen 7–9)</strong></td>
+                    <td>125–253W</td>
+                    <td>Exige cooler robusto ou water cooling</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>6. Tensão de Operação (Vcore)</h2>
+
+        <h3>O que é</h3>
+        <p>A <strong>Vcore</strong> é a tensão de alimentação diretamente aplicada ao processador pelo VRM da placa-mãe. É a tensão mais crítica para a estabilidade e a vida útil da CPU.</p>
+
+        <h3>Valores típicos</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Processador</th>
+                    <th>Vcore típica em operação</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Intel Core (12ª–14ª geração)</td>
+                    <td>0,9V – 1,35V</td>
+                </tr>
+                <tr>
+                    <td>AMD Ryzen 5000 (AM4)</td>
+                    <td>0,9V – 1,30V</td>
+                </tr>
+                <tr>
+                    <td>AMD Ryzen 7000 (AM5)</td>
+                    <td>0,9V – 1,35V</td>
+                </tr>
+            </tbody>
+        </table>
+        <blockquote>
+            <p>💡 A Vcore varia dinamicamente ciclo a ciclo. Em idle (ocioso) pode cair para 0,9V; sob carga máxima sobe para 1,3V–1,4V. Esse ajuste dinâmico é gerenciado pelo VRM em conjunto com o controlador interno da CPU.</p>
+        </blockquote>
+        <blockquote>
+            <p>⚠️ Tensões acima de 1,4V por períodos prolongados aceleram a degradação dos transistores internos da CPU — risco real em overclocking sem controle adequado.</p>
+        </blockquote>
+
+        <h2>7. Corrente Elétrica na CPU</h2>
+
+        <h3>Como calcular a corrente estimada</h3>
+        <p>Usando a relação da Aula 01:</p>
+        <pre><code>P = V × I   →   I = P / V</code></pre>
+
+        <h3>Exemplos reais</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Processador</th>
+                    <th>TDP</th>
+                    <th>Vcore típica</th>
+                    <th>Corrente estimada no VRM (entrada +12V)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Intel i5-13600K</td>
+                    <td>125W (base) / 181W (boost)</td>
+                    <td>~1,2V</td>
+                    <td>~15A (base) / ~21A (boost) no trilho +12V</td>
+                </tr>
+                <tr>
+                    <td>AMD Ryzen 5 7600X</td>
+                    <td>105W (base) / 142W (boost)</td>
+                    <td>~1,1V</td>
+                    <td>~12A (base) / ~16A (boost) no trilho +12V</td>
+                </tr>
+                <tr>
+                    <td>Intel i9-13900K</td>
+                    <td>125W (base) / 253W (boost)</td>
+                    <td>~1,3V</td>
+                    <td>~21A (base) / ~35A (boost) no trilho +12V</td>
+                </tr>
+            </tbody>
+        </table>
+        <blockquote>
+            <p>💡 A corrente calculada é referente ao trilho <strong>+12V</strong> do conector EPS que alimenta o VRM — não à corrente que entra diretamente na CPU. O VRM converte +12V em Vcore (~1,1V–1,3V), o que eleva ainda mais a corrente no lado de saída: um i9-13900K a 253W com Vcore de 1,3V exige ~195A saindo do VRM para a CPU.</p>
+        </blockquote>
+        <blockquote>
+            <p>⚠️ Isso explica por que placas de alto desempenho possuem VRMs com muitas fases e dissipadores robustos — a corrente é alta e o calor gerado é significativo.</p>
+        </blockquote>
+
+        <h2>8. O Papel do VRM na Entrega de Energia</h2>
+        <img src="../assets/images/omc/05/fluxo.png" alt="">
+
+        <h3>Qualidade do VRM importa porque:</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>VRM fraco</th>
+                    <th>VRM robusto</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Menos fases de regulação</td>
+                    <td>Mais fases = corrente distribuída</td>
+                </tr>
+                <tr>
+                    <td>Aquece mais sob carga</td>
+                    <td>Dissipação térmica mais eficiente</td>
+                </tr>
+                <tr>
+                    <td>Tensão instável (ripple alto)</td>
+                    <td>Tensão estável mesmo em boost</td>
+                </tr>
+                <tr>
+                    <td>Limita desempenho do processador</td>
+                    <td>Permite operação no TDP máximo</td>
+                </tr>
+            </tbody>
+        </table>
+        <blockquote>
+            <p>🔧 <strong>Na prática de bancada:</strong> ao diagnosticar travamentos sob carga em um sistema aparentemente bem montado, o VRM superaquecido é um suspeito relevante — especialmente em placas de entrada com CPUs de médio-alto desempenho.</p>
+        </blockquote>
+
+        <h2>9. Instalação Física do Processador</h2>
+
+        <h3>Cuidados essenciais</h3>
+        <ul>
+            <li><strong>LGA (Intel):</strong> não tocar nos pinos da placa-mãe. A CPU possui contatos planos. Alinhar pelo entalhe e pela seta indicadora antes de baixar a alavanca.</li>
+            <li><strong>PGA (AMD AM4):</strong> não tocar nos pinos da CPU. Alinhar pelo triângulo indicador no canto. Encaixar verticalmente sem forçar.</li>
+            <li><strong>LGA (AMD AM5):</strong> mesma lógica do LGA Intel — pinos na placa, contatos na CPU.</li>
+        </ul>
+
+        <h3>Pasta térmica</h3>
+        <p>A pasta térmica preenche as microimperfeições entre o IHS (tampa metálica da CPU) e o cooler, garantindo transferência de calor eficiente.</p>
+        <ul>
+            <li>Quantidade: uma gota do tamanho de um grão de arroz no centro do IHS.</li>
+            <li>Excesso: escorrega para os lados e pode contaminar o socket.</li>
+            <li>Ausência: superaquecimento imediato, thermal throttling ou desligamento por proteção.</li>
+        </ul>
+
+        <h2>Síntese da Aula</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Conceito</th>
+                    <th>Ponto central</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Socket</strong></td>
+                    <td>Define compatibilidade CPU ↔ placa-mãe</td>
+                </tr>
+                <tr>
+                    <td><strong>Núcleos / Threads</strong></td>
+                    <td>Capacidade de paralelismo de tarefas</td>
+                </tr>
+                <tr>
+                    <td><strong>Clock</strong></td>
+                    <td>Velocidade de execução por núcleo</td>
+                </tr>
+                <tr>
+                    <td><strong>Cache</strong></td>
+                    <td>Memória interna ultrarrápida; reduz acesso à RAM</td>
+                </tr>
+                <tr>
+                    <td><strong>TDP</strong></td>
+                    <td>Referência de dissipação térmica e consumo</td>
+                </tr>
+                <tr>
+                    <td><strong>Vcore</strong></td>
+                    <td>Tensão dinâmica entregue pelo VRM à CPU</td>
+                </tr>
+                <tr>
+                    <td><strong>Corrente no VRM</strong></td>
+                    <td>Alta corrente de saída (~100–200A) a baixa tensão</td>
+                </tr>
+                <tr>
+                    <td><strong>VRM</strong></td>
+                    <td>Converte +12V EPS em Vcore; qualidade impacta estabilidade</td>
+                </tr>
+                <tr>
+                    <td><strong>Instalação</strong></td>
+                    <td>Alinhamento, sem força, pasta térmica correta</td>
+                </tr>
+            </tbody>
+        </table>
+
+        
+    </main>
+</body>
+</html>
