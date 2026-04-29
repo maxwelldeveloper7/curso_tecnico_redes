@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NetConfig – Treinamento TCP/IP</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --card: #1e293b;
+            --card2: #273549;
+            --accent: #38bdf8;
+            --ok: #22c55e;
+            --err: #f87171;
+            --warn: #fbbf24;
+            --txt: #e2e8f0;
+            --muted: #94a3b8;
+            --radius: 12px;
+            --font: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--txt);
+            font-family: var(--font);
+            min-height: 100vh;
+            padding: 12px
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 1.4rem;
+            color: var(--accent);
+            letter-spacing: 1px;
+            margin-bottom: 4px
+        }
+
+        .subtitle {
+            text-align: center;
+            color: var(--muted);
+            font-size: .8rem;
+            margin-bottom: 14px
+        }
+
+        /* HUD */
+        .hud {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--card);
+            border-radius: var(--radius);
+            padding: 8px 14px;
+            margin-bottom: 14px;
+            gap: 8px;
+            flex-wrap: wrap
+        }
+
+        .hud-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px
+        }
+
+        .hud-label {
+            font-size: .65rem;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: .5px
+        }
+
+        .hud-val {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--accent)
+        }
+
+        .lives {
+            color: var(--err)
+        }
+
+        .phase-bar {
+            height: 6px;
+            background: #334155;
+            border-radius: 4px;
+            margin-bottom: 14px;
+            overflow: hidden
+        }
+
+        .phase-fill {
+            height: 100%;
+            background: var(--accent);
+            border-radius: 4px;
+            transition: width .4s
+        }
+
+        /* Card */
+        .card {
+            background: var(--card);
+            border-radius: var(--radius);
+            padding: 16px;
+            margin-bottom: 12px
+        }
+
+        .card h2 {
+            font-size: 1rem;
+            color: var(--accent);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px
+        }
+
+        .badge {
+            font-size: .7rem;
+            padding: 2px 8px;
+            border-radius: 20px;
+            background: #0ea5e9;
+            color: #fff;
+            font-weight: 600
+        }
+
+        .badge.hard {
+            background: #9333ea
+        }
+
+        .badge.medium {
+            background: #f59e0b
+        }
+
+        .scenario-text {
+            font-size: .9rem;
+            line-height: 1.5;
+            color: var(--txt);
+            background: var(--card2);
+            border-radius: 8px;
+            padding: 12px;
+            border-left: 3px solid var(--accent)
+        }
+
+        /* Topology */
+        .topo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0;
+            flex-wrap: wrap;
+            margin: 12px 0;
+            font-size: .75rem;
+            text-align: center
+        }
+
+        .node {
+            background: var(--card2);
+            border: 2px solid #334155;
+            border-radius: 8px;
+            padding: 8px 10px;
+            min-width: 90px
+        }
+
+        .node.highlight {
+            border-color: var(--accent)
+        }
+
+        .node-icon {
+            font-size: 1.5rem
+        }
+
+        .node-label {
+            color: var(--muted);
+            font-size: .65rem
+        }
+
+        .node-ip {
+            color: var(--warn);
+            font-weight: 700;
+            word-break: break-all
+        }
+
+        .arrow {
+            color: #475569;
+            font-size: 1.2rem;
+            padding: 0 4px;
+            align-self: center
+        }
+
+        /* Form */
+        .fields {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 10px
+        }
+
+        @media(max-width:480px) {
+            .fields {
+                grid-template-columns: 1fr
+            }
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 4px
+        }
+
+        .field label {
+            font-size: .75rem;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: .4px
+        }
+
+        .field input {
+            background: #0f172a;
+            border: 2px solid #334155;
+            border-radius: 8px;
+            color: var(--txt);
+            font-size: .95rem;
+            padding: 9px 10px;
+            outline: none;
+            transition: border .2s;
+            width: 100%
+        }
+
+        .field input:focus {
+            border-color: var(--accent)
+        }
+
+        .field input.ok {
+            border-color: var(--ok)
+        }
+
+        .field input.err {
+            border-color: var(--err)
+        }
+
+        .field .hint {
+            font-size: .7rem;
+            color: var(--muted)
+        }
+
+        .check-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 4px
+        }
+
+        .check-icon {
+            font-size: 1rem
+        }
+
+        /* Buttons */
+        .btn-row {
+            display: flex;
+            gap: 10px;
+            margin-top: 14px;
+            flex-wrap: wrap
+        }
+
+        .btn {
+            flex: 1;
+            padding: 11px;
+            border: none;
+            border-radius: 8px;
+            font-size: .95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity .2s
+        }
+
+        .btn:hover {
+            opacity: .85
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #0f172a
+        }
+
+        .btn-secondary {
+            background: #334155;
+            color: var(--txt)
+        }
+
+        .btn-hint {
+            background: #1d4ed8;
+            color: #fff;
+            flex: 0;
+            padding: 11px 16px;
+            font-size: .8rem
+        }
+
+        /* Feedback */
+        .feedback {
+            border-radius: 8px;
+            padding: 12px 14px;
+            margin-top: 12px;
+            font-size: .88rem;
+            line-height: 1.6;
+            display: none
+        }
+
+        .feedback.show {
+            display: block
+        }
+
+        .feedback.ok {
+            background: #14532d;
+            border: 1px solid var(--ok);
+            color: #bbf7d0
+        }
+
+        .feedback.err {
+            background: #450a0a;
+            border: 1px solid var(--err);
+            color: #fecaca
+        }
+
+        .feedback.warn {
+            background: #451a03;
+            border: 1px solid var(--warn);
+            color: #fde68a
+        }
+
+        .feedback b {
+            display: block;
+            margin-bottom: 4px;
+            font-size: .95rem
+        }
+
+        /* Calcs table */
+        .calc-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: .8rem;
+            margin-top: 8px
+        }
+
+        .calc-table td,
+        .calc-table th {
+            padding: 5px 8px;
+            border: 1px solid #334155
+        }
+
+        .calc-table th {
+            background: #0f172a;
+            color: var(--accent);
+            text-transform: uppercase;
+            font-size: .7rem
+        }
+
+        .calc-table .ok {
+            color: var(--ok)
+        }
+
+        .calc-table .err {
+            color: var(--err)
+        }
+
+        /* Phase complete */
+        #phase-complete {
+            display: none;
+            text-align: center;
+            padding: 24px 16px
+        }
+
+        #phase-complete h2 {
+            font-size: 1.4rem;
+            margin-bottom: 8px
+        }
+
+        #phase-complete p {
+            color: var(--muted);
+            margin-bottom: 16px
+        }
+
+        .stars {
+            font-size: 2rem;
+            letter-spacing: 4px
+        }
+
+        /* Game Over / Victory */
+        #endscreen {
+            display: none;
+            text-align: center;
+            padding: 24px 16px
+        }
+
+        #endscreen h2 {
+            font-size: 1.5rem;
+            margin-bottom: 8px
+        }
+
+        #endscreen p {
+            color: var(--muted);
+            margin-bottom: 16px;
+            line-height: 1.6
+        }
+
+        /* Hint modal */
+        #hint-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: #000a;
+            z-index: 100;
+            justify-content: center;
+            align-items: flex-end;
+            padding: 12px
+        }
+
+        #hint-modal.show {
+            display: flex
+        }
+
+        .hint-box {
+            background: var(--card);
+            border-radius: var(--radius) var(--radius) 0 0;
+            padding: 20px 16px;
+            max-width: 480px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto
+        }
+
+        .hint-box h3 {
+            color: var(--accent);
+            margin-bottom: 10px
+        }
+
+        .hint-box p,
+        .hint-box li {
+            font-size: .85rem;
+            line-height: 1.6;
+            color: var(--txt);
+            margin-bottom: 6px
+        }
+
+        .hint-box ul {
+            padding-left: 16px
+        }
+
+        .close-hint {
+            float: right;
+            background: var(--err);
+            border: none;
+            color: #fff;
+            border-radius: 6px;
+            padding: 4px 10px;
+            cursor: pointer;
+            font-size: .85rem
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>🌐 NetConfig</h1>
+    <p class="subtitle">Treinamento de Configuração TCP/IP</p>
+
+    <!-- HUD -->
+    <div class="hud">
+        <div class="hud-item"><span class="hud-label">Fase</span><span class="hud-val" id="hud-phase">1/5</span></div>
+        <div class="hud-item"><span class="hud-label">Questão</span><span class="hud-val" id="hud-q">1/3</span></div>
+        <div class="hud-item"><span class="hud-label">Pontos</span><span class="hud-val" id="hud-score">0</span></div>
+        <div class="hud-item"><span class="hud-label">Vidas</span><span class="hud-val lives"
+                id="hud-lives">❤️❤️❤️</span></div>
+    </div>
+    <div class="phase-bar">
+        <div class="phase-fill" id="phase-fill" style="width:0%"></div>
+    </div>
+
+    <!-- Game area -->
+    <div id="game-area">
+        <div class="card" id="scenario-card">
+            <h2>📋 Cenário <span class="badge" id="diff-badge">Fácil</span></h2>
+            <div class="scenario-text" id="scenario-text"></div>
+            <div class="topo" id="topology"></div>
+        </div>
+
+        <div class="card">
+            <h2>⚙️ Configure o Host</h2>
+            <div class="fields">
+                <div class="field">
+                    <label>Endereço IP</label>
+                    <input type="text" id="f-ip" placeholder="ex: 192.168.1.10" maxlength="15" />
+                    <span class="hint" id="h-ip"></span>
+                </div>
+                <div class="field">
+                    <label>Máscara de Sub-rede</label>
+                    <input type="text" id="f-mask" placeholder="ex: 255.255.255.0" maxlength="15" />
+                    <span class="hint" id="h-mask"></span>
+                </div>
+                <div class="field">
+                    <label>Gateway Padrão</label>
+                    <input type="text" id="f-gw" placeholder="ex: 192.168.1.1" maxlength="15" />
+                    <span class="hint" id="h-gw"></span>
+                </div>
+                <div class="field" id="field-bc" style="display:none">
+                    <label>Endereço de Broadcast</label>
+                    <input type="text" id="f-bc" placeholder="ex: 192.168.1.255" maxlength="15" />
+                    <span class="hint" id="h-bc"></span>
+                </div>
+                <div class="field" id="field-net" style="display:none">
+                    <label>Endereço de Rede</label>
+                    <input type="text" id="f-net" placeholder="ex: 192.168.1.0" maxlength="15" />
+                    <span class="hint" id="h-net"></span>
+                </div>
+            </div>
+            <div class="btn-row">
+                <button class="btn btn-hint" onclick="openHint()">💡 Dica</button>
+                <button class="btn btn-secondary" id="btn-next" style="display:none" onclick="nextQuestion()">Próxima
+                    →</button>
+                <button class="btn btn-primary" id="btn-check" onclick="checkAnswer()">Verificar ✔</button>
+            </div>
+            <div class="feedback" id="feedback"></div>
+        </div>
+    </div>
+
+    <!-- Phase complete -->
+    <div id="phase-complete" class="card">
+        <div class="stars" id="stars-display"></div>
+        <h2 id="pc-title"></h2>
+        <p id="pc-msg"></p>
+        <button class="btn btn-primary" style="max-width:200px;margin:0 auto" onclick="nextPhase()">Próxima Fase
+            →</button>
+    </div>
+
+    <!-- End screen -->
+    <div id="endscreen" class="card">
+        <div style="font-size:3rem" id="end-icon"></div>
+        <h2 id="end-title"></h2>
+        <p id="end-msg"></p>
+        <div id="end-score-box"
+            style="background:var(--card2);border-radius:8px;padding:12px;margin:12px 0;font-size:.9rem"></div>
+        <button class="btn btn-primary" style="max-width:200px;margin:0 auto" onclick="restartGame()">Jogar Novamente
+            🔄</button>
+    </div>
+
+    <!-- Hint Modal -->
+    <div id="hint-modal">
+        <div class="hint-box">
+            <button class="close-hint" onclick="closeHint()">✕ Fechar</button>
+            <h3>💡 Dicas TCP/IP</h3>
+            <div id="hint-content"></div>
+        </div>
+    </div>
+
+    <script>
+        // ── DATA ─────────────────────────────────────────────────────────────────────
+        const PHASES = [
+            {
+                name: "Fase 1 – Redes Simples", diff: "Fácil", pts: 10,
+                questions: [
+                    {
+                        scenario: "O computador PC1 precisa acessar a internet. O roteador tem IP 192.168.0.1. Configure o PC1 na mesma rede com IP .10, máscara padrão Classe C.",
+                        topo: [{ icon: "💻", label: "PC1", ip: "???", highlight: true }, { arrow: true }, { icon: "🔀", label: "Roteador", ip: "192.168.0.1" }],
+                        answer: { ip: "192.168.0.10", mask: "255.255.255.0", gw: "192.168.0.1" },
+                        showBC: false, showNet: false,
+                        hint: "redes-basico"
+                    },
+                    {
+                        scenario: "O PC2 deve se comunicar com outros computadores da rede 10.0.0.0/8. O gateway é 10.0.0.1. Atribua o IP 10.0.0.50.",
+                        topo: [{ icon: "💻", label: "PC2", ip: "???", highlight: true }, { arrow: true }, { icon: "🔀", label: "Gateway", ip: "10.0.0.1" }],
+                        answer: { ip: "10.0.0.50", mask: "255.0.0.0", gw: "10.0.0.1" },
+                        showBC: false, showNet: false,
+                        hint: "redes-basico"
+                    },
+                    {
+                        scenario: "Laboratório escolar: rede 172.16.0.0 com máscara Classe B. O roteador está em 172.16.0.1. Configure o PC3 com IP 172.16.0.30.",
+                        topo: [{ icon: "💻", label: "PC3", ip: "???", highlight: true }, { arrow: true }, { icon: "🔀", label: "Switch", ip: "" }, { arrow: true }, { icon: "🔀", label: "Roteador", ip: "172.16.0.1" }],
+                        answer: { ip: "172.16.0.30", mask: "255.255.0.0", gw: "172.16.0.1" },
+                        showBC: false, showNet: false,
+                        hint: "redes-basico"
+                    }
+                ]
+            },
+            {
+                name: "Fase 2 – Gateway e Erros Comuns", diff: "Fácil", pts: 15,
+                questions: [
+                    {
+                        scenario: "⚠️ ERRO: O técnico configurou o PC assim — IP: 192.168.1.50, Máscara: 255.255.255.0, Gateway: 192.168.2.1. O PC não acessa a internet. Por quê? Corrija o gateway (o roteador está em 192.168.1.1).",
+                        topo: [{ icon: "💻", label: "PC", ip: "192.168.1.50", highlight: true }, { arrow: true }, { icon: "🔀", label: "Roteador", ip: "192.168.1.1" }],
+                        answer: { ip: "192.168.1.50", mask: "255.255.255.0", gw: "192.168.1.1" },
+                        showBC: false, showNet: false,
+                        hint: "gateway-erros",
+                        errorScenario: true
+                    },
+                    {
+                        scenario: "⚠️ ERRO: IP: 192.168.1.200, Máscara: 255.255.0.0, Gateway: 192.168.1.1. Outro PC na rede tem IP 192.168.1.100 e não consegue se comunicar com este. Corrija a máscara para Classe C.",
+                        topo: [{ icon: "💻", label: "PC-A", ip: "192.168.1.200", highlight: true }, { arrow: true }, { icon: "💻", label: "PC-B", ip: "192.168.1.100" }],
+                        answer: { ip: "192.168.1.200", mask: "255.255.255.0", gw: "192.168.1.1" },
+                        showBC: false, showNet: false,
+                        hint: "gateway-erros",
+                        errorScenario: true
+                    },
+                    {
+                        scenario: "Um servidor web precisa de IP fixo na rede 192.168.10.0/24. O roteador é .1, o servidor deve ter IP .100. Sem erros desta vez — configure corretamente!",
+                        topo: [{ icon: "🖥️", label: "Servidor", ip: "???", highlight: true }, { arrow: true }, { icon: "🔀", label: "Roteador", ip: "192.168.10.1" }],
+                        answer: { ip: "192.168.10.100", mask: "255.255.255.0", gw: "192.168.10.1" },
+                        showBC: false, showNet: false,
+                        hint: "gateway-erros"
+                    }
+                ]
+            },
+            {
+                name: "Fase 3 – Cálculo de Broadcast", diff: "Médio", pts: 20,
+                questions: [
+                    {
+                        scenario: "Configure o PC na rede 192.168.5.0/24. IP: .25, Gateway: .1. Calcule também o endereço de broadcast desta rede.",
+                        topo: [{ icon: "💻", label: "PC", ip: "???", highlight: true }, { arrow: true }, { icon: "🔀", label: "Gateway", ip: "192.168.5.1" }],
+                        answer: { ip: "192.168.5.25", mask: "255.255.255.0", gw: "192.168.5.1", bc: "192.168.5.255" },
+                        showBC: true, showNet: false,
+                        hint: "calc-bc"
+                    },
+                    {
+                        scenario: "Rede 10.10.0.0/16. Configure o host com IP 10.10.1.5, gateway 10.10.0.1. Qual o broadcast desta rede /16?",
+                        topo: [{ icon: "💻", label: "Host", ip: "???", highlight: true }, { arrow: true }, { icon: "🔀", label: "Roteador", ip: "10.10.0.1" }],
+                        answer: { ip: "10.10.1.5", mask: "255.255.0.0", gw: "10.10.0.1", bc: "10.10.255.255" },
+                        showBC: true, showNet: false,
+                        hint: "calc-bc"
+                    },
+                    {
+                        scenario: "Sub-rede /24 com base 172.16.3.0. IP do host: .88, gateway: .1. Calcule o broadcast.",
+                        topo: [{ icon: "💻", label: "Host", ip: "???", highlight: true }, { arrow: true }, { icon: "🔀", label: "Roteador", ip: "172.16.3.1" }],
+                        answer: { ip: "172.16.3.88", mask: "255.255.255.0", gw: "172.16.3.1", bc: "172.16.3.255" },
+                        showBC: true, showNet: false,
+                        hint: "calc-bc"
+                    }
+                ]
+            },
+            {
+                name: "Fase 4 – Endereço de Rede", diff: "Médio", pts: 25,
+                questions: [
+                    {
+                        scenario: "Dado o IP 192.168.4.37/24: configure o host (gateway .1) e informe o endereço de rede desta sub-rede.",
+                        topo: [{ icon: "💻", label: "Host", ip: "???", highlight: true }, { arrow: true }, { icon: "🔀", label: "Gateway", ip: "192.168.4.1" }],
+                        answer: { ip: "192.168.4.37", mask: "255.255.255.0", gw: "192.168.4.1", net: "192.168.4.0" },
+                        showBC: false, showNet: true,
+                        hint: "calc-net"
+                    },
+                    {
+                        scenario: "Host com IP 172.20.5.200/16. Gateway: 172.20.0.1. Qual o endereço de rede?",
+                        topo: [{ icon: "💻", label: "Host", ip: "???", highlight: true }, { arrow: true }, { icon: "🔀", label: "Roteador", ip: "172.20.0.1" }],
+                        answer: { ip: "172.20.5.200", mask: "255.255.0.0", gw: "172.20.0.1", net: "172.20.0.0" },
+                        showBC: false, showNet: true,
+                        hint: "calc-net"
+                    },
+                    {
+                        scenario: "IP 10.5.3.100/8, gateway 10.0.0.1. Calcule o endereço de rede.",
+                        topo: [{ icon: "💻", label: "Host", ip: "???", highlight: true }, { arrow: true }, { icon: "🔀", label: "Roteador", ip: "10.0.0.1" }],
+                        answer: { ip: "10.5.3.100", mask: "255.0.0.0", gw: "10.0.0.1", net: "10.0.0.0" },
+                        showBC: false, showNet: true,
+                        hint: "calc-net"
+                    }
+                ]
+            },
+            {
+                name: "Fase 5 – Desafio Final", diff: "Difícil", pts: 40,
+                questions: [
+                    {
+                        scenario: "🏆 DESAFIO: Rede corporativa 192.168.100.0/24. Servidor DNS deve ter IP .53, impressora .200, gateway .1. Configure o PC de um gerente com IP .150. Calcule broadcast E endereço de rede.",
+                        topo: [{ icon: "💻", label: "PC Gerente", ip: "???", highlight: true }, { arrow: true }, { icon: "🔀", label: "Switch", ip: "" }, { arrow: true }, { icon: "🔀", label: "Roteador", ip: "192.168.100.1" }],
+                        answer: { ip: "192.168.100.150", mask: "255.255.255.0", gw: "192.168.100.1", bc: "192.168.100.255", net: "192.168.100.0" },
+                        showBC: true, showNet: true,
+                        hint: "desafio"
+                    },
+                    {
+                        scenario: "⚠️ FALHA CRÍTICA: Um servidor não responde. Configuração atual — IP: 192.168.50.1, Máscara: 255.255.0.0, Gateway: 192.168.50.254. A rede é 192.168.50.0/24. O IP 192.168.50.1 é reservado para o roteador! Corrija atribuindo ao servidor o IP .200, máscara correta e mantenha o gateway. Calcule broadcast e rede.",
+                        topo: [{ icon: "🖥️", label: "Servidor", ip: "192.168.50.1", highlight: true }, { arrow: true }, { icon: "🔀", label: "Roteador", ip: "192.168.50.254" }],
+                        answer: { ip: "192.168.50.200", mask: "255.255.255.0", gw: "192.168.50.254", bc: "192.168.50.255", net: "192.168.50.0" },
+                        showBC: true, showNet: true,
+                        hint: "desafio",
+                        errorScenario: true
+                    },
+                    {
+                        scenario: "🏆 MISSÃO FINAL: Nova filial com rede 172.31.0.0/16. Roteador: 172.31.0.1. Configure o PC principal com IP 172.31.1.10. Calcule broadcast e endereço de rede.",
+                        topo: [{ icon: "💻", label: "PC Principal", ip: "???", highlight: true }, { arrow: true }, { icon: "🔀", label: "Roteador", ip: "172.31.0.1" }, { arrow: true }, { icon: "🌐", label: "Internet", ip: "" }],
+                        answer: { ip: "172.31.1.10", mask: "255.255.0.0", gw: "172.31.0.1", bc: "172.31.255.255", net: "172.31.0.0" },
+                        showBC: true, showNet: true,
+                        hint: "desafio"
+                    }
+                ]
+            }
+        ];
+
+        const HINTS = {
+            "redes-basico": `
+    <p><b>Classes de endereços IPv4:</b></p>
+    <ul>
+      <li><b>Classe A</b>: 1–126.x.x.x → Máscara <b>255.0.0.0</b> (/8)</li>
+      <li><b>Classe B</b>: 128–191.x.x.x → Máscara <b>255.255.0.0</b> (/16)</li>
+      <li><b>Classe C</b>: 192–223.x.x.x → Máscara <b>255.255.255.0</b> (/24)</li>
+    </ul>
+    <p><b>Gateway padrão</b>: deve estar na <b>mesma rede</b> que o host. É o IP do roteador.</p>
+    <p><b>Regra:</b> host e gateway precisam compartilhar os mesmos octetos de rede.</p>`,
+            "gateway-erros": `
+    <p><b>Erros comuns de configuração:</b></p>
+    <ul>
+      <li>Gateway em rede diferente do host → sem saída para internet</li>
+      <li>Máscara errada → hosts na mesma rede "parecem" estar em redes diferentes</li>
+      <li>IP duplicado → conflito de endereço (ambos param de responder)</li>
+    </ul>
+    <p><b>Diagnóstico rápido:</b> aplique a máscara bitwise AND no IP e no gateway — se o resultado for diferente, o gateway está errado.</p>`,
+            "calc-bc": `
+    <p><b>Cálculo do Broadcast:</b></p>
+    <ul>
+      <li>Broadcast = todos os bits do host em <b>1</b></li>
+      <li>Para /24 (255.255.255.0): último octeto vira <b>255</b></li>
+      <li>Para /16 (255.255.0.0): dois últimos octetos viram <b>255.255</b></li>
+      <li>Para /8 (255.0.0.0): três últimos octetos viram <b>255.255.255</b></li>
+    </ul>
+    <p><b>Fórmula:</b> Endereço de Rede OR (NOT Máscara)</p>
+    <p>Exemplo: 192.168.1.0 com /24 → broadcast = 192.168.1.<b>255</b></p>`,
+            "calc-net": `
+    <p><b>Cálculo do Endereço de Rede:</b></p>
+    <ul>
+      <li>Endereço de Rede = IP AND Máscara (operação bitwise)</li>
+      <li>Bits do host viram todos <b>0</b></li>
+    </ul>
+    <p><b>Exemplos:</b></p>
+    <ul>
+      <li>172.16.5.200 AND 255.255.0.0 = <b>172.16.0.0</b></li>
+      <li>10.5.3.100 AND 255.0.0.0 = <b>10.0.0.0</b></li>
+      <li>192.168.4.37 AND 255.255.255.0 = <b>192.168.4.0</b></li>
+    </ul>`,
+            "desafio": `
+    <p><b>Resumo completo de configuração:</b></p>
+    <ul>
+      <li><b>IP do host</b>: deve estar no range da rede (não pode ser .0 nem broadcast)</li>
+      <li><b>Máscara</b>: definida pela notação /X (CIDR)</li>
+      <li><b>Gateway</b>: IP do roteador, na mesma rede</li>
+      <li><b>Broadcast</b>: bits do host = todos 1</li>
+      <li><b>Endereço de rede</b>: bits do host = todos 0</li>
+    </ul>
+    <p>/24 = 256 endereços, 254 hosts úteis (.1 a .254)</p>
+    <p>/16 = 65536 endereços, 65534 hosts úteis</p>
+    <p>/8 = 16 milhões de endereços</p>`
+        };
+
+        // ── STATE ─────────────────────────────────────────────────────────────────────
+        let state = {
+            phase: 0, question: 0, score: 0, lives: 3,
+            phaseErrors: 0, totalCorrect: 0
+        };
+
+        // ── INIT ──────────────────────────────────────────────────────────────────────
+        function init() {
+            state = { phase: 0, question: 0, score: 0, lives: 3, phaseErrors: 0, totalCorrect: 0 };
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            const ph = PHASES[state.phase];
+            const q = ph.questions[state.question];
+
+            // HUD
+            document.getElementById('hud-phase').textContent = `${state.phase + 1}/${PHASES.length}`;
+            document.getElementById('hud-q').textContent = `${state.question + 1}/${ph.questions.length}`;
+            document.getElementById('hud-score').textContent = state.score;
+            updateLives();
+            const fill = ((state.phase * ph.questions.length + state.question) / (PHASES.length * ph.questions.length)) * 100;
+            document.getElementById('phase-fill').style.width = fill + '%';
+
+            // Badge
+            const badge = document.getElementById('diff-badge');
+            badge.textContent = ph.diff;
+            badge.className = 'badge' + (ph.diff === 'Médio' ? ' medium' : ph.diff === 'Difícil' ? ' hard' : '');
+
+            // Scenario
+            document.getElementById('scenario-text').textContent = q.scenario;
+
+            // Topology
+            const topo = document.getElementById('topology');
+            topo.innerHTML = '';
+            q.topo.forEach(n => {
+                if (n.arrow) { topo.innerHTML += '<span class="arrow">→</span>'; return; }
+                const d = document.createElement('div');
+                d.className = 'node' + (n.highlight ? ' highlight' : '');
+                d.innerHTML = `<div class="node-icon">${n.icon}</div><div class="node-label">${n.label}</div>${n.ip ? `<div class="node-ip">${n.ip}</div>` : ''}`;
+                topo.appendChild(d);
+            });
+
+            // Fields
+            ['ip', 'mask', 'gw'].forEach(f => {
+                const inp = document.getElementById('f-' + f);
+                inp.value = ''; inp.className = '';
+                document.getElementById('h-' + f).textContent = '';
+            });
+            document.getElementById('field-bc').style.display = q.showBC ? 'flex' : 'none';
+            document.getElementById('field-net').style.display = q.showNet ? 'flex' : 'none';
+            if (q.showBC) { document.getElementById('f-bc').value = ''; document.getElementById('f-bc').className = ''; document.getElementById('h-bc').textContent = ''; }
+            if (q.showNet) { document.getElementById('f-net').value = ''; document.getElementById('f-net').className = ''; document.getElementById('h-net').textContent = ''; }
+
+            // Buttons / Feedback
+            document.getElementById('btn-check').style.display = 'inline-block';
+            document.getElementById('btn-next').style.display = 'none';
+            hideFeedback();
+
+            // Screens
+            document.getElementById('game-area').style.display = 'block';
+            document.getElementById('phase-complete').style.display = 'none';
+            document.getElementById('endscreen').style.display = 'none';
+        }
+
+        // ── VALIDATION ────────────────────────────────────────────────────────────────
+        function validIP(v) {
+            const p = v.trim().split('.');
+            if (p.length !== 4) return false;
+            return p.every(x => x !== '' && !isNaN(x) && +x >= 0 && +x <= 255);
+        }
+
+        function checkAnswer() {
+            const ph = PHASES[state.phase];
+            const q = ph.questions[state.question];
+            const a = q.answer;
+
+            const vals = {
+                ip: document.getElementById('f-ip').value.trim(),
+                mask: document.getElementById('f-mask').value.trim(),
+                gw: document.getElementById('f-gw').value.trim(),
+                bc: q.showBC ? document.getElementById('f-bc').value.trim() : null,
+                net: q.showNet ? document.getElementById('f-net').value.trim() : null
+            };
+
+            // Validate format first
+            const fields = ['ip', 'mask', 'gw'];
+            if (q.showBC) fields.push('bc');
+            if (q.showNet) fields.push('net');
+            for (const f of fields) {
+                if (vals[f] !== null && !validIP(vals[f])) {
+                    showFeedback('warn', `⚠️ Formato inválido`, 'Verifique se todos os campos contêm IPs válidos no formato X.X.X.X (0–255 em cada octeto).');
+                    return;
+                }
+            }
+
+            const checks = {
+                ip: vals.ip === a.ip,
+                mask: vals.mask === a.mask,
+                gw: vals.gw === a.gw,
+                bc: !q.showBC || vals.bc === a.bc,
+                net: !q.showNet || vals.net === a.net
+            };
+
+            const allOk = Object.values(checks).every(Boolean);
+
+            // Visual per-field
+            setFieldState('ip', checks.ip);
+            setFieldState('mask', checks.mask);
+            setFieldState('gw', checks.gw);
+            if (q.showBC) setFieldState('bc', checks.bc);
+            if (q.showNet) setFieldState('net', checks.net);
+
+            if (allOk) {
+                state.score += ph.pts;
+                state.totalCorrect++;
+                document.getElementById('hud-score').textContent = state.score;
+                const tableRows = buildTable(q, vals, checks);
+                showFeedback('ok', '✅ Correto! +' + ph.pts + ' pontos', tableRows);
+                document.getElementById('btn-check').style.display = 'none';
+                document.getElementById('btn-next').style.display = 'inline-block';
+            } else {
+                state.phaseErrors++;
+                state.lives--;
+                updateLives();
+                const errs = [];
+                if (!checks.ip) errs.push(`IP correto: <b>${a.ip}</b>`);
+                if (!checks.mask) errs.push(`Máscara correta: <b>${a.mask}</b>`);
+                if (!checks.gw) errs.push(`Gateway correto: <b>${a.gw}</b>`);
+                if (q.showBC && !checks.bc) errs.push(`Broadcast correto: <b>${a.bc}</b>`);
+                if (q.showNet && !checks.net) errs.push(`Endereço de rede correto: <b>${a.net}</b>`);
+                showFeedback('err', '❌ Há erros na configuração:', errs.join('<br>'));
+                if (state.lives <= 0) { gameOver(); return; }
+            }
+        }
+
+        function buildTable(q, vals, checks) {
+            const rows = [
+                ['IP', vals.ip, checks.ip],
+                ['Máscara', vals.mask, checks.mask],
+                ['Gateway', vals.gw, checks.gw],
+            ];
+            if (q.showBC) rows.push(['Broadcast', vals.bc, checks.bc]);
+            if (q.showNet) rows.push(['End. Rede', vals.net, checks.net]);
+            return `<table class="calc-table"><thead><tr><th>Campo</th><th>Você</th><th>✔</th></tr></thead><tbody>` +
+                rows.map(([l, v, ok]) => `<tr><td>${l}</td><td>${v}</td><td class="${ok ? 'ok' : 'err'}">${ok ? '✔' : '✖'}</td></tr>`).join('') +
+                '</tbody></table>';
+        }
+
+        function setFieldState(id, ok) {
+            const el = document.getElementById('f-' + id);
+            if (!el) return;
+            el.className = ok ? 'ok' : 'err';
+            document.getElementById('h-' + id).textContent = '';
+        }
+
+        // ── NAVIGATION ────────────────────────────────────────────────────────────────
+        function nextQuestion() {
+            const ph = PHASES[state.phase];
+            if (state.question + 1 < ph.questions.length) {
+                state.question++;
+                renderQuestion();
+            } else {
+                showPhaseComplete();
+            }
+        }
+
+        function showPhaseComplete() {
+            document.getElementById('game-area').style.display = 'none';
+            const errors = state.phaseErrors;
+            let stars = '⭐⭐⭐', msg = '';
+            if (errors === 0) { stars = '⭐⭐⭐'; msg = 'Perfeito! Nenhum erro nesta fase!'; }
+            else if (errors <= 2) { stars = '⭐⭐'; msg = 'Bom trabalho! Poucos erros.'; }
+            else { stars = '⭐'; msg = 'Fase concluída! Revise os erros para ir melhor na próxima.'; }
+            document.getElementById('stars-display').textContent = stars;
+            document.getElementById('pc-title').textContent = PHASES[state.phase].name + ' — Concluída!';
+            document.getElementById('pc-msg').textContent = msg + ' Pontuação atual: ' + state.score;
+            document.getElementById('phase-complete').style.display = 'block';
+            state.phaseErrors = 0;
+        }
+
+        function nextPhase() {
+            if (state.phase + 1 < PHASES.length) {
+                state.phase++;
+                state.question = 0;
+                renderQuestion();
+            } else {
+                showVictory();
+            }
+        }
+
+        function showVictory() {
+            document.getElementById('phase-complete').style.display = 'none';
+            const pct = Math.round((state.totalCorrect / (PHASES.length * 3)) * 100);
+            document.getElementById('end-icon').textContent = '🏆';
+            document.getElementById('end-title').textContent = 'Parabéns! Jogo completo!';
+            document.getElementById('end-msg').textContent = 'Você concluiu todas as fases de configuração de redes TCP/IP!';
+            document.getElementById('end-score-box').innerHTML =
+                `<b>Pontuação final:</b> ${state.score}<br><b>Acertos:</b> ${state.totalCorrect}/15 (${pct}%)<br><b>Vidas restantes:</b> ${state.lives}/3`;
+            document.getElementById('endscreen').style.display = 'block';
+        }
+
+        function gameOver() {
+            setTimeout(() => {
+                document.getElementById('game-area').style.display = 'none';
+                document.getElementById('end-icon').textContent = '💀';
+                document.getElementById('end-title').textContent = 'Game Over!';
+                document.getElementById('end-msg').textContent = 'Você perdeu todas as vidas. Não desista — revise o conteúdo e tente novamente!';
+                document.getElementById('end-score-box').innerHTML =
+                    `<b>Pontuação:</b> ${state.score}<br><b>Acertos:</b> ${state.totalCorrect}<br><b>Fase atingida:</b> ${state.phase + 1}/${PHASES.length}`;
+                document.getElementById('endscreen').style.display = 'block';
+            }, 1200);
+        }
+
+        function restartGame() { init(); }
+
+        // ── LIVES ─────────────────────────────────────────────────────────────────────
+        function updateLives() {
+            const h = document.getElementById('hud-lives');
+            h.textContent = '❤️'.repeat(state.lives) + '🖤'.repeat(3 - state.lives);
+        }
+
+        // ── FEEDBACK ─────────────────────────────────────────────────────────────────
+        function showFeedback(type, title, body) {
+            const el = document.getElementById('feedback');
+            el.className = 'feedback show ' + type;
+            el.innerHTML = `<b>${title}</b>${body}`;
+        }
+        function hideFeedback() {
+            const el = document.getElementById('feedback');
+            el.className = 'feedback'; el.innerHTML = '';
+        }
+
+        // ── HINT ─────────────────────────────────────────────────────────────────────
+        function openHint() {
+            const q = PHASES[state.phase].questions[state.question];
+            document.getElementById('hint-content').innerHTML = HINTS[q.hint] || '<p>Sem dica disponível.</p>';
+            document.getElementById('hint-modal').classList.add('show');
+        }
+        function closeHint() { document.getElementById('hint-modal').classList.remove('show'); }
+        document.getElementById('hint-modal').addEventListener('click', e => {
+            if (e.target === document.getElementById('hint-modal')) closeHint();
+        });
+
+        // ── START ─────────────────────────────────────────────────────────────────────
+        init();
+    </script>
+</body>
+
+</html>
