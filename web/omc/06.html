@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AULA 06 — MEMÓRIA RAM: TIPOS, FUNCIONAMENTO, INSTALAÇÃO E DIAGNÓSTICO</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <main>
+        <header>
+            <h1>📘 AULA 06 — MEMÓRIA RAM: TIPOS, FUNCIONAMENTO, INSTALAÇÃO E DIAGNÓSTICO</h1>
+        </header>
+        <img src="../assets/images/omc/06/capa.png" alt="">
+        <h2>1. Introdução</h2>
+        <p>A memória RAM (Random Access Memory) é o espaço de trabalho temporário do computador. Enquanto o processador executa instruções, os dados ativos — programas abertos, arquivos em edição, estado do sistema operacional — ficam armazenados na RAM.</p>
+        <blockquote>
+            <p><strong>Definição:</strong> memória volátil de acesso aleatório que armazena temporariamente os dados em uso pelo processador.</p>
+        </blockquote>
+        <p><strong>Volátil</strong> significa que todo o conteúdo é perdido quando o computador é desligado.</p>
+        <p>A RAM difere do armazenamento (HD/SSD) em dois aspectos fundamentais:</p>
+        <table>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>RAM</th>
+                    <th>Armazenamento (SSD/HD)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Velocidade</strong></td>
+                    <td>Muito alta (GB/s)</td>
+                    <td>Menor (MB/s a GB/s)</td>
+                </tr>
+                <tr>
+                    <td><strong>Volatilidade</strong></td>
+                    <td>Perde dados sem energia</td>
+                    <td>Retém dados sem energia</td>
+                </tr>
+                <tr>
+                    <td><strong>Função</strong></td>
+                    <td>Dados em uso agora</td>
+                    <td>Dados persistentes</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>2. Como a RAM Funciona</h2>
+        <p>O processador não lê dados diretamente do armazenamento durante a execução — isso seria lento demais. O fluxo é:</p>
+        <img src="../assets/images/omc/06/ram.png" alt="">
+        <p>Quando a RAM está cheia, o sistema operacional usa o armazenamento como <strong>memória virtual (swap)</strong> — o que causa queda severa de desempenho, pois o acesso ao SSD/HD é ordens de magnitude mais lento.</p>
+
+        <h2>3. Tipos de Módulo</h2>
+        <h3>3.1 DIMM — Desktop</h3>
+        <p><strong>DIMM (Dual Inline Memory Module)</strong> é o formato padrão para desktops. Os pinos dos dois lados do módulo são independentes eletricamente.</p>
+        <ul>
+            <li>Comprimento físico: ~133 mm</li>
+            <li>Slots: placas-mãe ATX geralmente possuem 2 ou 4 slots DIMM</li>
+        </ul>
+        <h3>3.2 SO-DIMM — Notebooks e Compactos</h3>
+        <p><strong>SO-DIMM (Small Outline DIMM)</strong> é a versão compacta para notebooks, mini-PCs e alguns all-in-ones.</p>
+        <ul>
+            <li>Comprimento físico: ~67 mm</li>
+            <li>Mesmo padrão elétrico (DDR4/DDR5), mas <strong>fisicamente incompatível</strong> com slots DIMM</li>
+        </ul>
+        <blockquote>
+            <p>⚠️ DIMM e SO-DIMM não são intercambiáveis. Um módulo SO-DIMM não encaixa em uma placa-mãe desktop e vice-versa.</p>
+        </blockquote>
+
+        <h2>4. Padrões DDR — Evolução</h2>
+        <p>DDR significa <strong>Double Data Rate</strong>: a memória transfere dados duas vezes por ciclo de clock (na borda de subida e na borda de descida do sinal).</p>
+        <h3>Comparativo entre gerações</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Padrão</th>
+                    <th>Frequência efetiva</th>
+                    <th>Tensão</th>
+                    <th>Notch (entalhe)</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>DDR3</strong></td>
+                    <td>800–2133 MHz</td>
+                    <td>1,5V</td>
+                    <td>Posição A</td>
+                    <td>Legado</td>
+                </tr>
+                <tr>
+                    <td><strong>DDR4</strong></td>
+                    <td>2133–3200 MHz (base) até 5000+ MHz (OC)</td>
+                    <td>1,2V</td>
+                    <td>Posição B</td>
+                    <td>Amplamente ativo</td>
+                </tr>
+                <tr>
+                    <td><strong>DDR5</strong></td>
+                    <td>4800–6400 MHz (base) até 8000+ MHz (OC)</td>
+                    <td>1,1V</td>
+                    <td>Posição C</td>
+                    <td>Atual (AM5, LGA1700+)</td>
+                </tr>
+            </tbody>
+        </table>
+        <blockquote>
+            <p>⚠️ Cada geração DDR possui entalhe em posição diferente, tornando a instalação de um padrão incorreto <strong>fisicamente impossível</strong> — proteção contra dano por engano.</p>
+        </blockquote>
+        <blockquote>
+            <p>💡 DDR5 possui regulador de tensão integrado no próprio módulo (PMIC), diferente das gerações anteriores onde a regulação era feita pela placa-mãe. Isso melhora a estabilidade mas altera o comportamento em diagnóstico.</p>
+        </blockquote>
+
+        <h2>5. Frequência, Latência e Desempenho</h2>
+        <h3>5.1 Frequência</h3>
+        <p>Medida em <strong>MHz</strong>, indica quantas operações de transferência ocorrem por segundo. Frequência mais alta = mais dados transferidos por unidade de tempo.</p>
+        <blockquote>
+            <p>💡 A frequência da RAM é limitada pelo menor valor entre o módulo instalado e o suporte da placa-mãe/CPU. Instalar RAM DDR4-3200 em placa que suporta apenas DDR4-2666 faz o módulo operar a 2666 MHz.</p>
+        </blockquote>
+        <h3>5.2 Latência CAS (CL)</h3>
+        <p>A latência CAS (Column Address Strobe) indica o número de ciclos de clock que a memória leva para responder a um comando de leitura.</p>
+        <ul>
+            <li>Notação: <strong>CL16</strong>, <strong>CL18</strong>, <strong>CL30</strong>, etc.</li>
+            <li><strong>Menor CL = menor latência = resposta mais rápida</strong></li>
+        </ul>
+        <h3>5.3 Latência Real em Nanosegundos</h3>
+        <p>O que importa para o desempenho real é a <strong>latência absoluta em ns</strong>, calculada assim:</p>
+        <img src="../assets/images/omc/06/latencia.png" alt="">
+        <p><strong>Exemplos:</strong></p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Módulo</th>
+                    <th>CL</th>
+                    <th>Latência real</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>DDR4-3200 CL16</td>
+                    <td>16</td>
+                    <td>(16 / 3200) × 2000 = <strong>10,0 ns</strong></td>
+                </tr>
+                <tr>
+                    <td>DDR4-3600 CL18</td>
+                    <td>18</td>
+                    <td>(18 / 3600) × 2000 = <strong>10,0 ns</strong></td>
+                </tr>
+                <tr>
+                    <td>DDR5-6000 CL30</td>
+                    <td>30</td>
+                    <td>(30 / 6000) × 2000 = <strong>10,0 ns</strong></td>
+                </tr>
+                <tr>
+                    <td>DDR5-4800 CL40</td>
+                    <td>40</td>
+                    <td>(40 / 4800) × 2000 = <strong>16,7 ns</strong></td>
+                </tr>
+            </tbody>
+        </table>
+        <blockquote>
+            <p>💡 Frequência alta com CL alto pode resultar na mesma latência real que frequência menor com CL menor. O par frequência + CL deve ser avaliado em conjunto — não apenas um dos valores isoladamente.</p>
+        </blockquote>
+        <h3>5.4 Timings Completos</h3>
+        <p>Além do CL, a RAM possui outros timings (ex: <strong>16-18-18-38</strong>) que afetam o desempenho em operações específicas. Para o contexto do curso técnico, o foco no CL e na frequência é suficiente para entender e comparar módulos.</p>
+
+        <h2>6. Capacidade e Configurações Típicas</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Uso</th>
+                    <th>Capacidade recomendada</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Uso básico (escritório, web)</td>
+                    <td>8 GB</td>
+                </tr>
+                <tr>
+                    <td>Uso intermediário (multitarefa, edição leve)</td>
+                    <td>16 GB</td>
+                </tr>
+                <tr>
+                    <td>Uso exigente (edição de vídeo, VMs, jogos modernos)</td>
+                    <td>32 GB</td>
+                </tr>
+                <tr>
+                    <td>Workstation / servidores</td>
+                    <td>64 GB+</td>
+                </tr>
+            </tbody>
+        </table>
+        <blockquote>
+            <p>💡 O sistema operacional Windows 11 consome entre 2–4 GB em idle. Com 4 GB de RAM total, o sistema já inicia com pouca margem — travamentos e uso intenso de swap são esperados.</p>
+        </blockquote>
+
+        <h2>7. Dual Channel</h2>
+        <h3>O que é</h3>
+        <p>Dual channel é um modo de operação em que dois módulos de RAM trabalham em paralelo, <strong>dobrando a largura de banda</strong> disponível para o processador.</p>
+        <img src="../assets/images/omc/06/dual_channel.png" alt="">
+        <h3>Como ativar</h3>
+        <p>A instalação deve seguir os slots indicados pelo fabricante da placa-mãe — geralmente os slots <strong>A2 e B2</strong> (segundo e quarto slots, contando a partir do socket), não os slots adjacentes.</p>
+        <img src="../assets/images/omc/06/slots.svg" alt="" style="width: 100%;">
+        <blockquote>
+            <p>⚠️ Instalar os dois módulos nos slots A1 e A2 (adjacentes) <strong>não ativa</strong> dual channel — opera em single channel com metade da largura de banda.</p>
+        </blockquote>
+        <h3>Impacto prático</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Componente</th>
+                    <th>Impacto do dual channel</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>CPU com GPU integrada (iGPU)</strong></td>
+                    <td>Alto — a iGPU usa a RAM como VRAM; single channel reduz desempenho gráfico drasticamente</td>
+                </tr>
+                <tr>
+                    <td><strong>CPU com GPU dedicada</strong></td>
+                    <td>Moderado — menor impacto, mas ainda relevante em jogos e aplicações multithread</td>
+                </tr>
+            </tbody>
+        </table>
+        <blockquote>
+            <p>💡 Em sistemas com processadores que possuem GPU integrada (Intel Core com UHD, AMD Ryzen com Vega/RDNA), o dual channel é tão importante quanto a frequência da RAM.</p>
+        </blockquote>
+
+        <h2>8. XMP e EXPO — Perfis de Alta Frequência</h2>
+        <p>Módulos de RAM são fabricados para operar em frequências acima do padrão JEDEC, mas chegam configurados na frequência base por padrão.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Perfil</th>
+                    <th>Fabricante</th>
+                    <th>Função</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>XMP (Extreme Memory Profile)</strong></td>
+                    <td>Intel / módulos em geral</td>
+                    <td>Ativa frequência e timings otimizados no BIOS</td>
+                </tr>
+                <tr>
+                    <td><strong>EXPO (Extended Profiles for Overclocking)</strong></td>
+                    <td>AMD</td>
+                    <td>Equivalente ao XMP para plataforma AM5</td>
+                </tr>
+            </tbody>
+        </table>
+        <blockquote>
+            <p>💡 Ao instalar RAM DDR4-3600 em um sistema, ela pode iniciar a 2133 MHz (padrão JEDEC) até que o XMP/EXPO seja ativado nas configurações de BIOS/UEFI.</p>
+        </blockquote>
+
+        <h2>9. Instalação Física</h2>
+        <h3>Procedimento</h3>
+        <ol>
+            <li>Identificar os slots corretos para dual channel no manual da placa-mãe</li>
+            <li>Abrir as travas laterais dos slots</li>
+            <li>Alinhar o entalhe do módulo com a protuberância do slot — <strong>só encaixa em uma direção</strong></li>
+            <li>Pressionar firmemente e de forma uniforme nas duas extremidades até as travas laterais fecharem automaticamente</li>
+            <li>Verificar visualmente que as travas estão completamente fechadas nos dois lados</li>
+        </ol>
+        <blockquote>
+            <p>⚠️ Módulo parcialmente encaixado é uma das causas mais comuns de falha de POST e erros de memória. Sempre verificar o fechamento das travas antes de ligar o sistema.</p>
+        </blockquote>
+        <h3>Tensão e energia</h3>
+        <p>A RAM recebe alimentação pelo trilho <strong>+3,3V</strong> do conector ATX 24 pinos. O consumo por módulo DDR4 é tipicamente de 2–5W — baixo em relação aos demais componentes, mas relevante para o dimensionamento em sistemas com muitos módulos.</p>
+
+        <h2>10. Diagnóstico de Falhas de Memória</h2>
+        <h3>Sintomas comuns</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Sintoma</th>
+                    <th>Possível causa relacionada à RAM</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Sistema não realiza POST, sem vídeo</td>
+                    <td>Módulo mal encaixado, slot defeituoso ou módulo incompatível</td>
+                </tr>
+                <tr>
+                    <td>Tela azul (BSOD) com erros de memória</td>
+                    <td>Módulo com células defeituosas, XMP instável</td>
+                </tr>
+                <tr>
+                    <td>Travamentos aleatórios sob carga</td>
+                    <td>RAM insuficiente (swap excessivo) ou módulo degradado</td>
+                </tr>
+                <tr>
+                    <td>Sistema inicia com menos RAM que o instalado</td>
+                    <td>Módulo não reconhecido (slot ou encaixe com problema)</td>
+                </tr>
+                <tr>
+                    <td>Erros após overclock de RAM</td>
+                    <td>XMP/EXPO instável; tentar reduzir frequência ou aumentar tensão levemente</td>
+                </tr>
+            </tbody>
+        </table>
+        <h3>Ferramentas de diagnóstico</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Ferramenta</th>
+                    <th>Tipo</th>
+                    <th>Função</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>MemTest86</strong></td>
+                    <td>Bootável (independente de SO)</td>
+                    <td>Teste completo de integridade das células de memória</td>
+                </tr>
+                <tr>
+                    <td><strong>Windows Memory Diagnostic</strong></td>
+                    <td>Integrado ao Windows</td>
+                    <td>Teste básico acessível sem ferramentas externas</td>
+                </tr>
+                <tr>
+                    <td><strong>CPU-Z</strong></td>
+                    <td>Software Windows</td>
+                    <td>Leitura de frequência, timings e identificação do módulo</td>
+                </tr>
+            </tbody>
+        </table>
+        <h3>Procedimento de isolamento em bancada</h3>
+        <ol>
+            <li>Testar com um módulo por vez — isola qual módulo ou slot está com problema</li>
+            <li>Testar cada módulo em slots diferentes — isola se o problema é no módulo ou no slot</li>
+            <li>Limpar os contatos dourados do módulo com borracha branca — oxidação leve pode causar mau contato</li>
+            <li>Resetar configurações de BIOS (bateria CMOS ou jumper CLR_CMOS) — descarta perfil XMP instável como causa</li>
+        </ol>
+
+        <h2>🎯 Síntese da Aula</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Conceito</th>
+                    <th>Ponto central</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Função da RAM</strong></td>
+                    <td>Memória de trabalho temporária e volátil</td>
+                </tr>
+                <tr>
+                    <td><strong>DIMM vs SO-DIMM</strong></td>
+                    <td>Desktop vs compacto — fisicamente incompatíveis</td>
+                </tr>
+                <tr>
+                    <td><strong>DDR4 vs DDR5</strong></td>
+                    <td>Frequência, tensão e entalhe diferentes; não intercambiáveis</td>
+                </tr>
+                <tr>
+                    <td><strong>Frequência + CL</strong></td>
+                    <td>Avaliar latência real em ns, não apenas um valor isolado</td>
+                </tr>
+                <tr>
+                    <td><strong>Dual channel</strong></td>
+                    <td>Dobra largura de banda; slots corretos são essenciais</td>
+                </tr>
+                <tr>
+                    <td><strong>XMP / EXPO</strong></td>
+                    <td>Perfis de frequência elevada ativados no BIOS</td>
+                </tr>
+                <tr>
+                    <td><strong>Instalação</strong></td>
+                    <td>Entalhe garante orientação correta; travas devem fechar completamente</td>
+                </tr>
+                <tr>
+                    <td><strong>Diagnóstico</strong></td>
+                    <td>MemTest86 para teste completo; isolamento por módulo e slot</td>
+                </tr>
+            </tbody>
+        </table>
+    </main>
+</body>
+</html>

@@ -192,6 +192,7 @@ footer img {
     th,
     td {
         font-size: 0.7rem;
+        padding: 8px;
     }
 
     ul {
