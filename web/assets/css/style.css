@@ -49,6 +49,10 @@ h2 {
     font-size: clamp(1.5rem, 3vw, 1.5rem);
 }
 
+h3 {
+    font-size: clamp(1.25rem, 2.5vw, 1.25rem);
+}
+
 p,
 li,
 blockquote,
@@ -147,7 +151,7 @@ footer p {
 }
 
 footer img {
-    width:10%;
+    width: 10%;
 }
 
 
@@ -188,6 +192,10 @@ footer img {
         font-size: clamp(1.25rem, 4vw, 1rem);
     }
 
+    h3 {
+        font-size: clamp(1rem, 3vw, 1rem);
+    }
+
     table,
     th,
     td {
@@ -208,12 +216,21 @@ footer img {
     p {
         text-wrap: inherit;
     }
-    
+
     .quebra {
-    /* max-width: 150px; */
-    overflow-wrap: break-word;
-    word-break: break-word;
+        /* max-width: 150px; */
+        overflow-wrap: break-word;
+        word-break: break-word;
+    }
 }
+
+@media (max-width: 360px) {
+    table,
+    th,
+    td {
+        font-size: 0.7rem;
+        padding: 4px;
+    }
 }
 
 /* Estilos específicos para index.html */
