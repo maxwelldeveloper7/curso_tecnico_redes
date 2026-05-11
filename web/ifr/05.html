@@ -356,44 +356,7 @@
 
         <p>Vamos acompanhar o caminho completo de um pacote desde o clique do usuário até o servidor de destino, passando por toda a estrutura que estudamos nesta aula.</p>
 
-        <p><strong>Cenário:</strong> cliente de um ISP brasileiro acessa um site hospedado nos EUA.</p>
-        
-        <ol>
-            <li>Dispositivo do usuário (192.168.1.10)</li>
-            <ul>
-                <li>Gera o pacote com destino ao servidor americano</li>
-            </ul>
-            <li>Roteador doméstico</li>
-            <ul>
-                <li>NAT: substitui 192.168.1.10 pelo IP WAN (100.64.10.5 - CGNAT)</li>
-                <li>Envia para o gateway do ISP</li>
-            </ul>
-            <li>Rede de acesso do ISP</li>
-            <ul>
-                <li>Fibra óptica do CPE até o nó de distribuição do bairro</li>
-            </ul>
-            <li>MAN do ISP</li>
-            <ul>
-                <li>Pacote chega ao PoP local</li>
-                <li>CGNAT do ISP: substitui 100.64.10.5 pelo IP público real (200.150.100.50)</li>
-                <li>Roteamento interno até o ponto de saída</li>
-            </ul>
-            <li>PTT (IX.br)</li>
-            <ul>
-                <li>Se o destino for acessível por um parceiro de peering, troca direta</li>
-                <li>Caso contrário, segue para o backbone</li>
-            </ul>
-            <li>Backbone nacional → cabo submarino → backbone americano</li>
-            <li>ISP americano → rede de destino → servidor</li>
-            <ul>
-                <li>Servidor recebe o pacote com origem 200.150.100.50</li>
-            </ul>
-            <li>Resposta percorre o caminho inverso</li>
-            <ul>
-                <li>CGNAT desfaz a tradução → roteador doméstico desfaz o NAT</li>
-                <li>Pacote chega ao dispositivo correto (192.168.1.10)</li>
-            </ul>
-        </ol>
+        <p><strong>Simulação:</strong> <a href="../ifr/simulacao02.html">cliente de um ISP brasileiro acessa um site hospedado nos EUA.</a></p>
 
         <p>Cada etapa desse caminho envolve equipamentos físicos, cabos, protocolos e endereçamentos que se encadeiam com precisão. A qualidade da infraestrutura em cada ponto determina a velocidade, a latência e a confiabilidade que o usuário final experimenta.</p>
 

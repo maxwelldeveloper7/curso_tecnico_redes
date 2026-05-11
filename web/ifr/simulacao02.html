@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Jornada do Pacote</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial, Helvetica, sans-serif;
+    background:#0f172a;
+    color:white;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+.app{
+    width:100%;
+    max-width:750px;
+    background:#111827;
+    border-radius:20px;
+    overflow:hidden;
+    border:1px solid #334155;
+    box-shadow:0 0 30px rgba(0,0,0,.4);
+}
+
+.header{
+    background:#2563eb;
+    padding:20px;
+    text-align:center;
+}
+
+.header h1{
+    font-size:1.6rem;
+    margin-bottom:8px;
+}
+
+.header p{
+    color:#dbeafe;
+    font-size:.95rem;
+}
+
+.content{
+    padding:24px;
+}
+
+.progress{
+    display:flex;
+    gap:6px;
+    margin-bottom:24px;
+}
+
+.progress div{
+    flex:1;
+    height:10px;
+    border-radius:999px;
+    background:#334155;
+    transition:.3s;
+}
+
+.progress .active{
+    background:#3b82f6;
+}
+
+.step{
+    display:inline-block;
+    background:#1e293b;
+    color:#93c5fd;
+    padding:6px 12px;
+    border-radius:999px;
+    font-size:.8rem;
+    margin-bottom:18px;
+}
+
+.title{
+    font-size:1.5rem;
+    margin-bottom:12px;
+}
+
+.description{
+    color:#cbd5e1;
+    line-height:1.7;
+    margin-bottom:20px;
+}
+
+.box{
+    background:#0f172a;
+    border:1px solid #334155;
+    border-radius:14px;
+    padding:16px;
+    margin-bottom:16px;
+}
+
+.box-label{
+    color:#94a3b8;
+    font-size:.8rem;
+    margin-bottom:6px;
+}
+
+.ip{
+    font-family:monospace;
+    font-size:1.1rem;
+    font-weight:bold;
+    color:#22c55e;
+}
+
+.highlight{
+    background:#172554;
+    border-left:4px solid #3b82f6;
+    padding:16px;
+    border-radius:12px;
+    color:#dbeafe;
+    line-height:1.6;
+    margin-bottom:20px;
+}
+
+.controls{
+    display:flex;
+    justify-content:space-between;
+    gap:12px;
+}
+
+button{
+    border:none;
+    padding:12px 18px;
+    border-radius:12px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.2s;
+}
+
+button:hover{
+    transform:translateY(-1px);
+}
+
+.back{
+    background:#374151;
+    color:white;
+}
+
+.next{
+    background:#2563eb;
+    color:white;
+}
+
+.restart{
+    background:#16a34a;
+    color:white;
+}
+
+.footer{
+    border-top:1px solid #1e293b;
+    text-align:center;
+    padding:16px;
+    color:#64748b;
+    font-size:.8rem;
+}
+
+@media(max-width:600px){
+
+    .controls{
+        flex-direction:column;
+    }
+
+    button{
+        width:100%;
+    }
+
+    .title{
+        font-size:1.2rem;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+    <div class="header">
+        <h1>🌐 Jornada do Pacote</h1>
+        <p>Como um pacote viaja pela internet</p>
+    </div>
+
+    <div class="content">
+
+        <div class="progress" id="progress"></div>
+
+        <div class="step" id="step"></div>
+
+        <h2 class="title" id="title"></h2>
+
+        <p class="description" id="description"></p>
+
+        <div class="box">
+            <div class="box-label">IP Atual</div>
+            <div class="ip" id="ip"></div>
+        </div>
+
+        <div class="highlight" id="highlight"></div>
+
+        <div class="controls">
+            <button class="back" id="back">← Voltar</button>
+            <button class="next" id="next">Avançar →</button>
+        </div>
+
+    </div>
+
+    <div class="footer">
+        Simulador simplificado de redes TCP/IP
+    </div>
+
+</div>
+
+<script>
+
+const etapas = [
+
+{
+    titulo: "💻 Dispositivo do Usuário",
+    descricao:
+    "Seu computador gera um pacote TCP/IP para acessar um servidor hospedado nos Estados Unidos.",
+    ip:"192.168.1.10",
+    destaque:
+    "O pacote nasce com um IP privado, válido apenas dentro da rede local."
+},
+
+{
+    titulo: "🔀 Roteador Doméstico",
+    descricao:
+    "O roteador aplica NAT. O IP privado 192.168.1.10 é substituído pelo IP WAN 100.64.10.5 e enviado ao provedor.",
+    ip:"100.64.10.5",
+    destaque:
+    "O IP 100.64.x.x indica uso de CGNAT."
+},
+
+{
+    titulo: "🔆 Rede de Acesso do ISP",
+    descricao:
+    "O pacote trafega pela fibra óptica entre a casa do cliente e o nó de distribuição do bairro.",
+    ip:"100.64.10.5",
+    destaque:
+    "Na fibra óptica os dados trafegam como pulsos de luz."
+},
+
+{
+    titulo: "🏢 MAN do ISP",
+    descricao:
+    "O pacote chega ao PoP local. O ISP aplica CGNAT e troca o IP 100.64.10.5 pelo IP público 200.150.100.50.",
+    ip:"200.150.100.50",
+    destaque:
+    "Agora o pacote possui um IP público válido na internet."
+},
+
+{
+    titulo: "🔁 PTT (IX.br)",
+    descricao:
+    "No IX.br os provedores trocam tráfego diretamente. Caso não exista peering com o destino, o pacote segue para o backbone.",
+    ip:"200.150.100.50",
+    destaque:
+    "O PTT reduz latência e evita tráfego desnecessário para fora do país."
+},
+
+{
+    titulo: "🌐 Backbone e Cabo Submarino",
+    descricao:
+    "O pacote percorre o backbone nacional, atravessa cabos submarinos e chega ao backbone americano.",
+    ip:"200.150.100.50",
+    destaque:
+    "A internet mundial é sustentada por enormes redes de fibra óptica."
+},
+
+{
+    titulo: "🖥️ Servidor de Destino",
+    descricao:
+    "O servidor americano recebe o pacote vendo como origem apenas o IP público 200.150.100.50.",
+    ip:"52.14.88.230",
+    destaque:
+    "O servidor não conhece os IPs privados internos do cliente."
+},
+
+{
+    titulo: "↩️ Resposta ao Usuário",
+    descricao:
+    "A resposta percorre o caminho inverso. O CGNAT desfaz a tradução e o roteador doméstico entrega o pacote ao dispositivo correto.",
+    ip:"192.168.1.10",
+    destaque:
+    "O pacote retorna exatamente ao computador que iniciou a comunicação."
+}
+
+];
+
+let atual = 0;
+
+const title = document.getElementById("title");
+const description = document.getElementById("description");
+const ip = document.getElementById("ip");
+const highlight = document.getElementById("highlight");
+const step = document.getElementById("step");
+
+const back = document.getElementById("back");
+const next = document.getElementById("next");
+
+const progress = document.getElementById("progress");
+
+function renderProgress(){
+
+    progress.innerHTML = "";
+
+    etapas.forEach((_, index)=>{
+
+        const bar = document.createElement("div");
+
+        if(index <= atual){
+            bar.classList.add("active");
+        }
+
+        progress.appendChild(bar);
+
+    });
+
+}
+
+function render(){
+
+    const e = etapas[atual];
+
+    title.textContent = e.titulo;
+    description.textContent = e.descricao;
+    ip.textContent = e.ip;
+    highlight.textContent = e.destaque;
+
+    step.textContent = `Etapa ${atual + 1} de ${etapas.length}`;
+
+    renderProgress();
+
+    back.disabled = atual === 0;
+    back.style.opacity = atual === 0 ? ".4" : "1";
+
+    if(atual === etapas.length - 1){
+
+        next.textContent = "↺ Reiniciar";
+        next.classList.remove("next");
+        next.classList.add("restart");
+
+    }else{
+
+        next.textContent = "Avançar →";
+        next.classList.add("next");
+        next.classList.remove("restart");
+
+    }
+
+}
+
+next.addEventListener("click", ()=>{
+
+    if(atual < etapas.length - 1){
+        atual++;
+    }else{
+        atual = 0;
+    }
+
+    render();
+
+});
+
+back.addEventListener("click", ()=>{
+
+    if(atual > 0){
+        atual--;
+        render();
+    }
+
+});
+
+render();
+
+</script>
+
+</body>
+</html>
