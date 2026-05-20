@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Aula 07 - Dispositivos de armazenamento: HD, SSD SATA e NVMe">
+    <meta name="author" content="Curso Técnico em Redes">
+    <title>Aula 07 — Dispositivos de armazenamento: HD, SSD SATA e NVMe</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <main>
+        <header>
+            <div class="eyebrow">Curso Técnico em Redes</div>
+            <h1>Dispositivos de armazenamento: HD, SSD SATA e NVMe</h1>
+            <p style="color: #000000; font-size: 1rem; margin-top: 0.5rem;">📘 Aula 07 — Tecnologias, instalação, comparação e diagnóstico de HD, SSD SATA e NVMe</p>
+        </header>
+
+        <section>
+            <h2>1. Introdução</h2>
+            <p>Os dispositivos de armazenamento são responsáveis por <strong>guardar dados de forma persistente</strong> — diferente da RAM, os dados permanecem mesmo sem energia elétrica.</p>
+            <p>São eles que armazenam:</p>
+            <ul>
+                <li>O sistema operacional</li>
+                <li>Programas instalados</li>
+                <li>Arquivos do usuário (documentos, fotos, vídeos)</li>
+            </ul>
+            <blockquote>
+                <p><strong>Relação com as aulas anteriores:</strong> o armazenamento recebe dados da RAM (escrita) e os entrega de volta para a RAM (leitura) conforme a CPU solicita. A velocidade desse fluxo impacta diretamente o desempenho percebido do sistema.</p>
+            </blockquote>
+        </section>
+
+        <section>
+            <h2>2. HD — Hard Disk Drive</h2>
+            <img src="../assets/images/omc/07/HD.png" alt="">
+            <h3>Tecnologia</h3>
+            <p>O HD é um dispositivo <strong>eletromecânico</strong>: armazena dados em pratos magnéticos giratórios lidos por cabeças de leitura/escrita que se movem mecanicamente sobre os pratos.</p>
+            <p>Componentes internos principais:</p>
+            <ul>
+                <li><strong>Pratos (platters):</strong> discos magnéticos onde os dados são gravados</li>
+                <li><strong>Cabeças de leitura/escrita:</strong> braço mecânico que posiciona sobre a trilha correta</li>
+                <li><strong>Motor de rotação:</strong> gira os pratos em velocidade constante</li>
+                <li><strong>Controlador eletrônico:</strong> gerencia operações de leitura, escrita e comunicação com a placa-mãe</li>
+            </ul>
+            <h3>Fator de forma</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tamanho</th>
+                        <th>Uso principal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>3,5"</strong></td>
+                        <td>Desktops; maior capacidade, requer alimentação +12V e +5V</td>
+                    </tr>
+                    <tr>
+                        <td><strong>2,5"</strong></td>
+                        <td>Notebooks e desktops compactos; alimentação apenas +5V</td>
+                    </tr>
+                </tbody>
+            </table>
+            <h3>Velocidade de rotação (RPM)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>RPM</th>
+                        <th>Perfil</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>5400 RPM</strong></td>
+                        <td>Baixo consumo, menor velocidade; notebooks, armazenamento externo</td>
+                    </tr>
+                    <tr>
+                        <td><strong>7200 RPM</strong></td>
+                        <td>Padrão desktop; melhor desempenho sequencial</td>
+                    </tr>
+                    <tr>
+                        <td><strong>10000–15000 RPM</strong></td>
+                        <td>Servidores (SAS); raramente usados em desktop</td>
+                    </tr>
+                </tbody>
+            </table>
+            <h3>Conexões</h3>
+            <ul>
+                <li><strong>Dados:</strong> cabo SATA III (conector L invertido na placa-mãe e no HD)</li>
+                <li><strong>Alimentação:</strong> conector SATA Power 15 pinos da fonte (trilhos +12V, +5V e +3,3V)</li>
+            </ul>
+            <h3>Limitações</h3>
+            <ul>
+                <li>Sensível a impactos e vibrações (partes móveis)</li>
+                <li>Tempo de acesso elevado (~5–10 ms) devido ao posicionamento mecânico</li>
+                <li>Desempenho degradado com fragmentação de dados</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>3. SSD SATA — Solid State Drive</h2>
+            <img src="../assets/images/omc/07/ssd.png" alt="">
+            <h3>Tecnologia</h3>
+            <p>O SSD substitui os pratos magnéticos por <strong>células de memória flash NAND</strong> — sem partes móveis, sem motor, sem cabeças mecânicas.</p>
+            <p>Componentes internos principais:</p>
+            <ul>
+                <li><strong>Chips NAND Flash:</strong> armazenam os dados em células eletrônicas</li>
+                <li><strong>Controlador (controller):</strong> gerencia leitura, escrita, correção de erros e comunicação</li>
+                <li><strong>Cache DRAM</strong> (em SSDs de qualidade): memória temporária que acelera operações repetidas</li>
+            </ul>
+            <h3>Tipos de célula NAND</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tipo</th>
+                        <th>Bits por célula</th>
+                        <th>Durabilidade</th>
+                        <th>Desempenho</th>
+                        <th>Uso</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>SLC</strong></td>
+                        <td>1 bit</td>
+                        <td>Muito alta</td>
+                        <td>Máximo</td>
+                        <td>Servidores industriais</td>
+                    </tr>
+                    <tr>
+                        <td><strong>MLC</strong></td>
+                        <td>2 bits</td>
+                        <td>Alta</td>
+                        <td>Alto</td>
+                        <td>Mercado profissional</td>
+                    </tr>
+                    <tr>
+                        <td><strong>TLC</strong></td>
+                        <td>3 bits</td>
+                        <td>Média</td>
+                        <td>Bom</td>
+                        <td>Desktops e notebooks (padrão atual)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>QLC</strong></td>
+                        <td>4 bits</td>
+                        <td>Menor</td>
+                        <td>Moderado</td>
+                        <td>Armazenamento em massa, menor custo</td>
+                    </tr>
+                </tbody>
+            </table>
+            <blockquote>
+                <p>💡 A maioria dos SSDs de consumo atual usa <strong>TLC</strong>. QLC é viável para armazenamento de dados frios (pouca escrita), mas não recomendado como disco de sistema por desgaste mais rápido.</p>
+            </blockquote>
+            <h3>Fator de forma</h3>
+            <p><strong>2,5"</strong>: mesmo tamanho físico do HD notebook; usa conector SATA</p>
+            <p>Requer adaptador de 3,5" para instalar em baia de desktop padrão.</p>
+            <h3>Conexões</h3>
+            <ul>
+                <li><strong>Dados:</strong> cabo SATA III (mesmo cabo do HD)</li>
+                <li><strong>Alimentação:</strong> conector SATA Power 15 pinos (trilhos +5V e +3,3V; não usa +12V)</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>4. SSD NVMe — Non-Volatile Memory Express</h2>
+            <img src="../assets/images/omc/07/nvme.png" alt="">
+            <h3>Tecnologia</h3>
+            <p>O NVMe é um <strong>protocolo de comunicação</strong> desenvolvido especificamente para SSDs de alta velocidade, utilizando o barramento <strong>PCIe</strong> em vez do SATA. Elimina os gargalos do protocolo AHCI (usado pelo SATA) e aproveita o paralelismo do PCIe.</p>
+            <blockquote>
+                <p>💡 O SATA foi projetado na era dos HDs mecânicos, com latência e fila de comandos limitadas. O NVMe suporta até 65.535 filas com 65.535 comandos cada — ordens de grandeza superior ao SATA (1 fila, 32 comandos).</p>
+            </blockquote>
+            <h3>Fator de forma M.2</h3>
+            <p>SSDs NVMe utilizam o slot <strong>M.2</strong> diretamente na placa-mãe, sem cabos de dados ou alimentação separados.</p>
+            <p>Tamanhos físicos M.2 (comprimento):</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Dimensões</th>
+                        <th>Uso mais comum</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>2242</strong></td>
+                        <td>22 × 42 mm</td>
+                        <td>Dispositivos compactos</td>
+                    </tr>
+                    <tr>
+                        <td><strong>2260</strong></td>
+                        <td>22 × 60 mm</td>
+                        <td>Pouco comum</td>
+                    </tr>
+                    <tr>
+                        <td><strong>2280</strong></td>
+                        <td>22 × 80 mm</td>
+                        <td><strong>Padrão desktop e notebook</strong></td>
+                    </tr>
+                    <tr>
+                        <td><strong>22110</strong></td>
+                        <td>22 × 110 mm</td>
+                        <td>Servidores</td>
+                    </tr>
+                </tbody>
+            </table>
+            <blockquote>
+                <p>⚠️ O slot M.2 pode suportar SATA ou NVMe — verificar no manual da placa-mãe qual protocolo cada slot aceita antes de instalar.</p>
+            </blockquote>
+            <h3>Gerações PCIe e desempenho comparativo</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Interface</th>
+                        <th>Velocidade leitura sequencial típica</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>SATA III (HD 7200 RPM)</strong></td>
+                        <td>~150 MB/s</td>
+                    </tr>
+                    <tr>
+                        <td><strong>SATA III (SSD 2,5")</strong></td>
+                        <td>~550 MB/s</td>
+                    </tr>
+                    <tr>
+                        <td><strong>NVMe PCIe 3.0 x4</strong></td>
+                        <td>~3.500 MB/s</td>
+                    </tr>
+                    <tr>
+                        <td><strong>NVMe PCIe 4.0 x4</strong></td>
+                        <td>~7.000 MB/s</td>
+                    </tr>
+                    <tr>
+                        <td><strong>NVMe PCIe 5.0 x4</strong></td>
+                        <td>~14.000 MB/s</td>
+                    </tr>
+                </tbody>
+            </table>
+            <blockquote>
+                <p>💡 Um SSD NVMe PCIe 4.0 é aproximadamente <strong>12× mais rápido</strong> que um SSD SATA e <strong>46× mais rápido</strong> que um HD mecânico em leitura sequencial. Para o sistema operacional, isso se traduz em boot e abertura de programas significativamente mais rápidos.</p>
+            </blockquote>
+            <h3>Conexões</h3>
+            <ul>
+                <li><strong>Dados e alimentação:</strong> integrados ao slot M.2 (sem cabos externos)</li>
+                <li><strong>Energia:</strong> fornecida pela placa-mãe via slot M.2: +3,3V (máx. ~8,25W por slot)</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>5. Comparativo Geral</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Critério</th>
+                        <th>HD 3,5"</th>
+                        <th>SSD SATA 2,5"</th>
+                        <th>SSD NVMe M.2</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Tecnologia</strong></td>
+                        <td>Magnética mecânica</td>
+                        <td>Flash NAND</td>
+                        <td>Flash NAND</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Interface</strong></td>
+                        <td>SATA III</td>
+                        <td>SATA III</td>
+                        <td>PCIe 3.0/4.0/5.0</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Velocidade</strong></td>
+                        <td>~150 MB/s</td>
+                        <td>~550 MB/s</td>
+                        <td>3.500–14.000 MB/s</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Resistência a impacto</strong></td>
+                        <td>Baixa</td>
+                        <td>Alta</td>
+                        <td>Alta</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Ruído</strong></td>
+                        <td>Sim (mecânico)</td>
+                        <td>Nenhum</td>
+                        <td>Nenhum</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Consumo</strong></td>
+                        <td>~6–10W</td>
+                        <td>~2–4W</td>
+                        <td>~3–8W</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Custo por GB</strong></td>
+                        <td>Baixo</td>
+                        <td>Médio</td>
+                        <td>Médio-alto</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Indicação principal</strong></td>
+                        <td>Armazenamento em massa</td>
+                        <td>Sistema em hardware antigo</td>
+                        <td>Sistema e aplicações (hardware atual)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>6. Instalação Física</h2>
+            <h3>HD e SSD 2,5" / 3,5"</h3>
+            <ol>
+                <li>Fixar o dispositivo na baia do gabinete com os parafusos laterais (HD 3,5") ou com adaptador (SSD 2,5" em baia 3,5")</li>
+                <li>Conectar o <strong>cabo SATA de dados</strong> entre o dispositivo e o conector SATA da placa-mãe</li>
+                <li>Conectar o <strong>cabo SATA Power</strong> da fonte ao conector de alimentação do dispositivo</li>
+                <li>Verificar encaixe firme nos dois conectores — o conector SATA de dados tem trava frágil; forçar lateralmente pode quebrar</li>
+            </ol>
+            <blockquote>
+                <p>⚠️ Cabos SATA de dados são frágeis na trava plástica. Em manutenção, pressionar a trava antes de puxar — nunca puxar pelo cabo.</p>
+            </blockquote>
+            <h3>SSD NVMe M.2</h3>
+            <ol>
+                <li>Identificar o slot M.2 correto na placa-mãe (verificar suporte a NVMe no manual)</li>
+                <li>Remover o parafuso de fixação no suporte M.2</li>
+                <li>Inserir o SSD no slot em ângulo de ~30°, alinhando o entalhe com a chave do slot</li>
+                <li>Abaixar o SSD até ficar paralelo à placa-mãe</li>
+                <li>Fixar com o parafuso de retenção</li>
+                <li>Em placas com dissipador M.2: remover a película protetora da almofada térmica antes de fixar o dissipador</li>
+            </ol>
+            <blockquote>
+                <p>⚠️ SSDs NVMe em operação atingem temperaturas de 50–80°C sob carga. Placas-mãe modernas incluem dissipadores M.2 — utilizá-los reduz o thermal throttling (redução automática de velocidade por temperatura).</p>
+            </blockquote>
+        </section>
+
+        <section>
+            <h2>7. Identificação Visual em Bancada</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>O que observar</th>
+                        <th>Indica</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Caixa metálica com conector SATA, formato 3,5"</td>
+                        <td>HD desktop</td>
+                    </tr>
+                    <tr>
+                        <td>Caixa metálica/plástica com conector SATA, formato 2,5"</td>
+                        <td>SSD SATA ou HD notebook</td>
+                    </tr>
+                    <tr>
+                        <td>Placa verde/preta, formato M.2, sem conectores externos</td>
+                        <td>SSD NVMe ou SSD M.2 SATA</td>
+                    </tr>
+                    <tr>
+                        <td>Etiqueta com "NVMe" ou "PCIe"</td>
+                        <td>SSD NVMe confirmado</td>
+                    </tr>
+                    <tr>
+                        <td>Etiqueta com "SATA" em módulo M.2</td>
+                        <td>SSD M.2 SATA (mais lento)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>8. Diagnóstico de Falhas</h2>
+            <h3>Sintomas e causas prováveis</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Sintoma</th>
+                        <th>Causa provável</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Dispositivo não aparece no BIOS</td>
+                        <td>Cabo SATA desconectado, slot M.2 não suporta o protocolo, SSD não encaixado corretamente</td>
+                    </tr>
+                    <tr>
+                        <td>HD emite cliques rítmicos</td>
+                        <td>Cabeça de leitura falhando — risco de perda de dados iminente</td>
+                    </tr>
+                    <tr>
+                        <td>HD emite ruído de rotação, não inicializa</td>
+                        <td>Motor degradado ou falha na eletrônica</td>
+                    </tr>
+                    <tr>
+                        <td>SSD aparece no BIOS mas não no sistema operacional</td>
+                        <td>Sem partição/formatação ou partição corrompida</td>
+                    </tr>
+                    <tr>
+                        <td>Desempenho de SSD NVMe muito abaixo do esperado</td>
+                        <td>Thermal throttling por temperatura elevada; slot operando em PCIe 3.0 quando SSD é PCIe 4.0</td>
+                    </tr>
+                    <tr>
+                        <td>Erros de leitura/escrita intermitentes</td>
+                        <td>Células NAND degradadas (SSD com muitas horas de uso) ou cabo SATA com mau contato</td>
+                    </tr>
+                </tbody>
+            </table>
+            <h3>Ferramentas de diagnóstico</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Ferramenta</th>
+                        <th>Função</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>CrystalDiskInfo</strong></td>
+                        <td>Leitura de atributos S.M.A.R.T. — saúde geral, horas de uso, erros acumulados</td>
+                    </tr>
+                    <tr>
+                        <td><strong>CrystalDiskMark</strong></td>
+                        <td>Benchmark de velocidade real do dispositivo</td>
+                    </tr>
+                    <tr>
+                        <td><strong>HD Tune</strong></td>
+                        <td>Teste de superfície e leitura de S.M.A.R.T.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>BIOS/UEFI</strong></td>
+                        <td>Primeira verificação — se o dispositivo não aparece aqui, o problema é de hardware ou conexão</td>
+                    </tr>
+                </tbody>
+            </table>
+            <blockquote>
+                <p>💡 <strong>S.M.A.R.T.</strong> (Self-Monitoring, Analysis and Reporting Technology) é um sistema de monitoramento integrado em HDs e SSDs que registra indicadores de saúde. Um S.M.A.R.T. com status "Caution" ou "Bad" indica dispositivo em risco — fazer backup imediatamente.</p>
+            </blockquote>
+            <h3>Procedimento de isolamento em bancada</h3>
+            <ol>
+                <li>Verificar se o dispositivo aparece no BIOS — descarta problema de SO</li>
+                <li>Testar com outro cabo SATA — descarta cabo defeituoso</li>
+                <li>Testar em outro conector SATA da placa-mãe — descarta porta com defeito</li>
+                <li>Testar com outra fonte ou outro cabo de alimentação — descarta problema de energia</li>
+                <li>Ler S.M.A.R.T. com CrystalDiskInfo — avalia saúde interna do dispositivo</li>
+            </ol>
+        </section>
+
+        <section>
+            <h2>Síntese da Aula</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Dispositivo</th>
+                        <th>Tecnologia</th>
+                        <th>Interface</th>
+                        <th>Indicação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>HD 3,5"</strong></td>
+                        <td>Magnética mecânica</td>
+                        <td>SATA III</td>
+                        <td>Armazenamento em massa, baixo custo</td>
+                    </tr>
+                    <tr>
+                        <td><strong>SSD 2,5" SATA</strong></td>
+                        <td>Flash NAND</td>
+                        <td>SATA III</td>
+                        <td>Upgrade em hardware antigo</td>
+                    </tr>
+                    <tr>
+                        <td><strong>SSD M.2 NVMe</strong></td>
+                        <td>Flash NAND</td>
+                        <td>PCIe 3.0–5.0</td>
+                        <td>Disco principal em sistemas novos</td>
+                    </tr>
+                </tbody>
+            </table>
+            <blockquote>
+                <p><strong>Regra prática:</strong> para disco de sistema operacional em hardware moderno, sempre preferir NVMe. Para armazenamento secundário de grande volume, HD ainda é a opção de menor custo por GB.</p>
+            </blockquote>
+        </section>
+    </main>
+</body>
+</html>
