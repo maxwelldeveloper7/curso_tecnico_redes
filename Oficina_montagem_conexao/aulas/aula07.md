@@ -47,7 +47,9 @@ Componentes internos principais:
 ### Conexões
 
 - **Dados:** cabo SATA III (conector L invertido na placa-mãe e no HD)
-- **Alimentação:** conector SATA Power 15 pinos da fonte (trilhos +12V, +5V e +3,3V)
+- **Alimentação:** conector SATA Power da fonte — utiliza os trilhos **+12V** (motor), **+5V** (eletrônica) e **GND**
+
+> 💡 O padrão completo do conector SATA Power possui 15 pinos com três trilhos (+12V, +5V e +3,3V). Porém, é muito comum que fontes de entrada e intermediárias implementem o cabo com apenas **+12V, +5V e dois GND**, omitindo o trilho +3,3V — o que é suficiente para HDs, pois eles não utilizam esse trilho.
 
 ### Limitações
 
@@ -88,7 +90,9 @@ Componentes internos principais:
 ### Conexões
 
 - **Dados:** cabo SATA III (mesmo cabo do HD)
-- **Alimentação:** conector SATA Power 15 pinos (trilhos +5V e +3,3V; não usa +12V)
+- **Alimentação:** conector SATA Power da fonte — **o mesmo conector utilizado pelos HDs**; o SSD consome principalmente os trilhos **+5V** e **+3,3V**, não drenando corrente do +12V por ausência de motor
+
+> ⚠️ Em fontes que omitem o trilho +3,3V no cabo SATA Power (implementação com apenas +12V, +5V e GND), SSDs que dependem desse trilho podem não inicializar corretamente. Nesse cenário, verificar se outro cabo da fonte implementa o trilho completo, ou se o SSD opera normalmente apenas com +5V.
 
 ---
 
@@ -230,3 +234,11 @@ Tamanhos físicos M.2 (comprimento):
 | **SSD M.2 NVMe** | Flash NAND | PCIe 3.0–5.0 | Disco principal em sistemas novos |
 
 **Regra prática:** para disco de sistema operacional em hardware moderno, sempre preferir NVMe. Para armazenamento secundário de grande volume, HD ainda é a opção de menor custo por GB.
+
+---
+
+## 📌 Encaminhamento para a Próxima Aula
+
+Na próxima aula, o foco será:
+
+> **Gabinetes e sistemas de refrigeração: tipos, organização de cabos, fluxo de ar e coolers**
