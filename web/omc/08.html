@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oficina de Montagem e Conexão — Aula 08</title>
+    <link rel="stylesheet" href="../../web/assets/css/style.css">
+</head>
+
+<body>
+    <main>
+        <header>
+            <p class="eyebrow">Oficina de Montagem e Conexão</p>
+            <h1>AULA 08 — Gabinetes e Sistemas de Refrigeração</h1>
+            <div class="meta" aria-label="Informações da aula">
+                <span><strong>Objetivo da aula:</strong> compreender a função do gabinete, os tipos de estrutura, o
+                    fluxo de ar, os sistemas de refrigeração e práticas de organização interna para manter a
+                    estabilidade térmica do computador.</span>
+            </div>
+        </header>
+
+        <section>
+            <h2>1. Introdução</h2>
+            <p>O gabinete é a estrutura física que abriga e protege todos os componentes do computador. Mais do que uma
+                caixa, ele define:</p>
+            <ul>
+                <li>O <strong>form factor</strong> das peças compatíveis (placa-mãe, fonte, coolers)</li>
+                <li>O <strong>fluxo de ar</strong> que mantém os componentes em temperatura segura</li>
+                <li>A <strong>organização dos cabos</strong> que impacta diretamente a manutenção e a refrigeração</li>
+            </ul>
+            <blockquote>
+                <p><strong>Relação com as aulas anteriores:</strong> todos os componentes estudados — fonte, placa-mãe,
+                    CPU, RAM, armazenamento — são instalados dentro do gabinete. A qualidade da refrigeração determina
+                    se esses componentes operam dentro dos limites térmicos seguros.</p>
+            </blockquote>
+        </section>
+
+        <hr>
+
+        <section>
+            <h2>2. Tipos de Gabinete</h2>
+            <img src="../assets/images/omc/08/gabinetes.png" alt="Tipos de Gabinete">
+            <h3>Por tamanho e compatibilidade</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tipo</th>
+                        <th>Placas-mãe compatíveis</th>
+                        <th>Característica</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Full Tower</strong></td>
+                        <td>ATX, E-ATX, mATX, ITX</td>
+                        <td>Grande porte; máximo espaço interno; múltiplos radiadores</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Mid Tower</strong></td>
+                        <td>ATX, mATX, ITX</td>
+                        <td><strong>Padrão mais comum</strong>; equilíbrio entre espaço e tamanho</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Mini Tower</strong></td>
+                        <td>mATX, ITX</td>
+                        <td>Compacto; limitações de refrigeração e expansão</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Mini-ITX</strong></td>
+                        <td>ITX</td>
+                        <td>Muito compacto; uso em HTPCs e sistemas dedicados</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Rack</strong></td>
+                        <td>Servidores (padrão EIA-310)</td>
+                        <td>Montagem em rack; ambiente corporativo e datacenter</td>
+                    </tr>
+                </tbody>
+            </table>
+            <blockquote>
+                <p>O Mid Tower ATX é o formato de referência para o curso — presente na maioria dos laboratórios e no
+                    mercado geral.</p>
+            </blockquote>
+            <h3>Materiais comuns</h3>
+            <ul>
+                <li><strong>Aço</strong> → resistência, peso maior, boa dissipação passiva</li>
+                <li><strong>Alumínio</strong> → mais leve, melhor dissipação, maior custo</li>
+                <li><strong>Plástico (ABS)</strong> → frontal decorativo; estrutura interna geralmente em aço</li>
+            </ul>
+        </section>
+
+        <hr>
+
+        <section>
+            <h2>3. Componentes Internos do Gabinete</h2>
+            <h3>Estrutura principal</h3>
+            <img src="../assets/images/omc/08/estrutura_gabinete.png" alt="Estrutura do Gabinete">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Componente</th>
+                        <th>Função</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Bandeja da placa-mãe</strong></td>
+                        <td>Superfície de fixação da placa-mãe; possui furos padrão ATX/mATX/ITX</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Standoffs (espaçadores)</strong></td>
+                        <td>Parafusos de latão que elevam a placa-mãe da bandeja, evitando curto-circuito</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Baias de armazenamento</strong></td>
+                        <td>Espaços para HDs (3,5") e SSDs (2,5")</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Área da fonte</strong></td>
+                        <td>Compartimento inferior (padrão atual) ou superior (gabinetes antigos)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Passa-cabos (grommets)</strong></td>
+                        <td>Aberturas com borracha para roteamento de cabos entre os compartimentos</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Painel traseiro (I/O shield)</strong></td>
+                        <td>Placa metálica que cobre as saídas da placa-mãe no painel traseiro</td>
+                    </tr>
+                </tbody>
+            </table>
+            <blockquote>
+                <p>Os <strong>standoffs</strong> são críticos: instalar a placa-mãe sem eles ou na posição errada causa
+                    curto-circuito entre a PCB e o gabinete. Sempre verificar o posicionamento antes de fixar a placa.
+                </p>
+            </blockquote>
+        </section>
+
+        <hr>
+
+        <section>
+            <h2>4. Fluxo de Ar — Princípios Fundamentais</h2>
+            <h3>Por que o fluxo de ar importa</h3>
+            <p>Componentes eletrônicos geram calor durante a operação. Se esse calor não for removido continuamente, a
+                temperatura sobe até atingir o limite de proteção térmica — quando o sistema reduz o desempenho
+                (<strong>thermal throttling</strong>) ou desliga automaticamente.</p>
+            <h3>Pressão positiva vs. negativa</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Configuração</th>
+                        <th>Como funciona</th>
+                        <th>Vantagem</th>
+                        <th>Desvantagem</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Pressão positiva</strong></td>
+                        <td>Mais fans de entrada que de saída</td>
+                        <td>Menos acúmulo de poeira</td>
+                        <td>Pode reter calor localizado</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Pressão negativa</strong></td>
+                        <td>Mais fans de saída que de entrada</td>
+                        <td>Remove calor rapidamente</td>
+                        <td>Acumula mais poeira (ar entra por frestas)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Pressão neutra</strong></td>
+                        <td>Entrada = saída</td>
+                        <td>Equilíbrio geral</td>
+                        <td>Depende do posicionamento correto</td>
+                    </tr>
+                </tbody>
+            </table>
+            <h3>Fluxo recomendado para Mid Tower ATX</h3>
+            <img src="../assets/images/omc/08/gabinete.png" alt="">
+            <blockquote>
+                <p>O calor sempre sobe. Fans no topo do gabinete configurados como exaustão aproveitam a convecção
+                    natural — ar quente que já subiu é expelido com mais eficiência.</p>
+            </blockquote>
+            <h3>Posicionamento padrão dos fans</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Posição</th>
+                        <th>Direção recomendada</th>
+                        <th>Justificativa</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Frontal</strong></td>
+                        <td>Entrada (intake)</td>
+                        <td>Ar frio alimenta GPU e armazenamento</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Traseiro</strong></td>
+                        <td>Saída (exhaust)</td>
+                        <td>Remove ar quente próximo à CPU</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Topo</strong></td>
+                        <td>Saída (exhaust)</td>
+                        <td>Expele ar quente que naturalmente sobe</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Inferior</strong></td>
+                        <td>Entrada (intake)</td>
+                        <td>Alimenta a fonte (se ventilação inferior)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <hr>
+
+        <section>
+            <h2>5. Fans de Gabinete</h2>
+            <h3>Tamanhos comuns</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Diâmetro</th>
+                        <th>Característica</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>80 mm</strong></td>
+                        <td>Legado; ruído alto para mesma vazão</td>
+                    </tr>
+                    <tr>
+                        <td><strong>120 mm</strong></td>
+                        <td>Padrão mais comum</td>
+                    </tr>
+                    <tr>
+                        <td><strong>140 mm</strong></td>
+                        <td>Maior vazão com menos ruído; preferível quando o espaço permite</td>
+                    </tr>
+                    <tr>
+                        <td><strong>200 mm</strong></td>
+                        <td>Gabinetes grandes; muito silencioso</td>
+                    </tr>
+                </tbody>
+            </table>
+            <blockquote>
+                <p>Um fan maior movimenta mais ar com menos rotações por minuto (RPM) — o que resulta em menor ruído.
+                    Para o mesmo desempenho térmico, 1 fan de 140 mm é mais silencioso que 1 fan de 120 mm.</p>
+            </blockquote>
+            <h3>Controle de velocidade</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Método</th>
+                        <th>Pinos</th>
+                        <th>Funcionamento</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>DC (voltage control)</strong></td>
+                        <td>3 pinos</td>
+                        <td>Velocidade controlada pela tensão fornecida</td>
+                    </tr>
+                    <tr>
+                        <td><strong>PWM (pulse width modulation)</strong></td>
+                        <td>4 pinos</td>
+                        <td>Velocidade controlada por sinal digital; mais preciso e estável</td>
+                    </tr>
+                </tbody>
+            </table>
+            <blockquote>
+                <p>PWM é o padrão atual. Permite que a placa-mãe ajuste a velocidade dos fans automaticamente conforme a
+                    temperatura dos sensores internos — silencioso em idle, mais rápido sob carga.</p>
+            </blockquote>
+        </section>
+
+        <hr>
+
+        <section>
+            <h2>6. Sistemas de Refrigeração da CPU</h2>
+            <h3>6.1 Air Cooling (Resfriamento a Ar)</h3>
+            <p>Composto por dois elementos: <strong>dissipador</strong> (heatsink) e <strong>fan</strong>.</p>
+            <p><strong>Funcionamento:</strong></p>
+            <img src="../assets/images/omc/08/air_cooler.png" alt="Air Cooling">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tipo</th>
+                        <th>Característica</th>
+                        <th>Indicação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Cooler de caixa (stock)</strong></td>
+                        <td>Incluído com o processador; compacto</td>
+                        <td>CPUs de baixo TDP (65W), uso básico</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Tower cooler simples</strong></td>
+                        <td>Torre com 1 fan; heat pipes</td>
+                        <td>CPUs até ~125W</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Dual tower</strong></td>
+                        <td>Duas torres, 2 fans; alta eficiência</td>
+                        <td>CPUs de alto TDP, overclocking</td>
+                    </tr>
+                </tbody>
+            </table>
+            <blockquote>
+                <p>Coolers de caixa Intel e AMD <strong>não são compatíveis entre si</strong> — o padrão de fixação
+                    (mounting) difere por socket. Sempre verificar compatibilidade de socket ao adquirir cooler
+                    aftermarket.</p>
+            </blockquote>
+
+            <h3>6.2 Water Cooling — Visão Geral</h3>
+            <p>O water cooling substitui o ar pela água como meio de transferência de calor, aproveitando a maior
+                capacidade calorífica do líquido.</p>
+            <p><strong>Componentes de um sistema AIO (All-in-One):</strong></p>
+            <img src="../assets/images/omc/08/water_cooler.png" alt="">
+            <table>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>AIO</th>
+                        <th>Custom Loop</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Instalação</strong></td>
+                        <td>Simples, plug-and-play</td>
+                        <td>Complexa, montagem manual</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Manutenção</strong></td>
+                        <td>Mínima</td>
+                        <td>Periódica (fluido, reservatório)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Desempenho</strong></td>
+                        <td>Bom a excelente</td>
+                        <td>Máximo</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Indicação</strong></td>
+                        <td>Uso geral até alto desempenho</td>
+                        <td>Entusiastas, overclocking extremo</td>
+                    </tr>
+                </tbody>
+            </table>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tamanho</th>
+                        <th>Fans</th>
+                        <th>Indicação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>120 mm</strong></td>
+                        <td>1× 120 mm</td>
+                        <td>CPUs de baixo TDP</td>
+                    </tr>
+                    <tr>
+                        <td><strong>240 mm</strong></td>
+                        <td>2× 120 mm</td>
+                        <td>CPUs intermediárias</td>
+                    </tr>
+                    <tr>
+                        <td><strong>280 mm</strong></td>
+                        <td>2× 140 mm</td>
+                        <td>CPUs de médio-alto TDP</td>
+                    </tr>
+                    <tr>
+                        <td><strong>360 mm</strong></td>
+                        <td>3× 120 mm</td>
+                        <td>CPUs de alto TDP (i9, Ryzen 9)</td>
+                    </tr>
+                </tbody>
+            </table>
+            <blockquote>
+                <p>Water cooling <strong>não elimina</strong> o calor do sistema — transfere o calor da CPU para o
+                    radiador, onde fans o expelem para dentro do gabinete. Um gabinete com fluxo de ar ruim prejudica o
+                    desempenho mesmo com AIO.</p>
+            </blockquote>
+        </section>
+
+        <hr>
+
+        <section>
+            <h2>7. Pasta Térmica — Procedimento</h2>
+            <h3>Função</h3>
+            <p>A pasta térmica preenche as microimperfeições entre a superfície do IHS (tampa metálica da CPU) e a base
+                do cooler, eliminando bolsas de ar que são péssimas condutoras de calor.</p>
+            <h3>Tipos</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tipo</th>
+                        <th>Condutividade</th>
+                        <th>Observação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Base de silicone</strong></td>
+                        <td>Baixa–média</td>
+                        <td>Mais comum, fácil aplicação, não conduz eletricidade</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Base metálica (líquido metálico)</strong></td>
+                        <td>Alta</td>
+                        <td>Conduz eletricidade — risco se escorrer para o socket</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Grafite (pad)</strong></td>
+                        <td>Média</td>
+                        <td>Reutilizável; usado em notebooks</td>
+                    </tr>
+                </tbody>
+            </table>
+            <h3>Procedimento de aplicação</h3>
+            <ol>
+                <li><strong>Limpar superfícies:</strong> remover pasta antiga com álcool isopropílico 99% e flanela sem
+                    fio</li>
+                <li><strong>Aguardar secar</strong> completamente antes de aplicar a nova pasta</li>
+                <li><strong>Aplicar quantidade:</strong> uma gota do tamanho de um grão de arroz no
+                    <strong>centro</strong> do IHS</li>
+                <li><strong>Não espalhar manualmente:</strong> a pressão do cooler distribui a pasta uniformemente</li>
+                <li><strong>Fixar o cooler</strong> de forma cruzada (parafuso diagonal a diagonal) para pressão
+                    uniforme</li>
+                <li><strong>Verificar espalhamento:</strong> em sistemas transparentes ou após remoção futura, a pasta
+                    deve cobrir toda a área de contato sem extravasar</li>
+            </ol>
+            <blockquote>
+                <p>Excesso de pasta não melhora a condução — o excesso escorrega para os lados e pode atingir os pinos
+                    do socket ou componentes adjacentes. Menos é mais.</p>
+            </blockquote>
+            <blockquote>
+                <p>Pasta antiga ressecada perde eficiência com o tempo. Em manutenção de computadores com
+                    superaquecimento crônico, a troca de pasta térmica é o primeiro procedimento a realizar — antes de
+                    qualquer outra intervenção.</p>
+            </blockquote>
+        </section>
+
+        <hr>
+
+        <section>
+            <h2>8. Cable Management</h2>
+            <h3>Por que organizar os cabos</h3>
+            <p>Cabos soltos dentro do gabinete:</p>
+            <ul>
+                <li>Bloqueiam o fluxo de ar, aumentando a temperatura interna</li>
+                <li>Dificultam manutenção e identificação de componentes</li>
+                <li>Aumentam risco de contato acidental com fans em movimento</li>
+            </ul>
+            <h3>Princípios de cable management</h3>
+            <p><strong>1. Roteamento pela parte traseira da bandeja</strong><br>
+                A maioria dos gabinetes Mid Tower possui espaço entre a bandeja da placa-mãe e o painel lateral
+                traseiro. Passar os cabos por esse espaço mantém o interior frontal limpo.</p>
+            <p><strong>2. Uso dos passa-cabos (grommets)</strong><br>
+                As aberturas com borracha no gabinete definem os pontos de passagem ideais para cada cabo. Respeitar
+                esses pontos facilita o roteamento natural.</p>
+            <p><strong>3. Agrupamento por destino</strong></p>
+            <ul>
+                <li>Cabos da fonte → agrupar por trilho e destino (ATX, EPS, SATA, PCIe)</li>
+                <li>Cabos de dados SATA → roteados juntos, fixados próximos às baias</li>
+                <li>Cabos do front panel → agrupados e fixados próximos ao conector F_PANEL</li>
+            </ul>
+            <p><strong>4. Fixação com abraçadeiras ou velcro</strong></p>
+            <ul>
+                <li>Abraceadeiras de nylon: fixação permanente; usar com moderação para permitir futuras manutenções
+                </li>
+                <li>Velcro: preferível em ambientes de manutenção frequente</li>
+            </ul>
+            <h3>O que evitar</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Erro</th>
+                        <th>Consequência</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Cabos passando na frente dos fans</td>
+                        <td>Ruído, dano ao fan, bloqueio de fluxo</td>
+                    </tr>
+                    <tr>
+                        <td>Cabo de alimentação ATX 24 pinos solto</td>
+                        <td>Bloqueia fluxo de ar lateral</td>
+                    </tr>
+                    <tr>
+                        <td>Cabos SATA em excesso sem fixação</td>
+                        <td>Dificulta manutenção, vibração em HDs</td>
+                    </tr>
+                    <tr>
+                        <td>Fonte sem cabos modular cheios de cabos não usados</td>
+                        <td>Acúmulo desnecessário de massa de cabos</td>
+                    </tr>
+                </tbody>
+            </table>
+            <img src="../assets/images/omc/08/cabos.png" alt="">
+        </section>
+
+        <hr>
+
+        <section>
+            <h2>9. Diagnóstico Térmico</h2>
+            <h3>Sintomas de problema térmico</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Sintoma</th>
+                        <th>Causa provável</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Desligamento automático sob carga</td>
+                        <td>CPU ou GPU atingiu temperatura de proteção (thermal shutdown)</td>
+                    </tr>
+                    <tr>
+                        <td>Redução de desempenho sob carga (throttling)</td>
+                        <td>Temperatura elevada — CPU reduz clock para diminuir calor</td>
+                    </tr>
+                    <tr>
+                        <td>Reinicializações aleatórias</td>
+                        <td>Instabilidade por temperatura; também pode ser fonte</td>
+                    </tr>
+                    <tr>
+                        <td>Ruído excessivo dos fans</td>
+                        <td>Sistema tentando compensar temperatura elevada aumentando RPM</td>
+                    </tr>
+                    <tr>
+                        <td>Fans sempre em velocidade máxima</td>
+                        <td>Sensor de temperatura indicando calor contínuo</td>
+                    </tr>
+                </tbody>
+            </table>
+            <h3>Temperaturas de referência em operação normal</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Componente</th>
+                        <th>Idle</th>
+                        <th>Carga</th>
+                        <th>Limite de alerta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>CPU (air cooling)</strong></td>
+                        <td>30–45°C</td>
+                        <td>65–85°C</td>
+                        <td>&gt;95°C</td>
+                    </tr>
+                    <tr>
+                        <td><strong>CPU (water cooling AIO)</strong></td>
+                        <td>25–40°C</td>
+                        <td>55–75°C</td>
+                        <td>&gt;90°C</td>
+                    </tr>
+                    <tr>
+                        <td><strong>GPU</strong></td>
+                        <td>30–50°C</td>
+                        <td>70–85°C</td>
+                        <td>&gt;95°C</td>
+                    </tr>
+                    <tr>
+                        <td><strong>SSD NVMe</strong></td>
+                        <td>35–50°C</td>
+                        <td>60–80°C</td>
+                        <td>&gt;85°C</td>
+                    </tr>
+                    <tr>
+                        <td><strong>HD</strong></td>
+                        <td>30–40°C</td>
+                        <td>40–50°C</td>
+                        <td>&gt;55°C</td>
+                    </tr>
+                </tbody>
+            </table>
+            <h3>Ferramentas de monitoramento</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Ferramenta</th>
+                        <th>Função</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>HWMonitor</strong></td>
+                        <td>Leitura de temperatura, tensão e RPM de todos os componentes</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Core Temp</strong></td>
+                        <td>Temperatura por núcleo da CPU em tempo real</td>
+                    </tr>
+                    <tr>
+                        <td><strong>MSI Afterburner</strong></td>
+                        <td>Temperatura e clock da GPU; controle manual de fan</td>
+                    </tr>
+                    <tr>
+                        <td><strong>BIOS/UEFI</strong></td>
+                        <td>Temperatura da CPU e velocidade dos fans sem iniciar o SO</td>
+                    </tr>
+                </tbody>
+            </table>
+            <h3>Procedimento de diagnóstico térmico em bancada</h3>
+            <ol>
+                <li>Monitorar temperaturas com HWMonitor em idle — identificar baseline</li>
+                <li>Aplicar carga (Prime95 para CPU, FurMark para GPU) por 10–15 minutos</li>
+                <li>Observar se a temperatura se estabiliza ou sobe continuamente</li>
+                <li>Verificar RPM dos fans — fans parados ou muito lentos indicam problema de controle ou falha</li>
+                <li>Abrir o gabinete e verificar: pasta térmica ressecada, fan do cooler parado, cabos bloqueando fluxo
+                </li>
+                <li>Em caso de superaquecimento confirmado: trocar pasta térmica como primeiro passo</li>
+            </ol>
+        </section>
+
+        <hr>
+
+        <section>
+            <h2>Síntese da Aula</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Conceito</th>
+                        <th>Ponto central</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Tipos de gabinete</strong></td>
+                        <td>Mid Tower ATX é o padrão; tamanho define compatibilidade</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Standoffs</strong></td>
+                        <td>Obrigatórios; ausência causa curto-circuito</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Fluxo de ar</strong></td>
+                        <td>Frente/baixo → entrada; traseira/topo → saída</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Fans PWM vs DC</strong></td>
+                        <td>PWM permite controle preciso por temperatura</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Air cooling</strong></td>
+                        <td>Dissipador + heat pipes + fan; compatibilidade por socket</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Water cooling AIO</strong></td>
+                        <td>Transfere calor para radiador; gabinete ainda precisa de boa ventilação</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Pasta térmica</strong></td>
+                        <td>Grão de arroz no centro; não espalhar; trocar em manutenção</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cable management</strong></td>
+                        <td>Cabos na traseira; agrupados; longe dos fans</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Diagnóstico térmico</strong></td>
+                        <td>HWMonitor + carga controlada; primeiro passo: pasta térmica</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <footer>
+            <p>Curso Técnico em Redes | Oficina de Montagem e Conexão</p>
+        </footer>
+    </main>
+</body>
+
+</html>
