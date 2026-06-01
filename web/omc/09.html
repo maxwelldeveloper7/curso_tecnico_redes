@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>AULA 09 — Montagem completa de um computador</title>
+	<link rel="stylesheet" href="../assets/css/style.css">
+	<style>
+		pre code { white-space: pre-wrap; word-break: break-word; }
+	</style>
+</head>
+<body>
+	<main>
+		<header>
+			<h1>AULA 09 — MONTAGEM COMPLETA DE UM COMPUTADOR</h1>
+		</header>
+
+		<hr>
+
+		<h2>1. Introdução</h2>
+		<p>A montagem de um computador é a aplicação prática de tudo que foi estudado nas aulas anteriores. Cada decisão tomada durante a montagem tem base em conceitos já vistos: compatibilidade de sockets, trilhos de tensão, fluxo de ar, fixação de componentes e organização de cabos.</p>
+		<blockquote><strong>Objetivo desta aula:</strong> executar a montagem completa de um computador desktop na sequência correta, com os procedimentos de segurança e qualidade adequados a um técnico de informática.</blockquote>
+
+		<hr>
+
+		<h2>2. Antes de Começar — Preparação de Bancada</h2>
+		<p>Uma montagem bem-feita começa antes de tocar em qualquer componente.</p>
+
+		<h3>2.1 Organização do espaço</h3>
+		<ol>
+			<li>Utilizar uma bancada limpa, seca e iluminada.</li>
+			<li>Separar todos os componentes e verificar se estão presentes: placa-mãe, CPU, cooler, RAM, armazenamento, fonte, gabinete, cabos e parafusos.</li>
+			<li>Manter as caixas e embalagens próximas — os manuais serão consultados durante a montagem.</li>
+			<li>Separar as ferramentas: chave Phillips número 2 (principal), chave Phillips número 1 (parafusos menores) e pinça de ponta fina (opcional, para parafusos em locais de difícil acesso).</li>
+		</ol>
+
+		<h3>2.2 Descarga eletrostática (ESD)</h3>
+		<p>Componentes eletrônicos são sensíveis à descarga eletrostática — uma corrente invisível que pode danificar chips sem deixar marca visível.</p>
+		<ul>
+			<li>Utilizar <strong>pulseira antiestática</strong> conectada a uma superfície aterrada sempre que possível.</li>
+			<li>Na ausência da pulseira: tocar em uma superfície metálica aterrada (como o chassi metálico do gabinete desconectado da tomada) antes de manipular cada componente.</li>
+			<li><strong>Nunca</strong> manusear componentes pela face de circuitos — sempre pelas bordas.</li>
+			<li>Manter os componentes nas embalagens antiestáticas (sacos metalizados) até o momento do uso.</li>
+		</ul>
+
+		<h3>2.3 O que nunca fazer</h3>
+		<ul>
+			<li>Nunca montar com a fonte conectada à tomada.</li>
+			<li>Nunca forçar conectores, parafusos ou componentes — se não encaixa com suavidade, rever o alinhamento.</li>
+			<li>Nunca apertar parafusos da placa-mãe com força excessiva — a PCB pode rachar.</li>
+		</ul>
+
+		<hr>
+
+		<h2>3. Sequência de Montagem</h2>
+		<p>A sequência abaixo foi definida para minimizar retrabalho e facilitar o acesso aos componentes em cada etapa.</p>
+
+		<h3>Etapa 1 — Instalação do processador na placa-mãe</h3>
+        <img src="../assets/images/omc/09/cpu.png" alt="">
+		<p><em>Por que primeiro:</em> é muito mais fácil instalar a CPU com a placa-mãe fora do gabinete, sobre uma superfície plana.</p>
+		<ol>
+			<li>Retirar a placa-mãe da embalagem antiestática e posicioná-la sobre a própria embalagem ou sobre uma superfície não condutora.</li>
+			<li>Localizar o socket da CPU e identificar o mecanismo de travamento (alavanca para LGA Intel / alavanca ZIF para AMD PGA / mecanismo de pressão para AMD AM5 LGA).</li>
+			<li>Abrir o mecanismo de travamento conforme o tipo de socket.</li>
+			<li><strong>Intel LGA:</strong> remover a tampa plástica protetora dos pinos (guardar — alguns fabricantes exigem para RMA). Alinhar a CPU pela seta indicadora no canto e pelo entalhe lateral. Baixar a CPU verticalmente sem deslizar. Fechar a alavanca — exigirá leve pressão, isso é normal.</li>
+			<li><strong>AMD AM4 (PGA):</strong> alinhar pelo triângulo dourado no canto da CPU com o triângulo no socket. Encaixar verticalmente sem pressão lateral. Travar a alavanca.</li>
+			<li><strong>AMD AM5 (LGA):</strong> alinhar pelos entalhes laterais. Baixar a CPU e fechar o mecanismo de pressão.</li>
+		</ol>
+		<p><strong>⚠️ Nunca deslizar a CPU sobre os pinos.</strong> O movimento deve ser sempre vertical. Um pino dobrado pode inutilizar a placa-mãe ou o processador.</p>
+
+		<h3>Etapa 2 — Instalação da memória RAM</h3>
+        <img src="../assets/images/omc/09/ram.png" alt="">
+		<ol>
+			<li>Consultar o manual da placa-mãe para identificar os slots corretos para dual channel (geralmente A2 e B2).</li>
+			<li>Abrir as travas laterais dos slots selecionados.</li>
+			<li>Alinhar o entalhe do módulo com a protuberância do slot — só encaixa em uma direção.</li>
+			<li>Pressionar firmemente e de forma uniforme nas duas extremidades até as travas fecharem com um clique audível.</li>
+			<li>Verificar visualmente que as travas estão completamente fechadas nos dois lados.</li>
+		</ol>
+		<p><em>💡 Se instalar apenas um módulo nesta etapa (para teste inicial), usar o slot A2 ou B2 conforme o manual — nunca o slot A1.</em></p>
+
+		<h3>Etapa 3 — Instalação do cooler da CPU</h3>
+        <img src="../assets/images/omc/09/cooler.png" alt="">
+		<ol>
+			<li>Verificar se o cooler é compatível com o socket instalado.</li>
+			<li><strong>Aplicar pasta térmica:</strong> uma gota do tamanho de um grão de arroz no centro do IHS (tampa metálica da CPU). Não espalhar.</li>
+			<li><strong>Cooler de caixa (stock):</strong> encaixar os quatro pinos de pressão nos furos da placa-mãe em diagonal. Pressionar cada pino até ouvir o clique de travamento. Verificar que os quatro pinos estão travados e o cooler não balança.</li>
+			<li><strong>Cooler aftermarket com backplate:</strong> fixar o backplate na parte traseira da placa-mãe. Posicionar o cooler sobre a CPU e fixar os parafusos em ordem cruzada (diagonal a diagonal) em múltiplas passagens — nunca apertar um parafuso completamente antes dos outros.</li>
+			<li>Conectar o cabo do fan do cooler no header <strong>CPU_FAN</strong> da placa-mãe.</li>
+		</ol>
+		<p><strong>⚠️ Cooler mal fixado (com folga ou inclinado) resulta em contato irregular com o IHS e superaquecimento imediato. Verificar firmeza antes de prosseguir.</strong></p>
+
+		<h3>Etapa 4 — Preparação do gabinete</h3>
+        <img src="../assets/images/omc/09/preparacao_gabinete.png" alt="">
+		<ol>
+			<li>Remover os painéis laterais do gabinete.</li>
+			<li>Identificar o padrão de furos da bandeja (ATX, mATX ou ITX) e instalar os <strong>standoffs (espaçadores)</strong> nos furos correspondentes ao form factor da placa-mãe. Consultar o manual do gabinete para o mapa de furos.</li>
+			<li>Verificar que não há standoffs em posições sem furo correspondente na placa-mãe — causaria curto-circuito.</li>
+			<li>Instalar o <strong>I/O shield (escudo traseiro)</strong> da placa-mãe no recorte do painel traseiro do gabinete. Pressionar nas bordas até encaixar completamente. As abas metálicas internas devem apontar para dentro do gabinete.</li>
+			<li>Instalar os <strong>fans de gabinete</strong> nas posições definidas na Aula 08: frente como intake, traseira como exhaust. Conectar os cabos dos fans nos headers SYS_FAN da placa-mãe ou no controlador de fans do gabinete.</li>
+		</ol>
+
+		<h3>Etapa 5 — Instalação da placa-mãe no gabinete</h3>
+        <img src="../assets/images/omc/09/instalacao_placa_mae.png" alt="">
+		<ol>
+			<li>Segurar a placa-mãe pelas bordas e posicioná-la no gabinete alinhando as saídas traseiras (USB, áudio, rede) com o I/O shield instalado.</li>
+			<li>Verificar que todos os furos da placa-mãe estão alinhados com os standoffs.</li>
+			<li>Inserir e apertar os parafusos da placa-mãe em ordem cruzada — começar pelos cantos, depois os do centro. Apertar com firmeza mas sem força excessiva.</li>
+			<li>Verificar que as abas do I/O shield não estão cobrindo as portas traseiras.</li>
+		</ol>
+
+		<h3>Etapa 6 — Instalação do armazenamento</h3>
+        <img src="../assets/images/omc/09/armazenamento.png" alt="">
+		<p><strong>HD, SSD 2,5"/3,5 SATA ou NVMe:</strong></p>
+		<ol>
+			<li>Fixar o dispositivo na baia correspondente com os parafusos laterais (HD 3,5") ou com adaptador (SSD 2,5" em baia 3,5").</li>
+			<li>Conectar o cabo SATA de dados entre o dispositivo e um conector SATA da placa-mãe. Preferir as portas SATA_1 ou SATA_2 (geralmente controladas diretamente pelo chipset).</li>
+			<li>Passar o cabo SATA pela parte traseira da bandeja se o gabinete permitir.</li>
+		</ol>
+		<p><strong>SSD NVMe M.2:</strong></p>
+		<ol>
+			<li>Localizar o slot M.2 na placa-mãe e remover o parafuso de retenção.</li>
+			<li>Remover o dissipador M.2 se presente (e a película protetora da almofada térmica).</li>
+			<li>Inserir o SSD no slot em ângulo de ~30°, alinhando o entalhe.</li>
+			<li>Abaixar o SSD e fixar com o parafuso de retenção.</li>
+			<li>Reinstalar o dissipador M.2.</li>
+		</ol>
+
+		<h3>Etapa 7 — Instalação da fonte de alimentação</h3>
+        <img src="../assets/images/omc/09/fonte.png" alt="">
+		<ol>
+			<li>Posicionar a fonte no compartimento do gabinete (geralmente inferior) com a grade de ventilação voltada para baixo (se o gabinete tiver abertura inferior com filtro de poeira) ou para cima (se não houver).</li>
+			<li>Fixar a fonte com os quatro parafusos no painel traseiro do gabinete.</li>
+			<li>Ainda não conectar os cabos — isso é feito na próxima etapa.</li>
+		</ol>
+
+		<h3>Etapa 8 — Conexão dos cabos da fonte</h3>
+		<ol>
+			<li><strong>ATX 24 pinos</strong> → conector principal da placa-mãe. Encaixar até o clique de travamento.</li>
+			<li><strong>EPS 4+4 ou 8 pinos (CPU)</strong> → conector de alimentação da CPU, geralmente no canto superior esquerdo da placa-mãe. Rotear o cabo pela parte traseira da bandeja se possível.</li>
+			<li><strong>SATA Power</strong> → dispositivos de armazenamento instalados na Etapa 6.</li>
+			<li><strong>PCIe 6+2 ou 8 pinos</strong> → apenas se houver placa de vídeo dedicada (instalada na Etapa 9).</li>
+		</ol>
+		<p><strong>⚠️ O cabo EPS da CPU é frequentemente esquecido por iniciantes. Sem ele, o sistema não realiza POST.</strong></p>
+
+		<h3>Etapa 9 — Instalação de placa de vídeo dedicada (se houver)</h3>
+        <img src="../assets/images/omc/09/gpu.png" alt="Placa de Vídeo">
+		<ol>
+			<li>Remover a(s) tampa(s) metálica(s) do painel traseiro do gabinete correspondentes ao slot PCIe x16 que será utilizado.</li>
+			<li>Abrir a trava do slot PCIe x16 na placa-mãe.</li>
+			<li>Alinhar a GPU com o slot e pressionar firmemente até a trava fechar com clique.</li>
+			<li>Fixar o suporte traseiro da GPU ao gabinete com parafusos.</li>
+			<li>Conectar os cabos PCIe Power da fonte (6+2 ou 8 pinos) nos conectores da GPU.</li>
+		</ol>
+
+		<h3>Etapa 10 — Conexão dos cabos do front panel</h3>
+        <div style="display: flex;">
+            <img src="../assets/images/omc/09/painel_f.png" alt="Conexão do Front Panel">
+            <img src="../assets/images/omc/09/pinagem_f_panel.png" alt="Diagrama do F_PANEL">
+        </div>
+		<p>Esta é a etapa que mais exige consulta ao manual — os conectores são pequenos e a ordem dos pinos varia por fabricante.</p>
+		<table>
+			<thead>
+				<tr><th>Cabo</th><th>Função</th><th>Observação</th></tr>
+			</thead>
+			<tbody>
+				<tr><td><strong>Power SW</strong></td><td>Botão ligar/desligar</td><td>Sem polaridade — qualquer orientação</td></tr>
+				<tr><td><strong>Reset SW</strong></td><td>Botão reset</td><td>Sem polaridade</td></tr>
+				<tr><td><strong>Power LED +/-</strong></td><td>LED de energia</td><td>Com polaridade — positivo no pino marcado</td></tr>
+				<tr><td><strong>HDD LED +/-</strong></td><td>LED de atividade do armazenamento</td><td>Com polaridade</td></tr>
+			</tbody>
+		</table>
+		<p>Cabos adicionais:</p>
+		<ul>
+			<li>USB 2.0 interno → header USB 2.0 da placa-mãe</li>
+			<li>USB 3.0 interno → header USB 3.0 (conector azul maior)</li>
+			<li>Áudio frontal (AAFP) → header de áudio da placa-mãe</li>
+		</ul>
+		<p><em>💡 Se o LED de power não acender após a montagem mas o sistema funcionar normalmente, verificar a polaridade do conector Power LED — inverter a conexão resolve.</em></p>
+
+		<h3>Etapa 11 — Cable Management</h3>
+        <img src="../assets/images/omc/09/cable.png" alt="Organização de Cabos">
+		<ol>
+			<li>Reunir os cabos excedentes e roteá-los pela parte traseira da bandeja através dos passa-cabos.</li>
+			<li>Agrupar cabos por destino e fixar com abraçadeiras de velcro.</li>
+			<li>Verificar que nenhum cabo está próximo a fans em movimento.</li>
+			<li>Cabos de fonte não utilizados (em fontes não modulares): dobrar e fixar em local que não bloqueie o fluxo de ar.</li>
+		</ol>
+
+		<h3>Etapa 12 — Verificação pré-energização</h3>
+        <img src="../assets/images/omc/09/checklist_.png" alt="Checklist de Verificação">
+		<p>Antes de conectar a fonte à tomada, realizar uma revisão completa:</p>
+		<ul>
+			<li>CPU instalada e cooler firmemente fixado</li>
+			<li>Fan do cooler conectado no CPU_FAN</li>
+			<li>RAM encaixada com travas fechadas nos dois lados</li>
+			<li>Placa-mãe fixada sobre todos os standoffs</li>
+			<li>ATX 24 pinos conectado</li>
+			<li>EPS 8 pinos da CPU conectado</li>
+			<li>Armazenamento conectado (dados e alimentação)</li>
+			<li>Cabos do front panel conectados (especialmente Power SW)</li>
+			<li>Nenhum cabo solto próximo a fans</li>
+			<li>Nenhuma ferramenta ou parafuso solto dentro do gabinete</li>
+		</ul>
+		<p><strong>⚠️ Um parafuso solto dentro do gabinete pode causar curto-circuito ao tocar a PCB da placa-mãe durante o transporte ou vibração. Verificar visualmente e inclinar levemente o gabinete antes de fechar.</strong></p>
+
+		<h3>Etapa 13 — Primeiro teste (fora do gabinete ou com painel aberto)</h3>
+		<ol>
+			<li>Conectar o monitor na saída de vídeo (GPU dedicada ou saída integrada da placa-mãe).</li>
+			<li>Conectar teclado e mouse.</li>
+			<li>Conectar o cabo de força na fonte e ligar a chave traseira da fonte (posição <strong>I</strong>).</li>
+			<li>Pressionar o botão Power do gabinete.</li>
+			<li>Observar: fans da CPU, gabinete e GPU devem girar; LEDs da placa-mãe devem acender (se presentes); monitor deve exibir a tela de POST ou logotipo do fabricante.</li>
+		</ol>
+		<p><strong>Se o sistema não ligar:</strong></p>
+		<ul>
+			<li>Verificar chave da fonte (posição I)</li>
+			<li>Verificar conector Power SW no F_PANEL</li>
+			<li>Verificar cabo EPS da CPU</li>
+			<li>Verificar RAM encaixada completamente</li>
+		</ul>
+		<p><strong>Se ligar mas não houver imagem:</strong></p>
+		<ul>
+			<li>Verificar cabo do monitor conectado na saída correta (GPU dedicada, não onboard, se houver GPU)</li>
+			<li>Verificar RAM no slot correto</li>
+			<li>Ouvir bipes de POST — código de bipes indica o componente com problema</li>
+		</ul>
+
+		<hr>
+
+		<h2>Síntese da Aula</h2>
+		<table>
+			<thead>
+				<tr><th>Etapa</th><th>Componente</th><th>Ponto crítico</th></tr>
+			</thead>
+			<tbody>
+				<tr><td>1</td><td>CPU</td><td>Movimento vertical; nunca deslizar</td></tr>
+				<tr><td>2</td><td>RAM</td><td>Slots corretos para dual channel; travas fechadas</td></tr>
+				<tr><td>3</td><td>Cooler</td><td>Pasta térmica; fixação firme e uniforme</td></tr>
+				<tr><td>4</td><td>Gabinete</td><td>Standoffs corretos; I/O shield instalado</td></tr>
+				<tr><td>5</td><td>Placa-mãe</td><td>Alinhamento com I/O shield; parafusos em cruzado</td></tr>
+				<tr><td>6</td><td>Armazenamento</td><td>Cabo de dados + alimentação</td></tr>
+				<tr><td>7</td><td>Fonte</td><td>Grade de ventilação para o lado correto</td></tr>
+				<tr><td>8</td><td>Cabos da fonte</td><td>EPS da CPU é o mais esquecido</td></tr>
+				<tr><td>9</td><td>GPU</td><td>Trava do slot PCIe; cabos PCIe Power</td></tr>
+				<tr><td>10</td><td>Front panel</td><td>Consultar manual; polaridade dos LEDs</td></tr>
+				<tr><td>11</td><td>Cable management</td><td>Cabos longe dos fans</td></tr>
+				<tr><td>12</td><td>Verificação</td><td>Checklist antes de energizar</td></tr>
+				<tr><td>13</td><td>Primeiro teste</td><td>Fans giram + imagem no monitor = POST bem-sucedido</td></tr>
+			</tbody>
+		</table>
+
+	</main>
+</body>
+</html>
