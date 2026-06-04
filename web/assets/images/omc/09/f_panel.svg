@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 300" width="100%" height="100%">
+  <defs>
+    <g id="front-panel-pin">
+      <circle cx="0" cy="0" r="14" fill="#090a0d"/>
+      <circle cx="0" cy="0" r="9" fill="#eab308" stroke="#ca8a04" stroke-width="1.5"/>
+      <circle cx="0" cy="0" r="5" fill="#fef08a" opacity="0.7"/>
+    </g>
+  </defs>
+
+  <g transform="translate(40, 60)">
+    
+    <rect x="0" y="0" width="480" height="180" rx="4" fill="#14161d" stroke="#08090c" stroke-width="3"/>
+    
+    <rect x="4" y="4" width="472" height="172" rx="2" fill="none" stroke="#292e3d" stroke-width="1"/>
+
+    <path d="M 12,12 L 180,12 L 180,168 L 12,168 Z" fill="#22c55e" opacity="0.15"/>
+    <rect x="16" y="16" width="76" height="64" rx="2" fill="#22c55e" opacity="0.3"/> <rect x="16" y="98" width="76" height="64" rx="2" fill="#ea580c" opacity="0.3"/> <rect x="98" y="16" width="76" height="64" rx="2" fill="#15803d" opacity="0.3"/> <rect x="98" y="98" width="76" height="64" rx="2" fill="#9a3412" opacity="0.3"/> <rect x="194" y="16" width="76" height="64" rx="2" fill="#dc2626" opacity="0.4"/>  <rect x="276" y="16" width="76" height="64" rx="2" fill="#dc2626" opacity="0.4"/>  <rect x="194" y="98" width="76" height="64" rx="2" fill="#0284c7" opacity="0.3"/>  <rect x="276" y="98" width="76" height="64" rx="2" fill="#0284c7" opacity="0.3"/>  <rect x="374" y="98" width="76" height="64" rx="2" fill="#a1a1aa" opacity="0.2"/>  <rect x="374" y="16" width="76" height="64" rx="2" fill="#1c1f26" stroke="#292e3d" stroke-dasharray="2,2"/>
+
+
+    <g transform="translate(54, 48)"><use href="#front-panel-pin"/></g>
+    <g transform="translate(136, 48)"><use href="#front-panel-pin"/></g>
+    <g transform="translate(232, 48)"><use href="#front-panel-pin"/></g>
+    <g transform="translate(314, 48)"><use href="#front-panel-pin"/></g>
+    <g transform="translate(54, 130)"><use href="#front-panel-pin"/></g>
+    <g transform="translate(136, 130)"><use href="#front-panel-pin"/></g>
+    <g transform="translate(232, 130)"><use href="#front-panel-pin"/></g>
+    <g transform="translate(314, 130)"><use href="#front-panel-pin"/></g>
+    <g transform="translate(412, 130)"><use href="#front-panel-pin"/></g>
+
+  </g>
+</svg>
