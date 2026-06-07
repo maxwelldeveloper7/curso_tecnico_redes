@@ -83,7 +83,10 @@
             C 1052,330 1064,410 1076,370
             C 1088,330 1100,410 1112,370
             L 1130,370" 
-        fill="none" stroke="url(#wave_spectrum)" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/>
+        fill="none" stroke="url(#wave_spectrum)" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"
+        stroke-dasharray="1200">
+            <animate attributeName="stroke-dashoffset" from="2400" to="0" dur="3s" repeatCount="indefinite" />
+        </path>
     </g>
 
     <g id="layer_top_modules" filter="url(#iso_shadow)">
