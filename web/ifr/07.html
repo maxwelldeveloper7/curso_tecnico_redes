@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Infraestrutura Física de Redes - Aula 07</title>
+  <link rel="stylesheet" href="../../web/assets/css/style.css">
+</head>
+
+<body>
+  <main>
+    <header>
+      <p class="eyebrow">Infraestrutura Física de Redes</p>
+      <h1>AULA 07 - Fibra Óptica e Meios Não Guiados</h1>
+      <div class="meta" aria-label="Informações da aula">        
+        <span><strong>Objetivo da aula:</strong> Conhecer a fibra óptica de forma introdutória, compreender o conceito amplo de wireless e as principais tecnologias sem fio utilizadas em redes de computadores.</span>
+      </div>
+    </header>
+
+    <section>
+      <h2>1. Fibra Óptica</h2>
+      <h3>O que é e como funciona</h3>
+      <p>A fibra óptica transmite dados na forma de <strong>pulsos de luz</strong> - em vez de sinais elétricos como no par trançado. O filamento por onde a luz viaja é feito de vidro ultrapuro, tão fino quanto um fio de cabelo.</p>
+      <p>O princípio que mantém a luz confinada dentro da fibra é chamado de <strong>reflexão total interna</strong>: quando a luz tenta sair do filamento de vidro, ela é refletida de volta para dentro - como num espelho - e continua viajando até o destino.</p>
+      <blockquote>
+        <p><strong>Analogia:</strong> imagine um cano espelhado por dentro. Uma lanterna apontada numa extremidade ilumina a outra, independentemente das curvas do cano - a luz vai refletindo pelas paredes até chegar ao destino.</p>
+      </blockquote>
+
+      <h3>Monomodo vs. Multimodo</h3>
+      <p>Existem dois tipos de fibra, distinguidos pelo diâmetro do filamento interno e pela distância que suportam:</p>
+      <p><strong>Fibra Multimodo:</strong> filamento mais grosso, permite que múltiplos raios de luz trafeguem simultaneamente. Suporta distâncias de até 550 metros. Usada dentro de prédios e entre prédios próximos. Identificada pela capa <strong>laranja</strong> ou <strong>aqua</strong>.</p>
+      <img src="../assets/images/ifr/07/multimodo.svg" alt="">
+      <p><strong>Fibra Monomodo:</strong> filamento muito fino, apenas um raio de luz trafega por vez. Suporta distâncias de dezenas de quilômetros. Usada em backbones entre cidades e na infraestrutura de ISPs. Identificada pela capa <strong>amarela</strong>.</p>
+      <img src="../assets/images/ifr/07/monomodo.svg" alt="">
+
+      <h3>Conectores mais Comuns</h3>
+      <p><strong>SC:</strong> corpo quadrado, encaixe por pressão. Muito usado em instalações de ISPs e redes corporativas.</p>
+      <img src="../assets/images/ifr/07/conector_SC.png" alt="">
+      <p><strong>LC:</strong> corpo pequeno, trava por clipe - similar ao RJ-45. Usado em equipamentos de alta densidade como switches e data centers.</p>
+      <img src="../assets/images/ifr/07/contector_LC.png" alt="">
+      <p><strong>ST e FC:</strong> conectores mais antigos, encontrados em instalações legadas. ST usa mecanismo de baioneta; FC usa rosca metálica.</p>
+      <img src="../assets/images/ifr/07/conector_ST.png" alt="">
+      
+      <h3>Vantagens e Limitações</h3>
+      <p><strong>Vantagens em relação ao par trançado:</strong></p>
+      <ul>
+        <li>Imune a interferências eletromagnéticas</li>
+        <li>Distâncias muito maiores</li>
+        <li>Largura de banda superior</li>
+        <li>Mais segura - difícil de interceptar</li>
+      </ul>
+      <p><strong>Limitações:</strong></p>
+      <ul>
+        <li>Custo mais elevado</li>
+        <li>Não transmite energia elétrica - sem suporte a PoE</li>
+        <li>Terminação exige equipamento e técnica especializados</li>
+        <li>Mais frágil mecanicamente - não pode ser dobrada além do raio mínimo</li>
+      </ul>
+    </section>
+
+    <hr>
+
+    <section>
+      <h2>2. O que é Wireless</h2>
+      <p><strong>Wireless</strong> significa literalmente "sem fio". É o termo que designa qualquer tecnologia de comunicação que transmite dados pelo ar, na forma de <strong>ondas eletromagnéticas</strong> - sem nenhum cabo entre transmissor e receptor.</p>
+      <p>O rádio AM que você ouve no carro, o Wi-Fi do seu celular e a comunicação de um satélite a 36.000 km de altitude são todos exemplos de tecnologias wireless - cada uma usando uma faixa diferente do espectro eletromagnético.</p>
+
+      <h3>O Espectro Eletromagnético</h3>
+      <p>As ondas eletromagnéticas se diferenciam pela <strong>frequência</strong> - quantas vezes a onda oscila por segundo, medida em Hertz (Hz). A frequência determina as características da comunicação:</p>
+      <img src="../assets/images/ifr/07/espectro_eletromagnetico.svg" alt="">
+      <p>Essa relação explica por que existem tantas tecnologias wireless diferentes: <strong>cada problema de comunicação exige uma faixa de frequência diferente</strong>. Uma tecnologia para conectar fones de ouvido não precisa do mesmo alcance que uma tecnologia para conectar continentes.</p>
+    </section>
+
+    <hr>
+
+    <section>
+      <h2>3. Tecnologias Wireless</h2>
+
+      <h3>Wi-Fi</h3>
+      <p>O <strong>Wi-Fi</strong> é a tecnologia wireless para redes locais sem fio. Permite que dispositivos se conectem à rede sem cabo, dentro de um espaço físico limitado - uma sala, um andar, um prédio.</p>
+      <p>Opera em três faixas de frequência:</p>
+      <p><strong>2,4 GHz:</strong> maior alcance, melhor penetração em paredes. Porém é a faixa mais congestionada - dividida com micro-ondas, Bluetooth e outros dispositivos. Velocidades menores.</p>
+      <p><strong>5 GHz:</strong> menor alcance e penetração, mas muito menos interferência e velocidades significativamente maiores. Ideal para ambientes com muitas redes Wi-Fi próximas.</p>
+      <p><strong>6 GHz:</strong> faixa mais recente, disponível apenas em equipamentos modernos (Wi-Fi 6E e Wi-Fi 7). Praticamente sem congestionamento e altíssimas velocidades.</p>
+      <p>A evolução dos padrões ao longo do tempo:</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Padrão IEEE</th>
+            <th>Frequência</th>
+            <th>Velocidade Máx.</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Wi-Fi 4</td>
+            <td>802.11n</td>
+            <td>2,4 / 5 GHz</td>
+            <td>600 Mbps</td>
+          </tr>
+          <tr>
+            <td>Wi-Fi 5</td>
+            <td>802.11ac</td>
+            <td>5 GHz</td>
+            <td>3,5 Gbps</td>
+          </tr>
+          <tr>
+            <td>Wi-Fi 6/6E</td>
+            <td>802.11ax</td>
+            <td>2,4 / 5 / 6 GHz</td>
+            <td>9,6 Gbps</td>
+          </tr>
+          <tr>
+            <td>Wi-Fi 7</td>
+            <td>802.11be</td>
+            <td>2,4 / 5 / 6 GHz</td>
+            <td>46 Gbps</td>
+          </tr>
+        </tbody>
+      </table>
+      <blockquote>
+        <p>Velocidades teóricas máximas. O desempenho real depende de distância, obstáculos e número de dispositivos conectados.</p>
+      </blockquote>
+      <p>O Wi-Fi complementa a infraestrutura cabeada - especialmente para dispositivos móveis - mas não a substitui em ambientes que exigem alto desempenho e confiabilidade.</p>
+
+      <h3>Bluetooth</h3>
+      <p>O <strong>Bluetooth</strong> é uma tecnologia wireless de <strong>curtíssimo alcance</strong> - projetada para conectar dispositivos pessoais entre si, a distâncias de até 10 a 100 metros.</p>
+      <p>Opera na faixa de 2,4 GHz com baixo consumo de energia. Usado em fones de ouvido, teclados, mouses, caixas de som, smartwatches e transferência de arquivos entre celulares.</p>
+      <p>Não tem papel em infraestrutura de redes corporativas - mas o técnico de infraestrutura o encontra constantemente em dispositivos de usuários e em periféricos de sala de reunião.</p>
+
+      <h3>Zigbee</h3>
+      <p>O <strong>Zigbee</strong> é uma tecnologia wireless projetada especificamente para <strong>IoT</strong> (<em>Internet of Things</em>) - a comunicação entre dispositivos inteligentes de automação.</p>
+      <p>Opera em 2,4 GHz com consumo de energia extremamente baixo - sensores Zigbee podem funcionar com pilhas por anos. Alcance de até 100 metros, com suporte a redes em malha onde os próprios dispositivos repassam o sinal entre si.</p>
+      <p>Usado em: lâmpadas inteligentes, sensores de temperatura e umidade, fechaduras digitais, termostatos, sistemas de irrigação automatizada.</p>
+      <p>O técnico de infraestrutura encontra Zigbee cada vez mais em instalações residenciais e comerciais modernas - é importante saber identificar e não confundir com Wi-Fi ao diagnosticar interferências em 2,4 GHz.</p>
+
+      <h3>Redes Celulares - 4G e 5G</h3>
+      <p>As redes celulares são infraestruturas wireless de <strong>grande alcance</strong>, operadas por operadoras de telecomunicações (Claro, Vivo, TIM, etc.) através de torres de antenas espalhadas pelo território.</p>
+      <p><strong>4G LTE:</strong> tecnologia dominante atualmente no Brasil. Velocidades típicas de 20 a 150 Mbps, latência de 30 a 50 ms. Cobre a grande maioria das áreas urbanas e boa parte das áreas rurais.</p>
+      <p><strong>5G:</strong> quinta geração, em implantação progressiva no Brasil. Promete velocidades de vários Gbps e latência abaixo de 10 ms. Além da velocidade, é projetado para suportar a enorme quantidade de dispositivos IoT das cidades inteligentes e da indústria 4.0.</p>
+      <p>Para o técnico de infraestrutura, as redes celulares são relevantes como <strong>link de backup</strong> - quando o link principal (fibra ou cabo) cai, um roteador com modem 4G/5G mantém a conectividade da empresa.</p>
+
+      <h3>Satélite</h3>
+      <p>A comunicação por satélite permite conectividade em <strong>qualquer ponto do planeta</strong> - inclusive locais remotos sem nenhuma infraestrutura terrestre.</p>
+      <p><strong>GEO - Satélites Geoestacionários (36.000 km de altitude):</strong> Permanecem fixos em relação à Terra. Cobertura enorme com poucos satélites. Problema: a distância gigante causa latência de 600 ms ou mais - inviável para videochamadas e jogos, aceitável para e-mail e navegação básica.</p>
+      <p><strong>LEO - Satélites de Baixa Órbita (500 a 2.000 km de altitude):</strong> Orbitam rapidamente e em grande número. A distância muito menor resulta em latência de 20 a 40 ms - comparável a links terrestres. O <strong>Starlink</strong>, da SpaceX, é o exemplo mais conhecido: opera com mais de 6.000 satélites e oferece velocidades de 100 a 300 Mbps praticamente em qualquer ponto do planeta. No Brasil, é usado para conectar escolas e comunidades em áreas remotas e como backup em instalações críticas.</p>
+    </section>
+
+    <hr>
+
+    <section>
+      <h2>4. Comparativo Geral entre os Meios de Transmissão</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Meio</th>
+            <th>Velocidade</th>
+            <th>Distância</th>
+            <th>Uso típico</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Par trançado (Cat6)</td>
+            <td>Até 1 Gbps</td>
+            <td>Até 100 m</td>
+            <td>Estações de trabalho, câmeras, APs</td>
+          </tr>
+          <tr>
+            <td>Fibra multimodo</td>
+            <td>Até 10 Gbps</td>
+            <td>Até 550 m</td>
+            <td>Backbone interno de prédios</td>
+          </tr>
+          <tr>
+            <td>Fibra monomodo</td>
+            <td>100+ Gbps</td>
+            <td>Dezenas de km</td>
+            <td>Backbone entre prédios, ISPs</td>
+          </tr>
+          <tr>
+            <td>Coaxial</td>
+            <td>Variável</td>
+            <td>Centenas de m</td>
+            <td>CFTV, TV a cabo</td>
+          </tr>
+          <tr>
+            <td>Wi-Fi</td>
+            <td>Até 9,6 Gbps*</td>
+            <td>Até 100 m</td>
+            <td>Dispositivos móveis</td>
+          </tr>
+          <tr>
+            <td>Bluetooth</td>
+            <td>Até 3 Mbps</td>
+            <td>Até 100 m</td>
+            <td>Periféricos pessoais</td>
+          </tr>
+          <tr>
+            <td>Zigbee</td>
+            <td>Até 250 Kbps</td>
+            <td>Até 100 m</td>
+            <td>Automação e IoT</td>
+          </tr>
+          <tr>
+            <td>4G/5G</td>
+            <td>Até 10 Gbps*</td>
+            <td>Km (celular)</td>
+            <td>Backup de link, áreas sem cabo</td>
+          </tr>
+          <tr>
+            <td>Satélite LEO</td>
+            <td>Até 300 Mbps</td>
+            <td>Global</td>
+            <td>Áreas remotas, backup</td>
+          </tr>
+        </tbody>
+      </table>
+      <p><em>*Velocidade teórica máxima.</em></p>
+    </section>
+
+    <hr>
+
+    <section>
+      <h2>Síntese do Bloco 3</h2>
+      <p>Com esta aula, o bloco de Meios de Transmissão Físicos está concluído. O aluno agora tem uma visão panorâmica de todos os meios disponíveis - guiados e não guiados - e sabe identificar qual é o mais adequado para cada situação.</p>
+    </section>
+
+    <footer>
+      <p>Curso Técnico em Redes | Infraestrutura Física de Redes</p>
+    </footer>
+  </main>
+</body>
+
+</html>

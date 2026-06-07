@@ -1,0 +1,76 @@
+<svg viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <filter id="laser_glow" x="-30%" y="-30%" width="160%" height="160%">
+            <feGaussianBlur stdDeviation="5" result="blur"/>
+            <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+        </filter>
+
+        <linearGradient id="matte_cladding" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#ffffff" stop-opacity="0.08"/>
+            <stop offset="30%" stop-color="#6ba4ff" stop-opacity="0.15"/>
+            <stop offset="70%" stop-color="#1d4ed8" stop-opacity="0.2"/>
+            <stop offset="100%" stop-color="#ffffff" stop-opacity="0.05"/>
+        </linearGradient>
+
+        <linearGradient id="cyan_core" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#00f2ff" stop-opacity="0.02"/>
+            <stop offset="50%" stop-color="#00f2ff" stop-opacity="0.12"/>
+            <stop offset="100%" stop-color="#00f2ff" stop-opacity="0.02"/>
+        </linearGradient>
+
+        <linearGradient id="laser_exit" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#ff0044" stop-opacity="1"/>
+            <stop offset="70%" stop-color="#ff0044" stop-opacity="0.8"/>
+            <stop offset="100%" stop-color="#ff0044" stop-opacity="0"/>
+        </linearGradient>
+    </defs>
+
+    <g id="grid_ambient">
+        <rect width="1000" height="500" fill="#070f24" />
+        <path d="M0 250 H1000 M500 0 V500" stroke="#0f1e3d" stroke-width="1" stroke-dasharray="5,5"/>
+    </g>
+
+    <g id="cladding_back_layer">
+        <path d="M120,150 L820,150 A45,95 0 0,1 820,340 L120,340" fill="none" stroke="#ffffff" stroke-width="0.75" opacity="0.25"/>
+    </g>
+
+    <g id="single_mode_core">
+        <rect x="120" y="242" width="700" height="16" fill="url(#cyan_core)" stroke="#00f2ff" stroke-width="0.4" opacity="0.4"/>
+        <ellipse cx="120" cy="250" rx="4" ry="8" fill="#00f2ff" opacity="0.15"/>
+        <ellipse cx="820" cy="250" rx="4" ry="8" fill="none" stroke="#00f2ff" stroke-width="0.5" opacity="0.4"/>
+    </g>
+
+    <g id="laser_transmission" filter="url(#laser_glow)">
+        <line x1="120" y1="250" x2="820" y2="250" stroke="#ff0044" stroke-width="2" stroke-linecap="round" />
+        
+        <line x1="120" y1="250" x2="820" y2="250" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="40, 160">
+            <animate attributeName="stroke-dashoffset" from="400" to="0" dur="1.2s" repeatCount="indefinite" />
+        </line>
+
+        <line x1="820" y1="250" x2="980" y2="250" stroke="url(#laser_exit)" stroke-width="3.5" stroke-linecap="round"/>
+        <circle cx="820" cy="250" r="4" fill="#ffffff">
+            <animate attributeName="r" values="3;5;3" dur="0.8s" repeatCount="indefinite" />
+        </circle>
+    </g>
+
+    <g id="cladding_front_layer">
+        <rect x="120" y="150" width="700" height="190" fill="url(#matte_cladding)" opacity="0.25" />
+        <ellipse cx="120" cy="245" rx="25" ry="95" fill="none" stroke="#ffffff" stroke-width="1.5" opacity="0.4"/>
+        <ellipse cx="820" cy="245" rx="25" ry="95" fill="none" stroke="#ffffff" stroke-width="0.7" opacity="0.25"/>
+    </g>
+
+    <g id="technical_metadata" font-family="Segoe UI, Arial, sans-serif" font-size="13" fill="#8fa3cc">
+        <path d="M 820,150 L 860,130 H 900" stroke="#566f99" stroke-width="1" fill="none" opacity="0.6"/>
+        <path d="M 820,242 L 860,210 H 900" stroke="#566f99" stroke-width="1" fill="none" opacity="0.6"/>
+        <path d="M 470,250 L 470,390 H 510" stroke="#566f99" stroke-width="1" fill="none" opacity="0.6"/>
+
+        <text x="905" y="134" font-weight="600" fill="#ffffff">Cladding (125 µm)</text>
+        <text x="905" y="214" font-weight="600" fill="#00f2ff">Single-Mode Core (~9 µm)</text>
+        <text x="515" y="394" font-weight="500">Single Fundamental Mode (Straight Path)</text>
+        
+        <text x="835" y="275" font-size="11" fill="#ff0044" font-weight="bold" filter="url(#laser_glow)">Exit Beam Spot</text>
+        
+        <text x="120" y="110" font-size="16" fill="#ffffff" font-weight="bold" letter-spacing="1">SINGLE-MODE OPTICAL FIBER</text>
+        <text x="120" y="128" font-size="11" fill="#566f99" font-weight="400">Step-Index Architecture / Ray-X View Mode</text>
+    </g>
+</svg>
