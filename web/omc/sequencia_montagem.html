@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Montagem do PC — Sequência Correta</title>
+    <style>
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #0f172a;
+            color: #e2e8f0;
+            min-height: 100vh;
+            padding: 16px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 1.15rem;
+            color: #38bdf8;
+            margin-bottom: 4px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .subtitle {
+            text-align: center;
+            font-size: 0.8rem;
+            color: #94a3b8;
+            margin-bottom: 14px;
+        }
+
+        .scoreboard {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 14px;
+            flex-wrap: wrap;
+        }
+
+        .score-item {
+            background: #1e293b;
+            border-radius: 8px;
+            padding: 6px 16px;
+            text-align: center;
+            min-width: 80px;
+        }
+
+        .score-item .label {
+            font-size: 0.68rem;
+            color: #94a3b8;
+        }
+
+        .score-item .value {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #38bdf8;
+        }
+
+        /* progresso */
+        .progress-bar-wrap {
+            max-width: 600px;
+            margin: 0 auto 14px;
+            background: #1e293b;
+            border-radius: 99px;
+            height: 8px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: #38bdf8;
+            border-radius: 99px;
+            transition: width 0.3s;
+            width: 0%;
+        }
+
+        .progress-label {
+            text-align: center;
+            font-size: 0.72rem;
+            color: #64748b;
+            margin-bottom: 14px;
+        }
+
+        /* próxima etapa */
+        .next-label {
+            text-align: center;
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #64748b;
+            margin-bottom: 6px;
+        }
+
+        .next-box {
+            max-width: 600px;
+            margin: 0 auto 16px;
+            background: #1e3a5f;
+            border: 2px solid #38bdf8;
+            border-radius: 10px;
+            padding: 12px 16px;
+            text-align: center;
+        }
+
+        .next-box .num {
+            font-size: 0.72rem;
+            color: #7dd3fc;
+            margin-bottom: 2px;
+        }
+
+        .next-box .nome {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #f0f9ff;
+        }
+
+        /* pool de cards */
+        .pool-label {
+            text-align: center;
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #64748b;
+            margin-bottom: 8px;
+        }
+
+        .pool {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: #1e293b;
+            border: 2px solid #334155;
+            border-radius: 10px;
+            padding: 12px 16px;
+            cursor: pointer;
+            transition: border-color 0.15s, background 0.15s, transform 0.1s;
+            user-select: none;
+        }
+
+        .card:hover {
+            border-color: #38bdf8;
+            background: #1e3a5f;
+            transform: translateX(4px);
+        }
+
+        .card:active {
+            transform: scale(0.98);
+        }
+
+        .card .nome {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #f1f5f9;
+        }
+
+        .card .hint {
+            font-size: 0.75rem;
+            color: #64748b;
+            margin-top: 3px;
+        }
+
+        .card.correct {
+            border-color: #22c55e;
+            background: #052e16;
+            cursor: default;
+            pointer-events: none;
+        }
+
+        .card.correct .nome {
+            color: #86efac;
+        }
+
+        .card.wrong {
+            border-color: #ef4444;
+            background: #2d0a0a;
+            animation: shake 0.3s;
+        }
+
+        @keyframes shake {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            25% {
+                transform: translateX(-6px);
+            }
+
+            75% {
+                transform: translateX(6px);
+            }
+        }
+
+        /* histórico */
+        .historico-wrap {
+            max-width: 600px;
+            margin: 16px auto 0;
+        }
+
+        .historico-label {
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #64748b;
+            margin-bottom: 6px;
+        }
+
+        .historico {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .hist-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.78rem;
+            color: #94a3b8;
+            background: #1e293b;
+            border-radius: 6px;
+            padding: 6px 10px;
+        }
+
+        .hist-item .hnum {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: #22c55e;
+            color: #052e16;
+            font-size: 0.68rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        /* feedback */
+        .feedback-box {
+            max-width: 600px;
+            margin: 14px auto 0;
+            border-radius: 10px;
+            padding: 12px 16px;
+            font-size: 0.82rem;
+            line-height: 1.6;
+            display: none;
+        }
+
+        .feedback-box.show {
+            display: block;
+        }
+
+        .feedback-box.ok {
+            background: #052e16;
+            border: 1px solid #22c55e;
+            color: #86efac;
+        }
+
+        .feedback-box.erro {
+            background: #2d0a0a;
+            border: 1px solid #ef4444;
+            color: #fca5a5;
+        }
+
+        .feedback-box .fb-titulo {
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+
+        /* resultado final */
+        .resultado-final {
+            display: none;
+            max-width: 600px;
+            margin: 16px auto 0;
+            background: #1e293b;
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+        }
+
+        .resultado-final.show {
+            display: block;
+        }
+
+        .resultado-final .nota {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #38bdf8;
+        }
+
+        .resultado-final .msg {
+            font-size: 0.88rem;
+            color: #94a3b8;
+            margin-top: 8px;
+        }
+
+        .btn-row {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 18px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            border: none;
+            border-radius: 8px;
+            padding: 10px 26px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        button:hover {
+            opacity: 0.85;
+        }
+
+        #btnReset {
+            background: #475569;
+            color: #e2e8f0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>🖥️ Sequência de Montagem do PC</h1>
+    <p class="subtitle">Clique nas etapas na ordem correta de montagem</p>
+
+    <div class="scoreboard">
+        <div class="score-item">
+            <div class="label">Erros</div>
+            <div class="value" id="erros">0</div>
+        </div>
+        <div class="score-item">
+            <div class="label">Corretas</div>
+            <div class="value" id="corretas">0</div>
+        </div>
+        <div class="score-item">
+            <div class="label">Pontos</div>
+            <div class="value" id="pontos">0</div>
+        </div>
+    </div>
+
+    <div class="progress-bar-wrap">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+    <div class="progress-label" id="progressLabel">0 de 14 etapas concluídas</div>
+
+    <div class="next-label">👉 Qual é a próxima etapa?</div>
+    <div class="next-box" id="nextBox">
+        <div class="num" id="nextNum"></div>
+        <div class="nome" id="nextNome"></div>
+    </div>
+
+    <div class="feedback-box" id="feedback"></div>
+
+    <div class="pool-label">Etapas disponíveis — clique na correta</div>
+    <div class="pool" id="pool"></div>
+
+    <div class="historico-wrap" id="historicoWrap" style="display:none">
+        <div class="historico-label">✅ Etapas concluídas</div>
+        <div class="historico" id="historico"></div>
+    </div>
+
+    <div class="resultado-final" id="resultado"></div>
+
+    <div class="btn-row">
+        <button id="btnReset">🔄 Jogar novamente</button>
+    </div>
+
+    <script>
+        const ETAPAS = [
+            { id: 1, nome: "Preparação de bancada e ESD", hint: "Organizar ferramentas e descarregar eletrostática", dica: "Sempre comece organizando a bancada e tomando cuidado com a eletrostática. Componentes danificados por ESD não mostram sinal visível — o dano pode aparecer depois." },
+            { id: 2, nome: "Instalar CPU na placa-mãe", hint: "Socket, alinhamento e travamento", dica: "A CPU é instalada antes de colocar a placa no gabinete — com ela na bancada é muito mais fácil. Nunca deslize a CPU sobre os pinos." },
+            { id: 3, nome: "Instalar memória RAM", hint: "Slots corretos para dual channel", dica: "Instalar a RAM fora do gabinete evita obstáculos. Use os slots A2 e B2 para ativar o dual channel." },
+            { id: 4, nome: "Instalar cooler da CPU", hint: "Pasta térmica + fixação uniforme", dica: "O cooler vem após CPU e RAM pois o backplate fica na traseira da placa — mais fácil fora do gabinete. Nunca esqueça a pasta térmica." },
+            { id: 5, nome: "Preparar o gabinete", hint: "Standoffs, I/O shield e fans", dica: "Standoffs nos furos errados causam curto-circuito. O I/O shield precisa estar encaixado ANTES da placa-mãe — impossível instalar depois." },
+            { id: 6, nome: "Instalar a placa-mãe no gabinete", hint: "Alinhar com I/O shield e parafusar em cruzado", dica: "Alinhar as saídas traseiras com o I/O shield antes de baixar a placa. Parafusar em ordem cruzada garante pressão uniforme." },
+            { id: 7, nome: "Instalar dispositivos de armazenamento", hint: "HD/SSD nas baias ou NVMe no slot M.2", dica: "Instalar antes da fonte facilita acesso às baias e ao slot M.2, que pode ficar coberto pelos cabos depois." },
+            { id: 8, nome: "Instalar a fonte de alimentação", hint: "Posicionar e fixar — ainda sem conectar cabos", dica: "Fixar a fonte antes de conectar os cabos. Definir a posição correta da grade de ventilação." },
+            { id: 9, nome: "Conectar cabos da fonte", hint: "ATX 24 pinos → EPS CPU → SATA Power → PCIe", dica: "O EPS da CPU é o cabo mais esquecido — sem ele o sistema não realiza POST. Rotear pela traseira da bandeja." },
+            { id: 10, nome: "Instalar placa de vídeo (GPU)", hint: "Slot PCIe x16 + cabos PCIe Power", dica: "A GPU é instalada depois dos cabos para não obstruir o acesso aos conectores da placa-mãe." },
+            { id: 11, nome: "Conectar cabos do front panel", hint: "Power SW, Reset, LEDs, USB, áudio", dica: "Consultar o manual para o mapa exato dos pinos. O Power SW é obrigatório — sem ele o botão liga não funciona." },
+            { id: 12, nome: "Cable management", hint: "Rotear cabos pela traseira e fixar com velcro", dica: "Cabos soltos bloqueiam fluxo de ar e podem encostar nos fans. Organizar antes de fechar o gabinete." },
+            { id: 13, nome: "Verificação pré-energização (checklist)", hint: "Revisar todos os componentes e conexões", dica: "Um parafuso solto dentro do gabinete pode causar curto-circuito. Verificar visualmente antes de conectar a tomada." },
+            { id: 14, nome: "Primeiro teste de POST", hint: "Ligar e verificar fans + imagem no monitor", dica: "Fans girando + imagem no monitor = POST bem-sucedido. Se não ligar: verificar Power SW e EPS da CPU." },
+        ];
+
+        let passo = 0; // qual etapa esperamos agora (índice em ETAPAS)
+        let erros = 0, corretas = 0, pontos = 0;
+        let poolOrdem = [];
+
+        function shuffle(arr) {
+            const a = [...arr];
+            for (let i = a.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [a[i], a[j]] = [a[j], a[i]];
+            }
+            return a;
+        }
+
+        function iniciar() {
+            passo = 0; erros = 0; corretas = 0; pontos = 0;
+            poolOrdem = shuffle([...ETAPAS]);
+            atualizarPlacar();
+            renderPool();
+            atualizarNext();
+            atualizarProgresso();
+            document.getElementById('historico').innerHTML = '';
+            document.getElementById('historicoWrap').style.display = 'none';
+            document.getElementById('resultado').className = 'resultado-final';
+            limparFeedback();
+        }
+
+        function atualizarPlacar() {
+            document.getElementById('erros').textContent = erros;
+            document.getElementById('corretas').textContent = corretas;
+            document.getElementById('pontos').textContent = pontos;
+        }
+
+        function atualizarNext() {
+            if (passo >= ETAPAS.length) return;
+            document.getElementById('nextNum').textContent = `Etapa ${passo + 1} de ${ETAPAS.length}`;
+            document.getElementById('nextNome').textContent = '???';
+        }
+
+        function atualizarProgresso() {
+            const pct = Math.round((passo / ETAPAS.length) * 100);
+            document.getElementById('progressBar').style.width = pct + '%';
+            document.getElementById('progressLabel').textContent = `${passo} de ${ETAPAS.length} etapas concluídas`;
+        }
+
+        function renderPool() {
+            const pool = document.getElementById('pool');
+            pool.innerHTML = '';
+            // mostrar apenas etapas ainda não colocadas
+            const restantes = poolOrdem.filter(e => e.id > passo);
+            restantes.forEach(e => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.dataset.id = e.id;
+                card.innerHTML = `<div class="nome">${e.nome}</div><div class="hint">${e.hint}</div>`;
+                card.addEventListener('click', () => clicarCard(e, card));
+                pool.appendChild(card);
+            });
+        }
+
+        function clicarCard(etapa, cardEl) {
+            const esperada = ETAPAS[passo];
+            if (etapa.id === esperada.id) {
+                // correto
+                corretas++;
+                pontos += 10;
+                cardEl.classList.add('correct');
+                cardEl.style.pointerEvents = 'none';
+                mostrarFeedback('ok', `✅ Correto! Etapa ${passo + 1}: ${etapa.nome}`, etapa.dica);
+                adicionarHistorico(passo + 1, etapa.nome);
+                passo++;
+                atualizarPlacar();
+                atualizarProgresso();
+                setTimeout(() => {
+                    limparFeedback();
+                    if (passo >= ETAPAS.length) {
+                        finalizarJogo();
+                    } else {
+                        atualizarNext();
+                        renderPool();
+                    }
+                }, 5000);
+            } else {
+                // errado
+                erros++;
+                pontos = Math.max(0, pontos - 5);
+                cardEl.classList.add('wrong');
+                mostrarFeedback('erro', `❌ Etapa errada!`, `"${etapa.nome}" não é a próxima etapa. Dica sobre a correta: ${esperada.dica}`);
+                atualizarPlacar();
+                setTimeout(() => {
+                    cardEl.classList.remove('wrong');
+                    limparFeedback();
+                }, 5000);
+            }
+        }
+
+        function adicionarHistorico(num, nome) {
+            const wrap = document.getElementById('historicoWrap');
+            wrap.style.display = 'block';
+            const hist = document.getElementById('historico');
+            const item = document.createElement('div');
+            item.className = 'hist-item';
+            item.innerHTML = `<div class="hnum">${num}</div><span>${nome}</span>`;
+            hist.insertBefore(item, hist.firstChild);
+        }
+
+        function mostrarFeedback(tipo, titulo, msg) {
+            const fb = document.getElementById('feedback');
+            fb.className = `feedback-box show ${tipo}`;
+            fb.innerHTML = `<div class="fb-titulo">${titulo}</div>${msg}`;
+        }
+
+        function limparFeedback() {
+            const fb = document.getElementById('feedback');
+            fb.className = 'feedback-box';
+            fb.innerHTML = '';
+        }
+
+        function finalizarJogo() {
+            document.getElementById('nextBox').style.display = 'none';
+            document.querySelector('.next-label').style.display = 'none';
+            document.querySelector('.pool-label').style.display = 'none';
+            document.getElementById('pool').innerHTML = '';
+            const total = ETAPAS.length;
+            const pct = Math.round((corretas / (corretas + erros)) * 100) || 100;
+            let msg = '';
+            if (erros === 0) msg = '🏆 Perfeito! Nenhum erro. Você domina a sequência de montagem.';
+            else if (pct >= 70) msg = '👍 Bom trabalho! Revise as etapas onde errou e pratique novamente.';
+            else msg = '📖 Continue estudando a Aula 09 e tente novamente.';
+            const r = document.getElementById('resultado');
+            r.className = 'resultado-final show';
+            r.innerHTML = `
+    <div class="nota">${pontos} pts</div>
+    <div style="font-size:0.9rem;color:#7dd3fc;margin-top:4px">${corretas} corretas · ${erros} erros</div>
+    <div class="msg">${msg}</div>
+  `;
+        }
+
+        document.getElementById('btnReset').addEventListener('click', () => {
+            document.getElementById('nextBox').style.display = '';
+            document.querySelector('.next-label').style.display = '';
+            document.querySelector('.pool-label').style.display = '';
+            iniciar();
+        });
+
+        iniciar();
+    </script>
+</body>
+
+</html>
