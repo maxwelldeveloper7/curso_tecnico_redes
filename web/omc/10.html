@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AULA 10 - BIOS/UEFI: Configuração Inicial e Sequência de Boot</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        pre code {
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <header>
+            <h1>AULA 10 — BIOS/UEFI: CONFIGURAÇÃO INICIAL E SEQUÊNCIA DE BOOT</h1>
+        </header>
+
+        <hr>
+
+        <h2>1. Introdução</h2>
+        <p>Após a montagem concluída na Aula 09, o próximo passo antes de instalar o sistema operacional é configurar o firmware da placa-mãe. Esse firmware é o <strong>BIOS ou UEFI</strong> — o primeiro software que o computador executa ao ser ligado.</p>
+        <blockquote><strong>Definição:</strong> firmware armazenado em um chip da placa-mãe responsável por inicializar o hardware, verificar a integridade dos componentes e entregar o controle ao sistema operacional.</blockquote>
+        <p>Sem o BIOS/UEFI configurado corretamente, o sistema pode não reconhecer o dispositivo de armazenamento, não inicializar pelo dispositivo correto ou operar com desempenho abaixo do esperado.</p>
+
+        <hr>
+
+        <h2>2. BIOS vs. UEFI</h2>
+        <p>O termo <strong>BIOS (Basic Input/Output System)</strong> é historicamente usado para se referir ao firmware da placa-mãe, mas praticamente todos os sistemas modernos utilizam o <strong>UEFI (Unified Extensible Firmware Interface)</strong> — uma versão mais moderna e capaz.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Característica</th>
+                    <th>BIOS (legado)</th>
+                    <th>UEFI (atual)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Interface</td>
+                    <td>Texto, navegação por teclado</td>
+                    <td>Gráfica, suporte a mouse</td>
+                </tr>
+                <tr>
+                    <td>Suporte a disco</td>
+                    <td>MBR — até 2 TB</td>
+                    <td>GPT — acima de 2 TB</td>
+                </tr>
+                <tr>
+                    <td>Tempo de inicialização</td>
+                    <td>Mais lento</td>
+                    <td>Mais rápido (Fast Boot)</td>
+                </tr>
+                <tr>
+                    <td>Secure Boot</td>
+                    <td>Não suportado</td>
+                    <td>Suportado</td>
+                </tr>
+                <tr>
+                    <td>Drivers de hardware</td>
+                    <td>Limitados</td>
+                    <td>Suporte a drivers nativos</td>
+                </tr>
+                <tr>
+                    <td>Atualização</td>
+                    <td>Processo de risco elevado</td>
+                    <td>Mais seguro (flash via USB ou software)</td>
+                </tr>
+            </tbody>
+        </table>
+        <blockquote>💡 Mesmo sendo UEFI internamente, muitos fabricantes ainda chamam a interface de "BIOS" na documentação e no próprio menu. Os termos são usados de forma intercambiável no mercado — o importante é reconhecer as funcionalidades.</blockquote>
+        <img src="../assets/images/omc/10/bios_uefi.png" alt="">
+        <hr>
+
+        <h2>3. Como Acessar o BIOS/UEFI</h2>
+        <p>Ao ligar o computador, há uma janela de tempo muito curta para acessar o firmware antes que o sistema operacional inicie.</p>
+        <h3>Teclas de acesso mais comuns</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Fabricante da placa-mãe</th>
+                    <th>Tecla</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>ASUS</td>
+                    <td><strong>Del</strong> ou F2</td>
+                </tr>
+                <tr>
+                    <td>Gigabyte</td>
+                    <td><strong>Del</strong></td>
+                </tr>
+                <tr>
+                    <td>MSI</td>
+                    <td><strong>Del</strong></td>
+                </tr>
+                <tr>
+                    <td>ASRock</td>
+                    <td><strong>F2</strong> ou Del</td>
+                </tr>
+            </tbody>
+        </table>
+        <blockquote>💡 A tecla correta geralmente aparece por frações de segundo na tela de POST. Pressionar repetidamente assim que o computador é ligado é a forma mais confiável de não perder a janela.</blockquote>
+
+        <hr>
+
+        <h2>4. Estrutura Geral do BIOS/UEFI</h2>
+        <p>Apesar de cada fabricante ter uma interface diferente, a organização das configurações segue um padrão lógico comum:</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Seção</th>
+                    <th>O que contém</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Main / Info</strong></td>
+                    <td>Informações do sistema: versão do firmware, CPU detectada, RAM detectada, data e hora</td>
+                </tr>
+                <tr>
+                    <td><strong>Advanced / Tweaker</strong></td>
+                    <td>Configurações de CPU, memória, XMP/EXPO, tensões</td>
+                </tr>
+                <tr>
+                    <td><strong>Boot</strong></td>
+                    <td>Ordem de boot, Fast Boot, Secure Boot, CSM</td>
+                </tr>
+                <tr>
+                    <td><strong>Security</strong></td>
+                    <td>Senha de acesso ao BIOS, Secure Boot</td>
+                </tr>
+                <tr>
+                    <td><strong>Monitor / Hardware Monitor</strong></td>
+                    <td>Temperaturas, velocidade dos fans, tensões em tempo real</td>
+                </tr>
+                <tr>
+                    <td><strong>Save &amp; Exit</strong></td>
+                    <td>Salvar alterações, descartar, resetar para padrão</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <hr>
+
+        <h2>5. Configurações Iniciais Essenciais</h2>
+        <h3>5.1 Data e Hora</h3>
+        <p>A primeira configuração a verificar é a data e hora do sistema, mantida pela bateria CMOS. Se estiver incorreta após a montagem, indica bateria fraca ou ausente.</p>
+        <ul>
+            <li>Localização: seção <strong>Main</strong></li>
+            <li>Configurar com data e hora atuais</li>
+        </ul>
+
+        <h3>5.2 Verificação dos Componentes Detectados</h3>
+        <p>Ainda na seção <strong>Main</strong> ou <strong>Info</strong>, verificar se o BIOS reconheceu corretamente:</p>
+        <ul>
+            <li><strong>CPU:</strong> modelo e frequência base</li>
+            <li><strong>RAM:</strong> capacidade total e frequência detectada</li>
+            <li><strong>Armazenamento:</strong> dispositivos SATA e M.2 conectados</li>
+        </ul>
+        <blockquote>⚠️ Se algum componente não aparecer aqui, o problema é de hardware ou conexão — não de configuração. Voltar à bancada e verificar encaixe antes de prosseguir.</blockquote>
+
+        <h3>5.3 Ativação do Perfil XMP ou EXPO</h3>
+        <p>Por padrão, a RAM opera na frequência base JEDEC (geralmente 2133 MHz para DDR4 ou 4800 MHz para DDR5), independente da frequência especificada no módulo.</p>
+        <ul>
+            <li>Localização: seção <strong>Advanced</strong>, <strong>Tweaker</strong> ou <strong>AI Tweaker</strong> (ASUS)</li>
+            <li>Configuração: ativar <strong>XMP</strong> (Intel/geral) ou <strong>EXPO</strong> (AMD AM5)</li>
+            <li>Após ativar, a frequência e os timings corretos do módulo são aplicados automaticamente</li>
+        </ul>
+        <blockquote>💡 Ativar o XMP/EXPO é uma das configurações mais simples e com maior impacto no desempenho — especialmente em sistemas com GPU integrada, como visto na Aula 06.</blockquote>
+
+        <h3>5.4 Modo de Operação do Armazenamento</h3>
+        <p>Define como o controlador SATA opera. Para sistemas modernos, o modo correto é <strong>AHCI</strong>.</p>
+        <ul>
+            <li>Localização: seção <strong>Advanced → SATA Configuration</strong></li>
+            <li>Configuração recomendada: <strong>AHCI</strong> (não IDE/Legacy)</li>
+        </ul>
+        <blockquote>⚠️ Alterar esse modo após instalar o sistema operacional pode impedir o Windows de inicializar. Definir antes da instalação do SO.</blockquote>
+
+        <h3>5.5 Configuração de Vídeo Primário</h3>
+        <p>Define qual saída de vídeo é usada primeiro: GPU integrada (iGPU) ou GPU dedicada (PCIe).</p>
+        <ul>
+            <li>Localização: seção <strong>Advanced → Primary Display</strong> ou <strong>Video</strong></li>
+            <li>Com GPU dedicada instalada: selecionar <strong>PCIe</strong> ou <strong>Auto</strong></li>
+            <li>Sem GPU dedicada: manter <strong>iGPU</strong> ou <strong>Auto</strong></li>
+        </ul>
+
+        <hr>
+
+        <h2>6. Sequência de Boot</h2>
+        <img src="../assets/images/omc/10/sequencia_boot.png" alt="">
+        <h3>O que é</h3>
+        <p>A sequência de boot define a <strong>ordem em que o BIOS/UEFI procura um dispositivo inicializável</strong> ao ligar o computador. O firmware tenta cada dispositivo na ordem configurada até encontrar um com sistema operacional ou mídia bootável.</p>
+        <h3>Localização</h3>
+        <p>Seção <strong>Boot → Boot Option Priorities</strong> (ou equivalente conforme o fabricante).</p>
+        <h3>Dispositivos comuns na sequência</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Dispositivo</th>
+                    <th>Quando usar como primeiro</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>SSD/HD com SO instalado</strong></td>
+                    <td>Uso diário normal</td>
+                </tr>
+                <tr>
+                    <td><strong>Pendrive USB</strong></td>
+                    <td>Instalação de SO, recuperação, diagnóstico</td>
+                </tr>
+                <tr>
+                    <td><strong>DVD/Blu-ray</strong></td>
+                    <td>Instalação de SO por mídia óptica</td>
+                </tr>
+                <tr>
+                    <td><strong>Rede (PXE)</strong></td>
+                    <td>Ambientes corporativos com boot por rede</td>
+                </tr>
+            </tbody>
+        </table>
+        <h3>Configuração para instalação do sistema operacional</h3>
+        <p>Para instalar o SO, o pendrive ou DVD com a mídia de instalação deve estar <strong>antes</strong> do disco interno na sequência:</p>
+        <pre><code>Boot Option 1: Pendrive USB (mídia de instalação)
+Boot Option 2: SSD NVMe / HD (disco interno)
+Boot Option 3: (demais dispositivos)
+</code></pre>
+        <p>Após a instalação concluída, reconfigurar para:</p>
+        <pre><code>Boot Option 1: SSD NVMe / HD (disco interno com SO)
+</code></pre>
+        <blockquote>💡 A maioria dos BIOS/UEFI modernos permite acessar um <strong>Boot Menu temporário</strong> (geralmente F8, F11 ou F12 ao ligar) para selecionar o dispositivo de boot sem alterar a configuração permanente — útil para instalações e diagnósticos pontuais.</blockquote>
+
+        <hr>
+
+        <h2>7. Fast Boot e CSM</h2>
+        <h3>Fast Boot</h3>
+        <p>Recurso que reduz o tempo de inicialização pulando algumas verificações de hardware durante o POST.</p>
+        <ul>
+            <li><strong>Vantagem:</strong> boot mais rápido no dia a dia</li>
+            <li><strong>Desvantagem:</strong> pode impedir o reconhecimento de dispositivos USB na inicialização (pendrives bootáveis podem não aparecer)</li>
+        </ul>
+        <blockquote>💡 Ao instalar um SO por pendrive, desativar temporariamente o Fast Boot para garantir que o dispositivo USB seja detectado corretamente.</blockquote>
+
+        <h3>CSM (Compatibility Support Module)</h3>
+        <p>O CSM emula o comportamento do BIOS legado dentro do UEFI, permitindo inicializar sistemas operacionais e dispositivos que não suportam UEFI nativo.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>CSM</th>
+                    <th>Quando usar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Desativado</strong></td>
+                    <td>Sistemas novos com Windows 10/11 em disco GPT — recomendado</td>
+                </tr>
+                <tr>
+                    <td><strong>Ativado</strong></td>
+                    <td>Hardware ou SO legado que não suporta UEFI puro</td>
+                </tr>
+            </tbody>
+        </table>
+        <blockquote>⚠️ O Windows 11 exige UEFI com CSM desativado e Secure Boot ativo. Verificar essas configurações antes da instalação.</blockquote>
+
+        <hr>
+
+        <h2>8. Secure Boot</h2>
+        <p>Recurso UEFI que verifica a assinatura digital do carregador de boot antes de executá-lo, impedindo que softwares não autorizados inicializem junto com o sistema.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Secure Boot</th>
+                    <th>Implicação</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Ativado</strong></td>
+                    <td>Exigido pelo Windows 11; impede boot de alguns sistemas Linux sem chave registrada</td>
+                </tr>
+                <tr>
+                    <td><strong>Desativado</strong></td>
+                    <td>Permite boot de qualquer SO; necessário para alguns pendrives de diagnóstico</td>
+                </tr>
+            </tbody>
+        </table>
+        <blockquote>💡 A maioria das distribuições Linux modernas (Ubuntu, Fedora) já suporta Secure Boot ativado. Distribuições mais antigas ou ferramentas de diagnóstico podem exigir desativação temporária.</blockquote>
+
+        <hr>
+
+        <h2>9. Salvar e Sair</h2>
+        <p>Toda alteração no BIOS/UEFI só tem efeito após ser salva explicitamente.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Opção</th>
+                    <th>Função</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Save Changes and Reset</strong></td>
+                    <td>Salva todas as alterações e reinicia o sistema</td>
+                </tr>
+                <tr>
+                    <td><strong>Discard Changes and Exit</strong></td>
+                    <td>Descarta todas as alterações desde a última entrada</td>
+                </tr>
+                <tr>
+                    <td><strong>Load Optimized Defaults</strong></td>
+                    <td>Restaura todas as configurações para o padrão de fábrica</td>
+                </tr>
+            </tbody>
+        </table>
+        <blockquote>💡 <strong>Load Optimized Defaults</strong> é o procedimento correto quando o sistema não inicializa após alterações no BIOS, ou quando uma configuração desconhecida está causando instabilidade. Equivalente funcional ao reset pela bateria CMOS, mas sem abrir o gabinete.</blockquote>
+
+        <hr>
+
+        <h2>🎯 Síntese da Aula</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Configuração</th>
+                    <th>O que faz</th>
+                    <th>Onde encontrar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Data e hora</strong></td>
+                    <td>Sincroniza o relógio do sistema</td>
+                    <td>Main</td>
+                </tr>
+                <tr>
+                    <td><strong>Verificação de componentes</strong></td>
+                    <td>Confirma detecção de CPU, RAM e armazenamento</td>
+                    <td>Main / Info</td>
+                </tr>
+                <tr>
+                    <td><strong>XMP / EXPO</strong></td>
+                    <td>Ativa a frequência correta da RAM</td>
+                    <td>Advanced / Tweaker</td>
+                </tr>
+                <tr>
+                    <td><strong>Modo SATA (AHCI)</strong></td>
+                    <td>Garante compatibilidade e desempenho do armazenamento</td>
+                    <td>Advanced → SATA</td>
+                </tr>
+                <tr>
+                    <td><strong>Vídeo primário</strong></td>
+                    <td>Define GPU integrada ou dedicada como saída principal</td>
+                    <td>Advanced → Video</td>
+                </tr>
+                <tr>
+                    <td><strong>Sequência de boot</strong></td>
+                    <td>Define ordem de busca por SO inicializável</td>
+                    <td>Boot</td>
+                </tr>
+                <tr>
+                    <td><strong>Fast Boot</strong></td>
+                    <td>Acelera o boot; desativar para instalar SO por USB</td>
+                    <td>Boot</td>
+                </tr>
+                <tr>
+                    <td><strong>CSM</strong></td>
+                    <td>Compatibilidade com hardware/SO legado</td>
+                    <td>Boot</td>
+                </tr>
+                <tr>
+                    <td><strong>Secure Boot</strong></td>
+                    <td>Segurança de inicialização; exigido pelo Windows 11</td>
+                    <td>Boot / Security</td>
+                </tr>
+                <tr>
+                    <td><strong>Save &amp; Exit</strong></td>
+                    <td>Confirma e aplica todas as alterações</td>
+                    <td>Save &amp; Exit</td>
+                </tr>
+            </tbody>
+        </table>
+    </main>
+</body>
+
+</html>

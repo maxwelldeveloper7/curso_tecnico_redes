@@ -1,0 +1,1877 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <title>Missão Boot: Operação Primeiro Start</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <style>
+        /* ── DESIGN TOKENS ─────────────────────────────────────── */
+        :root {
+            --bg-deep: #0D1117;
+            --bg-card: #161B22;
+            --bg-panel: #1C2333;
+            --bg-input: #21262D;
+            --border: #30363D;
+            --accent-cyan: #00D4FF;
+            --accent-amber: #F0A500;
+            --accent-green: #3FB950;
+            --accent-red: #F85149;
+            --accent-purple: #BC8CFF;
+            --text-primary: #E6EDF3;
+            --text-muted: #7D8590;
+            --text-dim: #484F58;
+            --font-mono: 'JetBrains Mono', monospace;
+            --font-ui: 'Inter', sans-serif;
+            --radius: 10px;
+            --radius-sm: 6px;
+        }
+
+        /* ── RESET & BASE ──────────────────────────────────────── */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            font-size: 16px;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        body {
+            background: var(--bg-deep);
+            color: var(--text-primary);
+            font-family: var(--font-ui);
+            min-height: 100vh;
+            min-height: 100dvh;
+            overflow-x: hidden;
+        }
+
+        button {
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-family: inherit;
+        }
+
+        select {
+            font-family: var(--font-ui);
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* ── LAYOUT SHELL ──────────────────────────────────────── */
+        #app {
+            max-width: 480px;
+            margin: 0 auto;
+            min-height: 100vh;
+            min-height: 100dvh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ── TOPBAR ────────────────────────────────────────────── */
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--border);
+            background: var(--bg-card);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .topbar-logo {
+            font-family: var(--font-mono);
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            letter-spacing: 0.05em;
+        }
+
+        .topbar-logo span {
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .xp-badge {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--bg-panel);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 5px 12px;
+            font-family: var(--font-mono);
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--accent-amber);
+        }
+
+        .xp-badge::before {
+            content: '⚡';
+            font-size: 12px;
+        }
+
+        /* ── SCREEN CONTAINER ──────────────────────────────────── */
+        .screen {
+            flex: 1;
+            padding: 16px;
+            animation: fadeIn 0.2s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(6px);
+            }
+
+            to {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        /* ── CARDS ─────────────────────────────────────────────── */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 16px;
+            margin-bottom: 12px;
+        }
+
+        .card-title {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 10px;
+        }
+
+        /* ── BUTTONS ───────────────────────────────────────────── */
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 14px 20px;
+            border-radius: var(--radius);
+            font-size: 15px;
+            font-weight: 600;
+            transition: all 0.15s ease;
+            min-height: 50px;
+        }
+
+        .btn-primary {
+            background: var(--accent-cyan);
+            color: #0D1117;
+        }
+
+        .btn-primary:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .btn-secondary {
+            background: var(--bg-panel);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent-cyan);
+            color: var(--accent-cyan);
+        }
+
+        .btn-danger {
+            background: transparent;
+            color: var(--accent-red);
+            border: 1px solid var(--accent-red);
+        }
+
+        .btn-success {
+            background: var(--accent-green);
+            color: #0D1117;
+        }
+
+        .btn-amber {
+            background: transparent;
+            color: var(--accent-amber);
+            border: 1px solid var(--accent-amber);
+        }
+
+        .btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        .btn-sm {
+            padding: 8px 14px;
+            font-size: 13px;
+            min-height: auto;
+        }
+
+        /* ── STATUS PILLS ──────────────────────────────────────── */
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            font-family: var(--font-mono);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .pill-available {
+            background: rgba(0, 212, 255, 0.12);
+            color: var(--accent-cyan);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+        }
+
+        .pill-locked {
+            background: rgba(125, 133, 144, 0.12);
+            color: var(--text-muted);
+            border: 1px solid var(--border);
+        }
+
+        .pill-done {
+            background: rgba(63, 185, 80, 0.12);
+            color: var(--accent-green);
+            border: 1px solid rgba(63, 185, 80, 0.3);
+        }
+
+        .pill-error {
+            background: rgba(248, 81, 73, 0.12);
+            color: var(--accent-red);
+            border: 1px solid rgba(248, 81, 73, 0.3);
+        }
+
+        .pill-warn {
+            background: rgba(240, 165, 0, 0.12);
+            color: var(--accent-amber);
+            border: 1px solid rgba(240, 165, 0, 0.3);
+        }
+
+        /* ── GLOW PULSE (assinatura visual) ────────────────────── */
+        @keyframes glowPulse {
+
+            0%,
+            100% {
+                box-shadow: 0 0 6px rgba(0, 212, 255, 0.3);
+            }
+
+            50% {
+                box-shadow: 0 0 18px rgba(0, 212, 255, 0.6);
+            }
+        }
+
+        .glow-active {
+            animation: glowPulse 2.5s ease-in-out infinite;
+            border-color: var(--accent-cyan) !important;
+        }
+
+        /* ── TOGGLE CONTROL ────────────────────────────────────── */
+        .toggle-group {
+            display: flex;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+        }
+
+        .toggle-group button {
+            flex: 1;
+            padding: 10px 6px;
+            font-family: var(--font-mono);
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-muted);
+            background: var(--bg-input);
+            transition: all 0.15s;
+        }
+
+        .toggle-group button.active-on {
+            background: rgba(63, 185, 80, 0.15);
+            color: var(--accent-green);
+        }
+
+        .toggle-group button.active-off {
+            background: rgba(248, 81, 73, 0.12);
+            color: var(--accent-red);
+        }
+
+        .toggle-group button:not(:last-child) {
+            border-right: 1px solid var(--border);
+        }
+
+        /* ── SELECT CONTROL ────────────────────────────────────── */
+        .field-select {
+            width: 100%;
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            padding: 10px 12px;
+            border-radius: var(--radius-sm);
+            font-family: var(--font-mono);
+            font-size: 13px;
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%237D8590' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            padding-right: 32px;
+        }
+
+        .field-select:focus {
+            outline: none;
+            border-color: var(--accent-cyan);
+        }
+
+        /* ── FIELD ROW ─────────────────────────────────────────── */
+        .field-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .field-row:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .field-row:first-child {
+            padding-top: 0;
+        }
+
+        .field-label {
+            font-size: 13px;
+            font-family: var(--font-mono);
+            color: var(--text-primary);
+            flex-shrink: 0;
+        }
+
+        .field-value {
+            font-family: var(--font-mono);
+            font-size: 13px;
+            color: var(--accent-cyan);
+        }
+
+        .field-value.warn {
+            color: var(--accent-red);
+        }
+
+        /* ── MODULE TABS ───────────────────────────────────────── */
+        .tabs {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 14px;
+            background: var(--bg-card);
+            padding: 4px;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 9px 4px;
+            border-radius: var(--radius-sm);
+            font-size: 11px;
+            font-weight: 600;
+            font-family: var(--font-mono);
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: all 0.15s;
+        }
+
+        .tab-btn.active {
+            background: var(--bg-panel);
+            color: var(--accent-cyan);
+            box-shadow: 0 0 10px rgba(0, 212, 255, 0.2);
+        }
+
+        .tab-panel {
+            display: none;
+        }
+
+        .tab-panel.active {
+            display: block;
+        }
+
+        /* ── HOME SCREEN ───────────────────────────────────────── */
+        .home-hero {
+            text-align: center;
+            padding: 32px 0 24px;
+        }
+
+        .home-logo-mark {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--text-muted);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .home-title {
+            font-family: var(--font-mono);
+            font-size: 26px;
+            font-weight: 700;
+            line-height: 1.2;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+
+        .home-title .highlight {
+            color: var(--accent-cyan);
+        }
+
+        .home-subtitle {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 28px;
+            line-height: 1.5;
+        }
+
+        .home-xp-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .home-xp-value {
+            font-family: var(--font-mono);
+            font-size: 40px;
+            font-weight: 700;
+            color: var(--accent-amber);
+            line-height: 1;
+        }
+
+        .home-xp-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .home-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-top: 14px;
+        }
+
+        .home-stat {
+            background: var(--bg-panel);
+            border-radius: var(--radius-sm);
+            padding: 10px;
+            text-align: center;
+        }
+
+        .home-stat-val {
+            font-family: var(--font-mono);
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .home-stat-lbl {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        /* ── MISSION LIST ──────────────────────────────────────── */
+        .mission-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 14px 16px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.15s;
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+        }
+
+        .mission-card:hover:not(.locked) {
+            border-color: var(--accent-cyan);
+        }
+
+        .mission-card.locked {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .mission-card.done {
+            border-color: rgba(63, 185, 80, 0.3);
+        }
+
+        .mission-num {
+            font-family: var(--font-mono);
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text-dim);
+            line-height: 1;
+            flex-shrink: 0;
+            width: 32px;
+        }
+
+        .mission-card.done .mission-num {
+            color: var(--accent-green);
+        }
+
+        .mission-card:not(.locked):not(.done) .mission-num {
+            color: var(--accent-cyan);
+        }
+
+        .mission-info {
+            flex: 1;
+        }
+
+        .mission-name {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .mission-desc {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        .mission-meta {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .diff-badge {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .diff-easy {
+            background: rgba(63, 185, 80, 0.15);
+            color: var(--accent-green);
+        }
+
+        .diff-medium {
+            background: rgba(240, 165, 0, 0.15);
+            color: var(--accent-amber);
+        }
+
+        .diff-hard {
+            background: rgba(248, 81, 73, 0.12);
+            color: var(--accent-red);
+        }
+
+        /* ── TICKET SCREEN ─────────────────────────────────────── */
+        .ticket-header {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 16px;
+            margin-bottom: 12px;
+        }
+
+        .ticket-id {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+
+        .ticket-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .ticket-client {
+            font-size: 13px;
+            color: var(--accent-cyan);
+            font-family: var(--font-mono);
+        }
+
+        .info-block {
+            background: var(--bg-panel);
+            border-left: 3px solid var(--accent-amber);
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+            padding: 12px 14px;
+            margin-bottom: 10px;
+        }
+
+        .info-block-label {
+            font-size: 10px;
+            font-family: var(--font-mono);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--accent-amber);
+            margin-bottom: 5px;
+        }
+
+        .info-block p {
+            font-size: 14px;
+            color: var(--text-primary);
+            line-height: 1.5;
+        }
+
+        .info-block.cyan {
+            border-left-color: var(--accent-cyan);
+        }
+
+        .info-block.cyan .info-block-label {
+            color: var(--accent-cyan);
+        }
+
+        .spec-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        .spec-item {
+            background: var(--bg-panel);
+            border-radius: var(--radius-sm);
+            padding: 10px 12px;
+        }
+
+        .spec-key {
+            font-size: 10px;
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .spec-val {
+            font-size: 13px;
+            font-family: var(--font-mono);
+            color: var(--text-primary);
+            margin-top: 2px;
+            font-weight: 600;
+        }
+
+        .spec-val.warn {
+            color: var(--accent-red);
+        }
+
+        /* ── DIAGNOSIS SCREEN ──────────────────────────────────── */
+        .module-panel {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 14px;
+            margin-bottom: 10px;
+        }
+
+        .module-title {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        .hint-section {
+            background: var(--bg-panel);
+            border: 1px solid rgba(240, 165, 0, 0.25);
+            border-radius: var(--radius);
+            padding: 12px 14px;
+            margin-bottom: 10px;
+        }
+
+        .hint-title {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--accent-amber);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .hint-text {
+            font-size: 13px;
+            color: var(--text-primary);
+            line-height: 1.5;
+        }
+
+        .hint-cost {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 6px;
+            font-family: var(--font-mono);
+        }
+
+        .hints-used-row {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 10px;
+        }
+
+        .hint-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--bg-panel);
+            border: 1px solid var(--border);
+        }
+
+        .hint-dot.used {
+            background: var(--accent-amber);
+            border-color: var(--accent-amber);
+        }
+
+        /* ── BOOT TEST SCREEN ──────────────────────────────────── */
+        .test-anim {
+            text-align: center;
+            padding: 32px 0;
+        }
+
+        .test-spinner {
+            width: 56px;
+            height: 56px;
+            border: 3px solid var(--border);
+            border-top-color: var(--accent-cyan);
+            border-radius: 50%;
+            margin: 0 auto 16px;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .test-label {
+            font-family: var(--font-mono);
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .result-success {
+            text-align: center;
+            padding: 24px 0;
+        }
+
+        .result-icon {
+            font-size: 56px;
+            margin-bottom: 12px;
+        }
+
+        .result-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .result-sub {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .symptom-list {
+            margin-top: 12px;
+        }
+
+        .symptom-item {
+            background: rgba(248, 81, 73, 0.08);
+            border: 1px solid rgba(248, 81, 73, 0.2);
+            border-radius: var(--radius-sm);
+            padding: 10px 12px;
+            margin-bottom: 6px;
+            font-size: 13px;
+            color: var(--text-primary);
+            display: flex;
+            gap: 8px;
+            align-items: flex-start;
+        }
+
+        .symptom-item::before {
+            content: '⚠';
+            color: var(--accent-amber);
+            flex-shrink: 0;
+        }
+
+        /* ── XP AWARD TOAST ────────────────────────────────────── */
+        .xp-toast {
+            position: fixed;
+            top: 72px;
+            right: 16px;
+            background: var(--bg-card);
+            border: 1px solid var(--accent-amber);
+            border-radius: var(--radius);
+            padding: 10px 16px;
+            font-family: var(--font-mono);
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--accent-amber);
+            z-index: 200;
+            animation: toastIn 0.3s ease, toastOut 0.3s ease 1.7s forwards;
+            box-shadow: 0 4px 20px rgba(240, 165, 0, 0.2);
+        }
+
+        @keyframes toastIn {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        @keytml: keyframes toastOut {
+            to {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+        }
+
+        @keyframes toastOut {
+            to {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+        }
+
+        /* ── REPORT SCREEN ─────────────────────────────────────── */
+        .report-hero {
+            text-align: center;
+            padding: 24px 0 16px;
+        }
+
+        .report-xp {
+            font-family: var(--font-mono);
+            font-size: 52px;
+            font-weight: 700;
+            color: var(--accent-amber);
+            line-height: 1;
+        }
+
+        .report-xp-label {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        .perf-bar-wrap {
+            background: var(--bg-panel);
+            border-radius: 20px;
+            height: 10px;
+            margin: 16px 0 6px;
+            overflow: hidden;
+        }
+
+        .perf-bar {
+            height: 100%;
+            border-radius: 20px;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-green));
+            transition: width 1s ease;
+        }
+
+        .perf-pct {
+            font-family: var(--font-mono);
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--accent-green);
+        }
+
+        .competency-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 14px;
+        }
+
+        .competency-item:last-child {
+            border-bottom: none;
+        }
+
+        .competency-item::before {
+            content: '✓';
+            color: var(--accent-green);
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        /* ── DIVIDER ───────────────────────────────────────────── */
+        .divider {
+            height: 1px;
+            background: var(--border);
+            margin: 12px 0;
+        }
+
+        /* ── SECTION LABEL ─────────────────────────────────────── */
+        .section-label {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            margin-bottom: 10px;
+        }
+
+        /* ── BACK BUTTON ───────────────────────────────────────── */
+        .back-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            color: var(--text-muted);
+            padding: 8px 0;
+            margin-bottom: 12px;
+        }
+
+        .back-btn:hover {
+            color: var(--accent-cyan);
+        }
+
+        .back-btn::before {
+            content: '←';
+        }
+
+        /* ── BOTTOM PADDING ────────────────────────────────────── */
+        .pb-safe {
+            padding-bottom: 24px;
+        }
+
+        /* ── ALERT BOX ─────────────────────────────────────────── */
+        .alert {
+            padding: 12px 14px;
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            line-height: 1.5;
+            margin-bottom: 10px;
+        }
+
+        .alert-info {
+            background: rgba(0, 212, 255, 0.08);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            color: var(--text-primary);
+        }
+
+        .alert-warn {
+            background: rgba(248, 81, 73, 0.08);
+            border: 1px solid rgba(248, 81, 73, 0.2);
+            color: var(--text-primary);
+        }
+
+        /* ── RESPONSIVE TWEAKS ─────────────────────────────────── */
+        @media (min-width: 400px) {
+            .home-title {
+                font-size: 30px;
+            }
+
+            .home-xp-value {
+                font-size: 48px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+
+    <script>
+        /* ════════════════════════════════════════════════════════════
+           DATA LAYER — Missões, dicas, XP
+        ═══════════════════════════════════════════════════════════ */
+
+        const XP_RULES = {
+            diagCorrect: 100,
+            configCorrect: 150,
+            missionDone: 250,
+            noHintBonus: 100,
+            hintPenalty: [30, 60, 80]   // custo por nível de dica
+        };
+
+        const MISSIONS = [
+            {
+                id: 1,
+                title: 'SSD Não Detectado',
+                shortDesc: 'Hardware não responde na listagem do sistema.',
+                difficulty: 'easy',
+                client: 'Colégio Estadual Novo Horizonte',
+                ticketId: 'TDS-2024-001',
+                problem: 'O computador foi montado ontem, mas ao ligar, o SSD simplesmente não aparece na lista de dispositivos de armazenamento. A máquina precisa estar pronta para instalação do sistema operacional hoje.',
+                objective: 'Identifique a causa raiz do problema e relate corretamente — o que fazer com este chamado?',
+                specs: { cpu: 'Intel Core i5-12400', ram: '8GB DDR4', ssd: 'NÃO DETECTADO', date: '12/06/2024', time: '08:47' },
+                ssdDetected: false,
+                initialConfig: { boot1: 'SSD', boot2: 'USB', fastBoot: 'ON', secureBoot: 'OFF', csm: 'ON', xmp: 'OFF', expo: 'OFF' },
+                // Missão 1: diagnóstico especial — não requer mudança de config, requer relatório
+                solution: { action: 'report_physical' },
+                validateFn: 'reportPhysical',
+                competency: 'Diagnóstico de Hardware'
+            },
+            {
+                id: 2,
+                title: 'Memória Subutilizada',
+                shortDesc: 'DDR5 operando abaixo da frequência nominal.',
+                difficulty: 'easy',
+                client: 'Distribuidora Alfa Peças',
+                ticketId: 'TDS-2024-002',
+                problem: 'O cliente adquiriu memória DDR5 6000MHz para uma workstation de edição, mas o sistema está operando com apenas 4800MHz. Rendimento abaixo do esperado foi reportado.',
+                objective: 'Ative o perfil de memória correto para que a RAM opere na frequência especificada pelo fabricante.',
+                specs: { cpu: 'AMD Ryzen 7 7700X', ram: '32GB DDR5 6000MHz (atual: 4800MHz)', ssd: 'Samsung 980 Pro 1TB', date: '12/06/2024', time: '10:15' },
+                ssdDetected: true,
+                initialConfig: { boot1: 'SSD', boot2: 'USB', fastBoot: 'ON', secureBoot: 'OFF', csm: 'ON', xmp: 'OFF', expo: 'OFF' },
+                solution: { expo: 'ON' },
+                validateFn: 'checkFields',
+                competency: 'Configuração de Memória'
+            },
+            {
+                id: 3,
+                title: 'Pendrive Ignorado',
+                shortDesc: 'Sistema não inicia instalação pelo dispositivo USB.',
+                difficulty: 'medium',
+                client: 'Clinica Saúde Plena',
+                ticketId: 'TDS-2024-003',
+                problem: 'O técnico tentou iniciar a instalação do Windows via pendrive bootável, mas o computador ignora o dispositivo USB completamente e carrega normalmente. Pendrive foi testado em outro equipamento e funciona.',
+                objective: 'Identifique e corrija a configuração que impede o reconhecimento do pendrive na inicialização.',
+                specs: { cpu: 'Intel Core i3-13100', ram: '16GB DDR4', ssd: 'Kingston NV2 500GB', date: '13/06/2024', time: '14:22' },
+                ssdDetected: true,
+                initialConfig: { boot1: 'SSD', boot2: 'USB', fastBoot: 'ON', secureBoot: 'OFF', csm: 'ON', xmp: 'OFF', expo: 'OFF' },
+                solution: { fastBoot: 'OFF' },
+                validateFn: 'checkFields',
+                competency: 'Sequência de Boot'
+            },
+            {
+                id: 4,
+                title: 'Ordem de Boot Incorreta',
+                shortDesc: 'Pendrive conectado, mas instalação é ignorada.',
+                difficulty: 'medium',
+                client: 'Escritório Contábil Nunes & Cia',
+                ticketId: 'TDS-2024-004',
+                problem: 'Pendrive com instalador do Linux está conectado à USB 3.0, Fast Boot desativado, porém o sistema continua carregando a partir do SSD e nunca inicia o instalador. Cliente aguarda implantação urgente.',
+                objective: 'Configure corretamente a prioridade de inicialização para que o pendrive seja a primeira opção.',
+                specs: { cpu: 'AMD Ryzen 5 5600G', ram: '16GB DDR4', ssd: 'Adata SU650 240GB', date: '14/06/2024', time: '09:05' },
+                ssdDetected: true,
+                initialConfig: { boot1: 'SSD', boot2: 'USB', fastBoot: 'OFF', secureBoot: 'OFF', csm: 'ON', xmp: 'OFF', expo: 'OFF' },
+                solution: { boot1: 'USB' },
+                validateFn: 'checkFields',
+                competency: 'Sequência de Boot'
+            },
+            {
+                id: 5,
+                title: 'Preparação para Windows 11',
+                shortDesc: 'Configurações incompatíveis com requisitos do Windows 11.',
+                difficulty: 'hard',
+                client: 'Prefeitura Municipal — Setor de TI',
+                ticketId: 'TDS-2024-005',
+                problem: 'Lote de 20 máquinas precisa receber Windows 11. Diagnóstico inicial indica CSM ativado e Secure Boot desativado — configuração incompatível. O instalador rejeita a instalação em todas as unidades.',
+                objective: 'Ajuste as configurações de segurança para que o equipamento atenda os requisitos do Windows 11.',
+                specs: { cpu: 'Intel Core i5-12600', ram: '16GB DDR4', ssd: 'WD Blue SN570 500GB', date: '15/06/2024', time: '11:30' },
+                ssdDetected: true,
+                initialConfig: { boot1: 'USB', boot2: 'SSD', fastBoot: 'OFF', secureBoot: 'OFF', csm: 'ON', xmp: 'OFF', expo: 'OFF' },
+                solution: { csm: 'OFF', secureBoot: 'ON' },
+                validateFn: 'checkFields',
+                competency: 'Segurança de Inicialização'
+            }
+        ];
+
+        const HINTS = {
+            1: [
+                { text: 'O problema foi relatado como ausência de hardware. Antes de mexer em qualquer configuração — você tem certeza de que isso é um problema de software?', cost: 30 },
+                { text: 'Verifique o painel de Hardware. Se o SSD não aparece nenhuma configuração da BIOS vai resolver isso.', cost: 60 },
+                { text: 'Quando um dispositivo físico não é detectado, a causa é sempre física: cabo solto, slot defeituoso ou peça com defeito. Use o botão "Relatar Problema Físico".', cost: 80 }
+            ],
+            2: [
+                { text: 'A memória está operando abaixo do especificado. Isso é normal? Existe alguma configuração que ativa o perfil de desempenho da memória?', cost: 30 },
+                { text: 'Acesse a aba Desempenho. Existe alguma opção relacionada a perfis de memória DDR5 de alta velocidade.', cost: 60 },
+                { text: 'Para placas AMD com DDR5, o perfil de overclock de memória se chama EXPO. Ative EXPO = ON na aba Desempenho.', cost: 80 }
+            ],
+            3: [
+                { text: 'O pendrive funciona em outro computador. Algo nesta máquina impede que ela "enxergue" dispositivos USB durante a inicialização. Que funcionalidade poderia causar isso?', cost: 30 },
+                { text: 'Acesse a aba Boot. Existe uma opção que acelera o processo de inicialização "pulando" a detecção de dispositivos externos.', cost: 60 },
+                { text: 'Fast Boot = OFF. Com Fast Boot ativado, o sistema pula a verificação de dispositivos USB, ignorando o pendrive bootável.', cost: 80 }
+            ],
+            4: [
+                { text: 'O pendrive está conectado, Fast Boot está desligado, Secure Boot não é o problema aqui. O sistema não está ignorando o pendrive — ele está dando preferência a outro dispositivo. Por quê?', cost: 30 },
+                { text: 'Verifique a aba Boot. A ordem em que os dispositivos aparecem determina qual deles será usado primeiro.', cost: 60 },
+                { text: 'Configure Boot Option 1 = USB. O SSD está na primeira posição e é carregado antes de o sistema tentar o pendrive.', cost: 80 }
+            ],
+            5: [
+                { text: 'Windows 11 exige UEFI nativo e Secure Boot ativo. O que impede o Secure Boot de funcionar quando o CSM está ativado?', cost: 30 },
+                { text: 'Acesse a aba Segurança. CSM (Compatibility Support Module) emula BIOS legada — isso é incompatível com Secure Boot no modo UEFI nativo.', cost: 60 },
+                { text: 'CSM = OFF e Secure Boot = ON. Sem CSM, o sistema opera em UEFI puro. Com Secure Boot ativo, atende os requisitos do Windows 11.', cost: 80 }
+            ]
+        };
+
+        /* ════════════════════════════════════════════════════════════
+           STATE MANAGER
+        ═══════════════════════════════════════════════════════════ */
+
+        const LS_KEY = 'missionBoot_v1';
+
+        function defaultState() {
+            return {
+                totalXP: 0,
+                missions: Object.fromEntries(MISSIONS.map((m, i) => [
+                    m.id,
+                    { status: i === 0 ? 'available' : 'locked', completed: false, hintsUsed: 0, xpEarned: 0 }
+                ])),
+                currentMission: null,
+                // config temporária durante diagnóstico
+                activeConfig: null,
+                reportedPhysical: false
+            };
+        }
+
+        let state = loadState();
+
+        function loadState() {
+            try {
+                const raw = localStorage.getItem(LS_KEY);
+                if (raw) return JSON.parse(raw);
+            } catch (e) { }
+            return defaultState();
+        }
+
+        function saveState() {
+            localStorage.setItem(LS_KEY, JSON.stringify(state));
+        }
+
+        function resetState() {
+            state = defaultState();
+            saveState();
+        }
+
+        function getCurrentMission() {
+            return MISSIONS.find(m => m.id === state.currentMission);
+        }
+
+        function getMissionState(id) {
+            return state.missions[id];
+        }
+
+        function countCompleted() {
+            return Object.values(state.missions).filter(m => m.completed).length;
+        }
+
+        function countHintsTotal() {
+            return Object.values(state.missions).reduce((acc, m) => acc + m.hintsUsed, 0);
+        }
+
+        /* ════════════════════════════════════════════════════════════
+           VALIDATION ENGINE
+        ═══════════════════════════════════════════════════════════ */
+
+        // Mapeia campo incorreto para sintoma observável (sem revelar solução)
+        const SYMPTOM_MAP = {
+            expo: 'A memória RAM ainda opera abaixo da frequência nominal especificada pelo fabricante.',
+            xmp: 'A memória RAM ainda opera abaixo da frequência nominal especificada pelo fabricante.',
+            fastBoot: 'O dispositivo USB ainda não é detectado durante a inicialização.',
+            boot1: 'O sistema ainda inicia a partir do dispositivo errado.',
+            boot2: 'A segunda opção de boot pode causar falha de contingência.',
+            secureBoot: 'Secure Boot ainda está desativado — Windows 11 rejeitará a instalação.',
+            csm: 'CSM ativo impede operação em UEFI puro — incompatível com Windows 11.'
+        };
+
+        function validateMission(missionId, currentConfig, reportedPhysical) {
+            const mission = MISSIONS.find(m => m.id === missionId);
+            if (!mission) return { correct: false, symptoms: ['Missão não encontrada.'] };
+
+            // Missão 1: caso especial — problema físico
+            if (mission.validateFn === 'reportPhysical') {
+                if (reportedPhysical) return { correct: true, symptoms: [] };
+                return { correct: false, symptoms: ['O SSD não foi detectado. Nenhuma configuração de firmware resolverá um problema de hardware físico. Investigue a conexão física.'] };
+            }
+
+            // Missões 2-5: comparar campos com a solução
+            const wrongFields = [];
+            for (const [field, expectedVal] of Object.entries(mission.solution)) {
+                if (currentConfig[field] !== expectedVal) wrongFields.push(field);
+            }
+
+            if (wrongFields.length === 0) return { correct: true, symptoms: [] };
+
+            const symptoms = wrongFields.map(f => SYMPTOM_MAP[f] || `Parâmetro "${f}" incorreto.`);
+            return { correct: false, symptoms };
+        }
+
+        /* ════════════════════════════════════════════════════════════
+           XP ENGINE
+        ═══════════════════════════════════════════════════════════ */
+
+        function awardXP(amount, label) {
+            state.totalXP += amount;
+            if (state.currentMission) state.missions[state.currentMission].xpEarned += amount;
+            saveState();
+            showXPToast(`+${amount} XP — ${label}`);
+        }
+
+        function showXPToast(msg) {
+            const old = document.querySelector('.xp-toast');
+            if (old) old.remove();
+            const el = document.createElement('div');
+            el.className = 'xp-toast';
+            el.textContent = msg;
+            document.body.appendChild(el);
+            setTimeout(() => el.remove(), 2100);
+            // atualiza badge no topbar
+            const badge = document.querySelector('.xp-badge');
+            if (badge) badge.innerHTML = `⚡ ${state.totalXP} XP`;
+        }
+
+        /* ════════════════════════════════════════════════════════════
+           ROUTER
+        ═══════════════════════════════════════════════════════════ */
+
+        let currentScreen = 'home';
+
+        function navigate(screen, extra) {
+            currentScreen = screen;
+            if (extra) Object.assign(state, extra);
+            render();
+            window.scrollTo(0, 0);
+        }
+
+        function render() {
+            const app = document.getElementById('app');
+            const screens = {
+                home: renderHome,
+                missions: renderMissions,
+                ticket: renderTicket,
+                diagnosis: renderDiagnosis,
+                boottest: renderBootTest,
+                report: renderReport
+            };
+            app.innerHTML = renderTopbar() + `<div class="screen pb-safe">${(screens[currentScreen] || renderHome)()}</div>`;
+            bindEvents();
+        }
+
+        /* ════════════════════════════════════════════════════════════
+           TOPBAR
+        ═══════════════════════════════════════════════════════════ */
+
+        function renderTopbar() {
+            return `
+  <div class="topbar">
+    <div class="topbar-logo">MISSION<span>:</span>BOOT</div>
+    <div class="xp-badge">${state.totalXP} XP</div>
+  </div>`;
+        }
+
+        /* ════════════════════════════════════════════════════════════
+           SCREEN: HOME
+        ═══════════════════════════════════════════════════════════ */
+
+        function renderHome() {
+            const done = countCompleted();
+            const allDone = done === MISSIONS.length;
+            return `
+  <div class="home-hero">
+    <div class="home-logo-mark">TechDeploy Solutions</div>
+    <div class="home-title">Missão <span class="highlight">Boot</span></div>
+    <div class="home-title" style="font-size:16px;color:var(--text-muted);font-family:var(--font-ui);font-weight:400;margin-top:2px;">Operação Primeiro Start</div>
+    <p class="home-subtitle" style="margin-top:12px;">Você é o técnico de implantação.<br>Configure. Diagnostique. Inicie.</p>
+  </div>
+
+  <div class="home-xp-card">
+    <div class="home-xp-value">${state.totalXP}</div>
+    <div class="home-xp-label">pontos de experiência</div>
+    <div class="home-stats">
+      <div class="home-stat">
+        <div class="home-stat-val">${done}<span style="color:var(--text-muted);font-size:14px">/${MISSIONS.length}</span></div>
+        <div class="home-stat-lbl">Missões</div>
+      </div>
+      <div class="home-stat">
+        <div class="home-stat-val">${countHintsTotal()}</div>
+        <div class="home-stat-lbl">Dicas usadas</div>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn btn-primary" onclick="navigate('missions')">📋 Ver Missões</button>
+  ${allDone ? `<button class="btn btn-secondary" style="margin-top:8px" onclick="navigate('report')">📊 Relatório Final</button>` : ''}
+  <button class="btn btn-danger btn-sm" style="margin-top:16px" onclick="confirmReset()">Reiniciar progresso</button>
+  `;
+        }
+
+        function confirmReset() {
+            const overlay = document.createElement('div');
+            overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.6);display:flex;align-items:center;justify-content:center;z-index:300;padding:20px;';
+            overlay.innerHTML = `
+    <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;max-width:340px;width:100%;">
+      <div style="font-size:15px;font-weight:600;margin-bottom:8px">Reiniciar progresso?</div>
+      <p style="font-size:13px;color:var(--text-muted);margin-bottom:16px;line-height:1.5">Todo o XP e missões concluídas serão apagados. Esta ação não pode ser desfeita.</p>
+      <div style="display:flex;gap:8px">
+        <button class="btn btn-secondary btn-sm" style="flex:1" id="cancelResetBtn">Cancelar</button>
+        <button class="btn btn-danger btn-sm" style="flex:1" id="confirmResetBtn">Apagar tudo</button>
+      </div>
+    </div>`;
+            document.body.appendChild(overlay);
+            overlay.querySelector('#cancelResetBtn').onclick = () => overlay.remove();
+            overlay.querySelector('#confirmResetBtn').onclick = () => {
+                resetState();
+                overlay.remove();
+                render();
+            };
+            overlay.onclick = (e) => { if (e.target === overlay) overlay.remove(); };
+        }
+
+        /* ════════════════════════════════════════════════════════════
+           SCREEN: MISSIONS
+        ═══════════════════════════════════════════════════════════ */
+
+        function renderMissions() {
+            const diffLabels = { easy: 'Básico', medium: 'Intermediário', hard: 'Avançado' };
+            const statusLabel = { available: 'Disponível', locked: 'Bloqueada', done: 'Concluída' };
+
+            const list = MISSIONS.map(m => {
+                const ms = getMissionState(m.id);
+                const statusClass = ms.completed ? 'done' : ms.status === 'locked' ? 'locked' : '';
+                const pillType = ms.completed ? 'pill-done' : ms.status === 'locked' ? 'pill-locked' : 'pill-available';
+                const statusText = ms.completed ? 'Concluída' : statusLabel[ms.status];
+                const clickable = !ms.completed && ms.status === 'available';
+
+                return `
+    <div class="mission-card ${statusClass}" ${clickable ? `onclick="startMission(${m.id})"` : ''}>
+      <div class="mission-num">${String(m.id).padStart(2, '0')}</div>
+      <div class="mission-info">
+        <div class="mission-name">${m.title}</div>
+        <div class="mission-desc">${m.shortDesc}</div>
+        <div class="mission-meta">
+          <span class="diff-badge diff-${m.difficulty}">${diffLabels[m.difficulty]}</span>
+          <span class="pill ${pillType}">${statusText}</span>
+          ${ms.completed ? `<span style="font-family:var(--font-mono);font-size:11px;color:var(--accent-amber)">⚡${ms.xpEarned} XP</span>` : ''}
+        </div>
+      </div>
+    </div>`;
+            }).join('');
+
+            return `
+  <button class="back-btn" onclick="navigate('home')">Início</button>
+  <div class="section-label">Chamados Disponíveis</div>
+  ${list}
+  `;
+        }
+
+        function startMission(id) {
+            const mission = MISSIONS.find(m => m.id === id);
+            state.currentMission = id;
+            state.activeConfig = { ...mission.initialConfig };
+            state.reportedPhysical = false;
+            activeTab = 'hardware';
+            visitedTabs = new Set(['hardware']);
+            testState = 'idle';
+            saveState();
+            navigate('ticket');
+        }
+
+        /* ════════════════════════════════════════════════════════════
+           SCREEN: TICKET
+        ═══════════════════════════════════════════════════════════ */
+
+        function renderTicket() {
+            const m = getCurrentMission();
+            if (!m) return '<p>Missão não encontrada.</p>';
+            const specs = m.specs;
+            const ssdColor = m.ssdDetected ? '' : 'warn';
+
+            return `
+  <button class="back-btn" onclick="navigate('missions')">Missões</button>
+
+  <div class="ticket-header">
+    <div class="ticket-id">Chamado #${m.ticketId}</div>
+    <div class="ticket-title">${m.title}</div>
+    <div class="ticket-client">${m.client}</div>
+  </div>
+
+  <div class="info-block">
+    <div class="info-block-label">⚠ Problema Relatado</div>
+    <p>${m.problem}</p>
+  </div>
+
+  <div class="section-label">Especificações do Equipamento</div>
+  <div class="spec-grid">
+    <div class="spec-item">
+      <div class="spec-key">CPU</div>
+      <div class="spec-val">${specs.cpu}</div>
+    </div>
+    <div class="spec-item">
+      <div class="spec-key">RAM</div>
+      <div class="spec-val">${specs.ram}</div>
+    </div>
+    <div class="spec-item">
+      <div class="spec-key">Armazenamento</div>
+      <div class="spec-val ${ssdColor}">${specs.ssd}</div>
+    </div>
+    <div class="spec-item">
+      <div class="spec-key">Data / Hora</div>
+      <div class="spec-val">${specs.date} ${specs.time}</div>
+    </div>
+  </div>
+
+  <div style="margin-top:12px"></div>
+  <div class="info-block cyan">
+    <div class="info-block-label">🎯 Objetivo</div>
+    <p>${m.objective}</p>
+  </div>
+
+  <div style="margin-top:16px">
+    <button class="btn btn-primary" onclick="navigate('diagnosis')">🔍 Iniciar Diagnóstico</button>
+  </div>
+  `;
+        }
+
+        /* ════════════════════════════════════════════════════════════
+           SCREEN: DIAGNOSIS
+        ═══════════════════════════════════════════════════════════ */
+
+        let activeTab = 'hardware';
+        let visitedTabs = new Set(['hardware']);
+
+        function renderDiagnosis() {
+            const m = getCurrentMission();
+            if (!m) return '<p>Nenhuma missão ativa.</p>';
+            const ms = getMissionState(m.id);
+            const cfg = state.activeConfig;
+            const hUsed = ms.hintsUsed;
+
+            // Dots de dicas
+            const hintDots = [0, 1, 2].map(i =>
+                `<div class="hint-dot ${i < hUsed ? 'used' : ''}"></div>`
+            ).join('');
+
+            const tabs = ['hardware', 'boot', 'segurança', 'desempenho'];
+            const tabLabels = { hardware: 'HW', boot: 'Boot', 'segurança': 'Seg.', desempenho: 'Desemp.' };
+            const tabBtns = tabs.map(t =>
+                `<button class="tab-btn ${activeTab === t ? 'active' : ''}" onclick="switchTab('${t}')">${tabLabels[t]}</button>`
+            ).join('');
+
+            // Painel Hardware
+            const ssdVal = m.ssdDetected ? (m.specs.ssd) : '— NÃO DETECTADO —';
+            const ssdColor = m.ssdDetected ? '' : 'warn';
+            const hwPanel = `
+  <div class="tab-panel ${activeTab === 'hardware' ? 'active' : ''}">
+    <div class="module-panel">
+      <div class="module-title">📟 Informações de Hardware (somente leitura)</div>
+      <div class="field-row"><span class="field-label">CPU</span><span class="field-value">${m.specs.cpu}</span></div>
+      <div class="field-row"><span class="field-label">RAM</span><span class="field-value">${m.specs.ram}</span></div>
+      <div class="field-row"><span class="field-label">SSD</span><span class="field-value ${ssdColor}">${ssdVal}</span></div>
+      <div class="field-row"><span class="field-label">Data Sistema</span><span class="field-value">${m.specs.date}</span></div>
+      <div class="field-row"><span class="field-label">Hora Sistema</span><span class="field-value">${m.specs.time}</span></div>
+    </div>
+    ${m.id === 1 ? `
+    <div class="alert alert-warn">
+      <strong>⚠ Nota:</strong> Dispositivo de armazenamento não encontrado pelo firmware. Nenhum parâmetro de software resolverá ausência de hardware físico.
+    </div>
+    ${(() => {
+                        const required = ['boot', 'segurança', 'desempenho'];
+                        const remaining = required.filter(t => !visitedTabs.has(t));
+                        if (remaining.length > 0) {
+                            return `
+        <div class="alert alert-info">
+          🔍 Antes de relatar, verifique as abas <strong>${remaining.map(t => tabLabels[t]).join(', ')}</strong> para confirmar que nenhuma configuração resolve este problema.
+        </div>
+        <button class="btn btn-secondary" disabled>📋 Relatar Problema Físico</button>`;
+                        }
+                        return `<button class="btn btn-danger" onclick="reportPhysical()">📋 Relatar Problema Físico</button>`;
+                    })()}
+    ` : ''}
+  </div>`;
+
+            // Painel Boot
+            const bootOpts = ['SSD', 'USB', 'DVD', 'PXE'];
+            const bootPanel = `
+  <div class="tab-panel ${activeTab === 'boot' ? 'active' : ''}">
+    <div class="module-panel ${activeTab === 'boot' ? 'glow-active' : ''}">
+      <div class="module-title">🚀 Sequência de Boot</div>
+      <div class="field-row">
+        <span class="field-label">Boot Option 1</span>
+        <select class="field-select" style="width:130px" onchange="updateConfig('boot1',this.value)">
+          ${bootOpts.map(o => `<option value="${o}" ${cfg.boot1 === o ? 'selected' : ''}>${o}</option>`).join('')}
+        </select>
+      </div>
+      <div class="field-row">
+        <span class="field-label">Boot Option 2</span>
+        <select class="field-select" style="width:130px" onchange="updateConfig('boot2',this.value)">
+          ${bootOpts.map(o => `<option value="${o}" ${cfg.boot2 === o ? 'selected' : ''}>${o}</option>`).join('')}
+        </select>
+      </div>
+      <div class="field-row">
+        <span class="field-label">Fast Boot</span>
+        <div class="toggle-group">
+          <button class="${cfg.fastBoot === 'ON' ? 'active-on' : ''}" onclick="updateConfig('fastBoot','ON')">ON</button>
+          <button class="${cfg.fastBoot === 'OFF' ? 'active-off' : ''}" onclick="updateConfig('fastBoot','OFF')">OFF</button>
+        </div>
+      </div>
+    </div>
+  </div>`;
+
+            // Painel Segurança
+            const segPanel = `
+  <div class="tab-panel ${activeTab === 'segurança' ? 'active' : ''}">
+    <div class="module-panel ${activeTab === 'segurança' ? 'glow-active' : ''}">
+      <div class="module-title">🔒 Segurança de Inicialização</div>
+      <div class="field-row">
+        <span class="field-label">Secure Boot</span>
+        <div class="toggle-group">
+          <button class="${cfg.secureBoot === 'ON' ? 'active-on' : ''}" onclick="updateConfig('secureBoot','ON')">ON</button>
+          <button class="${cfg.secureBoot === 'OFF' ? 'active-off' : ''}" onclick="updateConfig('secureBoot','OFF')">OFF</button>
+        </div>
+      </div>
+      <div class="field-row">
+        <span class="field-label">CSM</span>
+        <div class="toggle-group">
+          <button class="${cfg.csm === 'ON' ? 'active-on' : ''}" onclick="updateConfig('csm','ON')">ON</button>
+          <button class="${cfg.csm === 'OFF' ? 'active-off' : ''}" onclick="updateConfig('csm','OFF')">OFF</button>
+        </div>
+      </div>
+    </div>
+  </div>`;
+
+            // Painel Desempenho
+            const perfPanel = `
+  <div class="tab-panel ${activeTab === 'desempenho' ? 'active' : ''}">
+    <div class="module-panel ${activeTab === 'desempenho' ? 'glow-active' : ''}">
+      <div class="module-title">⚡ Perfil de Desempenho de Memória</div>
+      <div class="field-row">
+        <span class="field-label">XMP <span style="color:var(--text-dim);font-size:10px">(Intel DDR4/5)</span></span>
+        <div class="toggle-group">
+          <button class="${cfg.xmp === 'ON' ? 'active-on' : ''}" onclick="updateConfig('xmp','ON')">ON</button>
+          <button class="${cfg.xmp === 'OFF' ? 'active-off' : ''}" onclick="updateConfig('xmp','OFF')">OFF</button>
+        </div>
+      </div>
+      <div class="field-row">
+        <span class="field-label">EXPO <span style="color:var(--text-dim);font-size:10px">(AMD DDR5)</span></span>
+        <div class="toggle-group">
+          <button class="${cfg.expo === 'ON' ? 'active-on' : ''}" onclick="updateConfig('expo','ON')">ON</button>
+          <button class="${cfg.expo === 'OFF' ? 'active-off' : ''}" onclick="updateConfig('expo','OFF')">OFF</button>
+        </div>
+      </div>
+    </div>
+  </div>`;
+
+            // Seção de dicas
+            const hintSection = renderHintSection(m.id, hUsed);
+
+            return `
+  <button class="back-btn" onclick="navigate('ticket')">Chamado</button>
+
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+    <span style="font-size:14px;font-weight:600">${m.title}</span>
+    <span class="pill pill-available">#${m.ticketId.split('-').pop()}</span>
+  </div>
+
+  <div class="tabs">${tabBtns}</div>
+
+  ${hwPanel}${bootPanel}${segPanel}${perfPanel}
+
+  ${hintSection}
+
+  <button class="btn btn-primary" style="margin-top:4px" onclick="navigate('boottest')">⚙️ Testar Inicialização</button>
+  `;
+        }
+
+        function renderHintSection(missionId, hintsUsed) {
+            const hints = HINTS[missionId];
+            const nextHintIdx = hintsUsed; // 0, 1 ou 2
+            const allUsed = hintsUsed >= 3;
+
+            const dots = [0, 1, 2].map(i =>
+                `<div class="hint-dot ${i < hintsUsed ? 'used' : ''}"></div>`
+            ).join('');
+
+            let usedHintsHtml = '';
+            for (let i = 0; i < hintsUsed; i++) {
+                usedHintsHtml += `
+    <div class="hint-section" style="opacity:0.7">
+      <div class="hint-title">💡 Dica ${i + 1}</div>
+      <div class="hint-text">${hints[i].text}</div>
+    </div>`;
+            }
+
+            const requestBtn = allUsed ? '' : `
+  <button class="btn btn-amber btn-sm" onclick="requestHint()">
+    💡 Pedir Dica ${nextHintIdx + 1} <span style="margin-left:4px;font-size:11px;opacity:0.8">(-${hints[nextHintIdx].cost} XP)</span>
+  </button>`;
+
+            return `
+  <div style="margin: 14px 0 10px">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+      <span class="section-label" style="margin:0">Dicas</span>
+      <div class="hints-used-row" style="margin:0">${dots}</div>
+    </div>
+    ${usedHintsHtml}
+    ${requestBtn}
+  </div>`;
+        }
+
+        function switchTab(tab) {
+            activeTab = tab;
+            visitedTabs.add(tab);
+            render();
+        }
+
+        function updateConfig(field, value) {
+            state.activeConfig[field] = value;
+            saveState();
+            // Re-render apenas a tela sem resetar tabs
+            render();
+        }
+
+        function requestHint() {
+            const ms = getMissionState(state.currentMission);
+            const hIdx = ms.hintsUsed;
+            if (hIdx >= 3) return;
+            const cost = HINTS[state.currentMission][hIdx].cost;
+            ms.hintsUsed++;
+            // Deduz XP (não vai abaixo de 0)
+            state.totalXP = Math.max(0, state.totalXP - cost);
+            saveState();
+            render();
+            showXPToast(`-${cost} XP — Dica utilizada`);
+        }
+
+        function reportPhysical() {
+            state.reportedPhysical = true;
+            saveState();
+            testState = 'success';
+            navigate('boottest');
+            awardXP(XP_RULES.configCorrect, 'Diagnóstico correto');
+        }
+
+        /* ════════════════════════════════════════════════════════════
+           SCREEN: BOOT TEST
+        ═══════════════════════════════════════════════════════════ */
+
+        let testState = 'idle'; // idle | running | success | fail
+        let testSymptoms = [];
+
+        function renderBootTest() {
+            const m = getCurrentMission();
+            if (!m) return '';
+
+            if (testState === 'idle') {
+                return `
+    <button class="back-btn" onclick="navigate('diagnosis')">Diagnóstico</button>
+    <div class="card" style="text-align:center;padding:28px 16px">
+      <div style="font-size:40px;margin-bottom:12px">🖥️</div>
+      <div style="font-size:16px;font-weight:600;margin-bottom:6px">Pronto para testar</div>
+      <p style="font-size:13px;color:var(--text-muted);line-height:1.5">O sistema executará uma validação automática das configurações atuais e simulará o processo de inicialização.</p>
+    </div>
+    <button class="btn btn-primary" onclick="runTest()">▶ Testar Inicialização</button>
+    `;
+            }
+
+            if (testState === 'running') {
+                return `
+    <div class="test-anim">
+      <div class="test-spinner"></div>
+      <div class="test-label">Validando configurações...</div>
+    </div>`;
+            }
+
+            if (testState === 'success') {
+                const ms = getMissionState(m.id);
+                const isPhysical = m.validateFn === 'reportPhysical';
+                return `
+    <div class="result-success">
+      <div class="result-icon">✅</div>
+      <div class="result-title" style="color:var(--accent-green)">${isPhysical ? 'Diagnóstico correto!' : 'Inicialização bem-sucedida!'}</div>
+      <p class="result-sub">${isPhysical
+                        ? 'Você identificou corretamente que se trata de uma falha física de hardware.<br>O equipamento foi encaminhado para substituição/reparo do componente.'
+                        : 'As configurações estão corretas.<br>O equipamento está pronto para o cliente.'}</p>
+    </div>
+    <div class="card">
+      <div class="card-title">📊 Resumo da Missão</div>
+      <div class="field-row"><span class="field-label">XP nesta missão</span><span class="field-value" style="color:var(--accent-amber)">+${ms.xpEarned} XP</span></div>
+      <div class="field-row"><span class="field-label">Dicas utilizadas</span><span class="field-value">${ms.hintsUsed}/3</span></div>
+      <div class="field-row"><span class="field-label">Competência</span><span class="field-value" style="font-size:12px">${m.competency}</span></div>
+    </div>
+    <button class="btn btn-success" onclick="completeMission()">Concluir Missão ✓</button>
+    `;
+            }
+
+            if (testState === 'fail') {
+                const symptomsHtml = testSymptoms.map(s => `<div class="symptom-item">${s}</div>`).join('');
+                return `
+    <button class="back-btn" onclick="goBackToDiagnosis()">Voltar ao Diagnóstico</button>
+    <div class="card" style="border-color:rgba(248,81,73,0.3)">
+      <div style="font-size:32px;margin-bottom:8px;text-align:center">❌</div>
+      <div style="font-size:16px;font-weight:600;text-align:center;margin-bottom:4px;color:var(--accent-red)">Falha na Inicialização</div>
+      <p style="font-size:13px;color:var(--text-muted);text-align:center;margin-bottom:14px">O sistema detectou os seguintes problemas:</p>
+      <div class="symptom-list">${symptomsHtml}</div>
+    </div>
+    <button class="btn btn-secondary" onclick="goBackToDiagnosis()">🔧 Revisar Configurações</button>
+    `;
+            }
+        }
+
+        function runTest() {
+            testState = 'running';
+            render();
+            setTimeout(() => {
+                const m = getCurrentMission();
+                const result = validateMission(m.id, state.activeConfig, state.reportedPhysical);
+                if (result.correct) {
+                    testState = 'success';
+                    // Concede XP de configuração correta
+                    awardXP(XP_RULES.configCorrect, 'Configuração correta');
+                } else {
+                    testState = 'fail';
+                    testSymptoms = result.symptoms;
+                }
+                render();
+            }, 1400);
+        }
+
+        function goBackToDiagnosis() {
+            testState = 'idle';
+            navigate('diagnosis');
+        }
+
+        function completeMission() {
+            const id = state.currentMission;
+            const ms = state.missions[id];
+            ms.completed = true;
+            ms.status = 'done';
+
+            // Bônus sem dicas
+            if (ms.hintsUsed === 0) awardXP(XP_RULES.noHintBonus, 'Sem dicas!');
+            awardXP(XP_RULES.missionDone, 'Missão concluída');
+
+            // Desbloqueia próxima missão
+            const nextId = id + 1;
+            if (state.missions[nextId]) {
+                state.missions[nextId].status = 'available';
+            }
+
+            saveState();
+            testState = 'idle';
+
+            const allDone = Object.values(state.missions).every(m => m.completed);
+            if (allDone) {
+                navigate('report');
+            } else {
+                navigate('missions');
+            }
+        }
+
+        /* ════════════════════════════════════════════════════════════
+           SCREEN: REPORT
+        ═══════════════════════════════════════════════════════════ */
+
+        function renderReport() {
+            const done = countCompleted();
+            const maxXP = MISSIONS.length * (XP_RULES.missionDone + XP_RULES.configCorrect + XP_RULES.noHintBonus);
+            const pct = Math.min(100, Math.round((state.totalXP / maxXP) * 100));
+
+            const competencies = [...new Set(
+                MISSIONS.filter(m => state.missions[m.id].completed).map(m => m.competency)
+            )];
+
+            const perfLabel = pct >= 90 ? '🏆 Excelente' : pct >= 70 ? '⭐ Bom desempenho' : pct >= 50 ? '📈 Em desenvolvimento' : '🔧 Continue praticando';
+
+            return `
+  <div class="report-hero">
+    <div style="font-family:var(--font-mono);font-size:11px;color:var(--text-muted);margin-bottom:8px;letter-spacing:0.15em;text-transform:uppercase">Relatório Final</div>
+    <div class="report-xp">${state.totalXP}</div>
+    <div class="report-xp-label">pontos de experiência acumulados</div>
+    <div class="perf-bar-wrap"><div class="perf-bar" style="width:${pct}%"></div></div>
+    <div class="perf-pct">${pct}%</div>
+    <div style="font-size:13px;color:var(--text-muted);margin-top:2px">${perfLabel}</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">📊 Estatísticas</div>
+    <div class="field-row"><span class="field-label">Missões concluídas</span><span class="field-value">${done}/${MISSIONS.length}</span></div>
+    <div class="field-row"><span class="field-label">Dicas utilizadas</span><span class="field-value">${countHintsTotal()}</span></div>
+    <div class="field-row"><span class="field-label">XP Total</span><span class="field-value" style="color:var(--accent-amber)">⚡ ${state.totalXP}</span></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🎓 Competências Dominadas</div>
+    ${competencies.length > 0
+                    ? competencies.map(c => `<div class="competency-item">${c}</div>`).join('')
+                    : '<p style="font-size:13px;color:var(--text-muted)">Conclua missões para desbloquear competências.</p>'
+                }
+  </div>
+
+  ${done < MISSIONS.length ? `
+  <div class="alert alert-info" style="margin-top:4px">
+    Você ainda tem ${MISSIONS.length - done} missão(ões) em aberto. Continue para melhorar seu desempenho!
+  </div>
+  <button class="btn btn-primary" onclick="navigate('missions')">Continuar Missões</button>
+  ` : `
+  <div class="alert alert-info" style="background:rgba(63,185,80,0.08);border-color:rgba(63,185,80,0.3)">
+    ✅ Todas as missões concluídas! Parabéns, técnico.
+  </div>
+  `}
+
+  <button class="btn btn-secondary" style="margin-top:8px" onclick="navigate('home')">← Início</button>
+  `;
+        }
+
+        /* ════════════════════════════════════════════════════════════
+           BIND EVENTS (chamado após render)
+        ═══════════════════════════════════════════════════════════ */
+
+        function bindEvents() {
+            // Todos os eventos já são inline onclick — nada adicional necessário aqui
+            // Reservado para eventos que precisem de querySelector
+        }
+
+        /* ════════════════════════════════════════════════════════════
+           INIT
+        ═══════════════════════════════════════════════════════════ */
+
+        render();
+    </script>
+</body>
+
+</html>
