@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infraestrutura Física de Redes — Aula 08</title>
+    <link rel="stylesheet" href="../../web/assets/css/style.css">
+</head>
+
+<body>
+    <main>
+        <header>
+            <p class="eyebrow">Infraestrutura Física de Redes</p>
+            <h1>AULA 08 — Conectores e Tomadas</h1>
+            <div class="meta" aria-label="Informações da aula">
+                <span><strong>Objetivo da aula:</strong> Conhecer os principais conectores utilizados em redes de
+                    computadores, compreender a função dos patch cords e das tomadas RJ-45, e identificar as
+                    especificações básicas de cada componente.</span>
+            </div>
+        </header>
+
+        <section>
+            <h2>1. O Conector RJ-45</h2>
+            <img src="../../web/assets/images/ifr/08/conector_rj45.png" alt="Conector RJ-45" class="image-left">
+            <p>O <strong>RJ-45</strong> (<em>Registered Jack 45</em>) é o conector padrão para cabos de par trançado em
+                redes locais. Está presente em toda placa de rede, switch, roteador, patch panel e tomada de rede local.
+            </p>
+
+            <h3>Construção Física</h3>
+            <p>O conector RJ-45 é composto por:</p>
+            <ul>
+                <li><strong>Corpo transparente de policarbonato:</strong> permite visualizar a posição dos fios durante
+                    a crimpagem</li>
+                <li><strong>8 pinos dourados:</strong> contatos metálicos que estabelecem a conexão elétrica com o
+                    equipamento</li>
+                <li><strong>Clipe de trava:</strong> peça plástica que trava o conector na porta, evitando desconexão
+                    acidental. Sempre pressionar o clipe antes de remover o conector — nunca puxar pelo cabo</li>
+                <li><strong>Canal de entrada do cabo:</strong> por onde o cabo entra no conector durante a crimpagem
+                </li>
+            </ul>
+            <p>Os pinos são numerados de 1 a 8, da esquerda para a direita, com o clipe voltado para baixo e os pinos
+                visíveis.</p>
+
+            <h3>Versões: Cabo Sólido e Multifilar</h3>
+            <p>O conector RJ-45 existe em duas versões, adequadas para tipos diferentes de cabo:</p>
+            <p><strong>Para cabo sólido:</strong> cada fio do cabo é composto por um único condutor de cobre sólido. É o
+                tipo usado no cabeamento de instalação — embutido em paredes, passado por canaletas e eletrodutos. Os
+                pinos do conector penetram o isolamento e fixam no condutor sólido.</p>
+            <p><strong>Para cabo multifilar (stranded):</strong> cada fio é composto por múltiplos fios de cobre fino
+                trançados entre si. É o tipo usado em patch cords — cabos de conexão entre equipamentos. Mais flexível,
+                suporta dobramento repetido sem quebrar. Os pinos do conector abraçam os múltiplos fios.</p>
+            <blockquote>
+                <p><strong>Atenção:</strong> usar o conector errado para o tipo de cabo compromete a conexão — um
+                    conector para cabo sólido numa aplicação de patch cord pode resultar em mau contato após algumas
+                    flexões.</p>
+            </blockquote>
+
+            <h3>Categorias</h3>
+            <p>Assim como os cabos, os conectores RJ-45 são fabricados em categorias que definem seu desempenho
+                elétrico:</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Categoria</th>
+                        <th>Compatível com</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Cat5e</td>
+                        <td>Cabos Cat5e — instalações legadas</td>
+                    </tr>
+                    <tr>
+                        <td>Cat6</td>
+                        <td>Cabos Cat6 — padrão atual</td>
+                    </tr>
+                    <tr>
+                        <td>Cat6A</td>
+                        <td>Cabos Cat6A — 10 Gbps em distância plena</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>A categoria do conector deve ser <strong>igual ou superior</strong> à categoria do cabo. Usar um conector
+                Cat5e num cabo Cat6 cria um gargalo — o ponto mais fraco da instalação determina o desempenho de todo o
+                segmento.</p>
+
+            <h3>Blindado vs. Não Blindado</h3>
+            <img src="../../web/assets/images/ifr/08/blindado_nao_blindado.png" alt="Conector RJ-45 Blindado" class="image-right">
+            <p>Conectores RJ-45 blindados possuem um invólucro metálico que se conecta à blindagem do cabo, garantindo
+                continuidade da proteção eletromagnética até o equipamento.</p>
+            <p>Devem ser usados <strong>obrigatoriamente</strong> em instalações com cabos blindados (FTP, STP, SFTP).
+                Misturar cabo blindado com conector não blindado anula a proteção e pode criar antenas acidentais que
+                pioram o desempenho.</p>
+        </section>
+
+        <hr>
+
+        <section>
+            <h2>2. O Conector RJ-11</h2>
+            <p>O <strong>RJ-11</strong> é o conector padrão de telefonia — o mesmo presente nos telefones fixos
+                residenciais e nos modems DSL.</p>
+
+            <h3>Diferença Visual em Relação ao RJ-45</h3>
+            <img src="../../web/assets/images/ifr/08/rj45_rj11.png" alt="Conector RJ-11" class="image-left">
+            <p>O RJ-11 é visivelmente mais estreito que o RJ-45:</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>RJ-45</th>
+                        <th>RJ-11</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Largura</td>
+                        <td>~11,7 mm</td>
+                        <td>~9,65 mm</td>
+                    </tr>
+                    <tr>
+                        <td>Número de pinos</td>
+                        <td>8</td>
+                        <td>4 (ou 6)</td>
+                    </tr>
+                    <tr>
+                        <td>Uso</td>
+                        <td>Redes de dados</td>
+                        <td>Telefonia, DSL</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Apesar de visualmente semelhantes, os dois conectores <strong>não são intercambiáveis</strong>. Um
+                conector RJ-11 pode ser inserido fisicamente numa porta RJ-45 — mas não fará contato correto e pode
+                danificar a porta.</p>
+
+            <h3>Por que Não Deve Ser Usado em Redes de Dados</h3>
+            <p>O RJ-11 não foi projetado para as frequências e os padrões elétricos das redes de dados modernas. Seu uso
+                em redes de dados resulta em conexões instáveis, erros de transmissão e impossibilidade de atingir as
+                velocidades especificadas pelo cabo.</p>
+        </section>
+
+        <hr>
+
+        <section>
+            <h2>3. O Conector BNC</h2>
+            <img src="../../web/assets/images/ifr/08/conector_bnc.png" alt="Conector BNC" class="image-right">
+            <p>O <strong>BNC</strong> (<em>Bayonet Neill-Concelman</em>) é o conector padrão para cabos coaxiais em
+                sistemas de CFTV e equipamentos de medição.</p>
+
+            <h3>Construção Física e Mecanismo</h3>
+            <p>O BNC é um conector cilíndrico metálico com mecanismo de <strong>baioneta</strong> — encaixa e trava com
+                um quarto de giro. Isso proporciona conexão rápida, segura e resistente a vibrações.</p>
+            <p>É composto por:</p>
+            <ul>
+                <li><strong>Pino central:</strong> conecta ao condutor central do cabo coaxial</li>
+                <li><strong>Corpo metálico externo:</strong> conecta à malha de blindagem do cabo</li>
+                <li><strong>Trava de baioneta:</strong> dois pinos que encaixam nas ranhuras da porta receptora</li>
+            </ul>
+
+            <h3>Aplicação Atual</h3>
+            <p>O BNC praticamente desapareceu das redes de dados, mas permanece amplamente usado em:</p>
+            <ul>
+                <li><strong>CFTV analógico:</strong> câmeras e gravadores de vídeo analógico (DVRs)</li>
+                <li><strong>CFTV HD:</strong> sistemas HD-CVI, HD-TVI e AHD usam coaxial com BNC para câmeras de alta
+                    definição</li>
+                <li><strong>Equipamentos de medição:</strong> osciloscópios, geradores de sinal e outros instrumentos de
+                    laboratório</li>
+            </ul>
+
+            <h3>Tipos de Conectores BNC</h3>
+            <p><strong>BNC macho:</strong> instalado nas extremidades do cabo coaxial. Conecta às portas fêmeas dos
+                equipamentos.</p>
+            <p><strong>BNC fêmea:</strong> presente nas câmeras, DVRs e equipamentos. Recebe o conector macho do cabo.
+            </p>
+            <p><strong>Adaptador T:</strong> permite conectar dois cabos e um equipamento num mesmo ponto — usado em
+                instalações legadas de rede coaxial (Ethernet 10Base2).</p>
+            <p><strong>Terminador BNC:</strong> resistor de 50 Ω instalado nas extremidades de redes coaxiais legadas
+                para evitar reflexão de sinal. Sem o terminador, a rede coaxial não funciona.</p>
+        </section>
+
+        <hr>
+
+        <section>
+            <h2>4. Patch Cords</h2>
+            <h3>O que São e Qual sua Função</h3>
+            <p><strong>Patch cord</strong> é o cabo de conexão usado para interligar equipamentos dentro de uma
+                instalação de rede — do patch panel ao switch, do switch ao servidor, da tomada de rede ao computador do
+                usuário.</p>
+                <p>Diferente do cabo de instalação (que fica embutido na parede ou passado por canaletas e não deve ser
+                    movido), o patch cord é projetado para uso externo, com flexibilidade para ser conectado e desconectado
+                    com frequência.</p>
+                    
+                    <h3>Diferença entre Patch Cord e Cabo de Instalação</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Cabo de Instalação</th>
+                                <th>Patch Cord</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Condutor</td>
+                                <td>Sólido</td>
+                                <td>Multifilar (flexível)</td>
+                            </tr>
+                            <tr>
+                                <td>Uso</td>
+                                <td>Embutido, fixo</td>
+                                <td>Externo, móvel</td>
+                            </tr>
+                            <tr>
+                                <td>Comprimento típico</td>
+                                <td>Até 90 metros</td>
+                                <td>0,5 m a 10 m</td>
+                            </tr>
+                            <tr>
+                                <td>Conectores</td>
+                                <td>Crimpados em campo ou terminados em keystone</td>
+                                <td>Crimpados em fábrica</td>
+                            </tr>
+                            <tr>
+                                <td>Flexibilidade</td>
+                                <td>Baixa</td>
+                                <td>Alta</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p>O patch cord deve ter a <strong>mesma categoria</strong> do cabeamento da instalação — ou superior. Um
+                        patch cord Cat5e num projeto Cat6 cria um gargalo de desempenho exatamente no ponto mais visível e mais
+                        trocado da instalação.</p>
+                        
+                        <h3>Tipos por Material</h3>
+                        <p><strong>Patch cord de cobre:</strong> par trançado com conectores RJ-45 nas duas extremidades. É o tipo
+                            mais comum — usado em todas as conexões de rede local convencional.</p>
+                            <p><strong>Patch cord de fibra óptica:</strong> fibra óptica com conectores de fibra (SC, LC) nas
+                                extremidades. Usado para conectar equipamentos com interfaces ópticas — switches de núcleo, servidores
+                                com placas de fibra, conexões de backbone.</p>
+                                
+                                <h3>Comprimentos Comuns e Cores</h3>
+                                <p>Patch cords são fabricados em comprimentos padronizados: 0,5 m, 1 m, 1,5 m, 2 m, 3 m, 5 m e 10 m. Para
+                                    distâncias maiores, o correto é usar o cabeamento estruturado — não patch cords longos.</p>
+                                    <img src="../../web/assets/images/ifr/08/patch_cord.png" alt="Patch Cord" class="image-left">
+                                    <p>As cores não têm significado técnico definido por norma, mas são amplamente usadas como sistema de
+                                        identificação visual:</p>
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th>Cor</th>
+                                                    <th>Uso comum (por convenção)</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Azul</td>
+                                                    <td>Dados — conexões de estações de trabalho</td>
+                                                </tr>
+                    <tr>
+                        <td>Amarelo</td>
+                        <td>Uplinks e conexões entre switches</td>
+                    </tr>
+                    <tr>
+                        <td>Vermelho</td>
+                        <td>Gerência de rede, conexões críticas</td>
+                    </tr>
+                    <tr>
+                        <td>Verde</td>
+                        <td>Conexões de servidores</td>
+                    </tr>
+                    <tr>
+                        <td>Cinza</td>
+                        <td>Telefonia VoIP</td>
+                    </tr>
+                    <tr>
+                        <td>Preto</td>
+                        <td>Conexões genéricas</td>
+                    </tr>
+                </tbody>
+            </table>
+            <blockquote>
+                <p>Cada organização pode adotar sua própria convenção de cores — o importante é documentar e manter o
+                    padrão consistente em toda a instalação.</p>
+            </blockquote>
+        </section>
+
+        <hr>
+
+        <section>
+            <h2>5. Tomadas RJ-45</h2>
+            <img src="../../web/assets/images/ifr/08/tomada_rj45.png" alt="Tomada RJ-45" class="image-left">
+            <h3>O que São e Onde São Instaladas</h3>
+            <p>A <strong>tomada RJ-45</strong> é o ponto de acesso à rede disponível para o usuário final — instalada na
+                parede, no piso ou no mobiliário, é onde o usuário conecta o patch cord do seu equipamento.</p>
+            <p>É o ponto de terminação do cabeamento horizontal — a extremidade visível de todo o cabo que percorre
+                paredes e canaletas desde o patch panel na sala de telecomunicações.</p>
+
+            <h3>Construção: Módulo Keystone e Espelho</h3>
+            <p>A tomada RJ-45 moderna é composta por duas partes:</p>
+            <p><strong>Módulo keystone:</strong> o componente ativo da tomada — contém os contatos elétricos onde os
+                fios do cabo de instalação são terminados (por impacto, usando ferramenta punch-down) e a porta RJ-45
+                frontal onde o patch cord é conectado. É modular — pode ser trocado individualmente sem substituir toda
+                a caixa.</p>
+            <p><strong>Espelho (placa de cobertura):</strong> a peça decorativa que enquadra o módulo keystone na
+                parede. Pode acomodar 1, 2 ou mais módulos keystone lado a lado. Disponível em variações para tomadas de
+                embutir e de sobrepor.</p>
+
+            <h3>Categorias</h3>
+            <p>Assim como cabos e conectores, os módulos keystone são fabricados em categorias:</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Categoria</th>
+                        <th>Aplicação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Cat5e</td>
+                        <td>Instalações legadas — não recomendado para novas instalações</td>
+                    </tr>
+                    <tr>
+                        <td>Cat6</td>
+                        <td>Padrão recomendado para novas instalações</td>
+                    </tr>
+                    <tr>
+                        <td>Cat6A</td>
+                        <td>Instalações que exigem 10 Gbps em distância plena</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>A categoria do keystone deve ser compatível com a categoria do cabo de instalação e do patch cord — os
+                três formam o <strong>canal de transmissão</strong> e o desempenho é determinado pelo componente mais
+                fraco.</p>
+
+            <h3>Padrões T568A e T568B</h3>
+            <p>Os módulos keystone recebem os fios do cabo seguindo um dos dois padrões de pinagem — T568A ou T568B —
+                marcados no próprio módulo com código de cores. A escolha do padrão deve ser consistente em toda a
+                instalação: se o patch panel foi terminado em T568B, as tomadas também devem ser terminadas em T568B.
+            </p>
+
+            <h3>Caixas de Embutir e de Sobrepor</h3>
+            <p><strong>Caixa de embutir (flush mount):</strong> instalada dentro da parede, com apenas o espelho visível
+                na superfície. É a solução mais elegante e a mais usada em instalações novas. Exige abertura na
+                alvenaria ou drywall durante a obra.</p>
+            <p><strong>Caixa de sobrepor (surface mount):</strong> fixada na superfície da parede, sem necessidade de
+                abertura. Usada em retrofits — instalações realizadas após a obra, onde não é viável abrir a parede.
+                Menos elegante, mas prática e de instalação simples.</p>
+        </section>
+
+        <hr>
+
+        <section>
+            <h2>Síntese da Aula</h2>
+            <p>Os conectores e tomadas são os pontos de interface entre o cabeamento e os equipamentos — e sua qualidade
+                determina diretamente o desempenho de toda a instalação. Os principais pontos desta aula:</p>
+            <ul>
+                <li>O RJ-45 é o conector universal do par trançado — deve ter categoria compatível com o cabo e o tipo
+                    correto (sólido ou multifilar)</li>
+                <li>O RJ-11 é exclusivo de telefonia e não deve ser usado em redes de dados</li>
+                <li>O BNC permanece em uso em sistemas de CFTV analógico e HD</li>
+                <li>Patch cords são cabos flexíveis para conexões externas — categoria, comprimento e cor devem seguir
+                    um padrão documentado</li>
+                <li>Tomadas RJ-45 são compostas por módulo keystone e espelho — disponíveis em versões de embutir e
+                    sobrepor</li>
+            </ul>
+        </section>
+
+        <footer>
+            <p>Curso Técnico em Redes | Infraestrutura Física de Redes</p>
+        </footer>
+    </main>
+</body>
+
+</html>
