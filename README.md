@@ -1,6 +1,6 @@
 # Curso Técnico em Redes de Computadores
 
-Repositório com o material didático para o Curso Técnico Pós-Médio em Redes, ministrado pelo Professor Maxwell de Oliveira Chaves.
+Repositório com o material didático para o Curso Técnico em Redes, ministrado pelo Professor Maxwell de Oliveira Chaves.
 
 ## Visão geral
 
