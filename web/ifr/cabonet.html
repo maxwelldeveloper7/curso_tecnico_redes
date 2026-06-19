@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CaboNet: Sala de Operações</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg: #0f1117;
+            --surface: #1a1d27;
+            --surface2: #232736;
+            --border: #2e3347;
+            --accent: #00c896;
+            --accent2: #3b82f6;
+            --warn: #f59e0b;
+            --danger: #ef4444;
+            --text: #e2e8f0;
+            --muted: #7c8499;
+            --green: #22c55e;
+            --font: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        body {
+            font-family: var(--font);
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ── TOPO ── */
+        #topbar {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        #topbar .logo {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--accent);
+            letter-spacing: 1px;
+        }
+
+        #topbar .logo span {
+            color: var(--text);
+            font-weight: 400;
+        }
+
+        #mission-label {
+            font-size: 12px;
+            color: var(--muted);
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            padding: 4px 10px;
+            border-radius: 20px;
+        }
+
+        #quality-wrap {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-left: auto;
+        }
+
+        #quality-wrap label {
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        #quality-bar-bg {
+            width: 160px;
+            height: 8px;
+            background: var(--surface2);
+            border-radius: 4px;
+            border: 1px solid var(--border);
+        }
+
+        #quality-bar {
+            height: 100%;
+            width: 100%;
+            border-radius: 4px;
+            background: var(--accent);
+            transition: width .4s, background .4s;
+        }
+
+        #quality-val {
+            font-size: 12px;
+            color: var(--accent);
+            min-width: 32px;
+        }
+
+        /* ── CONTEÚDO PRINCIPAL ── */
+        #main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 24px 16px 40px;
+        }
+
+        /* ── CARD DO SUPERVISOR ── */
+        #carlos-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px 24px;
+            max-width: 680px;
+            width: 100%;
+            margin-bottom: 24px;
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+        }
+
+        #carlos-avatar {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: var(--surface2);
+            border: 2px solid var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            flex-shrink: 0;
+        }
+
+        #carlos-text {
+            flex: 1;
+        }
+
+        #carlos-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 4px;
+        }
+
+        #carlos-msg {
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text);
+        }
+
+        /* ── ÁREA DE MISSÃO ── */
+        #mission-area {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            max-width: 680px;
+            width: 100%;
+        }
+
+        #mission-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 6px;
+        }
+
+        #mission-desc {
+            font-size: 13px;
+            color: var(--muted);
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        /* ── MISSÃO 1: RECONHECIMENTO ── */
+        .rack-diagram {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 20px;
+        }
+
+        .rack-item {
+            background: var(--surface2);
+            border: 2px solid var(--border);
+            border-radius: 6px;
+            padding: 12px 16px;
+            cursor: pointer;
+            transition: border-color .2s, background .2s;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            position: relative;
+        }
+
+        .rack-item:hover {
+            border-color: var(--accent2);
+        }
+
+        .rack-item.identified {
+            border-color: var(--accent);
+            background: #00c89612;
+        }
+
+        .rack-item .item-icon {
+            font-size: 20px;
+        }
+
+        .rack-item .item-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .rack-item .item-tag {
+            margin-left: auto;
+            font-size: 11px;
+            background: var(--accent);
+            color: #000;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-weight: 600;
+            opacity: 0;
+            transition: opacity .3s;
+        }
+
+        .rack-item.identified .item-tag {
+            opacity: 1;
+        }
+
+        .item-tooltip {
+            display: none;
+            position: absolute;
+            bottom: calc(100% + 8px);
+            left: 0;
+            right: 0;
+            background: #1e2235;
+            border: 1px solid var(--accent);
+            border-radius: 8px;
+            padding: 10px 14px;
+            font-size: 13px;
+            color: var(--text);
+            line-height: 1.5;
+            z-index: 10;
+        }
+
+        .rack-item.identified .item-tooltip {
+            display: block;
+        }
+
+        /* ── MISSÃO 2: MONTAGEM ── */
+        .drag-zone {
+            min-height: 56px;
+            border: 2px dashed var(--border);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            padding: 0 16px;
+            transition: border-color .2s, background .2s;
+            margin-bottom: 6px;
+            gap: 10px;
+        }
+
+        .drag-zone.over {
+            border-color: var(--accent2);
+            background: #3b82f612;
+        }
+
+        .drag-zone.correct {
+            border-color: var(--accent);
+            background: #00c89612;
+            border-style: solid;
+        }
+
+        .drag-zone.wrong {
+            border-color: var(--danger);
+            background: #ef444412;
+            border-style: solid;
+        }
+
+        .drag-zone .slot-label {
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .drag-zone .slot-content {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .draggable-pool {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .draggable {
+            background: var(--surface2);
+            border: 2px solid var(--border);
+            border-radius: 6px;
+            padding: 8px 14px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: grab;
+            transition: border-color .2s, opacity .2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .draggable:hover {
+            border-color: var(--accent2);
+        }
+
+        .draggable.dragging {
+            opacity: .4;
+        }
+
+        .draggable.used {
+            opacity: .3;
+            pointer-events: none;
+        }
+
+        /* ── MISSÃO 3: ETIQUETAGEM ── */
+        .port-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .port-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .port-jack {
+            width: 44px;
+            height: 36px;
+            background: var(--surface2);
+            border: 2px solid var(--border);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            color: var(--muted);
+            font-weight: 700;
+        }
+
+        .port-jack.labeled {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .port-jack.error {
+            border-color: var(--danger);
+        }
+
+        .port-input {
+            width: 52px;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 4px;
+            font-size: 11px;
+            color: var(--text);
+            text-align: center;
+            outline: none;
+            font-family: var(--font);
+        }
+
+        .port-input:focus {
+            border-color: var(--accent2);
+        }
+
+        .port-input.correct {
+            border-color: var(--accent);
+            background: #00c89612;
+        }
+
+        .port-input.wrong {
+            border-color: var(--danger);
+            background: #ef444412;
+        }
+
+        /* ── MISSÃO 4: DIAGNÓSTICO ── */
+        .fault-item {
+            background: var(--surface2);
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 12px;
+        }
+
+        .fault-symptom {
+            font-size: 13px;
+            color: var(--warn);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .fault-options {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .fault-opt {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 10px 14px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: border-color .2s, background .2s;
+            text-align: left;
+            color: var(--text);
+            font-family: var(--font);
+        }
+
+        .fault-opt:hover {
+            border-color: var(--accent2);
+            background: #3b82f612;
+        }
+
+        .fault-opt.correct {
+            border-color: var(--accent);
+            background: #00c89612;
+            pointer-events: none;
+        }
+
+        .fault-opt.wrong {
+            border-color: var(--danger);
+            background: #ef444412;
+            pointer-events: none;
+        }
+
+        .fault-feedback {
+            font-size: 12px;
+            margin-top: 8px;
+            padding: 8px 12px;
+            border-radius: 6px;
+            display: none;
+        }
+
+        .fault-feedback.show {
+            display: block;
+        }
+
+        .fault-feedback.ok {
+            background: #00c89618;
+            color: var(--accent);
+        }
+
+        .fault-feedback.fail {
+            background: #ef444418;
+            color: var(--danger);
+        }
+
+        /* ── MISSÃO 5: AUDITORIA ── */
+        .audit-item {
+            background: var(--surface2);
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            padding: 14px 16px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .audit-icon {
+            font-size: 22px;
+        }
+
+        .audit-desc {
+            flex: 1;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .audit-check {
+            display: flex;
+            gap: 8px;
+        }
+
+        .audit-btn {
+            padding: 6px 14px;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: var(--font);
+            transition: all .2s;
+        }
+
+        .audit-btn.conform {
+            background: var(--surface);
+            color: var(--green);
+            border-color: var(--green);
+        }
+
+        .audit-btn.nonconform {
+            background: var(--surface);
+            color: var(--danger);
+            border-color: var(--danger);
+        }
+
+        .audit-btn.selected-c {
+            background: var(--green);
+            color: #000;
+        }
+
+        .audit-btn.selected-n {
+            background: var(--danger);
+            color: #fff;
+        }
+
+        .audit-result {
+            font-size: 11px;
+            margin-top: 6px;
+            display: none;
+            padding: 4px 10px;
+            border-radius: 4px;
+        }
+
+        .audit-result.show {
+            display: inline-block;
+        }
+
+        .audit-result.ok {
+            background: #00c89618;
+            color: var(--accent);
+        }
+
+        .audit-result.fail {
+            background: #ef444418;
+            color: var(--danger);
+        }
+
+        /* ── BOTÃO AVANÇAR ── */
+        #btn-next {
+            margin-top: 20px;
+            padding: 12px 32px;
+            background: var(--accent);
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: var(--font);
+            transition: background .2s, transform .1s;
+            display: none;
+        }
+
+        #btn-next:hover {
+            background: #00e6ab;
+            transform: translateY(-1px);
+        }
+
+        #btn-next.visible {
+            display: block;
+        }
+
+        /* ── TELA FINAL ── */
+        #final-screen {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            max-width: 520px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        #final-screen.show {
+            display: flex;
+        }
+
+        #final-avatar {
+            font-size: 64px;
+            margin-bottom: 16px;
+        }
+
+        #final-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        #final-score {
+            font-size: 48px;
+            font-weight: 900;
+            color: var(--accent);
+            margin: 12px 0;
+        }
+
+        #final-msg {
+            font-size: 15px;
+            line-height: 1.7;
+            color: var(--muted);
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 16px 20px;
+            margin-bottom: 24px;
+        }
+
+        #btn-restart {
+            padding: 12px 32px;
+            background: var(--surface2);
+            color: var(--text);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: var(--font);
+            transition: border-color .2s;
+        }
+
+        #btn-restart:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* ── PROGRESSO DE MISSÕES ── */
+        #mission-dots {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .mdot {
+            width: 28px;
+            height: 6px;
+            border-radius: 3px;
+            background: var(--border);
+            transition: background .3s;
+        }
+
+        .mdot.done {
+            background: var(--accent);
+        }
+
+        .mdot.active {
+            background: var(--accent2);
+        }
+
+        /* ── FEEDBACK TOAST ── */
+        #toast {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%) translateY(60px);
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-size: 13px;
+            transition: transform .3s;
+            z-index: 100;
+            white-space: nowrap;
+        }
+
+        #toast.show {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        #toast.ok {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        #toast.err {
+            border-color: var(--danger);
+            color: var(--danger);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- TOPBAR -->
+    <div id="topbar">
+        <div class="logo">CABO<span>NET</span></div>
+        <div id="mission-label">Missão 1 de 5</div>
+        <div id="quality-wrap">
+            <label>Qualidade da instalação</label>
+            <div id="quality-bar-bg">
+                <div id="quality-bar"></div>
+            </div>
+            <div id="quality-val">100%</div>
+        </div>
+    </div>
+
+    <!-- MAIN -->
+    <div id="main">
+
+        <!-- CARLOS -->
+        <div id="carlos-card">
+            <div id="carlos-avatar">👷</div>
+            <div id="carlos-text">
+                <div id="carlos-name">Carlos — Supervisor Técnico</div>
+                <div id="carlos-msg">Carregando...</div>
+            </div>
+        </div>
+
+        <!-- ÁREA DE MISSÃO -->
+        <div id="mission-area">
+            <div id="mission-dots">
+                <div class="mdot active" id="d0"></div>
+                <div class="mdot" id="d1"></div>
+                <div class="mdot" id="d2"></div>
+                <div class="mdot" id="d3"></div>
+                <div class="mdot" id="d4"></div>
+            </div>
+            <div id="mission-title"></div>
+            <div id="mission-desc"></div>
+            <div id="mission-content"></div>
+            <button id="btn-next" onclick="nextMission()">Avançar →</button>
+        </div>
+
+        <!-- TELA FINAL -->
+        <div id="final-screen">
+            <div id="final-avatar">👷</div>
+            <div id="final-title">Avaliação do supervisor</div>
+            <div id="final-score"></div>
+            <div id="final-msg"></div>
+            <button id="btn-restart" onclick="restart()">↩ Jogar novamente</button>
+        </div>
+
+    </div>
+
+    <!-- TOAST -->
+    <div id="toast"></div>
+
+    <script>
+        // ── ESTADO ──────────────────────────────────────────
+        let quality = 100;
+        let currentMission = 0;
+        let missionReady = [false, false, false, false, false];
+
+        const MISSIONS = [
+            { label: '1', title: 'Missão 1 — Reconheça o ambiente' },
+            { label: '2', title: 'Missão 2 — Monte o rack' },
+            { label: '3', title: 'Missão 3 — Identifique tudo' },
+            { label: '4', title: 'Missão 4 — A rede não funciona' },
+            { label: '5', title: 'Missão 5 — Auditoria final' },
+        ];
+
+        const CARLOS = [
+            "Tudo bem! Fui chamado às pressas pra outro chamado. A instalação tá pela metade. Você precisa terminar antes do cliente chegar. Começa identificando os componentes — clica em cada um pra ver o que é.",
+            "Boa. Agora o rack tá desmontado. Arrasta cada equipamento pro slot correto. Lembra: patch panel em cima, switch no meio, nobreak embaixo.",
+            "Equipamentos no lugar. Mas olha essa bagunça — nenhum cabo identificado. Etiqueta todas as portas do patch panel antes de ligar qualquer coisa.",
+            "Etiquetas feitas. Agora liga a rede... e olha só, três pontos com falha. Diagnostica o problema de cada um e resolve.",
+            "Quase lá. Antes do cliente chegar, faz uma auditoria rápida. Marca cada item como conforme ou não conforme.",
+        ];
+
+        // ── QUALIDADE ──────────────────────────────────────
+        function penalize(pts) {
+            quality = Math.max(0, quality - pts);
+            updateBar();
+        }
+        function updateBar() {
+            const bar = document.getElementById('quality-bar');
+            const val = document.getElementById('quality-val');
+            bar.style.width = quality + '%';
+            val.textContent = quality + '%';
+            if (quality > 70) bar.style.background = '#00c896';
+            else if (quality > 40) bar.style.background = '#f59e0b';
+            else bar.style.background = '#ef4444';
+            val.style.color = bar.style.background;
+        }
+
+        // ── TOAST ──────────────────────────────────────────
+        let toastTimer;
+        function showToast(msg, type = 'ok') {
+            const t = document.getElementById('toast');
+            t.textContent = msg;
+            t.className = 'show ' + type;
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => t.className = '', 2200);
+        }
+
+        // ── DOTS ──────────────────────────────────────────
+        function updateDots(m) {
+            for (let i = 0; i < 5; i++) {
+                const d = document.getElementById('d' + i);
+                d.className = 'mdot' + (i < m ? ' done' : i === m ? ' active' : '');
+            }
+        }
+
+        // ── MISSÃO PRONTA ──────────────────────────────────
+        function setReady(m) {
+            missionReady[m] = true;
+            document.getElementById('btn-next').classList.add('visible');
+        }
+
+        // ── NAVEGAÇÃO ─────────────────────────────────────
+        function nextMission() {
+            if (currentMission < 4) {
+                currentMission++;
+                loadMission(currentMission);
+            } else {
+                showFinal();
+            }
+        }
+
+        function loadMission(m) {
+            document.getElementById('mission-label').textContent = `Missão ${m + 1} de 5`;
+            document.getElementById('mission-title').textContent = MISSIONS[m].title;
+            document.getElementById('carlos-msg').textContent = CARLOS[m];
+            document.getElementById('btn-next').classList.remove('visible');
+            updateDots(m);
+
+            const builders = [buildM1, buildM2, buildM3, buildM4, buildM5];
+            document.getElementById('mission-content').innerHTML = '';
+            document.getElementById('mission-desc').textContent = '';
+            builders[m]();
+        }
+
+        function restart() {
+            quality = 100;
+            currentMission = 0;
+            missionReady = [false, false, false, false, false];
+            updateBar();
+            document.getElementById('final-screen').classList.remove('show');
+            document.getElementById('mission-area').style.display = '';
+            document.getElementById('carlos-card').style.display = '';
+            loadMission(0);
+        }
+
+        // ── MISSÃO 1: RECONHECIMENTO ───────────────────────
+        function buildM1() {
+            document.getElementById('mission-desc').textContent =
+                'Clique em cada componente do rack para identificá-lo e aprender sua função.';
+
+            const items = [
+                { icon: '🔲', label: 'Patch Panel 24 portas', info: 'Centraliza as terminações dos cabos de instalação que chegam da parede. Cada porta corresponde a um ponto de rede.', tag: 'Passivo' },
+                { icon: '↕️', label: 'Organizador de cabos', info: 'Mantém os patch cords organizados entre o patch panel e o switch. Evita cabos soltos e facilita a manutenção.', tag: 'Passivo' },
+                { icon: '🔀', label: 'Switch 24 portas', info: 'Equipamento ativo que interliga todos os dispositivos da rede local. Opera na camada 2 do modelo OSI.', tag: 'Ativo' },
+                { icon: '🔌', label: 'PDU (régua de tomadas)', info: 'Distribui energia elétrica para os equipamentos do rack. Diferente de uma régua comum, é projetada para uso em rack.', tag: 'Elétrico' },
+                { icon: '🔋', label: 'Nobreak (UPS)', info: 'Mantém os equipamentos funcionando durante quedas de energia. Também estabiliza a tensão elétrica.', tag: 'Proteção' },
+            ];
+
+            let identified = 0;
+            const html = items.map((it, i) => `
+    <div class="rack-item" id="ri${i}" onclick="identifyItem(${i}, ${items.length})">
+      <div class="item-icon">${it.icon}</div>
+      <div class="item-label">${it.label}</div>
+      <div class="item-tag">${it.tag}</div>
+      <div class="item-tooltip">${it.info}</div>
+    </div>
+  `).join('');
+
+            document.getElementById('mission-content').innerHTML = `<div class="rack-diagram">${html}</div>`;
+            window._m1count = 0;
+            window._m1total = items.length;
+        }
+
+        function identifyItem(i, total) {
+            const el = document.getElementById('ri' + i);
+            if (el.classList.contains('identified')) return;
+            el.classList.add('identified');
+            window._m1count++;
+            showToast('Identificado! +1', 'ok');
+            if (window._m1count >= window._m1total) {
+                showToast('Todos os componentes identificados!', 'ok');
+                setReady(0);
+            }
+        }
+
+        // ── MISSÃO 2: MONTAGEM ─────────────────────────────
+        function buildM2() {
+            document.getElementById('mission-desc').textContent =
+                'Arraste cada equipamento para o slot correto no rack. Atenção à ordem recomendada.';
+
+            const slots = [
+                { id: 'slot-pp', label: 'Slot 1 (topo)', correct: 'patch-panel' },
+                { id: 'slot-org', label: 'Slot 2', correct: 'organizador' },
+                { id: 'slot-sw', label: 'Slot 3', correct: 'switch' },
+                { id: 'slot-pdu', label: 'Slot 4', correct: 'pdu' },
+                { id: 'slot-ups', label: 'Slot 5 (base)', correct: 'nobreak' },
+            ];
+
+            const pieces = [
+                { id: 'nobreak', label: '🔋 Nobreak (UPS)' },
+                { id: 'switch', label: '🔀 Switch' },
+                { id: 'patch-panel', label: '🔲 Patch Panel' },
+                { id: 'pdu', label: '🔌 PDU' },
+                { id: 'organizador', label: '↕️ Organizador' },
+            ];
+
+            const slotsHtml = slots.map(s => `
+    <div class="drag-zone" id="${s.id}"
+      ondragover="event.preventDefault(); this.classList.add('over')"
+      ondragleave="this.classList.remove('over')"
+      ondrop="dropItem(event, '${s.id}', '${s.correct}')">
+      <span class="slot-label">${s.label}</span>
+      <span class="slot-content" id="${s.id}-content"></span>
+    </div>
+  `).join('');
+
+            const piecesHtml = pieces.map(p => `
+    <div class="draggable" id="piece-${p.id}" draggable="true"
+      ondragstart="dragStart(event, '${p.id}')">
+      ${p.label}
+    </div>
+  `).join('');
+
+            document.getElementById('mission-content').innerHTML = `
+    <div class="draggable-pool" id="pool">${piecesHtml}</div>
+    <div class="rack-diagram">${slotsHtml}</div>
+  `;
+
+            window._m2correct = 0;
+            window._m2total = slots.length;
+        }
+
+        function dragStart(e, id) {
+            e.dataTransfer.setData('text/plain', id);
+            document.getElementById('piece-' + id).classList.add('dragging');
+        }
+
+        function dropItem(e, slotId, correct) {
+            e.preventDefault();
+            const id = e.dataTransfer.getData('text/plain');
+            const slot = document.getElementById(slotId);
+            slot.classList.remove('over');
+
+            if (slot.classList.contains('correct')) return;
+
+            const piece = document.getElementById('piece-' + id);
+            piece.classList.remove('dragging');
+
+            if (id === correct) {
+                slot.classList.add('correct');
+                document.getElementById(slotId + '-content').textContent = piece.textContent.trim();
+                piece.classList.add('used');
+                window._m2correct++;
+                showToast('Posição correta!', 'ok');
+                if (window._m2correct >= window._m2total) {
+                    showToast('Rack montado com sucesso!', 'ok');
+                    setReady(1);
+                }
+            } else {
+                slot.classList.add('wrong');
+                penalize(5);
+                showToast('Posição incorreta. -5% qualidade', 'err');
+                setTimeout(() => slot.classList.remove('wrong'), 1000);
+            }
+        }
+
+        // ── MISSÃO 3: ETIQUETAGEM ──────────────────────────
+        function buildM3() {
+            document.getElementById('mission-desc').textContent =
+                'Digite o código de identificação de cada porta do patch panel. Use o padrão: A01, A02... até A12.';
+
+            const ports = Array.from({ length: 12 }, (_, i) => i + 1);
+            const html = `
+    <div class="port-grid">
+      ${ports.map(p => `
+        <div class="port-item">
+          <div class="port-jack" id="jack${p}">P${p}</div>
+          <input class="port-input" id="pi${p}" maxlength="4"
+            placeholder="A${String(p).padStart(2, '0')}"
+            oninput="checkLabel(${p})" />
+        </div>
+      `).join('')}
+    </div>
+  `;
+
+            document.getElementById('mission-content').innerHTML = html;
+            window._m3correct = 0;
+            window._m3labeled = new Set();
+        }
+
+        function checkLabel(p) {
+            const inp = document.getElementById('pi' + p);
+            const jack = document.getElementById('jack' + p);
+            const expected = 'A' + String(p).padStart(2, '0');
+            const val = inp.value.trim().toUpperCase();
+
+            if (val === expected) {
+                inp.className = 'port-input correct';
+                jack.className = 'port-jack labeled';
+                jack.textContent = val;
+                if (!window._m3labeled.has(p)) {
+                    window._m3labeled.add(p);
+                    window._m3correct++;
+                }
+                if (window._m3correct >= 12) {
+                    showToast('Todas as portas identificadas!', 'ok');
+                    setReady(2);
+                }
+            } else if (val.length >= 3) {
+                inp.className = 'port-input wrong';
+                jack.className = 'port-jack error';
+                if (!window._m3labeled.has(p + '_err')) {
+                    window._m3labeled.add(p + '_err');
+                    penalize(3);
+                    showToast('Identificação incorreta. -3% qualidade', 'err');
+                }
+            } else {
+                inp.className = 'port-input';
+                jack.className = 'port-jack';
+                jack.textContent = 'P' + p;
+            }
+        }
+
+        // ── MISSÃO 4: DIAGNÓSTICO ──────────────────────────
+        function buildM4() {
+            document.getElementById('mission-desc').textContent =
+                'Três pontos de rede estão com falha. Identifique a causa de cada problema e selecione a resposta correta.';
+
+            const faults = [
+                {
+                    symptom: '⚠️ Ponto A03 — Link instável, cai e sobe a cada minuto',
+                    options: [
+                        { text: 'Switch com defeito', correct: false },
+                        { text: 'Cabo de dados passando junto com cabo elétrico na canaleta', correct: true },
+                        { text: 'Patch cord longo demais', correct: false },
+                    ],
+                    feedback: {
+                        ok: 'Correto! Interferência eletromagnética do cabo elétrico causa instabilidade no sinal de dados.',
+                        fail: 'Errado. O sintoma de link instável é clássico de interferência eletromagnética — cabo de dados e elétrico na mesma canaleta.',
+                    }
+                },
+                {
+                    symptom: '⚠️ Ponto A07 — Sem conectividade. Porta do switch acende, mas sem tráfego',
+                    options: [
+                        { text: 'Porta do switch desabilitada', correct: false },
+                        { text: 'Cabo sem identificação conectado na porta errada do patch panel', correct: true },
+                        { text: 'Placa de rede do computador com defeito', correct: false },
+                    ],
+                    feedback: {
+                        ok: 'Correto! Sem etiqueta, o técnico anterior conectou o cable errado. Identificação é rastreabilidade.',
+                        fail: 'Errado. Porta acendendo indica que o switch reconhece o link. O problema é de cruzamento de cabos por falta de identificação.',
+                    }
+                },
+                {
+                    symptom: '⚠️ Ponto A11 — Velocidade muito abaixo do esperado (10 Mbps em rede Gigabit)',
+                    options: [
+                        { text: 'Patch cord Cat5e num canal Cat6', correct: true },
+                        { text: 'Switch sem suporte a Gigabit', correct: false },
+                        { text: 'Problema no servidor', correct: false },
+                    ],
+                    feedback: {
+                        ok: 'Correto! O patch cord é o elo mais fraco do canal. Um Cat5e limita toda a conexão a 100 Mbps.',
+                        fail: 'Errado. O switch e o cabeamento são Cat6, mas o patch cord Cat5e cria um gargalo que limita a velocidade.',
+                    }
+                },
+            ];
+
+            const html = faults.map((f, fi) => `
+    <div class="fault-item" id="fault${fi}">
+      <div class="fault-symptom">${f.symptom}</div>
+      <div class="fault-options">
+        ${f.options.map((o, oi) => `
+          <button class="fault-opt" onclick="selectFault(${fi}, ${oi}, ${o.correct})">${o.text}</button>
+        `).join('')}
+      </div>
+      <div class="fault-feedback" id="ff${fi}"></div>
+    </div>
+  `).join('');
+
+            document.getElementById('mission-content').innerHTML = html;
+            window._m4solved = 0;
+        }
+
+        function selectFault(fi, oi, correct) {
+            const fault = document.getElementById('fault' + fi);
+            if (fault.dataset.solved) return;
+
+            const opts = fault.querySelectorAll('.fault-opt');
+            const fb = document.getElementById('ff' + fi);
+            const faultData = [
+                { feedback: { ok: 'Correto! Interferência eletromagnética do cabo elétrico causa instabilidade no sinal de dados.', fail: 'Errado. O sintoma de link instável é clássico de interferência eletromagnética — cabo de dados e elétrico na mesma canaleta.' } },
+                { feedback: { ok: 'Correto! Sem etiqueta, o técnico anterior conectou o cabo errado. Identificação é rastreabilidade.', fail: 'Errado. Porta acendendo indica que o switch reconhece o link. O problema é de cruzamento de cabos por falta de identificação.' } },
+                { feedback: { ok: 'Correto! O patch cord é o elo mais fraco do canal. Um Cat5e limita toda a conexão a 100 Mbps.', fail: 'Errado. O switch e o cabeamento são Cat6, mas o patch cord Cat5e cria um gargalo que limita a velocidade.' } },
+            ];
+
+            opts[oi].classList.add(correct ? 'correct' : 'wrong');
+            opts.forEach(o => o.style.pointerEvents = 'none');
+
+            fb.textContent = correct ? faultData[fi].feedback.ok : faultData[fi].feedback.fail;
+            fb.className = 'fault-feedback show ' + (correct ? 'ok' : 'fail');
+
+            fault.dataset.solved = '1';
+
+            if (correct) {
+                showToast('Diagnóstico correto!', 'ok');
+                window._m4solved++;
+            } else {
+                penalize(8);
+                showToast('Diagnóstico incorreto. -8% qualidade', 'err');
+                window._m4solved++;
+            }
+
+            if (window._m4solved >= 3) {
+                setTimeout(() => setReady(3), 600);
+            }
+        }
+
+        // ── MISSÃO 5: AUDITORIA ────────────────────────────
+        function buildM5() {
+            document.getElementById('mission-desc').textContent =
+                'Avalie cada item da instalação. Marque como Conforme ou Não Conforme antes do cliente chegar.';
+
+            const items = [
+                { icon: '🏷️', desc: 'As portas do patch panel foram identificadas com etiquetas antes de a rede ser ativada?', conform: true },
+                { icon: '🔲', desc: 'O patch panel foi instalado no topo do rack, acima do switch?', conform: true },
+                { icon: '🔋', desc: 'O nobreak foi instalado na base do rack, garantindo centro de gravidade baixo?', conform: true },
+                { icon: '⚡', desc: 'Os cabos de dados estão em canaletas separadas dos cabos elétricos?', conform: true },
+                { icon: '🔌', desc: 'O patch cord utilizado tem a mesma categoria do cabeamento instalado?', conform: false },
+                { icon: '📋', desc: 'Todos os cabos estão identificados, evitando conexões em portas erradas?', conform: true },
+            ];
+
+            const html = items.map((it, i) => `
+    <div class="audit-item" id="ai${i}">
+      <div class="audit-icon">${it.icon}</div>
+      <div style="flex:1">
+        <div class="audit-desc">${it.desc}</div>
+        <div class="audit-result" id="ar${i}"></div>
+      </div>
+      <div class="audit-check">
+        <button class="audit-btn conform" onclick="auditSelect(${i}, true, ${it.conform})">✓ Conforme</button>
+        <button class="audit-btn nonconform" onclick="auditSelect(${i}, false, ${it.conform})">✗ Não conforme</button>
+      </div>
+    </div>
+  `).join('');
+
+            document.getElementById('mission-content').innerHTML = html;
+            window._m5done = 0;
+        }
+
+        function auditSelect(i, selected, correct) {
+            const item = document.getElementById('ai' + i);
+            if (item.dataset.done) return;
+            item.dataset.done = '1';
+
+            const btns = item.querySelectorAll('.audit-btn');
+            btns[0].className = 'audit-btn conform' + (selected ? ' selected-c' : '');
+            btns[1].className = 'audit-btn nonconform' + (!selected ? ' selected-n' : '');
+            btns.forEach(b => b.style.pointerEvents = 'none');
+
+            const isCorrect = selected === correct;
+            const ar = document.getElementById('ar' + i);
+
+            if (isCorrect) {
+                ar.textContent = selected ? '✓ Correto — item conforme' : '✓ Correto — não conformidade identificada';
+                ar.className = 'audit-result show ok';
+                showToast('Avaliação correta!', 'ok');
+            } else {
+                ar.textContent = selected ? '✗ Erro — este item não está conforme' : '✗ Erro — este item está conforme';
+                ar.className = 'audit-result show fail';
+                penalize(7);
+                showToast('Avaliação incorreta. -7% qualidade', 'err');
+            }
+
+            window._m5done++;
+            if (window._m5done >= 6) {
+                setTimeout(() => setReady(4), 600);
+            }
+        }
+
+        // ── TELA FINAL ─────────────────────────────────────
+        function showFinal() {
+            document.getElementById('mission-area').style.display = 'none';
+            document.getElementById('carlos-card').style.display = 'none';
+
+            const fs = document.getElementById('final-screen');
+            fs.classList.add('show');
+
+            const score = quality;
+            document.getElementById('final-score').textContent = score + '%';
+
+            let msg, emoji;
+            if (score >= 85) {
+                emoji = '😎';
+                msg = '"Bom trabalho. O cliente nem vai notar que eu não estava aqui. Instalação limpa, organizada e identificada. Isso é serviço profissional."';
+            } else if (score >= 60) {
+                emoji = '🤔';
+                msg = '"Funcionou. Mas revisa aqueles pontos antes do próximo chamado. Alguns erros de organização e identificação que vão dar problema lá na frente."';
+            } else {
+                emoji = '😬';
+                msg = '"A rede está no ar, mas eu precisaria refazer metade disso. Vamos estudar mais — organização e identificação não são opcionais, são parte do serviço."';
+            }
+
+            document.getElementById('final-avatar').textContent = emoji;
+            document.getElementById('final-msg').textContent = msg;
+
+            const color = score >= 85 ? '#00c896' : score >= 60 ? '#f59e0b' : '#ef4444';
+            document.getElementById('final-score').style.color = color;
+        }
+
+        // ── INIT ───────────────────────────────────────────
+        updateBar();
+        loadMission(0);
+    </script>
+</body>
+
+</html>

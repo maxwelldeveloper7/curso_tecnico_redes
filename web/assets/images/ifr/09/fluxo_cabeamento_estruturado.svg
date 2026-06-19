@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="429"
+   viewBox="0 0 429 580"
+   role="img"
+   version="1.1"
+   id="svg29"
+   sodipodi:docname="fluxo_cabeamento_estruturado.svg"
+   height="580"
+   inkscape:version="1.4.4 (dcaf3e7d9e, 2026-05-05)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <sodipodi:namedview
+     id="namedview29"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="1.3862069"
+     inkscape:cx="339.77612"
+     inkscape:cy="279.9005"
+     inkscape:window-width="1920"
+     inkscape:window-height="1012"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg29" />
+  <title
+     id="title1">Fluxo do cabeamento estruturado</title>
+  <desc
+     id="desc1">Diagrama vertical mostrando o fluxo da estação do usuário até o switch, passando pela tomada RJ-45, cabo de instalação embutido e patch panel.</desc>
+  <defs
+     id="defs15">
+    <marker
+       id="arrow"
+       viewBox="0 0 10 10"
+       refX="8"
+       refY="5"
+       markerWidth="6"
+       markerHeight="6"
+       orient="auto-start-reverse">
+      <path
+         d="M 2,1 8,5 2,9"
+         fill="none"
+         stroke="context-stroke"
+         stroke-width="1.5"
+         stroke-linecap="round"
+         stroke-linejoin="round"
+         id="path1" />
+    </marker>
+    <mask
+       id="imagine-text-gaps-zii949"
+       maskUnits="userSpaceOnUse">
+      <rect
+         x="0"
+         y="0"
+         width="680"
+         height="580"
+         fill="#ffffff"
+         id="rect1" />
+      <rect
+         x="273.5"
+         y="41"
+         width="133"
+         height="22"
+         fill="#000000"
+         rx="2"
+         id="rect2" />
+      <rect
+         x="236.71875"
+         y="62.5"
+         width="206.99536"
+         height="19"
+         fill="#000000"
+         rx="2"
+         id="rect3" />
+      <rect
+         x="256.95312"
+         y="101.5"
+         width="68.09375"
+         height="19"
+         fill="#000000"
+         rx="2"
+         id="rect4" />
+      <rect
+         x="289.47656"
+         y="151"
+         width="101.04968"
+         height="22"
+         fill="#000000"
+         rx="2"
+         id="rect5" />
+      <rect
+         x="267.42188"
+         y="172.5"
+         width="145.20688"
+         height="19"
+         fill="#000000"
+         rx="2"
+         id="rect6" />
+      <rect
+         x="174"
+         y="234.5"
+         width="108.06662"
+         height="19"
+         fill="#000000"
+         rx="2"
+         id="rect7" />
+      <rect
+         x="241.34375"
+         y="255.5"
+         width="181.3125"
+         height="19"
+         fill="#000000"
+         rx="2"
+         id="rect8" />
+      <rect
+         x="297.39844"
+         y="351"
+         width="85.203125"
+         height="22"
+         fill="#000000"
+         rx="2"
+         id="rect9" />
+      <rect
+         x="263.19531"
+         y="372.5"
+         width="153.60938"
+         height="19"
+         fill="#000000"
+         rx="2"
+         id="rect10" />
+      <rect
+         x="256.95312"
+         y="411.5"
+         width="68.09375"
+         height="19"
+         fill="#000000"
+         rx="2"
+         id="rect11" />
+      <rect
+         x="313.17188"
+         y="461"
+         width="53.65625"
+         height="22"
+         fill="#000000"
+         rx="2"
+         id="rect12" />
+      <rect
+         x="260.42188"
+         y="482.5"
+         width="159.19299"
+         height="19"
+         fill="#000000"
+         rx="2"
+         id="rect13" />
+      <rect
+         x="104"
+         y="542.5"
+         width="121.17188"
+         height="19"
+         fill="#000000"
+         rx="2"
+         id="rect14" />
+      <rect
+         x="324"
+         y="542.5"
+         width="148.3125"
+         height="19"
+         fill="#000000"
+         rx="2"
+         id="rect15" />
+    </mask>
+  </defs>
+  <g
+     style="color:#000000;font-weight:400;font-size:16px;font-family:'Anthropic Sans', '-apple-system', BlinkMacSystemFont, 'Segoe UI', sans-serif;dominant-baseline:auto;text-anchor:start;opacity:1;fill:#000000;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter"
+     id="g17"
+     transform="translate(-126,-20)">
+    <rect
+       x="190"
+       y="30"
+       width="300"
+       height="56"
+       rx="8"
+       stroke-width="0.5"
+       style="color:#000000;font-weight:400;font-size:16px;font-family:'Anthropic Sans', '-apple-system', BlinkMacSystemFont, 'Segoe UI', sans-serif;dominant-baseline:auto;text-anchor:start;opacity:1;fill:#e6f1fb;stroke:#185fa5;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter"
+       id="rect16" />
+    <text
+       x="340"
+       y="52"
+       text-anchor="middle"
+       dominant-baseline="central"
+       style="color:#000000;font-weight:500;font-size:14px;font-family:'Anthropic Sans', '-apple-system', BlinkMacSystemFont, 'Segoe UI', sans-serif;dominant-baseline:central;text-anchor:middle;opacity:1;fill:#0c447c;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter"
+       id="text16">Estação do usuário</text>
+    <text
+       x="340"
+       y="72"
+       text-anchor="middle"
+       dominant-baseline="central"
+       style="color:#000000;font-weight:400;font-size:12px;font-family:'Anthropic Sans', '-apple-system', BlinkMacSystemFont, 'Segoe UI', sans-serif;dominant-baseline:central;text-anchor:middle;opacity:1;fill:#185fa5;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter"
+       id="text17">Computador, notebook, impressora</text>
+  </g>
+  <line
+     x1="214"
+     y1="66"
+     x2="214"
+     y2="118"
+     stroke="#3B8BD4"
+     stroke-width="1.5"
+     marker-end="url(#arrow)"
+     style="color:#000000;font-weight:400;font-size:16px;font-family:'Anthropic Sans', '-apple-system', BlinkMacSystemFont, 'Segoe UI', sans-serif;dominant-baseline:auto;text-anchor:start;opacity:1;fill:none;stroke:#73726c;stroke-width:1.5px;stroke-linecap:butt;stroke-linejoin:miter"
+     id="line17" />
+  <rect
+     x="122"
+     y="80"
+     width="86"
+     height="22"
+     rx="4"
+     fill="var(--color-background-primary)"
+     stroke="var(--color-border-tertiary)"
+     stroke-width="0.5"
+     style="color:#000000;font-weight:400;font-size:16px;font-family:'Anthropic Sans', '-apple-system', BlinkMacSystemFont, 'Segoe UI', sans-serif;dominant-baseline:auto;text-anchor:start;opacity:1;fill:#ffffff;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter"
+     id="rect17" />
+  <text
+     x="165"
+     y="91"
+     text-anchor="middle"
+     dominant-baseline="central"
+     style="color:#000000;font-weight:400;font-size:12px;font-family:'Anthropic Sans', '-apple-system', BlinkMacSystemFont, 'Segoe UI', sans-serif;dominant-baseline:central;text-anchor:middle;opacity:1;fill:#3d3d3a;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter"
+     id="text18">Patch cord</text>
+  <g
+     style="color:#000000;font-weight:400;font-size:16px;font-family:'Anthropic Sans', '-apple-system', BlinkMacSystemFont, 'Segoe UI', sans-serif;dominant-baseline:auto;text-anchor:start;opacity:1;fill:#000000;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter"
+     id="g20"
+     transform="translate(-126,-20)">
+    <rect
+       x="190"
+       y="140"
+       width="300"
+       height="56"
+       rx="8"
+       stroke-width="0.5"
+       style="color:#000000;font-weight:400;font-size:16px;font-family:'Anthropic Sans', '-apple-system', BlinkMacSystemFont, 'Segoe UI', sans-serif;dominant-baseline:auto;text-anchor:start;opacity:1;fill:#e1f5ee;stroke:#0f6e56;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter"
+       id="rect18" />
+    <text
+       x="340"
+       y="162"
+       text-anchor="middle"
+       dominant-baseline="central"
+       style="color:#000000;font-weight:500;font-size:14px;font-family:'Anthropic Sans', '-apple-system', BlinkMacSystemFont, 'Segoe UI', sans-serif;dominant-baseline:central;text-anchor:middle;opacity:1;fill:#085041;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter"
+       id="text19">Tomada RJ-45</text>
+    <text
+       x="340"
+       y="182"
+       text-anchor="middle"
+       dominant-baseline="central"
+       style="color:#000000;font-weight:400;font-size:12px;font-family:'Anthropic Sans', '-apple-system', BlinkMacSystemFont, 'Segoe UI', sans-serif;dominant-baseline:central;text-anchor:middle;opacity:1;fill:#0f6e56;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter"
+       id="text20">Ponto de rede na parede</text>
+  </g>
+  <line
+     x1="340"
+     y1="196"
+     x2="340"
+     y2="338"
+     stroke="var(--color-text-secondary)"
+     stroke-width="1.5"
+     stroke-dasharray="6 4"
+     marker-end="url(#arrow)"
+     mask="url(#imagine-text-gaps-zii949)"
+     style="color:#000000;font-weight:400;font-size:16px;font-family:'Anthropic Sans', '-apple-system', BlinkMacSystemFont, 'Segoe UI', sans-serif;dominant-baseline:auto;text-anchor:start;opacity:1;fill:#000000;stroke:#3d3d3a;stroke-width:1.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:6px, 4px"
+     id="line20"
+     transform="translate(-126,-20)" />
+  <rect
+     x="22"
+     y="202"
+     width="384"
+     height="90"
+     rx="6"
+     fill="var(--color-background-secondary)"
+     stroke="var(--color-border-secondary)"
+     stroke-width="0.5"
+     stroke-dasharray="4 3"
+     style="color:#000000;font-weight:400;font-size:16px;font-family:'Anthropic Sans', '-apple-system', BlinkMacSystemFont, 'Segoe UI', sans-serif;dominant-baseline:auto;text-anchor:start;opacity:1;fill:#f5f4ed;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:4px, 3px"
+     id="rect20" />
+  <text
+     x="52"
+     y="224"
+     dominant-baseline="central"
+     fill="var(--color-text-tertiary)"
+     style="color:#000000;font-weight:400;font-size:12px;font-family:'Anthropic Sans', '-apple-system', BlinkMacSystemFont, 'Segoe UI', sans-serif;dominant-baseline:central;text-anchor:start;opacity:1;fill:#3d3d3a;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter"
+     id="text21">Parede / alvenaria</text>
+  <rect
+     x="122"
+     y="234"
+     width="168"
+     height="22"
+     rx="4"
+     fill="var(--color-background-primary)"
+     stroke="var(--color-border-tertiary)"
+     stroke-width="0.5"
+     style="color:#000000;font-weight:400;font-size:16px;font-family:'Anthropic Sans', '-apple-system', BlinkMacSystemFont, 'Segoe UI', sans-serif;dominant-baseline:auto;text-anchor:start;opacity:1;fill:#ffffff;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter"
+     id="rect21" />
+  <text
+     x="206"
+     y="245"
+     text-anchor="middle"
+     dominant-baseline="central"
+     style="color:#000000;font-weight:400;font-size:12px;font-family:'Anthropic Sans', '-apple-system', BlinkMacSystemFont, 'Segoe UI', sans-serif;dominant-baseline:central;text-anchor:middle;opacity:1;fill:#3d3d3a;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter"
+     id="text22">Cabo de instalação (embutido)</text>
+  <g
+     style="color:#000000;font-weight:400;font-size:16px;font-family:'Anthropic Sans', '-apple-system', BlinkMacSystemFont, 'Segoe UI', sans-serif;dominant-baseline:auto;text-anchor:start;opacity:1;fill:#000000;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter"
+     id="g24"
+     transform="translate(-126,-20)">
+    <rect
+       x="190"
+       y="340"
+       width="300"
+       height="56"
+       rx="8"
+       stroke-width="0.5"
+       style="color:#000000;font-weight:400;font-size:16px;font-family:'Anthropic Sans', '-apple-system', BlinkMacSystemFont, 'Segoe UI', sans-serif;dominant-baseline:auto;text-anchor:start;opacity:1;fill:#e1f5ee;stroke:#0f6e56;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter"
+       id="rect22" />
+    <text
+       x="340"
+       y="362"
+       text-anchor="middle"
+       dominant-baseline="central"
+       style="color:#000000;font-weight:500;font-size:14px;font-family:'Anthropic Sans', '-apple-system', BlinkMacSystemFont, 'Segoe UI', sans-serif;dominant-baseline:central;text-anchor:middle;opacity:1;fill:#085041;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter"
+       id="text23">Patch panel</text>
+    <text
+       x="340"
+       y="382"
+       text-anchor="middle"
+       dominant-baseline="central"
+       style="color:#000000;font-weight:400;font-size:12px;font-family:'Anthropic Sans', '-apple-system', BlinkMacSystemFont, 'Segoe UI', sans-serif;dominant-baseline:central;text-anchor:middle;opacity:1;fill:#0f6e56;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter"
+       id="text24">Sala de telecomunicações</text>
+  </g>
+  <line
+     x1="214"
+     y1="376"
+     x2="214"
+     y2="428"
+     stroke="#3B8BD4"
+     stroke-width="1.5"
+     marker-end="url(#arrow)"
+     style="color:#000000;font-weight:400;font-size:16px;font-family:'Anthropic Sans', '-apple-system', BlinkMacSystemFont, 'Segoe UI', sans-serif;dominant-baseline:auto;text-anchor:start;opacity:1;fill:none;stroke:#73726c;stroke-width:1.5px;stroke-linecap:butt;stroke-linejoin:miter"
+     id="line24" />
+  <rect
+     x="122"
+     y="390"
+     width="86"
+     height="22"
+     rx="4"
+     fill="var(--color-background-primary)"
+     stroke="var(--color-border-tertiary)"
+     stroke-width="0.5"
+     style="color:#000000;font-weight:400;font-size:16px;font-family:'Anthropic Sans', '-apple-system', BlinkMacSystemFont, 'Segoe UI', sans-serif;dominant-baseline:auto;text-anchor:start;opacity:1;fill:#ffffff;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter"
+     id="rect24" />
+  <text
+     x="165"
+     y="401"
+     text-anchor="middle"
+     dominant-baseline="central"
+     style="color:#000000;font-weight:400;font-size:12px;font-family:'Anthropic Sans', '-apple-system', BlinkMacSystemFont, 'Segoe UI', sans-serif;dominant-baseline:central;text-anchor:middle;opacity:1;fill:#3d3d3a;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter"
+     id="text25">Patch cord</text>
+  <g
+     style="color:#000000;font-weight:400;font-size:16px;font-family:'Anthropic Sans', '-apple-system', BlinkMacSystemFont, 'Segoe UI', sans-serif;dominant-baseline:auto;text-anchor:start;opacity:1;fill:#000000;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter"
+     id="g27"
+     transform="translate(-126,-20)">
+    <rect
+       x="190"
+       y="450"
+       width="300"
+       height="56"
+       rx="8"
+       stroke-width="0.5"
+       style="color:#000000;font-weight:400;font-size:16px;font-family:'Anthropic Sans', '-apple-system', BlinkMacSystemFont, 'Segoe UI', sans-serif;dominant-baseline:auto;text-anchor:start;opacity:1;fill:#e6f1fb;stroke:#185fa5;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter"
+       id="rect25" />
+    <text
+       x="340"
+       y="472"
+       text-anchor="middle"
+       dominant-baseline="central"
+       style="color:#000000;font-weight:500;font-size:14px;font-family:'Anthropic Sans', '-apple-system', BlinkMacSystemFont, 'Segoe UI', sans-serif;dominant-baseline:central;text-anchor:middle;opacity:1;fill:#0c447c;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter"
+       id="text26">Switch</text>
+    <text
+       x="340"
+       y="492"
+       text-anchor="middle"
+       dominant-baseline="central"
+       style="color:#000000;font-weight:400;font-size:12px;font-family:'Anthropic Sans', '-apple-system', BlinkMacSystemFont, 'Segoe UI', sans-serif;dominant-baseline:central;text-anchor:middle;opacity:1;fill:#185fa5;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter"
+       id="text27">Equipamento ativo de rede</text>
+  </g>
+  <line
+     x1="10"
+     y1="528"
+     x2="50"
+     y2="528"
+     stroke="#3B8BD4"
+     stroke-width="1.5"
+     marker-end="url(#arrow)"
+     style="color:#000000;font-weight:400;font-size:16px;font-family:'Anthropic Sans', '-apple-system', BlinkMacSystemFont, 'Segoe UI', sans-serif;dominant-baseline:auto;text-anchor:start;opacity:1;fill:#000000;stroke:#3b8bd4;stroke-width:1.5px;stroke-linecap:butt;stroke-linejoin:miter"
+     id="line27" />
+  <text
+     x="58"
+     y="532"
+     dominant-baseline="central"
+     style="color:#000000;font-weight:400;font-size:12px;font-family:'Anthropic Sans', '-apple-system', BlinkMacSystemFont, 'Segoe UI', sans-serif;dominant-baseline:central;text-anchor:start;opacity:1;fill:#3d3d3a;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter"
+     id="text28">Patch cord (flexível)</text>
+  <line
+     x1="230"
+     y1="528"
+     x2="270"
+     y2="528"
+     stroke="var(--color-text-secondary)"
+     stroke-width="1.5"
+     stroke-dasharray="6 4"
+     marker-end="url(#arrow)"
+     style="color:#000000;font-weight:400;font-size:16px;font-family:'Anthropic Sans', '-apple-system', BlinkMacSystemFont, 'Segoe UI', sans-serif;dominant-baseline:auto;text-anchor:start;opacity:1;fill:#000000;stroke:#3d3d3a;stroke-width:1.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:6px, 4px"
+     id="line28" />
+  <text
+     x="278"
+     y="532"
+     dominant-baseline="central"
+     style="color:#000000;font-weight:400;font-size:12px;font-family:'Anthropic Sans', '-apple-system', BlinkMacSystemFont, 'Segoe UI', sans-serif;dominant-baseline:central;text-anchor:start;opacity:1;fill:#3d3d3a;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter"
+     id="text29">Cabo de instalação (fixo)</text>
+  <metadata
+     id="metadata29">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:title>Fluxo do cabeamento estruturado</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+</svg>

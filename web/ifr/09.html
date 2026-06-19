@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AULA 09 — Patch Panels e Canaletas</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <main>
+        <header>
+            <h1>Patch Panels e Canaletas</h1>
+            <p class="eyebrow">Aula 09 — Infraestrutura Física de Redes</p>
+        </header>
+
+        <p><strong>Objetivo da aula:</strong> Compreender a função e as especificações dos patch panels de cobre e fibra, conhecer os sistemas de canalização e proteção de cabos, e entender as boas práticas introdutórias de organização e identificação de infraestrutura de redes.</p>
+
+        <hr>
+
+        <h2>1. Patch Panel de Cobre</h2>
+        <img src="../assets/images/ifr/09/patch_cobre.png" alt="Foto de um patch panel de cobre instalado em um rack" class="full-width">
+        <h3>O que é e Qual sua Função</h3>
+
+        <p>O <strong>patch panel</strong> é o painel de conexões que centraliza as terminações de todos os cabos de instalação que chegam à sala de telecomunicações. É o ponto de encontro entre o cabeamento permanente (embutido nas paredes) e os equipamentos ativos (switches).</p>
+
+        <p>Sem o patch panel, cada cabo de instalação seria conectado diretamente ao switch — o que tornaria qualquer reorganização ou manutenção extremamente trabalhosa, além de expor os cabos de instalação a dobramento e desgaste repetidos.</p>
+
+        <p>Com o patch panel, o fluxo é:</p>
+        <img src="../assets/images/ifr/09/fluxo_cabeamento_estruturado.svg" alt="Diagrama de conexão entre cabos de instalação, patch panel e switch" class="full-width">
+        <p>O patch panel funciona como um organizador passivo — não processa dados, apenas termina e organiza os cabos, permitindo que qualquer porta seja conectada a qualquer switch através de um simples patch cord.</p>
+
+        <h3>Construção Física</h3>
+        <img src="../assets/images/ifr/09/construcao_fisica_cobre.png" alt="Diagrama de corte de um patch panel de cobre mostrando portas frontais, conexões traseiras e corpo metálico" class="full-width">
+        <p>O patch panel é composto por:</p>
+
+        <ul>
+            <li><strong>Portas frontais RJ-45:</strong> onde os patch cords são conectados, interligando o patch panel ao switch. Numeradas sequencialmente para facilitar a identificação.</li>
+            <li><strong>Conexões traseiras (keystone ou 110):</strong> onde os fios do cabo de instalação são terminados por impacto (punch-down). Cada porta frontal corresponde a uma terminação traseira.</li>
+            <li><strong>Corpo metálico:</strong> estrutura em aço que se fixa no rack através dos furos padrão nas laterais.</li>
+            <li><strong>Etiquetas de identificação:</strong> campo para identificar cada porta — número do ponto de rede, localização da tomada correspondente.</li>
+        </ul>
+
+        <h3>Categorias</h3>
+
+        <p>Assim como cabos e conectores, os patch panels são fabricados em categorias:</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Categoria</th>
+                    <th>Compatível com</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Cat5e</td>
+                    <td>Instalações legadas</td>
+                </tr>
+                <tr>
+                    <td>Cat6</td>
+                    <td>Padrão atual — novas instalações</td>
+                </tr>
+                <tr>
+                    <td>Cat6A</td>
+                    <td>Instalações 10 Gbps em distância plena</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p>A categoria do patch panel deve ser compatível com todo o restante do canal de transmissão — cabo, conectores e tomadas.</p>
+
+        <h3>Tamanhos — Número de Portas</h3>
+
+        <p>Patch panels são fabricados em tamanhos padronizados para rack 19":</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Tamanho</th>
+                    <th>Altura</th>
+                    <th>Uso típico</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>12 portas</td>
+                    <td>1U</td>
+                    <td>Instalações pequenas, salas individuais</td>
+                </tr>
+                <tr>
+                    <td>24 portas</td>
+                    <td>1U</td>
+                    <td>Padrão para a maioria das instalações</td>
+                </tr>
+                <tr>
+                    <td>48 portas</td>
+                    <td>2U</td>
+                    <td>Instalações de maior porte</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p>A escolha do tamanho deve considerar o número atual de pontos de rede e uma margem de crescimento — o ideal é não ocupar mais que 80% das portas disponíveis na instalação inicial.</p>
+
+        <h3>Patch Panel com Gestão de Cabos Integrada</h3>
+
+        <p>Alguns modelos de patch panel possuem <strong>organizadores de cabos integrados</strong> — uma faixa com passadores de cabo fixada logo abaixo ou acima do painel. Facilita o roteamento dos patch cords que saem das portas frontais em direção ao switch, mantendo a organização sem necessidade de organizadores separados.</p>
+
+        <hr>
+
+        <h2>2. Patch Panel de Fibra</h2>
+        <img src="../assets/images/ifr/09/patch_fibra.png" alt="Foto de um patch panel de fibra óptica com adaptadores SC" class="full-width">
+        <p>O patch panel de fibra cumpre a mesma função organizacional que o de cobre — centraliza as terminações dos cabos de fibra que chegam à sala de telecomunicações e permite a conexão flexível com os equipamentos ativos através de patch cords de fibra.</p>
+
+        <h3>Diferenças em Relação ao Patch Panel de Cobre</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Patch Panel de Cobre</th>
+                    <th>Patch Panel de Fibra</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Conectores</td>
+                    <td>RJ-45</td>
+                    <td>SC, LC (adaptadores)</td>
+                </tr>
+                <tr>
+                    <td>Terminação traseira</td>
+                    <td>Punch-down (110)</td>
+                    <td>Fusão ou conector mecânico</td>
+                </tr>
+                <tr>
+                    <td>Fragilidade</td>
+                    <td>Baixa</td>
+                    <td>Alta — fibra de vidro</td>
+                </tr>
+                <tr>
+                    <td>Raio mínimo de curvatura</td>
+                    <td>Maior tolerância</td>
+                    <td>Deve ser respeitado rigorosamente</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Tipos de Adaptadores</h3>
+
+        <p>O patch panel de fibra recebe <strong>adaptadores</strong> — peças removíveis que definem o tipo de conector aceito. Os mais comuns são SC e LC, em versões simplex (uma fibra) e duplex (duas fibras).</p>
+
+        <p>A modularidade dos adaptadores permite que o mesmo patch panel seja reconfigurado para diferentes tipos de conector conforme a necessidade da instalação.</p>
+
+        <blockquote>
+            A terminação prática de fibra óptica — fusão e conectorização mecânica — será abordada em profundidade na disciplina do próximo semestre.
+        </blockquote>
+
+        <hr>
+
+        <h2>3. Organização e Identificação de Cabos</h2>
+        <img src="../assets/images/ifr/09/etiquetagem.png" alt="Foto de cabos de rede organizados e identificados com etiquetas" class="full-width">
+
+        <h3>Por que a Identificação é Obrigatória</h3>
+
+        <p>Uma instalação de rede sem identificação adequada é uma instalação problemática — não importa quão bem executada tecnicamente. Sem identificação:</p>
+
+        <ul>
+            <li>Localizar um cabo específico exige rastreamento físico ponta a ponta</li>
+            <li>Manutenção e expansão se tornam lentas e arriscadas</li>
+            <li>Qualquer intervenção pode desconectar o cabo errado</li>
+            <li>A documentação perde valor se não corresponde à realidade física</li>
+        </ul>
+
+        <p>Em instalações profissionais, a identificação não é opcional — é parte da entrega.</p>
+
+        <h3>Etiquetagem de Cabos, Portas e Patch Panels</h3>
+
+        <p><strong>Cabos:</strong> cada cabo deve ter etiqueta nas duas extremidades — na tomada e no patch panel. A etiqueta deve ser legível, durável e fixada de forma que não se solte com o tempo. Etiquetas autoadesivas específicas para cabos de rede são o padrão.</p>
+
+        <p><strong>Portas do patch panel:</strong> cada porta deve ser identificada com o número do ponto de rede correspondente. A numeração deve ser sequencial e consistente com a planta de rede documentada.</p>
+
+        <p><strong>Equipamentos no rack:</strong> cada equipamento deve ter etiqueta identificando nome, função e endereço IP de gerência quando aplicável.</p>
+
+        <h3>Cores de Patch Cords como Recurso de Organização</h3>
+
+        <p>O uso de patch cords coloridos é uma prática simples e eficiente para organização visual. Ao adotar cores diferentes para diferentes funções — dados, uplinks, gerência, VoIP — qualquer pessoa consegue identificar rapidamente o propósito de cada conexão sem precisar ler etiquetas individualmente.</p>
+
+        <p>A convenção de cores deve ser <strong>documentada</strong> e mantida consistente em toda a instalação.</p>
+
+        <h3>Introdução à Documentação de Rede</h3>
+
+        <p>A documentação é o registro formal da infraestrutura instalada. Uma documentação básica deve conter:</p>
+
+        <ul>
+            <li><strong>Planta de rede:</strong> planta baixa do ambiente com a localização de cada ponto de rede numerado</li>
+            <li><strong>Tabela de cabos:</strong> lista de todos os cabos com número, origem (tomada) e destino (porta do patch panel)</li>
+            <li><strong>Diagrama do rack:</strong> representação visual da organização dos equipamentos no rack, com identificação de cada porta utilizada</li>
+            <li><strong>Registro de equipamentos:</strong> lista de switches, roteadores e demais equipamentos com endereços IP, modelo e localização</li>
+        </ul>
+
+        <blockquote>
+            A documentação será aprofundada na disciplina de Cabeamento e Infraestrutura de Redes no próximo semestre. Aqui o objetivo é compreender sua importância e os elementos que a compõem.
+        </blockquote>
+
+        <hr>
+
+        <h2>4. Canaletas</h2>
+        
+        <h3>O que São e Qual sua Função</h3>
+        
+        <p><strong>Canaletas</strong> são perfis com tampa usados para organizar e proteger cabos que percorrem paredes, tetos ou pisos de forma aparente — sem necessidade de embutir na alvenaria.</p>
+        
+        <p>Protegem os cabos de danos mecânicos, organizam o trajeto e permitem fácil acesso para manutenção ou ampliação — a tampa é removível sem ferramentas na maioria dos modelos.</p>
+        
+        <h3>Materiais</h3>
+        
+        <p><strong>PVC:</strong> o material mais comum. Leve, fácil de cortar e instalar, resistente à corrosão. Disponível em branco e cores variadas. Adequado para a maioria dos ambientes internos.</p>
+        <img src="../assets/images/ifr/09/canaleta_pvc.png" alt="">
+        <p><strong>Alumínio:</strong> mais resistente mecanicamente. Usado em ambientes industriais, laboratórios e locais com maior risco de impacto físico ou temperaturas elevadas.</p>
+        <img src="../assets/images/ifr/09/canaleta_aluminio.png" alt="">
+        <h3>Tamanhos e Capacidade de Cabos</h3>
+        
+        <p>Canaletas são fabricadas em diversas dimensões — largura × altura — que determinam quantos cabos cabem no seu interior:</p>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Dimensão</th>
+                    <th>Capacidade aproximada</th>
+                    <th>Uso típico</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>20 × 12 mm</td>
+                    <td>2 a 4 cabos Cat6</td>
+                    <td>Pequenas instalações, residencial</td>
+                </tr>
+                <tr>
+                    <td>40 × 16 mm</td>
+                    <td>6 a 10 cabos Cat6</td>
+                    <td>Escritórios pequenos</td>
+                </tr>
+                <tr>
+                    <td>60 × 40 mm</td>
+                    <td>15 a 25 cabos Cat6</td>
+                    <td>Instalações corporativas</td>
+                </tr>
+                <tr>
+                    <td>100 × 60 mm</td>
+                    <td>40+ cabos Cat6</td>
+                    <td>Backbone, grandes instalações</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <blockquote>
+            A capacidade real depende do diâmetro dos cabos e da organização interna. O correto é não ultrapassar 60% da capacidade nominal da canaleta — deixando espaço para futuras expansões e garantindo que os cabos não sejam comprimidos.
+        </blockquote>
+        <img src="../assets/images/ifr/09/canaletas.png" alt="Foto de canaletas de rede instaladas em um ambiente" class="full-width">
+        
+        <h3>Tipos de Canaleta</h3>
+
+        <p><strong>Canaleta de parede:</strong> instalada horizontalmente ou verticalmente na parede. É o tipo mais comum em escritórios e instalações comerciais.</p>
+
+        <p><strong>Canaleta de piso:</strong> instalada no rodapé ou embutida no piso. Usada quando o trajeto pela parede não é viável ou esteticamente adequado.</p>
+
+        <p><strong>Canaleta de rack:</strong> instalada verticalmente nas laterais internas do rack, organizando os cabos que percorrem o comprimento do rack.</p>
+
+        <p><strong>Canaleta flexível (corrugada):</strong> tubo corrugado flexível, usado para proteger cabos em trechos que exigem curvatura — passagens entre painéis, conexões móveis, proteção de cabos sob o piso elevado.</p>
+
+        <hr>
+
+        <h2>5. Eletrodutos</h2>
+
+        <h3>Diferença entre Canaleta e Eletroduto</h3>
+
+        <p>A canaleta é aberta e com tampa removível — voltada para organização e fácil acesso aos cabos. O <strong>eletroduto</strong> é um tubo fechado — voltado para proteção mecânica máxima e para passagens embutidas em paredes, lajes e pisos.</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Canaleta</th>
+                    <th>Eletroduto</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Acesso aos cabos</td>
+                    <td>Fácil — tampa removível</td>
+                    <td>Difícil — cabo deve ser puxado</td>
+                </tr>
+                <tr>
+                    <td>Proteção mecânica</td>
+                    <td>Moderada</td>
+                    <td>Alta</td>
+                </tr>
+                <tr>
+                    <td>Instalação</td>
+                    <td>Aparente</td>
+                    <td>Embutida ou aparente</td>
+                </tr>
+                <tr>
+                    <td>Adição de cabos</td>
+                    <td>Simples</td>
+                    <td>Exige puxamento</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Tipos</h3>
+        <img src="../assets/images/ifr/09/eletrodutos.png" alt="">
+
+        <p><strong>Eletroduto rígido de PVC:</strong> o mais comum em instalações prediais. Fácil de cortar e conectar com luvas e curvas padronizadas. Usado em instalações embutidas em alvenaria e instalações aparentes em ambientes internos.</p>
+
+        <p><strong>Eletroduto flexível de PVC (corrugado):</strong> permite curvatura livre. Usado em trechos curtos que exigem flexibilidade — saída de eletroduto rígido para equipamento, passagem por juntas de dilatação.</p>
+
+        <p><strong>Eletroduto metálico:</strong> maior resistência mecânica e blindagem eletromagnética. Usado em ambientes industriais, externas e locais com risco de impacto físico severo.</p>
+
+        <h3>Separação Obrigatória entre Cabos de Dados e Cabos Elétricos</h3>
+
+        <p>Cabos de rede e cabos de energia elétrica <strong>nunca devem compartilhar o mesmo eletroduto ou canaleta</strong>. Os campos eletromagnéticos gerados pelos cabos elétricos induzem ruído nos cabos de dados, degradando o desempenho da rede.</p>
+
+        <p>As normas técnicas (ABNT NBR 14565 e NR-10) estabelecem distâncias mínimas de separação entre cabos de dados e cabos elétricos — tema que será aprofundado na disciplina de Cabeamento e Infraestrutura de Redes e no bloco de Segurança do Trabalho.</p>
+
+        <hr>
+
+        <h2>6. Passa-Cabos e Abraçadeiras</h2>
+
+        <h3>Passa-Cabos</h3>
+
+        <p><strong>Passa-cabos de parede:</strong> peças instaladas em aberturas de parede por onde os cabos passam de um ambiente para outro. Protegem o cabo no ponto de passagem — evitando atrito e danos na borda da abertura — e vedam a abertura após a passagem dos cabos.</p>
+
+        <p><strong>Passa-cabos de rack (organizador horizontal):</strong> acessório instalado no rack, geralmente de 1U, com anéis ou passadores por onde os patch cords são roteados. Mantém os cabos organizados e no caminho correto entre o patch panel e o switch, evitando que fiquem soltos e embaraçados.</p>
+
+        <h3>Abraçadeiras</h3>
+
+        <p><strong>Abraçadeiras de nylon (enforca-gato):</strong> trava por catraca — aperta mas não afrouxa. Usadas para fixação definitiva de feixes de cabos em eletrodutos e canaletas. Não devem ser usadas para organizar patch cords dentro do rack — uma vez apertadas, não permitem ajuste sem cortar a abraçadeira.</p>
+        
+        <img src="../assets/images/ifr/09/abracadeiras_nylon.png" alt="">
+        
+        <p><strong>Abraçadeiras de velcro:</strong> fecham e abrem por pressão, sem ferramentas. São a escolha correta para organizar patch cords dentro do rack e em qualquer ponto onde os cabos precisam ser reorganizados periodicamente. Não danificam os cabos e não restringem o raio de curvatura.</p>
+        
+        <img src="../assets/images/ifr/09/abracadeiras_velcro.png" alt="">
+        <br><br>
+        <h3>Boas Práticas de Organização</h3>
+
+        <p><strong>Raio mínimo de curvatura:</strong> cada cabo tem um raio mínimo de curvatura que não deve ser ultrapassado — dobrar o cabo além desse limite comprime os pares internos, aumenta o crosstalk e pode danificar permanentemente o cabo. Para cabos Cat6, o raio mínimo é geralmente 4 vezes o diâmetro externo do cabo.</p>
+        
+        <img src="../assets/images/ifr/09/raio_curva.png" alt="">
+
+        <p><strong>Tensão excessiva:</strong> cabos não devem ser esticados sob tensão — a tração mecânica altera as características elétricas do cabo, especialmente nos pontos de terminação. Sempre deixar uma folga adequada.</p>
+
+        <p><strong>Organização de feixes:</strong> agrupar cabos de função similar em feixes organizados com abraçadeiras de velcro, roteados de forma limpa e sem cruzamentos desnecessários. Feixes bem organizados facilitam a identificação, a manutenção e futuras expansões.</p>
+
+        <hr>
+
+        <h2>Síntese da Aula</h2>
+
+        <p>O patch panel e os sistemas de canalização são os componentes que organizam e protegem a infraestrutura de rede entre os pontos de uso e os equipamentos ativos. Os principais pontos desta aula:</p>
+
+        <ul>
+            <li>O patch panel centraliza as terminações do cabeamento permanente e permite conexão flexível com os switches via patch cords</li>
+            <li>A categoria do patch panel deve ser compatível com todo o canal de transmissão</li>
+            <li>Identificação e documentação são parte obrigatória de qualquer instalação profissional</li>
+            <li>Canaletas organizam cabos aparentes com fácil acesso; eletrodutos protegem cabos em instalações embutidas</li>
+            <li>Cabos de dados e cabos elétricos nunca devem compartilhar o mesmo duto ou canaleta</li>
+            <li>Abraçadeiras de velcro são a escolha correta para organização interna do rack</li>
+        </ul>
+    </main>
+</body>
+</html>
