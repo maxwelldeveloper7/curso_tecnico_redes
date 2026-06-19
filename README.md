@@ -44,8 +44,6 @@ python3 -m http.server 8000
 
 Depois abra `http://localhost:8000` no navegador.
 
-> Observação: o comando correto usa o módulo `http.server` (algumas tentativas usam `https.server` por engano).
-
 ## Conteúdo e navegação
 
 - Páginas web compiladas estão em `web/` (ex.: `web/ifr/09.html` corresponde à Aula 09 de IFR).
