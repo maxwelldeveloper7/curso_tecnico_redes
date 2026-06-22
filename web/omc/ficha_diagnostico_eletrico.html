@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ficha de Diagnóstico Elétrico - Aula 11</title>
+
+    <!-- Fonte Comic Neue -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Bibliotecas para geração de PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Comic Neue", Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: #fff;
+            border: 2px solid #000;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 24px;
+            margin-top: 20px;
+            margin-bottom: 25px;
+            border-bottom: 1px solid #000;
+            padding-bottom: 10px;
+        }
+
+        .dados-iniciais {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .campo {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .campo label {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .campo input {
+            padding: 8px;
+            border: 1px solid #000;
+            font-family: inherit;
+        }
+
+        fieldset {
+            margin-bottom: 20px;
+            border: 1px solid #000;
+            padding: 15px;
+        }
+
+        legend {
+            font-weight: bold;
+            padding: 0 10px;
+        }
+
+        .opcao {
+            margin: 8px 0;
+        }
+
+        .linha-input {
+            padding: 5px;
+            border: none;
+            border-bottom: 1px solid #000;
+            font-family: inherit;
+            min-width: 150px;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 120px;
+            resize: vertical;
+            padding: 10px;
+            font-family: inherit;
+            border: 1px solid #000;
+        }
+
+        .acoes {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 12px 24px;
+            font-size: 16px;
+            font-family: inherit;
+            cursor: pointer;
+            border: 2px solid #000;
+            background: #fff;
+            transition: 0.2s;
+        }
+
+        button:hover {
+            background: #eee;
+        }
+
+        @page {
+            size: A4;
+            margin: 20mm;
+        }
+
+        @media print {
+
+            html,
+            body {
+                width: 210mm;
+                background: white;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            .acoes {
+                display: none;
+            }
+
+            .container {
+                border: none;
+                max-width: 100%;
+                width: 100%;
+                padding: 0;
+                margin: 0;
+            }
+
+            fieldset {
+                page-break-inside: avoid;
+                break-inside: avoid;
+            }
+
+            input,
+            textarea {
+                border: 1px solid #000;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .dados-iniciais {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container" id="ficha">
+
+        <h1>FICHA DE DIAGNÓSTICO ELÉTRICO — AULA 11</h1>
+
+        <div class="dados-iniciais">
+
+            <div class="campo">
+                <label>Equipe</label>
+                <input type="text" id="equipe">
+            </div>
+
+            <div class="campo">
+                <label>Líder</label>
+                <input type="text" id="lider">
+            </div>
+
+            <div class="campo">
+                <label>Identificação do PC</label>
+                <input type="text" id="pc">
+            </div>
+
+        </div>
+
+        <fieldset>
+            <legend>1. TOMADA</legend>
+
+            <div class="opcao">
+                Possui 3 pinos (terra)?
+                <label><input type="radio" name="terra"> Sim</label>
+                <label><input type="radio" name="terra"> Não</label>
+            </div>
+
+            <div class="opcao">
+                Estado físico:
+                <label><input type="radio" name="tomadaEstado"> Bom</label>
+                <label><input type="radio" name="tomadaEstado"> Danificado</label>
+            </div>
+
+            <div class="opcao">
+                Quantos equipamentos conectados nesta tomada/régua?
+                <input type="text" class="linha-input">
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>1.1 CABO DE FORÇA DA FONTE (Conector IEC)</legend>
+
+            <p><strong>Verificação realizada pelo professor</strong></p>
+
+            <div class="opcao">
+                Fase corresponde ao pino estreito (correto)?
+            </div>
+
+            <div class="opcao">
+                <label><input type="radio" name="fase"> Sim — polaridade correta</label>
+            </div>
+
+            <div class="opcao">
+                <label><input type="radio" name="fase"> Não — fase no pino largo (invertida)</label>
+            </div>
+
+            <div class="opcao">
+                <label><input type="radio" name="fase"> Não verificado</label>
+            </div>
+
+        </fieldset>
+
+        <fieldset>
+            <legend>2. DISPOSITIVO INTERMEDIÁRIO</legend>
+
+            <div class="opcao"><label><input type="radio" name="dispositivo"> Nenhum (ligação direta)</label></div>
+            <div class="opcao"><label><input type="radio" name="dispositivo"> Extensão comum / benjamim</label></div>
+            <div class="opcao"><label><input type="radio" name="dispositivo"> Filtro de linha</label></div>
+            <div class="opcao"><label><input type="radio" name="dispositivo"> Estabilizador</label></div>
+            <div class="opcao"><label><input type="radio" name="dispositivo"> Nobreak (UPS)</label></div>
+
+            <hr>
+
+            <div class="opcao">
+                Estado físico do dispositivo:
+                <label><input type="radio" name="estadoDispositivo"> Bom</label>
+                <label><input type="radio" name="estadoDispositivo"> Danificado/desgastado</label>
+            </div>
+
+        </fieldset>
+
+        <fieldset>
+            <legend>3. FONTE DO COMPUTADOR (PSU)</legend>
+
+            <div class="opcao">
+                Selo 80 Plus visível?
+            </div>
+
+            <div class="opcao">
+                <label><input type="radio" name="selo80"> Sim</label>
+                Qual?
+                <input type="text" class="linha-input">
+            </div>
+
+            <div class="opcao">
+                <label><input type="radio" name="selo80"> Não / ilegível</label>
+            </div>
+
+            <hr>
+
+            <div class="opcao">
+                Possui chave 110/220V?
+            </div>
+
+            <div class="opcao">
+                <label><input type="radio" name="chave"> Sim</label>
+                Posição atual:
+                <input type="text" class="linha-input">
+            </div>
+
+            <div class="opcao">
+                <label><input type="radio" name="chave"> Não (PFC ativo provável)</label>
+            </div>
+
+            <hr>
+
+            <div class="opcao">
+                Potência declarada (W):
+                <input type="text" class="linha-input">
+            </div>
+
+            <div class="opcao">
+                Ventoinha gira ao ligar?
+                <label><input type="radio" name="ventoinha"> Sim</label>
+                <label><input type="radio" name="ventoinha"> Não</label>
+                <label><input type="radio" name="ventoinha"> Intermitente</label>
+            </div>
+
+            <div class="opcao">
+                Ruído anormal?
+                <label><input type="radio" name="ruido"> Não</label>
+                <label><input type="radio" name="ruido"> Sim</label>
+                Descrever:
+                <input type="text" class="linha-input">
+            </div>
+
+        </fieldset>
+
+        <fieldset>
+            <legend>4. SINTOMAS RELATADOS (Uso Diário)</legend>
+
+            <div class="opcao">
+                <label><input type="checkbox"> Desliga sozinho</label>
+            </div>
+
+            <div class="opcao">
+                <label><input type="checkbox"> Demora para ligar / liga e desliga</label>
+            </div>
+
+            <div class="opcao">
+                <label><input type="checkbox"> Tela preta sem motivo aparente</label>
+            </div>
+
+            <div class="opcao">
+                <label><input type="checkbox"> Falha em porta(s) USB</label>
+                Quantas/quais:
+                <input type="text" class="linha-input">
+            </div>
+
+            <div class="opcao">
+                <label><input type="checkbox"> Nenhum sintoma relatado</label>
+            </div>
+
+            <div class="opcao">
+                <label><input type="checkbox"> Outro</label>
+                <input type="text" class="linha-input" style="width:300px;">
+            </div>
+
+        </fieldset>
+
+        <fieldset>
+            <legend>5. OBSERVAÇÕES GERAIS / RISCOS IDENTIFICADOS</legend>
+
+            <textarea id="observacoes"></textarea>
+
+        </fieldset>
+
+    </div>
+
+    <div class="acoes">
+        <button onclick="gerarPDF()">
+            📄 Gerar PDF
+        </button>
+    </div>
+
+    <script>
+        function gerarPDF(){
+            window.print();
+        }
+    </script>
+
+</body>
+
+</html>

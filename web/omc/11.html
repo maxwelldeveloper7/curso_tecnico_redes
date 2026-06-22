@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aula 11 — Diagnóstico Elétrico do Laboratório</title>
+  <link rel="stylesheet" href="../../web/assets/css/style.css">
+</head>
+
+<body>
+  <main>
+    <header>
+      <p class="eyebrow">Oficina de Montagem e Conexão</p>
+      <h1>AULA 11 — Diagnóstico Elétrico do Laboratório</h1>
+      <div class="meta" aria-label="Informações da aula">
+        <span><strong>Atividade prática em grupo:</strong> aplicar qualidade de energia, aterramento e tipos de fonte para avaliar a instalação elétrica do laboratório antes de qualquer intervenção.</span>
+        <span><strong>Duração aproximada:</strong> ~50 min</span>
+      </div>
+    </header>
+
+    <section>
+      <h2>1. Introdução</h2>
+      <p>Até aqui, os conteúdos foram estudados de forma teórica e em equipamentos de exemplo. A partir desta aula, a turma trabalha <strong>nos computadores reais do laboratório</strong> — equipamentos com anos de uso, desgaste e falhas reais.</p>
+      <p><strong>Objetivo desta aula:</strong> aplicar os conceitos de qualidade de energia, aterramento e tipos de fonte (Aula 02) para avaliar a instalação elétrica que alimenta o laboratório, <strong>antes</strong> de qualquer intervenção nos computadores.</p>
+      <blockquote>
+        <p><strong>Importante:</strong> esta aula é de <strong>observação e registro</strong>, não de intervenção. Nenhum grupo deve abrir tomadas, quadros elétricos ou desconectar fiação. Identificar problemas é o objetivo — corrigi-los é responsabilidade da gestão escolar/elétrica predial.</p>
+      </blockquote>
+      <p>Um diagnóstico de hardware que ignora a instalação elétrica pode levar a conclusões erradas: um computador que reinicia sozinho pode ter problema na fonte — ou pode ter problema na tomada que alimenta a fonte. Avaliar a infraestrutura primeiro evita esse erro de diagnóstico.</p>
+    </section>
+
+    <hr>
+
+    <section>
+      <h2>2. Organização dos Grupos</h2>
+      <ul>
+        <li>A turma será dividida em <strong>6 grupos de 8 alunos</strong>.</li>
+        <li>Cada grupo elege um <strong>líder</strong>, responsável por:
+          <ul>
+            <li>Coordenar a divisão de tarefas dentro do grupo</li>
+            <li>Preencher e entregar a ficha de diagnóstico</li>
+            <li>Reportar ao professor qualquer situação de risco identificada (fios expostos, tomadas danificadas, cheiro de queimado)</li>
+          </ul>
+        </li>
+      </ul>
+      <blockquote>
+        <p><strong>Critério de segurança:</strong> se qualquer grupo identificar fiação exposta, tomada quebrada, cheiro de queimado ou superaquecimento visível em qualquer ponto, a equipe deve <strong>interromper a atividade naquele ponto imediatamente</strong> e reportar ao professor antes de continuar.</p>
+      </blockquote>
+    </section>
+
+    <hr>
+
+    <section>
+      <h2>3. Conceitos a Aplicar (Revisão Rápida)</h2>
+      <p>Antes de iniciar, retomar rapidamente os conceitos da Aula 02 que serão observados na prática:</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Conceito</th>
+            <th>O que observar no laboratório</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Aterramento (NBR 5410)</strong></td>
+            <td>Tomadas possuem o terceiro pino (terra)?</td>
+          </tr>
+          <tr>
+            <td><strong>Polaridade do cabo de força</strong></td>
+            <td>Fase e neutro chegam corretos na fonte através do cabo IEC?</td>
+          </tr>
+          <tr>
+            <td><strong>Fontes genéricas vs. certificadas</strong></td>
+            <td>A fonte do computador possui selo 80 Plus visível?</td>
+          </tr>
+          <tr>
+            <td><strong>PFC ativo</strong></td>
+            <td>A fonte aceita 100-240V automaticamente (chave 110/220 ausente) ou possui chave manual?</td>
+          </tr>
+          <tr>
+            <td><strong>Filtro de linha vs. extensão comum</strong></td>
+            <td>O equipamento conectado entre a tomada e o computador é um filtro real ou uma extensão simples?</td>
+          </tr>
+          <tr>
+            <td><strong>Estabilizador</strong></td>
+            <td>Há estabilizadores em uso? (lembrar: não recomendados, Aula 02)</td>
+          </tr>
+          <tr>
+            <td><strong>Nobreak</strong></td>
+            <td>Há nobreaks instalados? Em quais máquinas?</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <hr>
+
+    <section>
+      <h2>3.1 Padrão de Plugue — Tripolar Americano (2P+T)</h2>
+      <p><strong>Contexto</strong></p>
+      <p>O laboratório utiliza o padrão <strong>tripolar americano (2P+T)</strong> — também chamado de padrão NEMA 5-15 — em tomadas, plugues e estabilizadores. Esse padrão antecede a norma <strong>NBR 14136</strong>, que desde 2011 estabelece o plugue/tomada de três pinos redondos como padrão obrigatório no Brasil.</p>
+      <p><strong>O que observar</strong></p>
+      <ol>
+        <li>As tomadas do laboratório são todas no padrão 2P+T, ou há mistura com o padrão novo (3 pinos redondos)?</li>
+        <li>Há uso de <strong>adaptadores</strong> entre os dois padrões? Adaptadores frequentemente <strong>não conectam o pino terra</strong>, mesmo que a tomada de origem o possua.</li>
+        <li>Os estabilizadores e demais equipamentos do laboratório seguem o mesmo padrão das tomadas da parede?</li>
+      </ol>
+      <blockquote>
+        <p><strong>Atenção:</strong> um adaptador de tomada que não replica o pino terra <strong>anula o aterramento</strong> de tudo que está conectado a ele — mesmo que a tomada da parede seja aterrada corretamente.</p>
+      </blockquote>
+    </section>
+
+    <hr>
+
+    <section>
+      <h2>3.2 Verificação de Polaridade no Cabo de Força da Fonte</h2>
+      <p><strong>O que será verificado</strong></p>
+      <p>O cabo de força que liga a tomada da parede à fonte de alimentação (PSU) possui, na ponta do computador, o conector padrão <strong>IEC C13/C14</strong> (mesmo formato usado em monitores e outros equipamentos). Esse conector possui três contatos: fase, neutro e terra, em posições fixas definidas pelo padrão IEC — diferente da tomada de parede, aqui a posição <strong>não varia</strong>.</p>
+      <img src="../assets/images/omc/11/IEC_C13.png" alt="">
+      <blockquote>
+        <p><strong>Observação:</strong> diferente da tomada de parede 2P+T (onde a posição de fase/neutro depende de como o eletricista instalou os fios), o conector IEC do cabo de força é <strong>padronizado de fábrica</strong>: o pino menor e mais estreito é a fase, o maior é o neutro, e o pino redondo inferior é o terra.</p>
+      </blockquote>
+      <p>O ponto de verificação não é o conector IEC em si (que é padronizado), mas sim <strong>se a tomada da parede está entregando fase e neutro nas posições corretas para esse conector</strong> — ou seja, se o cabo de força, ao ser ligado normalmente, está de fato levando a fase para o pino de fase da fonte.</p>
+      <p><strong>Procedimento (conduzido pelo professor)</strong></p>
+      <ol>
+        <li>Com o computador desligado da tomada, identificar visualmente os dois pinos chatos do conector IEC do cabo de força (lado da tomada/macho).</li>
+        <li>Conectar o cabo na tomada da parede.</li>
+        <li>Com a chave de teste, tocar cada um dos dois pinos chatos <strong>na extremidade que vai à fonte</strong> (lado fêmea, ainda desconectado da fonte).</li>
+        <li><strong>O pino em que a lâmpada acende corresponde à fase</strong> — deve coincidir com o pino estreito (fase) do padrão IEC.</li>
+        <li>Caso a fase apareça no pino largo (posição de neutro do padrão IEC), há inversão entre fase e neutro vindo da tomada da parede através do cabo.</li>
+      </ol>
+      <blockquote>
+        <p><strong>Atenção:</strong> esta verificação deve ser feita <strong>apenas pelo professor</strong>, com o cabo desconectado da fonte durante o teste com a chave neon. Os alunos observam e registram o resultado.</p>
+      </blockquote>
+      <p><strong>Por que isso importa</strong></p>
+      <ul>
+        <li>A fonte ATX com PFC ativo geralmente tolera inversão entre fase e neutro sem deixar de funcionar — por isso esse problema <strong>não costuma gerar sintomas visíveis</strong> e passa despercebido.</li>
+        <li>No entanto, com fase e neutro invertidos, o <strong>chassi do gabinete e o fio terra podem não estar na referência esperada</strong>, o que reduz a eficácia de qualquer proteção contra choque em caso de falha de isolamento interna.</li>
+      </ul>
+      <p><strong>O que cada grupo registra</strong></p>
+      <ol>
+        <li>Para o cabo de força do computador do seu setor: aguardar o professor realizar o teste com a chave neon na extremidade do cabo.</li>
+        <li>Registrar se a fase corresponde ao pino estreito (correto) ou ao pino largo (invertido) do conector IEC.</li>
+      </ol>
+    </section>
+
+    <hr>
+
+    <section>
+      <h2>4. Roteiro da Atividade (Por Grupo)</h2>
+      <p>Cada grupo será responsável por avaliar <strong>a infraestrutura elétrica de uma fileira/setor do laboratório</strong> (ajustar conforme o layout real), preenchendo a ficha de diagnóstico para cada ponto de energia.</p>
+      <h3>Passo 1 — Identificação do ponto de energia (5 min)</h3>
+      <ol>
+        <li>Observar visualmente o estado físico da tomada: rachaduras, escurecimento, folga do plugue.</li>
+        <li>Verificar se a tomada possui <strong>três pinos</strong> (fase, neutro, terra) ou apenas dois.</li>
+        <li>Verificar se há <strong>múltiplos equipamentos</strong> ligados na mesma tomada/régua e quantos.</li>
+      </ol>
+      <h3>Passo 2 — Identificação do dispositivo intermediário (10 min)</h3>
+      <p>Entre a tomada da parede e o computador, geralmente há um dos seguintes dispositivos. Identificar qual:</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Dispositivo</th>
+            <th>Como identificar visualmente</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Extensão comum (benjamim/régua simples)</strong></td>
+            <td>Sem botão liga/desliga com luz, sem fusível visível, sem certificação impressa</td>
+          </tr>
+          <tr>
+            <td><strong>Filtro de linha</strong></td>
+            <td>Possui botão liga/desliga iluminado, normalmente com indicação de proteção contra surtos</td>
+          </tr>
+          <tr>
+            <td><strong>Estabilizador</strong></td>
+            <td>Caixa maior, transformador interno (mais pesado), seletor de tensão 110/220V</td>
+          </tr>
+          <tr>
+            <td><strong>Nobreak (UPS)</strong></td>
+            <td>Caixa com bateria interna (peso elevado), display ou LEDs de status, emite ruído de ventilação</td>
+          </tr>
+        </tbody>
+      </table>
+      <h3>Passo 3 — Inspeção da fonte do computador (15 min)</h3>
+      <p>Sem desconectar nada, observar a etiqueta da fonte (visível na lateral ou traseira do gabinete, geralmente através de uma grade):</p>
+      <ol>
+        <li><strong>Selo 80 Plus:</strong> há algum selo (Bronze, Silver, Gold, etc.) impresso?</li>
+        <li><strong>Chave de seleção 110/220V:</strong> o computador possui essa chave física na traseira?
+          <ul>
+            <li>Se possui: indica fonte com <strong>PFC passivo</strong> (Aula 02) — a tensão deve ser conferida manualmente.</li>
+            <li>Se não possui: indica provável <strong>PFC ativo</strong> (entrada universal automática).</li>
+          </ul>
+        </li>
+        <li><strong>Potência declarada:</strong> qual o valor em Watts impresso na etiqueta?</li>
+        <li><strong>Estado físico:</strong> ventoinha da fonte gira ao ligar o computador? Há ruído anormal (chiado agudo, zumbido alto)?</li>
+      </ol>
+      <blockquote>
+        <p><strong>Atenção:</strong> se o computador possuir a chave 110/220V, <strong>não alterar sua posição</strong>. Apenas registrar a posição atual e informar ao professor se houver suspeita de configuração incorreta (ex: chave em 220V em região de rede 127V).</p>
+      </blockquote>
+      <h3>Passo 4 — Registro de sintomas relatados (10 min)</h3>
+      <p>Conversar com o(a) professor(a) responsável pelo laboratório ou consultar histórico, se disponível, sobre os computadores do setor:</p>
+      <ul>
+        <li>Algum desliga sozinho?</li>
+        <li>Algum demora para ligar ou liga e desliga repetidamente?</li>
+        <li>Algum apresenta tela preta sem motivo aparente?</li>
+        <li>Alguma porta USB já apresentou falha?</li>
+      </ul>
+      <p>Registrar essas informações na ficha — elas serão retomadas na Aula 12 (diagnóstico interno).</p>
+      <h3>Passo 5 — Consolidação e entrega (10 min)</h3>
+      <p>O líder do grupo revisa a ficha preenchida, garante que todos os pontos do setor foram cobertos, e entrega ao professor.</p>
+    </section>
+
+    <hr>
+
+    <section>
+      <h2>5. Ficha de Diagnóstico Elétrico (por ponto de energia)</h2>
+      <blockquote>
+        <p><strong>Reproduzir esta ficha — uma para cada tomada/computador avaliado.</strong></p>
+      </blockquote>
+
+      <a class="lesson-link" href="./ficha_diagnostico_eletrico.html">
+        <h3>Ficha de Diagnóstico Elétrico</h3>
+      </a>
+
+
+    </section>
+
+    <hr>
+
+    <section>
+      <h2>6. Discussão Final (em sala, após a coleta)</h2>
+      <p>Com as fichas recolhidas, o professor pode conduzir uma discussão rápida com perguntas como:</p>
+      <ul>
+        <li>Quantos pontos do laboratório não possuem aterramento (terceiro pino)?</li>
+        <li>Quantos computadores usam extensão comum em vez de filtro de linha?</li>
+        <li>Há padrão entre os computadores com sintomas relatados e o tipo de dispositivo intermediário usado?</li>
+        <li>As fontes sem selo 80 Plus são as mesmas que apresentam sintomas?</li>
+      </ul>
+      <blockquote>
+        <p><strong>Observação:</strong> essa discussão prepara o terreno para a Aula 12: muitas falhas "de hardware" — incluindo USB instável — podem ter origem em alimentação elétrica inadequada (ripple alto, tensão instável), e não necessariamente em dano físico ao componente.</p>
+      </blockquote>
+    </section>
+
+    <hr>
+
+    <section>
+      <h2>Síntese da Aula</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Etapa</th>
+            <th>O que foi avaliado</th>
+            <th>Conecta com</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Tomada</td>
+            <td>Aterramento, estado físico, polaridade do cabo de força</td>
+            <td>Aula 02 — NBR 5410</td>
+          </tr>
+          <tr>
+            <td>Dispositivo intermediário</td>
+            <td>Filtro vs. extensão vs. estabilizador vs. nobreak</td>
+            <td>Aula 02 — proteção elétrica</td>
+          </tr>
+          <tr>
+            <td>Fonte do computador</td>
+            <td>Selo 80 Plus, PFC, potência, estado físico</td>
+            <td>Aula 02 — qualidade da fonte</td>
+          </tr>
+          <tr>
+            <td>Sintomas relatados</td>
+            <td>Histórico de falhas por máquina</td>
+            <td>Prepara Aula 12</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <footer>
+      <p>Oficina de Montagem e Conexão | Diagnóstico Elétrico do Laboratório</p>
+    </footer>
+  </main>
+</body>
+
+</html>
