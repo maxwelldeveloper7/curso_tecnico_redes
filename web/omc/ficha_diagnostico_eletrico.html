@@ -125,7 +125,7 @@
             <div class="card">
                 <div class="form-group">
                     <label>Aluno</label>
-                    <input type="text" id="aluno" name="aluno" autocorrect="name" required>
+                    <input type="text" id="aluno" name="aluno" autocorrect="name" autocapitalize="words">
                 </div>
 
                 <div class="form-group">
@@ -221,7 +221,7 @@
                 <div class="form-group">
                     <label>Possui chave 110/220V?</label>
 
-                    <select name="possuiChave">
+                    <select name="possuiChave" id="possuiChave">
                         <option value="">Selecione</option>
                         <option value="Sim">Sim</option>
                         <option value="Não (PFC ativo provável)">Não (PFC ativo provável)</option>
@@ -230,7 +230,7 @@
 
                 <div class="form-group">
                     <label>Posição da chave</label>
-                    <select name="posicaoChave">
+                    <select name="posicaoChave" id="posicaoChave">
                         <option value="">Selecione</option>
                         <option value="110V">110V</option>
                         <option value="220V">220V</option>
@@ -240,7 +240,7 @@
 
                 <div class="form-group">
                     <label>Potência declarada (W)</label>
-                    <input type="number" name="potencia" min="0" inputmode="numeric">
+                    <input type="number" name="potencia" min="0" inputmode="numeric" required>
                 </div>
 
                 <div class="form-group">
@@ -457,6 +457,7 @@
         if (selo.value !== "Nenhum") {
 
             possuiChave.value = "Não (PFC ativo provável)";
+            controlarChaveFonte
             posicaoChave.value = "Não se aplica";
 
             possuiChave.disabled = true;
@@ -469,6 +470,38 @@
 
             possuiChave.disabled = false;
             posicaoChave.disabled = false;
+        }
+    }
+
+    const possuiChave = document.getElementById("possuiChave");
+    const posicaoChave = document.getElementById("posicaoChave");
+
+    possuiChave.addEventListener("change", controlarChaveFonte);
+
+    function controlarChaveFonte() {
+
+        if (possuiChave.value === "Não (PFC ativo provável)") {
+
+            posicaoChave.value = "Não se aplica";
+            posicaoChave.disabled = true;
+
+        }
+        else if (possuiChave.value === "Sim") {
+
+            posicaoChave.disabled = false;
+
+            // Limpa seleção anterior
+            if (posicaoChave.value === "" || posicaoChave.value === "Não se aplica") {
+                posicaoChave.value = "110V";
+            }
+
+            // Move o foco para o campo
+            posicaoChave.focus();            
+        }
+        else {
+
+            posicaoChave.disabled = false;
+            posicaoChave.value = "";
         }
     }
 
