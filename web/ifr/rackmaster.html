@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RackMaster</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg: #0f1117;
+            --surface: #1a1d27;
+            --surface2: #232736;
+            --border: #2e3347;
+            --accent: #f59e0b;
+            --accent2: #3b82f6;
+            --green: #22c55e;
+            --danger: #ef4444;
+            --text: #e2e8f0;
+            --muted: #7c8499;
+            --font: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        body {
+            font-family: var(--font);
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ── TOPBAR ── */
+        #topbar {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 900;
+            color: var(--accent);
+            letter-spacing: 2px;
+        }
+
+        .logo span {
+            color: var(--text);
+            font-weight: 400;
+            font-size: 13px;
+            letter-spacing: 0;
+            margin-left: 8px;
+        }
+
+        #call-label {
+            font-size: 12px;
+            color: var(--muted);
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+
+        #stars-total {
+            margin-left: auto;
+            font-size: 13px;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* ── MAIN ── */
+        #main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 28px 16px 48px;
+        }
+
+        /* ── PROGRESSO ── */
+        #progress-dots {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+
+        .pdot {
+            width: 36px;
+            height: 6px;
+            border-radius: 3px;
+            background: var(--border);
+            transition: background .3s;
+        }
+
+        .pdot.done {
+            background: var(--green);
+        }
+
+        .pdot.active {
+            background: var(--accent);
+        }
+
+        /* ── CARD CLIENTE ── */
+        #client-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px 24px;
+            max-width: 660px;
+            width: 100%;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+        }
+
+        #client-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--surface2);
+            border: 2px solid var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            flex-shrink: 0;
+        }
+
+        #client-info {
+            flex: 1;
+        }
+
+        #client-name {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 2px;
+        }
+
+        #client-business {
+            font-size: 11px;
+            color: var(--muted);
+            margin-bottom: 8px;
+        }
+
+        #client-msg {
+            font-size: 14px;
+            line-height: 1.65;
+            color: var(--text);
+        }
+
+        /* ── CARD CHAMADO ── */
+        #call-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            max-width: 660px;
+            width: 100%;
+        }
+
+        #symptom-box {
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 14px 16px;
+            margin-bottom: 20px;
+            font-size: 13px;
+            color: var(--accent);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            line-height: 1.5;
+        }
+
+        #options-title {
+            font-size: 13px;
+            color: var(--muted);
+            margin-bottom: 12px;
+        }
+
+        .opt-btn {
+            width: 100%;
+            background: var(--surface2);
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            padding: 14px 16px;
+            font-size: 14px;
+            color: var(--text);
+            cursor: pointer;
+            text-align: left;
+            margin-bottom: 8px;
+            transition: border-color .2s, background .2s;
+            font-family: var(--font);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .opt-btn:hover:not(:disabled) {
+            border-color: var(--accent2);
+            background: #3b82f612;
+        }
+
+        .opt-btn.correct {
+            border-color: var(--green);
+            background: #22c55e12;
+            pointer-events: none;
+        }
+
+        .opt-btn.wrong {
+            border-color: var(--danger);
+            background: #ef444412;
+            pointer-events: none;
+        }
+
+        .opt-btn:disabled {
+            opacity: .5;
+            pointer-events: none;
+        }
+
+        #feedback-box {
+            display: none;
+            background: var(--surface2);
+            border-radius: 8px;
+            padding: 14px 16px;
+            font-size: 13px;
+            line-height: 1.6;
+            margin-top: 16px;
+        }
+
+        #feedback-box.ok {
+            border: 1px solid var(--green);
+            color: var(--green);
+            display: block;
+        }
+
+        #feedback-box.fail {
+            border: 1px solid var(--danger);
+            color: var(--danger);
+            display: block;
+        }
+
+        /* ── ESTRELAS DO CHAMADO ── */
+        #call-result {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+            gap: 8px;
+        }
+
+        #call-result.show {
+            display: flex;
+        }
+
+        #call-stars {
+            font-size: 28px;
+            letter-spacing: 4px;
+        }
+
+        #call-client-reaction {
+            font-size: 13px;
+            color: var(--muted);
+            text-align: center;
+        }
+
+        #btn-next {
+            margin-top: 16px;
+            padding: 12px 32px;
+            background: var(--accent);
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: var(--font);
+            transition: background .2s;
+            display: none;
+        }
+
+        #btn-next:hover {
+            background: #fbbf24;
+        }
+
+        #btn-next.visible {
+            display: block;
+        }
+
+        /* ── TELA FINAL ── */
+        #final-screen {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            max-width: 540px;
+            width: 100%;
+        }
+
+        #final-screen.show {
+            display: flex;
+        }
+
+        #final-title {
+            font-size: 22px;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+
+        #final-subtitle {
+            font-size: 13px;
+            color: var(--muted);
+            margin-bottom: 20px;
+        }
+
+        #final-stars {
+            font-size: 36px;
+            margin-bottom: 8px;
+        }
+
+        #final-score {
+            font-size: 48px;
+            font-weight: 900;
+            color: var(--accent);
+            margin-bottom: 4px;
+        }
+
+        #final-rank {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            padding: 8px 24px;
+            border-radius: 20px;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+        }
+
+        #final-calls {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px 20px;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        #final-calls h3 {
+            font-size: 13px;
+            color: var(--muted);
+            margin-bottom: 12px;
+        }
+
+        .final-call-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 13px;
+        }
+
+        .final-call-row:last-child {
+            border-bottom: none;
+        }
+
+        .fce {
+            font-size: 20px;
+        }
+
+        .fcn {
+            flex: 1;
+        }
+
+        .fcs {
+            font-size: 16px;
+            letter-spacing: 2px;
+        }
+
+        #btn-restart {
+            padding: 12px 32px;
+            background: var(--surface2);
+            color: var(--text);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: var(--font);
+            transition: border-color .2s;
+        }
+
+        #btn-restart:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* ── TOAST ── */
+        #toast {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%) translateY(60px);
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-size: 13px;
+            transition: transform .3s;
+            z-index: 100;
+            white-space: nowrap;
+        }
+
+        #toast.show {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        #toast.ok {
+            border-color: var(--green);
+            color: var(--green);
+        }
+
+        #toast.err {
+            border-color: var(--danger);
+            color: var(--danger);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="topbar">
+        <div class="logo">RACK<span>MASTER</span></div>
+        <div id="call-label">Chamado 1 de 5</div>
+        <div id="stars-total">⭐ 0 / 15</div>
+    </div>
+
+    <div id="main">
+        <div id="progress-dots">
+            <div class="pdot active" id="p0"></div>
+            <div class="pdot" id="p1"></div>
+            <div class="pdot" id="p2"></div>
+            <div class="pdot" id="p3"></div>
+            <div class="pdot" id="p4"></div>
+        </div>
+
+        <!-- CLIENTE -->
+        <div id="client-card">
+            <div id="client-avatar"></div>
+            <div id="client-info">
+                <div id="client-name"></div>
+                <div id="client-business"></div>
+                <div id="client-msg"></div>
+            </div>
+        </div>
+
+        <!-- CHAMADO -->
+        <div id="call-card">
+            <div id="symptom-box"></div>
+            <div id="options-title">Qual é a causa do problema?</div>
+            <div id="options-list"></div>
+            <div id="feedback-box"></div>
+            <div id="call-result">
+                <div id="call-stars"></div>
+                <div id="call-client-reaction"></div>
+                <button id="btn-next" onclick="nextCall()">Próximo chamado →</button>
+            </div>
+        </div>
+
+        <!-- FINAL -->
+        <div id="final-screen">
+            <div id="final-title">Relatório de Chamados</div>
+            <div id="final-subtitle">Fim do dia. Veja como foi seu desempenho.</div>
+            <div id="final-stars"></div>
+            <div id="final-score"></div>
+            <div id="final-rank"></div>
+            <div id="final-calls">
+                <h3>Resumo por chamado</h3>
+            </div>
+            <button id="btn-restart" onclick="restart()">↩ Novo dia de chamados</button>
+        </div>
+    </div>
+
+    <div id="toast"></div>
+
+    <script>
+        // ── DADOS ───────────────────────────────────────────
+        const CALLS = [
+            {
+                avatar: '💇',
+                name: 'Dona Rosa',
+                business: 'Salão Beleza Rosa | Cliente 1',
+                msg: '"Moço, a internet aqui tá uma bagunça! Às vezes funciona, às vezes não. Fica caindo a hora que eu tô atendendo cliente. A menina da maquiagem reclama que o cartão não passa. Será que é feitiço? 😅"',
+                symptom: '⚠️ Sintoma técnico: link de rede instável — sobe e cai intermitentemente sem causa aparente. Piora quando equipamentos elétricos são ligados nas proximidades.',
+                options: [
+                    { text: 'O switch está com defeito e precisa ser substituído.', correct: false },
+                    { text: 'O cabo de dados está passando junto com o cabo do secador de cabelo na mesma canaleta.', correct: true },
+                    { text: 'O patch cord está longo demais para a distância entre a tomada e o computador.', correct: false },
+                ],
+                feedback: {
+                    ok: 'Correto! Interferência eletromagnética do secador de cabelo (motor elétrico de alta potência) induz ruído no cabo de dados. Cabos de dados e elétricos nunca devem compartilhar a mesma canaleta.',
+                    fail: 'Incorreto. O sintoma de instabilidade que piora com equipamentos elétricos é clássico de interferência eletromagnética — cabo de dados e cabo elétrico na mesma canaleta.',
+                },
+                reactions: {
+                    3: '"Que maravilha! Agora sim! Obrigada, moço. Vou te indicar pras minhas clientes!" ⭐⭐⭐',
+                    2: '"Ah, resolveu! Demorou um pouco mas tá funcionando. Valeu!" ⭐⭐',
+                    1: '"Ufa, finalmente! Achei que nunca ia resolver..." ⭐',
+                    0: '"Meu Deus... Vou ter que chamar outro técnico." 😔',
+                }
+            },
+            {
+                avatar: '👔',
+                name: 'Sr. Figueiredo',
+                business: 'Figueiredo Contabilidade | Cliente 2',
+                msg: '"Olha, eu não tenho tempo a perder. Mudei um computador de sala ontem e agora ele não acessa a rede. Reconectei o cabo no rack mas não funcionou. Preciso que resolva isso agora — tenho declarações pra entregar hoje."',
+                symptom: '⚠️ Sintoma técnico: estação sem conectividade após relocação. Porta do switch acende (link ativo), mas sem tráfego de dados. Demais estações funcionam normalmente.',
+                options: [
+                    { text: 'A placa de rede do computador queimou durante a mudança.', correct: false },
+                    { text: 'O cabo foi reconectado na porta errada do patch panel por falta de identificação.', correct: true },
+                    { text: 'O switch precisa ser reiniciado para reconhecer o novo ponto de rede.', correct: false },
+                ],
+                feedback: {
+                    ok: 'Correto! A porta do switch acende — o link físico está OK. O problema é lógico: sem etiqueta de identificação, o cabo foi conectado na porta errada do patch panel, chegando a outro ponto da rede. Identificação é rastreabilidade.',
+                    fail: 'Incorreto. Se a porta do switch acende, o link físico está estabelecido — placa e switch estão OK. O problema é que o cabo foi conectado na porta errada do patch panel. Sem identificação, isso acontece.',
+                },
+                reactions: {
+                    3: '"Eficiente. Exatamente o que eu esperava. Obrigado." ⭐⭐⭐',
+                    2: '"Resolvido. Da próxima vez quero mais agilidade." ⭐⭐',
+                    1: '"Demorou mais do que deveria, mas tá funcionando." ⭐',
+                    0: '"Inaceitável. Vou contratar outro prestador." 😤',
+                }
+            },
+            {
+                avatar: '🦷',
+                name: 'Juliana',
+                business: 'Clínica Oral Sorriso | Cliente 3',
+                msg: '"Boa tarde! Contratei 1 Gbps de internet mas o sistema de prontuário eletrônico está lento demais. Fiz o teste de velocidade aqui no computador da recepção e deu apenas 90 Mbps. Pode verificar o cabeamento? Tenho conhecimento básico de redes e suspeito que seja algo na infraestrutura."',
+                symptom: '⚠️ Sintoma técnico: throughput real de 90 Mbps num canal projetado para 1 Gbps. Cabeamento horizontal Cat6 certificado. Switch Gigabit. Problema localizado entre a tomada e o computador.',
+                options: [
+                    { text: 'O switch não suporta Gigabit — precisa ser substituído.', correct: false },
+                    { text: 'O patch cord que conecta o computador à tomada é Cat5e, criando um gargalo no canal Cat6.', correct: true },
+                    { text: 'O cabeamento horizontal foi instalado além dos 90 metros permitidos.', correct: false },
+                ],
+                feedback: {
+                    ok: 'Correto! O canal de transmissão é determinado pelo componente mais fraco. Um patch cord Cat5e limita toda a conexão a 100 Mbps, independentemente da categoria do cabeamento permanente e do switch.',
+                    fail: 'Incorreto. O switch e o cabeamento estão corretos. O gargalo está no patch cord — o componente mais esquecido da instalação. Um Cat5e num canal Cat6 limita a velocidade a 100 Mbps.',
+                },
+                reactions: {
+                    3: '"Perfeito! Era exatamente o que eu suspeitava. Obrigada pela confirmação técnica." ⭐⭐⭐',
+                    2: '"Resolvido! Obrigada. Da próxima vez vou checar os patch cords primeiro." ⭐⭐',
+                    1: '"Funcionou. Mas esperava um diagnóstico mais rápido." ⭐',
+                    0: '"Precisarei consultar outro profissional." 😕',
+                }
+            },
+            {
+                avatar: '🔧',
+                name: 'Toninho',
+                business: 'Oficina Mecânica Toninho | Cliente 4',
+                msg: '"Cara, o negócio aqui tá doido. O roteador e o switch ficam desligando sozinhos depois de um tempo ligados. Já limpei de vírus, já reinstalei o Windows, já fiz de tudo. Deve ser vírus bravo mesmo, né? Ou será que alguém hackeou?"',
+                symptom: '⚠️ Sintoma técnico: equipamentos de rede desligando por proteção térmica após 30 a 60 minutos de operação. Rack fechado instalado num canto sem ventilação. Tampa traseira sem saída de ar.',
+                options: [
+                    { text: 'Os equipamentos estão infectados por vírus que causa desligamento automático.', correct: false },
+                    { text: 'O rack fechado sem ventilação adequada causa superaquecimento e desligamento por proteção térmica.', correct: true },
+                    { text: 'A tensão elétrica da oficina está instável e danificando os equipamentos.', correct: false },
+                ],
+                feedback: {
+                    ok: 'Correto! Equipamentos eletrônicos possuem proteção térmica — desligam automaticamente quando atingem temperatura crítica. Rack fechado sem ventilação retém o calor gerado pelos equipamentos até o limite de segurança.',
+                    fail: 'Incorreto. Vírus não causam desligamento físico de hardware de rede. O padrão de desligar após tempo de uso e religar normalmente é proteção térmica — o rack fechado sem ventilação está retendo calor.',
+                },
+                reactions: {
+                    3: '"Caramba, era isso?! Pensei que era vírus mesmo. Valeu, chefe!" ⭐⭐⭐',
+                    2: '"Ah bom, resolveu! Obrigado. Mas fala, vírus não poderia ser também?" ⭐⭐',
+                    1: '"Ok... mas vou ficar de olho. Pode ser vírus ainda, né?" ⭐',
+                    0: '"Acho que vou levar lá no sobrinho que entende de computador." 😅',
+                }
+            },
+            {
+                avatar: '🏫',
+                name: 'Diretora Carmem',
+                business: 'Escola Municipal Monteiro Lobato | Cliente 5',
+                msg: '"Bom dia. Precisamos instalar mais 8 pontos de rede no laboratório de informática. Quando o técnico anterior foi verificar, disse que era impossível — a canaleta está completamente cheia. Gostaria de entender o que houve e como corrigir para o futuro."',
+                symptom: '⚠️ Sintoma técnico: canaleta 20×12 mm ocupada 100% com 6 cabos Cat6. Projeto original não previa expansão. Impossível adicionar novos cabos sem substituir toda a canaleta.',
+                options: [
+                    { text: 'O técnico anterior usou cabos Cat6 mais grossos que o necessário — deveriam ser Cat5e.', correct: false },
+                    { text: 'A canaleta foi dimensionada sem margem de crescimento — deveria estar ocupada no máximo a 60%.', correct: true },
+                    { text: 'Os cabos foram dobrados incorretamente dentro da canaleta, ocupando mais espaço que o normal.', correct: false },
+                ],
+                feedback: {
+                    ok: 'Correto! A norma estabelece que canaletas devem ser dimensionadas para no máximo 60% de ocupação, reservando 40% para expansão futura. Uma canaleta planejada corretamente nunca chega ao limite na instalação inicial.',
+                    fail: 'Incorreto. A categoria do cabo não altera significativamente o diâmetro. O problema é de dimensionamento — a canaleta foi escolhida para a quantidade atual de cabos, sem margem de crescimento. A regra é: máximo 60% de ocupação.',
+                },
+                reactions: {
+                    3: '"Excelente explicação. Vou exigir que o próximo projeto já contemple a margem de crescimento. Obrigada." ⭐⭐⭐',
+                    2: '"Entendido. Da próxima vez vou solicitar a especificação da canaleta antes de aprovar o projeto." ⭐⭐',
+                    1: '"Compreendido. Mas esperava mais clareza na explicação." ⭐',
+                    0: '"Vou consultar o setor técnico da Secretaria de Educação." 😐',
+                }
+            },
+        ];
+
+        // ── ESTADO ───────────────────────────────────────────
+        let current = 0;
+        let attempts = 0;
+        let totalStars = 0;
+        let callStars = [];
+        let callNames = [];
+
+        // ── TOAST ────────────────────────────────────────────
+        let toastTimer;
+        function showToast(msg, type = 'ok') {
+            const t = document.getElementById('toast');
+            t.textContent = msg;
+            t.className = 'show ' + type;
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => t.className = '', 2200);
+        }
+
+        // ── DOTS ─────────────────────────────────────────────
+        function updateDots(c) {
+            for (let i = 0; i < 5; i++) {
+                const d = document.getElementById('p' + i);
+                d.className = 'pdot' + (i < c ? ' done' : i === c ? ' active' : '');
+            }
+        }
+
+        // ── CARREGAR CHAMADO ─────────────────────────────────
+        function loadCall(c) {
+            const call = CALLS[c];
+            attempts = 0;
+
+            document.getElementById('call-label').textContent = `Chamado ${c + 1} de 5`;
+            document.getElementById('client-avatar').textContent = call.avatar;
+            document.getElementById('client-name').textContent = call.name;
+            document.getElementById('client-business').textContent = call.business;
+            document.getElementById('client-msg').textContent = call.msg;
+            document.getElementById('symptom-box').textContent = call.symptom;
+            document.getElementById('feedback-box').className = '';
+            document.getElementById('feedback-box').textContent = '';
+            document.getElementById('call-result').className = '';
+            document.getElementById('btn-next').classList.remove('visible');
+            document.getElementById('options-title').textContent = 'Qual é a causa do problema?';
+
+            updateDots(c);
+
+            const list = document.getElementById('options-list');
+            list.innerHTML = call.options.map((o, i) => `
+    <button class="opt-btn" onclick="selectOption(${i})" id="opt${i}">
+      <span>${['A', 'B', 'C'][i]})</span> ${o.text}
+    </button>
+  `).join('');
+        }
+
+        // ── SELECIONAR OPÇÃO ─────────────────────────────────
+        function selectOption(i) {
+            const call = CALLS[current];
+            const opt = call.options[i];
+            attempts++;
+
+            const btn = document.getElementById('opt' + i);
+            const fb = document.getElementById('feedback-box');
+
+            if (opt.correct) {
+                btn.classList.add('correct');
+                document.querySelectorAll('.opt-btn').forEach(b => b.disabled = true);
+
+                fb.textContent = '✓ ' + call.feedback.ok;
+                fb.className = 'ok';
+
+                const stars = attempts === 1 ? 3 : attempts === 2 ? 2 : attempts === 3 ? 1 : 0;
+                showCallResult(stars, call);
+                showToast(stars === 3 ? 'Diagnóstico correto de primeira!' : 'Correto!', 'ok');
+            } else {
+                btn.classList.add('wrong');
+                btn.disabled = true;
+
+                fb.textContent = '✗ Incorreto. Tente novamente.';
+                fb.className = 'fail';
+
+                showToast('Diagnóstico incorreto. Tente novamente.', 'err');
+
+                if (attempts >= 3) {
+                    document.querySelectorAll('.opt-btn').forEach(b => b.disabled = true);
+                    fb.textContent = '✗ ' + call.feedback.fail;
+                    showCallResult(0, call);
+                }
+            }
+        }
+
+        // ── RESULTADO DO CHAMADO ─────────────────────────────
+        function showCallResult(stars, call) {
+            totalStars += stars;
+            callStars.push(stars);
+            callNames.push({ emoji: call.avatar, name: call.name, stars });
+
+            document.getElementById('stars-total').textContent = `⭐ ${totalStars} / ${(current + 1) * 3}`;
+
+            const starStr = '⭐'.repeat(stars) + '☆'.repeat(3 - stars);
+            document.getElementById('call-stars').textContent = starStr;
+            document.getElementById('call-client-reaction').textContent = call.reactions[stars] || '';
+
+            const result = document.getElementById('call-result');
+            result.classList.add('show');
+
+            const btn = document.getElementById('btn-next');
+            btn.textContent = current < 4 ? 'Próximo chamado →' : 'Ver relatório final →';
+            btn.classList.add('visible');
+        }
+
+        // ── PRÓXIMO CHAMADO ───────────────────────────────────
+        function nextCall() {
+            if (current < 4) {
+                current++;
+                loadCall(current);
+            } else {
+                showFinal();
+            }
+        }
+
+        // ── TELA FINAL ────────────────────────────────────────
+        function showFinal() {
+            document.getElementById('client-card').style.display = 'none';
+            document.getElementById('call-card').style.display = 'none';
+
+            const fs = document.getElementById('final-screen');
+            fs.classList.add('show');
+
+            const score = totalStars;
+            const starStr = '⭐'.repeat(Math.round(score / 3));
+
+            document.getElementById('final-stars').textContent = '⭐'.repeat(Math.min(5, Math.round(score / 3)));
+            document.getElementById('final-score').textContent = `${score} / 15`;
+
+            let rank, color;
+            if (score >= 13) { rank = '🏆 Técnico Referência'; color = '#22c55e'; }
+            else if (score >= 9) { rank = '👍 Técnico Confiável'; color = '#f59e0b'; }
+            else if (score >= 5) { rank = '📚 Técnico em Desenvolvimento'; color = '#3b82f6'; }
+            else { rank = '🔁 Precisa estudar mais'; color = '#ef4444'; }
+
+            const rankEl = document.getElementById('final-rank');
+            rankEl.textContent = rank;
+            rankEl.style.borderColor = color;
+            rankEl.style.color = color;
+            document.getElementById('final-score').style.color = color;
+
+            const callsEl = document.getElementById('final-calls');
+            callsEl.innerHTML = '<h3>Resumo por chamado</h3>' +
+                callNames.map(c => `
+      <div class="final-call-row">
+        <div class="fce">${c.emoji}</div>
+        <div class="fcn">${c.name}</div>
+        <div class="fcs">${'⭐'.repeat(c.stars)}${'☆'.repeat(3 - c.stars)}</div>
+      </div>
+    `).join('');
+        }
+
+        // ── RESTART ───────────────────────────────────────────
+        function restart() {
+            current = 0;
+            attempts = 0;
+            totalStars = 0;
+            callStars = [];
+            callNames = [];
+
+            document.getElementById('final-screen').classList.remove('show');
+            document.getElementById('client-card').style.display = '';
+            document.getElementById('call-card').style.display = '';
+            document.getElementById('stars-total').textContent = '⭐ 0 / 15';
+
+            loadCall(0);
+        }
+
+        // ── INIT ──────────────────────────────────────────────
+        loadCall(0);
+    </script>
+</body>
+
+</html>
