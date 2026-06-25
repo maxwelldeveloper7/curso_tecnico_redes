@@ -4,284 +4,517 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aula 11 — Diagnóstico Elétrico do Laboratório</title>
-  <link rel="stylesheet" href="../../web/assets/css/style.css">
+  <title>Aula 11 — Diagnóstico de Falhas e Substituição de Peças</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 
 <body>
   <main>
     <header>
       <p class="eyebrow">Oficina de Montagem e Conexão</p>
-      <h1>AULA 11 — Diagnóstico Elétrico do Laboratório</h1>
+      <h1>AULA 11 — DIAGNÓSTICO DE FALHAS E SUBSTITUIÇÃO DE PEÇAS</h1>
       <div class="meta" aria-label="Informações da aula">
-        <span><strong>Atividade prática em grupo:</strong> aplicar qualidade de energia, aterramento e tipos de fonte para avaliar a instalação elétrica do laboratório antes de qualquer intervenção.</span>
-        <span><strong>Duração aproximada:</strong> ~50 min</span>
+        <span><strong>Objetivo:</strong> entender a metodologia de diagnóstico e executar a substituição correta de
+          componentes.</span>
+        <span><strong>Conteúdo:</strong> diagnóstico por sintomas, códigos de bipes, ferramentas e procedimentos de
+          troca.</span>
       </div>
     </header>
 
     <section>
       <h2>1. Introdução</h2>
-      <p>Até aqui, os conteúdos foram estudados de forma teórica e em equipamentos de exemplo. A partir desta aula, a turma trabalha <strong>nos computadores reais do laboratório</strong> — equipamentos com anos de uso, desgaste e falhas reais.</p>
-      <p><strong>Objetivo desta aula:</strong> aplicar os conceitos de qualidade de energia, aterramento e tipos de fonte (Aula 02) para avaliar a instalação elétrica que alimenta o laboratório, <strong>antes</strong> de qualquer intervenção nos computadores.</p>
+      <p>O diagnóstico de falhas é uma das competências centrais do técnico de informática. Mais do que conhecer os
+        componentes, o técnico precisa saber <strong>identificar o que falhou, por qual motivo e como resolver</strong>
+        — com o mínimo de substituições desnecessárias e o máximo de precisão.</p>
       <blockquote>
-        <p><strong>Importante:</strong> esta aula é de <strong>observação e registro</strong>, não de intervenção. Nenhum grupo deve abrir tomadas, quadros elétricos ou desconectar fiação. Identificar problemas é o objetivo — corrigi-los é responsabilidade da gestão escolar/elétrica predial.</p>
+        <p><strong>Princípio fundamental do diagnóstico:</strong> eliminar variáveis uma de cada vez. Trocar vários
+          componentes ao mesmo tempo impede identificar qual era o defeituoso.</p>
       </blockquote>
-      <p>Um diagnóstico de hardware que ignora a instalação elétrica pode levar a conclusões erradas: um computador que reinicia sozinho pode ter problema na fonte — ou pode ter problema na tomada que alimenta a fonte. Avaliar a infraestrutura primeiro evita esse erro de diagnóstico.</p>
     </section>
 
     <hr>
 
     <section>
-      <h2>2. Organização dos Grupos</h2>
+      <h2>2. Metodologia de Diagnóstico</h2>
+      <p>O diagnóstico segue uma sequência lógica do mais simples para o mais complexo:</p>
+      <h3>Etapa 1 — Coleta de informações</h3>
+      <img src="../assets/images/omc/11/colletc.png" alt="" style="height: 150px; width: auto;">
+      <p>Antes de abrir o gabinete ou trocar qualquer peça, levantar:</p>
       <ul>
-        <li>A turma será dividida em <strong>6 grupos de 8 alunos</strong>.</li>
-        <li>Cada grupo elege um <strong>líder</strong>, responsável por:
-          <ul>
-            <li>Coordenar a divisão de tarefas dentro do grupo</li>
-            <li>Preencher e entregar a ficha de diagnóstico</li>
-            <li>Reportar ao professor qualquer situação de risco identificada (fios expostos, tomadas danificadas, cheiro de queimado)</li>
-          </ul>
-        </li>
+        <li>O sistema já funcionou alguma vez ou nunca ligou?</li>
+        <li>O problema é intermitente ou constante?</li>
+        <li>Houve alguma alteração recente (nova peça, queda de energia, atualização)?</li>
+        <li>Há sintomas físicos: cheiro de queimado, barulho incomum, LED piscando?</li>
       </ul>
       <blockquote>
-        <p><strong>Critério de segurança:</strong> se qualquer grupo identificar fiação exposta, tomada quebrada, cheiro de queimado ou superaquecimento visível em qualquer ponto, a equipe deve <strong>interromper a atividade naquele ponto imediatamente</strong> e reportar ao professor antes de continuar.</p>
+        <p>💡 Um problema intermitente é mais difícil de diagnosticar que um constante — exige monitoramento ao longo do
+          tempo e atenção a padrões (ocorre só sob carga, só após tempo ligado, só em determinados programas).</p>
+      </blockquote>
+      <h3>Etapa 2 — Observação visual</h3>
+      <img src="../assets/images/omc/11/observation.png" alt="" style="height: 150px; width: auto;">
+      <p>Com o gabinete aberto e o sistema desligado:</p>
+      <ul>
+        <li>Verificar capacitores estufados ou queimados na placa-mãe</li>
+        <li>Verificar sinais de queimado (escurecimento, cheiro)</li>
+        <li>Verificar cabos desconectados ou mal encaixados</li>
+        <li>Verificar cooler parado ou solto</li>
+        <li>Verificar LEDs de diagnóstico da placa-mãe (presentes em modelos intermediários e avançados)</li>
+      </ul>
+      <h3>Etapa 3 — Configuração mínima de teste</h3>
+      <img src="../assets/images/omc/11/config_min.png" alt="" style="height: 150px; width: auto;">
+      <p>Reduzir o sistema ao mínimo necessário para o POST:</p>
+      <ul>
+        <li>Placa-mãe + CPU + cooler + 1 módulo de RAM + fonte</li>
+        <li>Remover: GPU dedicada, armazenamento, periféricos USB, cabos de front panel (exceto Power SW)</li>
+        <li>Ligar diretamente pelo jumper Power SW ou por curto dos pinos com chave de fenda</li>
+      </ul>
+      <blockquote>
+        <p>💡 Se o sistema passa no POST com configuração mínima, o problema está em um dos componentes removidos.
+          Reincorporar um por vez até identificar o causador.</p>
+      </blockquote>
+      <h3>Etapa 4 — Isolamento por substituição</h3>
+      <img src="../assets/images/omc/11/isolate.png" alt="" style="height: 150px; width: auto;">
+      <p>Substituir componentes suspeitos por outros conhecidamente funcionais:</p>
+      <ul>
+        <li>Trocar o módulo de RAM por outro testado</li>
+        <li>Testar a fonte em outro sistema ou com testador de fonte</li>
+        <li>Testar a placa-mãe com outra CPU compatível</li>
+        <li>Testar o armazenamento em outro sistema</li>
+      </ul>
+      <h3>Etapa 5 — Diagnóstico por ferramentas de software</h3>
+      <img src="../assets/images/omc/11/diagnostic.png" alt="" style="height: 150px; width: auto;">
+      <p>Quando o sistema inicia mas apresenta instabilidade:</p>
+      <ul>
+        <li>Utilizar ferramentas de monitoramento e teste (listadas na seção 7)</li>
+        <li>Correlacionar sintomas com leituras: temperatura, tensão, S.M.A.R.T., erros de memória</li>
+      </ul>
+    </section>
+
+    <hr>
+
+    <section>
+      <h2>3. Sintomas e Diagnóstico por Componente</h2>
+      <h3>3.1 Fonte de Alimentação</h3>
+      <img src="../assets/images/omc/11/psu.png" alt="" style="height: 150px; width: auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>Sintoma</th>
+            <th>Causa provável</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Sistema não liga, sem reação alguma</td>
+            <td>Fonte sem energia, fusível queimado ou defeito interno</td>
+          </tr>
+          <tr>
+            <td>Liga e desliga imediatamente</td>
+            <td>Proteção por sobrecorrente (OCP) ativada — curto em componente</td>
+          </tr>
+          <tr>
+            <td>Reinicializações espontâneas sob carga</td>
+            <td>Fonte subdimensionada ou trilho +12V instável</td>
+          </tr>
+          <tr>
+            <td>Cheiro de queimado ao ligar</td>
+            <td>Componente interno da fonte danificado</td>
+          </tr>
+        </tbody>
+      </table>
+      <blockquote>
+        <p>⚠️ A fonte nunca deve ser aberta para reparo em campo. É equipamento de alta tensão com capacitores que retêm
+          carga mesmo desligada. Em caso de defeito confirmado: substituição.</p>
+      </blockquote>
+      <h3>3.2 Placa-mãe</h3>
+      <img src="../assets/images/omc/11/motherboard.png" alt="" style="height: 150px; width: auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>Sintoma</th>
+            <th>Causa provável</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Sem POST, sem bipes, sem imagem</td>
+            <td>Placa-mãe, CPU ou RAM com defeito — usar configuração mínima para isolar</td>
+          </tr>
+          <tr>
+            <td>Bipes contínuos ou padrão específico</td>
+            <td>Código de bipes indica componente com falha (ver seção 5)</td>
+          </tr>
+          <tr>
+            <td>USB, portas de rede ou áudio não funcionam</td>
+            <td>Controladores do chipset com defeito ou driver ausente</td>
+          </tr>
+          <tr>
+            <td>Capacitores estufados visíveis</td>
+            <td>Degradação por calor ou corrente — substituição da placa</td>
+          </tr>
+        </tbody>
+      </table>
+      <h3>3.3 Processador</h3>
+      <img src="../assets/images/omc/11/cpu.png" alt="" style="height: 150px; width: auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>Sintoma</th>
+            <th>Causa provável</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Sistema não realiza POST</td>
+            <td>CPU com defeito, mal encaixada ou incompatível com o socket/firmware</td>
+          </tr>
+          <tr>
+            <td>Travamentos e reinicializações sob carga</td>
+            <td>Superaquecimento (verificar pasta térmica e cooler)</td>
+          </tr>
+          <tr>
+            <td>Throttling constante (desempenho muito abaixo do esperado)</td>
+            <td>Temperatura elevada ou limitação de energia (VRM fraco)</td>
+          </tr>
+          <tr>
+            <td>Pinos dobrados visíveis</td>
+            <td>Dano físico — verificar possibilidade de endireitamento com agulha (risco alto)</td>
+          </tr>
+        </tbody>
+      </table>
+      <h3>3.4 Memória RAM</h3>
+      <img src="../assets/images/omc/11/ram.png" alt="" style="height: 150px; width: auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>Sintoma</th>
+            <th>Causa provável</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Sem POST, sem imagem</td>
+            <td>RAM ausente, mal encaixada ou defeituosa</td>
+          </tr>
+          <tr>
+            <td>Tela azul (BSOD) com códigos de memória</td>
+            <td>Módulo com células defeituosas</td>
+          </tr>
+          <tr>
+            <td>Sistema reconhece menos RAM que o instalado</td>
+            <td>Módulo não detectado — verificar slot e encaixe</td>
+          </tr>
+          <tr>
+            <td>Instabilidade com XMP/EXPO ativo</td>
+            <td>Perfil instável — tentar frequência intermediária ou desativar</td>
+          </tr>
+        </tbody>
+      </table>
+      <h3>3.5 Armazenamento</h3>
+      <img src="../assets/images/omc/11/storage.png" alt="" style="height: 150px; width: auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>Sintoma</th>
+            <th>Causa provável</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Dispositivo não aparece no BIOS</td>
+            <td>Cabo desconectado, slot M.2 incompatível, dispositivo defeituoso</td>
+          </tr>
+          <tr>
+            <td>HD com cliques rítmicos</td>
+            <td>Falha mecânica iminente — backup urgente</td>
+          </tr>
+          <tr>
+            <td>Lentidão extrema em SSD</td>
+            <td>Thermal throttling ou células NAND degradadas</td>
+          </tr>
+          <tr>
+            <td>S.M.A.R.T. com status "Caution" ou "Bad"</td>
+            <td>Dispositivo em risco — substituição planejada</td>
+          </tr>
+        </tbody>
+      </table>
+      <h3>3.6 Placa de Vídeo (GPU)</h3>
+      <img src="../assets/images/omc/11/gpu.png" alt="" style="height: 150px; width: auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>Sintoma</th>
+            <th>Causa provável</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Sem imagem com GPU dedicada</td>
+            <td>GPU mal encaixada, cabo de alimentação PCIe ausente, slot defeituoso</td>
+          </tr>
+          <tr>
+            <td>Artefatos visuais (pixels coloridos, distorções)</td>
+            <td>GPU superaquecida ou memória VRAM com defeito</td>
+          </tr>
+          <tr>
+            <td>Driver instala mas imagem trava em jogos</td>
+            <td>Temperatura elevada ou alimentação insuficiente</td>
+          </tr>
+          <tr>
+            <td>Fan da GPU não gira</td>
+            <td>Rolamento do fan com defeito ou controle PWM com problema</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <hr>
+
+    <section>
+      <h2>4. Códigos de Bipes do POST</h2>
+      <p>Quando o sistema não consegue completar o POST, o BIOS emite bipes audíveis pelo alto-falante interno do
+        gabinete (speaker). O padrão varia por fabricante de BIOS.</p>
+      <h3>BIOS Award / Phoenix (comum em placas antigas)</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Padrão de bipes</th>
+            <th>Significado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1 bipe curto</td>
+            <td>POST concluído com sucesso</td>
+          </tr>
+          <tr>
+            <td>1 bipe longo + 2 curtos</td>
+            <td>Erro de vídeo (GPU ou sinal)</td>
+          </tr>
+          <tr>
+            <td>1 bipe longo + 3 curtos</td>
+            <td>Erro de vídeo</td>
+          </tr>
+          <tr>
+            <td>Bipes contínuos longos</td>
+            <td>Erro de RAM</td>
+          </tr>
+          <tr>
+            <td>Sem bipe, sem imagem</td>
+            <td>Falha grave — CPU, placa-mãe ou fonte</td>
+          </tr>
+        </tbody>
+      </table>
+      <h3>BIOS AMI (comum em placas modernas)</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Padrão de bipes</th>
+            <th>Significado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1 bipe curto</td>
+            <td>POST OK</td>
+          </tr>
+          <tr>
+            <td>2 bipes curtos</td>
+            <td>Erro de paridade de memória</td>
+          </tr>
+          <tr>
+            <td>3 bipes curtos</td>
+            <td>Falha na memória base</td>
+          </tr>
+          <tr>
+            <td>5 bipes curtos</td>
+            <td>Erro no processador</td>
+          </tr>
+          <tr>
+            <td>1 longo + 2 curtos</td>
+            <td>Erro no controlador de vídeo</td>
+          </tr>
+        </tbody>
+      </table>
+      <blockquote>
+        <p>💡 Placas modernas com LEDs de diagnóstico (como as linhas ROG, MEG, Aorus) mostram o código de erro
+          visualmente — mais preciso que os bipes. Consultar o manual para o mapeamento de cores e padrões.</p>
       </blockquote>
     </section>
 
     <hr>
 
     <section>
-      <h2>3. Conceitos a Aplicar (Revisão Rápida)</h2>
-      <p>Antes de iniciar, retomar rapidamente os conceitos da Aula 02 que serão observados na prática:</p>
+      <h2>5. Substituição de Peças — Procedimentos</h2>
+      <h3>5.1 Antes de substituir qualquer peça</h3>
+      <ol>
+        <li>Confirmar o diagnóstico com pelo menos dois indícios convergentes — não substituir com base em um único
+          sintoma.</li>
+        <li>Verificar compatibilidade da peça substituta: socket, geração, form factor, tensão.</li>
+        <li>Registrar a configuração atual antes de alterar (versão de BIOS, configurações de XMP, particionamento).
+        </li>
+        <li>Realizar descarga eletrostática antes de manusear qualquer componente.</li>
+      </ol>
+      <h3>5.2 Substituição de RAM</h3>
+      <ol>
+        <li>Desligar o sistema e desconectar da tomada.</li>
+        <li>Aguardar 30 segundos (descarga de capacitores da placa-mãe).</li>
+        <li>Abrir as travas do slot e remover o módulo pelas bordas.</li>
+        <li>Instalar o módulo substituto no mesmo slot, verificando o entalhe de orientação.</li>
+        <li>Confirmar detecção no BIOS antes de inicializar o SO.</li>
+      </ol>
+      <h3>5.3 Substituição de Armazenamento</h3>
+      <p><strong>HD/SSD SATA:</strong></p>
+      <ol>
+        <li>Desligar e desconectar.</li>
+        <li>Remover os parafusos de fixação da baia.</li>
+        <li>Desconectar cabo SATA de dados e SATA Power.</li>
+        <li>Instalar o substituto e reconectar os cabos.</li>
+        <li>Verificar detecção no BIOS.</li>
+      </ol>
+      <p><strong>SSD NVMe M.2:</strong></p>
+      <ol>
+        <li>Desligar e desconectar.</li>
+        <li>Remover o dissipador M.2 (se houver).</li>
+        <li>Remover o parafuso de retenção e extrair o SSD em ângulo.</li>
+        <li>Instalar o substituto, fixar o parafuso e reinstalar o dissipador.</li>
+      </ol>
+      <h3>5.4 Substituição de Fonte</h3>
+      <ol>
+        <li>Fotografar ou mapear todos os cabos conectados antes de remover.</li>
+        <li>Desconectar todos os cabos da fonte dos componentes (ATX 24 pinos, EPS, SATA Power, PCIe).</li>
+        <li>Remover os quatro parafusos de fixação no painel traseiro.</li>
+        <li>Instalar a fonte substituta e reconectar todos os cabos na mesma configuração.</li>
+        <li>Testar com configuração mínima antes de reconectar todos os componentes.</li>
+      </ol>
+      <h3>5.5 Substituição de CPU</h3>
+      <blockquote>
+        <p>⚠️ Substituição de CPU exige confirmação de compatibilidade com o socket <strong>e</strong> com a versão do
+          firmware (BIOS). Algumas gerações de CPU exigem atualização de BIOS antes de serem reconhecidas.</p>
+      </blockquote>
+      <ol>
+        <li>Remover o cooler completamente (desconectar fan, soltar fixação).</li>
+        <li>Limpar a pasta térmica do IHS e da base do cooler.</li>
+        <li>Abrir o mecanismo de travamento do socket.</li>
+        <li>Remover a CPU pelas bordas, sem tocar nos contatos.</li>
+        <li>Instalar a CPU substituta seguindo a orientação do triângulo/entalhe.</li>
+        <li>Fechar o mecanismo de travamento.</li>
+        <li>Aplicar pasta térmica e reinstalar o cooler.</li>
+        <li>Confirmar detecção no BIOS.</li>
+      </ol>
+    </section>
+
+    <hr>
+
+    <section>
+      <h2>6. Ferramentas de Diagnóstico</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Ferramenta</th>
+            <th>Tipo</th>
+            <th>Função</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>HWMonitor</strong></td>
+            <td>Software</td>
+            <td>Temperatura, tensões e RPM de todos os componentes</td>
+          </tr>
+          <tr>
+            <td><strong>CPU-Z</strong></td>
+            <td>Software</td>
+            <td>Identificação de CPU, RAM (frequência, timings, fabricante)</td>
+          </tr>
+          <tr>
+            <td><strong>MemTest86</strong></td>
+            <td>Bootável</td>
+            <td>Teste completo de integridade da RAM (independente de SO)</td>
+          </tr>
+          <tr>
+            <td><strong>CrystalDiskInfo</strong></td>
+            <td>Software</td>
+            <td>S.M.A.R.T. de HDs e SSDs</td>
+          </tr>
+          <tr>
+            <td><strong>CrystalDiskMark</strong></td>
+            <td>Software</td>
+            <td>Benchmark de velocidade do armazenamento</td>
+          </tr>
+          <tr>
+            <td><strong>Prime95</strong></td>
+            <td>Software</td>
+            <td>Teste de estabilidade e temperatura da CPU sob carga máxima</td>
+          </tr>
+          <tr>
+            <td><strong>FurMark</strong></td>
+            <td>Software</td>
+            <td>Teste de estabilidade e temperatura da GPU sob carga máxima</td>
+          </tr>
+          <tr>
+            <td><strong>Testador de fonte</strong></td>
+            <td>Hardware</td>
+            <td>Verifica tensões dos trilhos da PSU sem necessidade de sistema completo</td>
+          </tr>
+          <tr>
+            <td><strong>Multímetro</strong></td>
+            <td>Hardware</td>
+            <td>Medição direta de tensão nos conectores da fonte e nos trilhos da placa-mãe</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <hr>
+
+    <section>
+      <h2>7. Síntese da Aula</h2>
       <table>
         <thead>
           <tr>
             <th>Conceito</th>
-            <th>O que observar no laboratório</th>
+            <th>Ponto central</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td><strong>Aterramento (NBR 5410)</strong></td>
-            <td>Tomadas possuem o terceiro pino (terra)?</td>
+            <td><strong>Metodologia</strong></td>
+            <td>Do mais simples ao mais complexo; uma variável por vez</td>
           </tr>
           <tr>
-            <td><strong>Polaridade do cabo de força</strong></td>
-            <td>Fase e neutro chegam corretos na fonte através do cabo IEC?</td>
+            <td><strong>Configuração mínima</strong></td>
+            <td>Isola o problema antes de substituir qualquer peça</td>
           </tr>
           <tr>
-            <td><strong>Fontes genéricas vs. certificadas</strong></td>
-            <td>A fonte do computador possui selo 80 Plus visível?</td>
+            <td><strong>Sintomas por componente</strong></td>
+            <td>Cada componente tem padrão de falha reconhecível</td>
           </tr>
           <tr>
-            <td><strong>PFC ativo</strong></td>
-            <td>A fonte aceita 100-240V automaticamente (chave 110/220 ausente) ou possui chave manual?</td>
+            <td><strong>Códigos de bipes</strong></td>
+            <td>Indicam o componente com falha quando não há imagem</td>
           </tr>
           <tr>
-            <td><strong>Filtro de linha vs. extensão comum</strong></td>
-            <td>O equipamento conectado entre a tomada e o computador é um filtro real ou uma extensão simples?</td>
+            <td><strong>Substituição</strong></td>
+            <td>Confirmar diagnóstico e compatibilidade antes de trocar</td>
           </tr>
           <tr>
-            <td><strong>Estabilizador</strong></td>
-            <td>Há estabilizadores em uso? (lembrar: não recomendados, Aula 02)</td>
-          </tr>
-          <tr>
-            <td><strong>Nobreak</strong></td>
-            <td>Há nobreaks instalados? Em quais máquinas?</td>
+            <td><strong>Ferramentas</strong></td>
+            <td>Software para monitoramento; hardware para medição direta</td>
           </tr>
         </tbody>
       </table>
-    </section>
 
-    <hr>
-
-    <section>
-      <h2>3.1 Padrão de Plugue — Tripolar Americano (2P+T)</h2>
-      <p><strong>Contexto</strong></p>
-      <p>O laboratório utiliza o padrão <strong>tripolar americano (2P+T)</strong> — também chamado de padrão NEMA 5-15 — em tomadas, plugues e estabilizadores. Esse padrão antecede a norma <strong>NBR 14136</strong>, que desde 2011 estabelece o plugue/tomada de três pinos redondos como padrão obrigatório no Brasil.</p>
-      <p><strong>O que observar</strong></p>
-      <ol>
-        <li>As tomadas do laboratório são todas no padrão 2P+T, ou há mistura com o padrão novo (3 pinos redondos)?</li>
-        <li>Há uso de <strong>adaptadores</strong> entre os dois padrões? Adaptadores frequentemente <strong>não conectam o pino terra</strong>, mesmo que a tomada de origem o possua.</li>
-        <li>Os estabilizadores e demais equipamentos do laboratório seguem o mesmo padrão das tomadas da parede?</li>
-      </ol>
-      <blockquote>
-        <p><strong>Atenção:</strong> um adaptador de tomada que não replica o pino terra <strong>anula o aterramento</strong> de tudo que está conectado a ele — mesmo que a tomada da parede seja aterrada corretamente.</p>
-      </blockquote>
-    </section>
-
-    <hr>
-
-    <section>
-      <h2>3.2 Verificação de Polaridade no Cabo de Força da Fonte</h2>
-      <p><strong>O que será verificado</strong></p>
-      <p>O cabo de força que liga a tomada da parede à fonte de alimentação (PSU) possui, na ponta do computador, o conector padrão <strong>IEC C13/C14</strong> (mesmo formato usado em monitores e outros equipamentos). Esse conector possui três contatos: fase, neutro e terra, em posições fixas definidas pelo padrão IEC — diferente da tomada de parede, aqui a posição <strong>não varia</strong>.</p>
-      <img src="../assets/images/omc/11/IEC_C13.png" alt="">
-      <blockquote>
-        <p><strong>Observação:</strong> diferente da tomada de parede 2P+T (onde a posição de fase/neutro depende de como o eletricista instalou os fios), o conector IEC do cabo de força é <strong>padronizado de fábrica</strong>: o pino menor e mais estreito é a fase, o maior é o neutro, e o pino redondo inferior é o terra.</p>
-      </blockquote>
-      <p>O ponto de verificação não é o conector IEC em si (que é padronizado), mas sim <strong>se a tomada da parede está entregando fase e neutro nas posições corretas para esse conector</strong> — ou seja, se o cabo de força, ao ser ligado normalmente, está de fato levando a fase para o pino de fase da fonte.</p>
-      <p><strong>Procedimento (conduzido pelo professor)</strong></p>
-      <ol>
-        <li>Com o computador desligado da tomada, identificar visualmente os dois pinos chatos do conector IEC do cabo de força (lado da tomada/macho).</li>
-        <li>Conectar o cabo na tomada da parede.</li>
-        <li>Com a chave de teste, tocar cada um dos dois pinos chatos <strong>na extremidade que vai à fonte</strong> (lado fêmea, ainda desconectado da fonte).</li>
-        <li><strong>O pino em que a lâmpada acende corresponde à fase</strong> — deve coincidir com o pino estreito (fase) do padrão IEC.</li>
-        <li>Caso a fase apareça no pino largo (posição de neutro do padrão IEC), há inversão entre fase e neutro vindo da tomada da parede através do cabo.</li>
-      </ol>
-      <blockquote>
-        <p><strong>Atenção:</strong> esta verificação deve ser feita <strong>apenas pelo professor</strong>, com o cabo desconectado da fonte durante o teste com a chave neon. Os alunos observam e registram o resultado.</p>
-      </blockquote>
-      <p><strong>Por que isso importa</strong></p>
-      <ul>
-        <li>A fonte ATX com PFC ativo geralmente tolera inversão entre fase e neutro sem deixar de funcionar — por isso esse problema <strong>não costuma gerar sintomas visíveis</strong> e passa despercebido.</li>
-        <li>No entanto, com fase e neutro invertidos, o <strong>chassi do gabinete e o fio terra podem não estar na referência esperada</strong>, o que reduz a eficácia de qualquer proteção contra choque em caso de falha de isolamento interna.</li>
-      </ul>
-      <p><strong>O que cada grupo registra</strong></p>
-      <ol>
-        <li>Para o cabo de força do computador do seu setor: aguardar o professor realizar o teste com a chave neon na extremidade do cabo.</li>
-        <li>Registrar se a fase corresponde ao pino estreito (correto) ou ao pino largo (invertido) do conector IEC.</li>
-      </ol>
-    </section>
-
-    <hr>
-
-    <section>
-      <h2>4. Roteiro da Atividade (Por Grupo)</h2>
-      <p>Cada grupo será responsável por avaliar <strong>a infraestrutura elétrica de uma fileira/setor do laboratório</strong> (ajustar conforme o layout real), preenchendo a ficha de diagnóstico para cada ponto de energia.</p>
-      <h3>Passo 1 — Identificação do ponto de energia (5 min)</h3>
-      <ol>
-        <li>Observar visualmente o estado físico da tomada: rachaduras, escurecimento, folga do plugue.</li>
-        <li>Verificar se a tomada possui <strong>três pinos</strong> (fase, neutro, terra) ou apenas dois.</li>
-        <li>Verificar se há <strong>múltiplos equipamentos</strong> ligados na mesma tomada/régua e quantos.</li>
-      </ol>
-      <h3>Passo 2 — Identificação do dispositivo intermediário (10 min)</h3>
-      <p>Entre a tomada da parede e o computador, geralmente há um dos seguintes dispositivos. Identificar qual:</p>
-      <table>
-        <thead>
-          <tr>
-            <th>Dispositivo</th>
-            <th>Como identificar visualmente</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>Extensão comum (benjamim/régua simples)</strong></td>
-            <td>Sem botão liga/desliga com luz, sem fusível visível, sem certificação impressa</td>
-          </tr>
-          <tr>
-            <td><strong>Filtro de linha</strong></td>
-            <td>Possui botão liga/desliga iluminado, normalmente com indicação de proteção contra surtos</td>
-          </tr>
-          <tr>
-            <td><strong>Estabilizador</strong></td>
-            <td>Caixa maior, transformador interno (mais pesado), seletor de tensão 110/220V</td>
-          </tr>
-          <tr>
-            <td><strong>Nobreak (UPS)</strong></td>
-            <td>Caixa com bateria interna (peso elevado), display ou LEDs de status, emite ruído de ventilação</td>
-          </tr>
-        </tbody>
-      </table>
-      <h3>Passo 3 — Inspeção da fonte do computador (15 min)</h3>
-      <p>Sem desconectar nada, observar a etiqueta da fonte (visível na lateral ou traseira do gabinete, geralmente através de uma grade):</p>
-      <ol>
-        <li><strong>Selo 80 Plus:</strong> há algum selo (Bronze, Silver, Gold, etc.) impresso?</li>
-        <li><strong>Chave de seleção 110/220V:</strong> o computador possui essa chave física na traseira?
-          <ul>
-            <li>Se possui: indica fonte com <strong>PFC passivo</strong> (Aula 02) — a tensão deve ser conferida manualmente.</li>
-            <li>Se não possui: indica provável <strong>PFC ativo</strong> (entrada universal automática).</li>
-          </ul>
-        </li>
-        <li><strong>Potência declarada:</strong> qual o valor em Watts impresso na etiqueta?</li>
-        <li><strong>Estado físico:</strong> ventoinha da fonte gira ao ligar o computador? Há ruído anormal (chiado agudo, zumbido alto)?</li>
-      </ol>
-      <blockquote>
-        <p><strong>Atenção:</strong> se o computador possuir a chave 110/220V, <strong>não alterar sua posição</strong>. Apenas registrar a posição atual e informar ao professor se houver suspeita de configuração incorreta (ex: chave em 220V em região de rede 127V).</p>
-      </blockquote>
-      <h3>Passo 4 — Registro de sintomas relatados (10 min)</h3>
-      <p>Conversar com o(a) professor(a) responsável pelo laboratório ou consultar histórico, se disponível, sobre os computadores do setor:</p>
-      <ul>
-        <li>Algum desliga sozinho?</li>
-        <li>Algum demora para ligar ou liga e desliga repetidamente?</li>
-        <li>Algum apresenta tela preta sem motivo aparente?</li>
-        <li>Alguma porta USB já apresentou falha?</li>
-      </ul>
-      <p>Registrar essas informações na ficha — elas serão retomadas na Aula 12 (diagnóstico interno).</p>
-      <h3>Passo 5 — Consolidação e entrega (10 min)</h3>
-      <p>O líder do grupo revisa a ficha preenchida, garante que todos os pontos do setor foram cobertos, e entrega ao professor.</p>
-    </section>
-
-    <hr>
-
-    <section>
-      <h2>5. Ficha de Diagnóstico Elétrico (por ponto de energia)</h2>
-      <blockquote>
-        <p><strong>Reproduzir esta ficha — uma para cada tomada/computador avaliado.</strong></p>
-      </blockquote>
-
-      <a class="lesson-link" href="./ficha_diagnostico_eletrico.html">
-        <h3>Ficha de Diagnóstico Elétrico</h3>
+      <a href="./exercicios/aula.11.html"
+        style="display: inline-flex; align-items: center; gap: 8px; text-decoration: none; color: #007BFF; font-weight: bold;">
+        <img src="../assets/images/omc/11/exercises.png" alt="Exercícios" style="width: 48px; height: 48px;">
+        Exercícios de Fixação
       </a>
 
-
-    </section>
-
-    <hr>
-
-    <section>
-      <h2>6. Discussão Final (em sala, após a coleta)</h2>
-      <p>Com as fichas recolhidas, o professor pode conduzir uma discussão rápida com perguntas como:</p>
-      <ul>
-        <li>Quantos pontos do laboratório não possuem aterramento (terceiro pino)?</li>
-        <li>Quantos computadores usam extensão comum em vez de filtro de linha?</li>
-        <li>Há padrão entre os computadores com sintomas relatados e o tipo de dispositivo intermediário usado?</li>
-        <li>As fontes sem selo 80 Plus são as mesmas que apresentam sintomas?</li>
-      </ul>
-      <blockquote>
-        <p><strong>Observação:</strong> essa discussão prepara o terreno para a Aula 12: muitas falhas "de hardware" — incluindo USB instável — podem ter origem em alimentação elétrica inadequada (ripple alto, tensão instável), e não necessariamente em dano físico ao componente.</p>
-      </blockquote>
-    </section>
-
-    <hr>
-
-    <section>
-      <h2>Síntese da Aula</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Etapa</th>
-            <th>O que foi avaliado</th>
-            <th>Conecta com</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Tomada</td>
-            <td>Aterramento, estado físico, polaridade do cabo de força</td>
-            <td>Aula 02 — NBR 5410</td>
-          </tr>
-          <tr>
-            <td>Dispositivo intermediário</td>
-            <td>Filtro vs. extensão vs. estabilizador vs. nobreak</td>
-            <td>Aula 02 — proteção elétrica</td>
-          </tr>
-          <tr>
-            <td>Fonte do computador</td>
-            <td>Selo 80 Plus, PFC, potência, estado físico</td>
-            <td>Aula 02 — qualidade da fonte</td>
-          </tr>
-          <tr>
-            <td>Sintomas relatados</td>
-            <td>Histórico de falhas por máquina</td>
-            <td>Prepara Aula 12</td>
-          </tr>
-        </tbody>
-      </table>
     </section>
 
     <footer>
-      <p>Oficina de Montagem e Conexão | Diagnóstico Elétrico do Laboratório</p>
+      <p>Oficina de Montagem e Conexão | Diagnóstico de Falhas e Substituição de Peças</p>
     </footer>
   </main>
 </body>

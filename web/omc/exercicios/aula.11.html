@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avaliação – Aula 11: Diagnóstico de Falhas e Substituição de Peças</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 1rem;
+            color: #2d3748;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+        }
+
+        header p {
+            font-size: 0.85rem;
+            opacity: 0.95;
+        }
+
+        .content {
+            padding: 1.5rem;
+        }
+
+        .form-section {
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+            color: #2d3748;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+            font-family: inherit;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .question-card {
+            background: #f7fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.2s;
+        }
+
+        .question-card.correct {
+            background: #f0fdf4;
+            border-color: #86efac;
+        }
+
+        .question-card.incorrect {
+            background: #fef2f2;
+            border-color: #fca5a5;
+        }
+
+        .question-number {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 28px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .question-text {
+            font-weight: 600;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .question-content {
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: #4a5568;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            padding: 0.75rem;
+            border-radius: 6px;
+            transition: all 0.2s;
+            background: white;
+            border: 1px solid #cbd5e0;
+        }
+
+        .option:hover {
+            background: #edf2f7;
+        }
+
+        .option input[type="radio"] {
+            cursor: pointer;
+            width: 18px;
+            height: 18px;
+            margin-right: 0.75rem;
+            flex-shrink: 0;
+            accent-color: #667eea;
+        }
+
+        .option input[type="radio"]:disabled {
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        .option label {
+            margin: 0;
+            font-weight: 400;
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .feedback {
+            margin-top: 1rem;
+            padding: 0.75rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: none;
+        }
+
+        .feedback.show {
+            display: block;
+        }
+
+        .feedback.correct {
+            background: #dcfce7;
+            color: #166534;
+            border-left: 4px solid #22c55e;
+        }
+
+        .feedback.incorrect {
+            background: #fee2e2;
+            color: #991b1b;
+            border-left: 4px solid #f87171;
+        }
+
+        .attempts {
+            font-size: 0.8rem;
+            color: #718096;
+            margin-top: 0.75rem;
+            font-weight: 500;
+        }
+
+        .attempts.warning {
+            color: #d97706;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        button {
+            flex: 1;
+            padding: 1rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-submit:active {
+            transform: translateY(0);
+        }
+
+        .btn-reset {
+            background: #e2e8f0;
+            color: #2d3748;
+        }
+
+        .btn-reset:hover {
+            background: #cbd5e0;
+        }
+
+        .progress {
+            width: 100%;
+            height: 4px;
+            background: #e2e8f0;
+            border-radius: 2px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s;
+        }
+
+        .summary {
+            background: #f7fafc;
+            border: 2px solid #cbd5e0;
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            display: none;
+        }
+
+        .summary.show {
+            display: block;
+        }
+
+        .summary h2 {
+            color: #22c55e;
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+
+        .summary p {
+            color: #4a5568;
+            font-size: 0.95rem;
+        }
+
+        .status-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 0.75rem;
+            }
+
+            .container {
+                border-radius: 8px;
+            }
+
+            header {
+                padding: 1.25rem 1rem;
+            }
+
+            header h1 {
+                font-size: 1.1rem;
+            }
+
+            header p {
+                font-size: 0.8rem;
+            }
+
+            .content {
+                padding: 1rem;
+            }
+
+            .question-card {
+                padding: 1rem;
+                margin-bottom: 1.25rem;
+            }
+
+            .button-group {
+                flex-direction: column-reverse;
+            }
+
+            button {
+                padding: 0.875rem;
+                font-size: 0.95rem;
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Avaliação – Aula 11</h1>
+            <p>Diagnóstico de Falhas e Substituição de Peças</p>
+        </header>
+
+        <div class="content">
+            <div class="progress">
+                <div class="progress-bar" id="progressBar" style="width: 0%;"></div>
+            </div>
+
+            <form id="avaliacao-form">
+                <!-- Identificação do aluno -->
+                <div class="form-section">
+                    <div class="form-group">
+                        <label for="nomeAluno">Nome do Aluno *</label>
+                        <input type="text" id="nomeAluno" name="nomeAluno" required placeholder="Digite seu nome completo">
+                    </div>
+                </div>
+
+                <!-- Resumo de conclusão -->
+                <div class="summary" id="summary">
+                    <div class="status-icon">✅</div>
+                    <h2>Avaliação Concluída!</h2>
+                    <p>Você respondeu corretamente todas as questões.</p>
+                </div>
+
+                <!-- Questões -->
+                <div class="form-section" id="questoesContainer"></div>
+
+                <!-- Botões de ação -->
+                <div class="button-group">
+                    <button type="button" class="btn-reset" onclick="resetarFormulario()">Reiniciar</button>
+                    <button type="button" class="btn-submit" onclick="exportarResposta()">Enviar Resposta</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const questoes = [
+            {
+                id: 1,
+                tipo: 'multipla',
+                titulo: 'Analise as afirmativas sobre a metodologia de diagnóstico se são falsas ou verdadeiras:',
+                texto: '( ) Trocar vários componentes ao mesmo tempo facilita identificar a peça defeituosa.\nII. ( ) A coleta de informações deve ocorrer antes da desmontagem do computador.\nIII. ( ) A configuração mínima de teste reduz as variáveis envolvidas no diagnóstico.\nIV. ( ) Um problema intermitente costuma ser mais difícil de diagnosticar que um problema constante.',
+                opcoes: [
+                    { letra: 'A', texto: 'F – V – V – V' },
+                    { letra: 'B', texto: 'V – V – F – V' },
+                    { letra: 'C', texto: 'F – F – V – V' },
+                    { letra: 'D', texto: 'V – F – V – F' }
+                ],
+                resposta: 'A'
+            },
+            {
+                id: 2,
+                tipo: 'multipla',
+                titulo: 'Relacione o componente ao sintoma mais provável.',
+                texto: '1. Fonte de alimentação\n2. Memória RAM\n3. Armazenamento\n4. GPU\n\n( ) Artefatos visuais e distorções na imagem.\n( ) Tela azul (BSOD) relacionada à memória.\n( ) HD emitindo cliques rítmicos.\n( ) Reinicializações espontâneas sob carga.',
+                opcoes: [
+                    { letra: 'A', texto: '4 – 2 – 3 – 1' },
+                    { letra: 'B', texto: '2 – 4 – 1 – 3' },
+                    { letra: 'C', texto: '4 – 3 – 2 – 1' },
+                    { letra: 'D', texto: '1 – 2 – 4 – 3' }
+                ],
+                resposta: 'A'
+            },
+            {
+                id: 3,
+                tipo: 'multipla',
+                titulo: 'Sobre a observação visual durante o diagnóstico, considere:',
+                texto: '1. Verificar capacitores estufados.\n2. Procurar sinais de queimado.\n3. Conferir cabos desconectados.\n4. Ignorar LEDs de diagnóstico da placa-mãe.',
+                opcoes: [
+                    { letra: 'A', texto: 'Apenas 1 e 2.' },
+                    { letra: 'B', texto: 'Apenas 1, 2 e 3.' },
+                    { letra: 'C', texto: 'Apenas 4.' },
+                    { letra: 'D', texto: 'Todas as afirmativas.' }
+                ],
+                resposta: 'B'
+            },
+            {
+                id: 4,
+                tipo: 'multipla',
+                titulo: 'Um computador não exibe imagem e não realiza POST. O técnico decide remover GPU dedicada, armazenamento e periféricos, mantendo apenas placa-mãe, CPU, cooler, um módulo de RAM e fonte.',
+                texto: 'Essa técnica é conhecida como:',
+                opcoes: [
+                    { letra: 'A', texto: 'Overclock de diagnóstico.' },
+                    { letra: 'B', texto: 'Benchmark de estabilidade.' },
+                    { letra: 'C', texto: 'Configuração mínima de teste.' },
+                    { letra: 'D', texto: 'Teste de stress térmico.' }
+                ],
+                resposta: 'C'
+            },
+            {
+                id: 5,
+                tipo: 'multipla',
+                titulo: 'Todas as ações abaixo são recomendadas antes da substituição de uma peça, EXCETO:',
+                texto: '',
+                opcoes: [
+                    { letra: 'A', texto: 'Confirmar o diagnóstico com mais de um indício.' },
+                    { letra: 'B', texto: 'Verificar compatibilidade da peça substituta.' },
+                    { letra: 'C', texto: 'Registrar a configuração atual do sistema.' },
+                    { letra: 'D', texto: 'Substituir imediatamente a peça suspeita sem testes adicionais.' }
+                ],
+                resposta: 'D'
+            },
+            {
+                id: 6,
+                tipo: 'multipla',
+                titulo: 'Complete corretamente:',
+                texto: 'O software __________ é utilizado para testar a integridade da memória RAM de forma independente do sistema operacional.',
+                opcoes: [
+                    { letra: 'A', texto: 'FurMark' },
+                    { letra: 'B', texto: 'CrystalDiskInfo' },
+                    { letra: 'C', texto: 'MemTest86' },
+                    { letra: 'D', texto: 'CPU-Z' }
+                ],
+                resposta: 'C'
+            },
+            {
+                id: 7,
+                tipo: 'multipla',
+                titulo: 'Durante a substituição de uma CPU, qual sequência está correta?',
+                texto: '',
+                opcoes: [
+                    { letra: 'A', texto: 'Aplicar pasta térmica → remover CPU → abrir socket → instalar CPU nova.' },
+                    { letra: 'B', texto: 'Remover cooler → limpar pasta térmica → remover CPU → instalar CPU nova → aplicar pasta térmica → reinstalar cooler.' },
+                    { letra: 'C', texto: 'Remover CPU → remover cooler → instalar CPU nova → ligar sistema.' },
+                    { letra: 'D', texto: 'Aplicar pasta térmica → ligar sistema → remover cooler → instalar CPU.' }
+                ],
+                resposta: 'B'
+            },
+            {
+                id: 8,
+                tipo: 'multipla',
+                titulo: 'Um computador emite bipes contínuos longos durante o POST em uma BIOS Award/Phoenix.',
+                texto: 'A causa mais provável é:',
+                opcoes: [
+                    { letra: 'A', texto: 'Falha na GPU.' },
+                    { letra: 'B', texto: 'Falha na RAM.' },
+                    { letra: 'C', texto: 'Falha no armazenamento.' },
+                    { letra: 'D', texto: 'Falha na rede.' }
+                ],
+                resposta: 'B'
+            },
+            {
+                id: 9,
+                tipo: 'multipla',
+                titulo: 'Sobre a substituição de uma fonte de alimentação, analise:',
+                texto: '1. Fotografar os cabos antes da remoção pode ajudar na remontagem.\n2. Todos os cabos devem ser desconectados antes da retirada da fonte.\n3. O teste com configuração mínima é recomendado após a instalação.\n4. A fonte deve ser aberta para inspeção interna antes da substituição.',
+                opcoes: [
+                    { letra: 'A', texto: 'Apenas 1 e 2.' },
+                    { letra: 'B', texto: 'Apenas 1, 2 e 3.' },
+                    { letra: 'C', texto: 'Apenas 4.' },
+                    { letra: 'D', texto: 'Todas as afirmativas.' }
+                ],
+                resposta: 'B'
+            },
+            {
+                id: 10,
+                tipo: 'multipla',
+                titulo: 'Qual das ferramentas abaixo NÃO tem como função principal diagnosticar armazenamento?',
+                texto: '',
+                opcoes: [
+                    { letra: 'A', texto: 'CrystalDiskInfo' },
+                    { letra: 'B', texto: 'CrystalDiskMark' },
+                    { letra: 'C', texto: 'HD Tune' },
+                    { letra: 'D', texto: 'Prime95' }
+                ],
+                resposta: 'D'
+            }
+        ];
+
+        const tentativas = {};
+        const respostas = {};
+
+        function inicializarFormulario() {
+            const container = document.getElementById('questoesContainer');
+            
+            questoes.forEach(q => {
+                tentativas[q.id] = 0;
+                respostas[q.id] = null;
+
+                const card = document.createElement('div');
+                card.className = 'question-card';
+                card.id = `questao-${q.id}`;
+
+                let conteudo = `
+                    <div class="question-number">${q.id}</div>
+                    <div class="question-text">${q.titulo}</div>
+                    <div class="question-content">${q.texto.replace(/\n/g, '<br>')}</div>
+                    <div class="options">
+                `;
+
+                q.opcoes.forEach(opcao => {
+                    conteudo += `
+                        <div class="option">
+                            <input type="radio" id="q${q.id}_${opcao.letra}" name="questao${q.id}" value="${opcao.letra}" onchange="responderQuestao(${q.id})">
+                            <label for="q${q.id}_${opcao.letra}"><strong>${opcao.letra})</strong> ${opcao.texto}</label>
+                        </div>
+                    `;
+                });
+
+                conteudo += `
+                    </div>
+                    <div class="feedback" id="feedback-${q.id}"></div>
+                    <div class="attempts" id="attempts-${q.id}"></div>
+                `;
+
+                card.innerHTML = conteudo;
+                container.appendChild(card);
+            });
+        }
+
+        function responderQuestao(id) {
+            const respostaSelecionada = document.querySelector(`input[name="questao${id}"]:checked`).value;
+            const questao = questoes.find(q => q.id === id);
+            const card = document.getElementById(`questao-${id}`);
+            const feedback = document.getElementById(`feedback-${id}`);
+            const options = card.querySelectorAll('.option input[type="radio"]');
+
+            tentativas[id]++;
+
+            if (respostaSelecionada === questao.resposta) {
+                respostas[id] = respostaSelecionada;
+                card.classList.remove('incorrect');
+                card.classList.add('correct');
+                feedback.className = 'feedback show correct';
+                feedback.textContent = '✓ Resposta correta!';
+            } else {
+                card.classList.remove('correct');
+                card.classList.add('incorrect');
+                feedback.className = 'feedback show incorrect';
+                feedback.textContent = `✗ Resposta incorreta.`;
+            }
+
+            // Desabilitar todas as opções após responder
+            options.forEach(option => {
+                option.disabled = true;
+            });
+
+            atualizarProgresso();
+            verificarConclusao();
+        }
+
+        function atualizarProgresso() {
+            const corretas = Object.values(respostas).filter(r => r !== null).length;
+            const percentual = (corretas / questoes.length) * 100;
+            document.getElementById('progressBar').style.width = percentual + '%';
+        }
+
+        function verificarConclusao() {
+            const todasCorretas = questoes.every(q => respostas[q.id] !== null);
+            if (todasCorretas) {
+                document.getElementById('summary').classList.add('show');
+            } else {
+                document.getElementById('summary').classList.remove('show');
+            }
+        }
+
+        function criptografarBase64(texto) {
+            return btoa(unescape(encodeURIComponent(texto)));
+        }
+
+        function exportarResposta() {
+            const nomeAluno = document.getElementById('nomeAluno').value.trim();
+            
+            if (!nomeAluno) {
+                alert('Por favor, preencha o nome do aluno.');
+                return;
+            }
+
+            const dados = {
+                aluno: nomeAluno,
+                dataResposta: new Date().toISOString(),
+                respostas: {},
+                totalAcertos: 0
+            };
+
+            questoes.forEach(q => {
+                dados.respostas[`questao_${q.id}`] = respostas[q.id] || 'não respondida';
+                if (respostas[q.id]) {
+                    dados.totalAcertos++;
+                }
+            });
+
+            const jsonString = JSON.stringify(dados, null, 2);
+            const jsonCriptografado = criptografarBase64(jsonString);
+
+            const dataForDownload = {
+                encrypted: jsonCriptografado,
+                encrypted_type: 'base64'
+            };
+
+            const blob = new Blob([JSON.stringify(dataForDownload, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `resposta_${nomeAluno.replace(/\s+/g, '_')}_${new Date().getTime()}.json`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+
+            alert('Resposta exportada com sucesso!');
+        }
+
+        function resetarFormulario() {
+            if (confirm('Deseja realmente reiniciar a avaliação?')) {
+                document.getElementById('nomeAluno').value = '';
+                document.getElementById('avaliacao-form').reset();
+                Object.keys(tentativas).forEach(key => {
+                    tentativas[key] = 0;
+                    respostas[key] = null;
+                    const card = document.getElementById(`questao-${key}`);
+                    card.classList.remove('correct', 'incorrect');
+                    const feedback = document.getElementById(`feedback-${key}`);
+                    feedback.classList.remove('show');
+                    feedback.textContent = '';
+                    const options = card.querySelectorAll('.option input[type="radio"]');
+                    options.forEach(option => {
+                        option.disabled = false;
+                        option.checked = false;
+                    });
+                });
+                document.getElementById('summary').classList.remove('show');
+                atualizarProgresso();
+            }
+        }
+
+        // Inicializar formulário
+        document.addEventListener('DOMContentLoaded', inicializarFormulario);
+    </script>
+</body>
+</html>
