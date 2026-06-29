@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AULA 10 — Racks e Alimentação</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <main>
+        <header>
+            <h1>Racks e Alimentação</h1>
+            <p class="eyebrow">Aula 10 — Infraestrutura Física de Redes</p>
+        </header>
+
+        <p><strong>Objetivo da aula:</strong> Compreender o conceito e a função dos racks na infraestrutura de redes, conhecer os tipos disponíveis e suas especificações básicas, entender a organização interna e os sistemas de alimentação e proteção elétrica.</p>
+
+        <hr>
+
+        <h2>1. O que é um Rack</h2>
+        <p>O <strong>rack</strong> é o gabinete metálico padronizado que centraliza e organiza fisicamente todos os equipamentos ativos e passivos de uma infraestrutura de rede — switches, roteadores, patch panels, servidores, nobreaks e demais componentes.</p>
+
+        <h3>Por que Centralizar Equipamentos num Rack</h3>
+        <p>Antes dos racks se tornarem padrão, equipamentos de rede eram distribuídos pelo ambiente — switches sobre mesas, servidores no chão, cabos soltos. O resultado era desorganização, dificuldade de manutenção e risco de danos físicos aos equipamentos.</p>
+        <p>O rack resolve isso:</p>
+        <ul>
+            <li><strong>Organização:</strong> todos os equipamentos num espaço definido, organizados verticalmente</li>
+            <li><strong>Segurança física:</strong> acesso restrito com fechadura, proteção contra contato acidental</li>
+            <li><strong>Gestão de cabos:</strong> espaço estruturado para roteamento e organização dos cabos</li>
+            <li><strong>Ventilação:</strong> projeto que favorece o fluxo de ar para resfriamento dos equipamentos</li>
+            <li><strong>Padronização:</strong> qualquer equipamento que siga o padrão EIA-310 pode ser instalado em qualquer rack compatível</li>
+        </ul>
+
+        <h3>Padrão EIA-310</h3>
+        <ul>
+            <li><strong>Largura interna útil:</strong> 19 polegadas (482,6 mm) — é por isso que racks são chamados de “racks 19 polegadas”</li>
+            <li><strong>Espaçamento dos furos de fixação:</strong> padrão que garante que qualquer equipamento de rack se encaixe em qualquer rack compatível</li>
+            <li><strong>Unidade de rack (U):</strong> a unidade de medida de altura dos equipamentos</li>
+        </ul>
+        <p>Graças ao EIA-310, um switch da Cisco, um patch panel da Furukawa e um nobreak da APC podem todos ser instalados no mesmo rack sem adaptações.</p>
+
+        <hr>
+
+        <h2>2. Unidades de Rack (U)</h2>
+        <p>A <strong>unidade de rack</strong> — abreviada como <strong>U</strong> — é a unidade de medida que define a altura dos equipamentos e dos racks.</p>
+        <p><strong>1U = 44,45 mm (1,75 polegadas)</strong></p>
+        <p>Todo equipamento para rack tem sua altura expressa em unidades U:</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Equipamento</th>
+                    <th>Altura típica</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Switch de 24 portas</td>
+                    <td>1U</td>
+                </tr>
+                <tr>
+                    <td>Patch panel de 24 portas</td>
+                    <td>1U</td>
+                </tr>
+                <tr>
+                    <td>Patch panel de 48 portas</td>
+                    <td>2U</td>
+                </tr>
+                <tr>
+                    <td>Servidor 1U</td>
+                    <td>1U</td>
+                </tr>
+                <tr>
+                    <td>Organizador de cabos horizontal</td>
+                    <td>1U</td>
+                </tr>
+                <tr>
+                    <td>Nobreak pequeno</td>
+                    <td>2U a 3U</td>
+                </tr>
+                <tr>
+                    <td>Nobreak grande</td>
+                    <td>4U a 8U</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Como Calcular o Espaço Necessário</h3>
+        <p>Para dimensionar o rack de uma instalação, some a altura em U de todos os equipamentos previstos e adicione uma margem de crescimento:</p>
+        <pre><code>2 switches de 24 portas:     2 × 1U =  2U
+2 patch panels de 24 portas: 2 × 1U =  2U
+1 organizador de cabos:      1 × 1U =  1U
+1 nobreak:                   1 × 3U =  3U
+Margem de crescimento (30%):           2U
+─────────────────────────────────────────
+Total necessário:                      10U → escolher rack de 12U</code></pre>
+
+        <h3>Espaço de Folga</h3>
+        <p>Nunca dimensionar um rack para ser ocupado 100%. As razões são práticas:</p>
+        <ul>
+            <li><strong>Ventilação:</strong> equipamentos precisam de espaço para circulação de ar</li>
+            <li><strong>Gestão de cabos:</strong> espaço para organizar os cabos sem comprimi-los</li>
+            <li><strong>Expansão:</strong> toda instalação cresce — um rack cheio desde o início é um problema em breve</li>
+            <li><strong>Manutenção:</strong> espaço para manusear equipamentos sem remover outros</li>
+        </ul>
+        <p>O recomendado é ocupar no máximo <strong>70 a 80%</strong> da capacidade total do rack.</p>
+
+        <hr>
+
+        <h2>3. Tipos de Rack</h2>
+
+        <h3>Rack Aberto</h3>
+        <p>O rack aberto é uma estrutura metálica sem laterais, portas ou teto — apenas os montantes verticais com os trilhos de fixação e algumas travessas horizontais de reforço.</p>
+        <p><strong>Vantagens:</strong></p>
+        <ul>
+            <li>Acesso irrestrito a todos os equipamentos de qualquer ângulo</li>
+            <li>Melhor ventilação natural — sem barreiras ao fluxo de ar</li>
+            <li>Custo menor que o rack fechado</li>
+            <li>Mais fácil de instalar cabos e equipamentos</li>
+        </ul>
+        <p><strong>Limitações:</strong></p>
+        <ul>
+            <li>Sem proteção física — qualquer pessoa pode tocar os equipamentos</li>
+            <li>Sem proteção contra poeira e partículas</li>
+            <li>Estética menos organizada — todos os cabos ficam expostos</li>
+        </ul>
+        <p><strong>Quando usar:</strong> ambientes com acesso restrito e controlado — salas de servidores fechadas, armários de telecomunicações com chave. Não recomendado em ambientes abertos ou com trânsito de pessoas não autorizadas.</p>
+
+        <h3>Rack Fechado (Gabinete)</h3>
+        <p>O rack fechado é um gabinete completo — com laterais, teto, base e portas frontais e traseiras com fechadura. Os equipamentos ficam completamente enclausurados.</p>
+        <p><strong>Vantagens:</strong></p>
+        <ul>
+            <li>Proteção física completa — acesso apenas com chave</li>
+            <li>Proteção contra poeira</li>
+            <li>Estética organizada — os cabos ficam internos</li>
+            <li>Maior segurança em ambientes com acesso não controlado</li>
+        </ul>
+        <p><strong>Limitações:</strong></p>
+        <ul>
+            <li>Custo maior</li>
+            <li>Ventilação exige planejamento — sem ventiladores adequados, os equipamentos superaquecem</li>
+            <li>Acesso mais trabalhoso para manutenção</li>
+        </ul>
+        <p><strong>Quando usar:</strong> ambientes com acesso não controlado, recepções, corredores, ambientes onde a segurança física é prioritária.</p>
+
+        <h3>Armário de Parede (Wall Mount)</h3>
+        <p>O armário de parede é um rack fechado compacto projetado para ser fixado diretamente na parede — sem ocupar espaço no piso.</p>
+        <p><strong>Características:</strong></p>
+        <ul>
+            <li>Profundidade reduzida (geralmente 300 a 450 mm)</li>
+            <li>Capacidades comuns: 6U, 9U, 12U</li>
+            <li>Abertura frontal com dobradiça — o painel frontal abre revelando os equipamentos</li>
+            <li>Com ou sem fechadura</li>
+        </ul>
+        <p><strong>Quando usar:</strong> instalações pequenas com poucos equipamentos — escritórios de pequeno porte, salas de telecomunicações com espaço limitado, pontos de distribuição em andares de prédios onde um rack de piso não cabe.</p>
+
+        <h3>Rack de Piso — Tamanhos Comuns</h3>
+        <p>Racks de piso são os mais usados em instalações corporativas e data centers. Os tamanhos mais comuns:</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Tamanho</th>
+                    <th>Uso típico</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>12U</td>
+                    <td>Instalações muito pequenas, home office profissional</td>
+                </tr>
+                <tr>
+                    <td>18U</td>
+                    <td>Pequenas empresas, salas de telecomunicações de andar</td>
+                </tr>
+                <tr>
+                    <td>24U</td>
+                    <td>Empresas de médio porte</td>
+                </tr>
+                <tr>
+                    <td>42U</td>
+                    <td>Padrão para data centers e salas de servidores</td>
+                </tr>
+            </tbody>
+        </table>
+        <p>A profundidade dos racks de piso varia entre 600 mm e 1200 mm — deve ser compatível com a profundidade dos equipamentos instalados, especialmente servidores e nobreaks.</p>
+
+        <hr>
+
+        <h2>4. Organização Interna do Rack</h2>
+        <p>A organização interna do rack afeta diretamente a facilidade de manutenção, a ventilação e a segurança da instalação. Existe uma ordem lógica recomendada para posicionar os equipamentos.</p>
+
+        <h3>Ordem Recomendada dos Equipamentos</h3>
+        <p>A organização do rack segue uma lógica de cima para baixo:</p>
+        <pre><code>┌─────────────────────────┐
+│  Patch panel (1U)       │  ← Terminação dos cabos
+│  Organizador de cabos   │
+│  Switch (1U)            │  ← Equipamento ativo
+│  Organizador de cabos   │
+│  Patch panel (1U)       │  ← Segundo andar de cabeamento
+│  Organizador de cabos   │
+│  Switch (1U)            │
+│  [espaço livre]         │  ← Margem para expansão
+│  Servidor               │  ← Equipamentos pesados na base
+│  Nobreak (3U)           │  ← Base — centro de gravidade baixo
+└─────────────────────────┘</code></pre>
+        <p><strong>Patch panels no topo:</strong> os cabos de instalação que chegam ao rack são normalmente roteados pelo teto ou pela parte superior — terminá-los nos patch panels do topo reduz o percurso dos cabos e mantém a organização.</p>
+        <p><strong>Switches logo abaixo dos patch panels:</strong> o patch cord que conecta o patch panel ao switch fica curto — geralmente 0,5 m a 1 m — mantendo a organização e sem cabos longos soltos.</p>
+        <p><strong>Equipamentos pesados na base:</strong> servidores e nobreaks são os componentes mais pesados. Posicioná-los na base mantém o centro de gravidade baixo, reduzindo o risco de tombamento.</p>
+        <p><strong>Espaço livre no meio:</strong> reservar espaço para expansão futura no meio do rack — não no topo nem na base, onde os equipamentos fixos geralmente ficam.</p>
+
+        <h3>Organizadores de Cabos Horizontais e Verticais</h3>
+        <p><strong>Organizador horizontal (1U):</strong> instalado entre o patch panel e o switch. Possui anéis ou passadores por onde os patch cords são roteados horizontalmente antes de seguir para o switch. Evita que os patch cords caiam soltos na frente do rack.</p>
+        <p><strong>Organizador vertical:</strong> instalado nas laterais internas do rack. Roteia os patch cords verticalmente ao longo do rack — especialmente útil quando o patch panel e o switch estão em posições distantes no rack.</p>
+
+        <h3>Gestão de Cabos Dentro do Rack</h3>
+        <p>Boas práticas introdutórias para gestão de cabos no rack:</p>
+        <ul>
+            <li>Usar patch cords do comprimento correto — nem muito curtos (que ficam tensos) nem muito longos (que ficam com excesso de cabo solto)</li>
+            <li>Organizar os patch cords por grupos funcionais — cores diferentes para funções diferentes</li>
+            <li>Fixar feixes de cabos com abraçadeiras de velcro — nunca nylon dentro do rack</li>
+            <li>Deixar os cabos de energia separados dos cabos de dados — lados opostos do rack quando possível</li>
+            <li>Manter o acesso traseiro do rack desobstruído — os cabos de instalação que chegam pelo fundo devem ser organizados para permitir manutenção</li>
+        </ul>
+
+        <h3>Etiquetagem de Equipamentos no Rack</h3>
+        <p>Cada equipamento no rack deve ser identificado com etiqueta visível contendo no mínimo:</p>
+        <ul>
+            <li>Nome ou função do equipamento (ex: “Switch Andar 2”, “Patch Panel Sala A”)</li>
+            <li>Endereço IP de gerência, quando aplicável</li>
+            <li>Número de série ou patrimônio, em instalações que exigem controle de ativos</li>
+        </ul>
+
+        <hr>
+
+        <h2>5. Alimentação e Proteção Elétrica</h2>
+        <p>Os equipamentos de rede são equipamentos eletrônicos sensíveis — variações de tensão, picos elétricos e interrupções de energia podem danificá-los permanentemente ou causar perda de dados. A proteção elétrica é parte integrante da infraestrutura de rede.</p>
+
+        <h3>Régua de Tomadas para Rack (PDU)</h3>
+        <p>A <strong>PDU</strong> (<em>Power Distribution Unit</em>) é a régua de tomadas projetada para instalação em rack. Diferente de uma régua doméstica comum, a PDU para rack:</p>
+        <ul>
+            <li>É fixada verticalmente nas laterais internas do rack ou horizontalmente em 1U</li>
+            <li>Possui tomadas no padrão adequado aos equipamentos de rack (geralmente NBR 14136 no Brasil)</li>
+            <li>Tem capacidade de corrente adequada para alimentar múltiplos equipamentos simultaneamente</li>
+            <li>Alguns modelos têm medição de consumo individual por tomada — útil para gestão de energia em data centers</li>
+        </ul>
+
+        <h3>Filtro de Linha</h3>
+        <p>O filtro de linha protege os equipamentos contra <strong>picos de tensão</strong> (<em>surtos elétricos</em>) — variações bruscas e momentâneas na tensão da rede elétrica, causadas por raios, acionamento de motores e outros eventos.</p>
+        <p><strong>O que o filtro de linha protege:</strong> picos de tensão de curta duração que podem danificar componentes eletrônicos.</p>
+        <p><strong>O que o filtro de linha NÃO protege:</strong> quedas de energia, variações lentas de tensão (subtensão/sobretensão), oscilações prolongadas. Para essas situações, é necessário um nobreak.</p>
+        <blockquote>Um filtro de linha não substitui um nobreak — são proteções complementares para problemas diferentes.</blockquote>
+
+        <h3>Nobreak (UPS)</h3>
+        <p>O <strong>nobreak</strong> — também chamado de <strong>UPS</strong> (<em>Uninterruptible Power Supply</em>) — é o equipamento que garante alimentação contínua aos equipamentos de rede mesmo durante quedas de energia elétrica.</p>
+        <p><strong>Como funciona:</strong> o nobreak mantém baterias internas permanentemente carregadas. Em caso de queda de energia, a eletrônica interna comuta automaticamente para as baterias em milissegundos — os equipamentos conectados não percebem a interrupção.</p>
+        <p><strong>Funções do nobreak:</strong></p>
+        <ul>
+            <li><strong>Autonomia durante queda de energia:</strong> mantém os equipamentos funcionando por um tempo suficiente para encerramento ordenado ou até o retorno da energia</li>
+            <li><strong>Estabilização de tensão:</strong> corrige variações lentas de tensão (subtensão e sobretensão)</li>
+            <li><strong>Filtragem de ruído elétrico:</strong> filtra interferências na rede elétrica</li>
+            <li><strong>Proteção contra surtos:</strong> protege contra picos de tensão</li>
+        </ul>
+        <p><strong>Dimensionamento básico:</strong></p>
+        <ol>
+            <li>Listar todos os equipamentos que serão conectados ao nobreak</li>
+            <li>Somar a potência de cada um (em watts — geralmente indicada na etiqueta do equipamento)</li>
+            <li>Multiplicar por 1,4 a 1,6 (fator de correção para potência aparente em VA)</li>
+            <li>Escolher o nobreak com capacidade em VA igual ou superior ao valor calculado</li>
+            <li>Verificar a autonomia oferecida com essa carga — quanto tempo o nobreak sustenta os equipamentos com as baterias</li>
+        </ol>
+        <blockquote>O dimensionamento detalhado de nobreaks será abordado na disciplina de Segurança do Trabalho e na disciplina de Cabeamento e Infraestrutura do próximo semestre.</blockquote>
+
+        <hr>
+
+        <h2>6. Ambiente do Rack</h2>
+        <p>O rack não existe isolado — ele precisa de um ambiente adequado para funcionar corretamente.</p>
+
+        <h3>Temperatura e Ventilação</h3>
+        <p>Equipamentos eletrônicos geram calor — switches, servidores e nobreaks dissipam energia na forma de calor para o ambiente. Sem ventilação adequada, a temperatura dentro do rack sobe e os equipamentos entram em proteção térmica (desligamento automático) ou têm sua vida útil reduzida drasticamente.</p>
+        <p><strong>Princípio do fluxo de ar frio-quente:</strong> equipamentos de rack puxam ar frio pela frente e expelem ar quente pela traseira (ou pela parte superior). A organização do rack deve respeitar esse fluxo — nunca bloquear as entradas e saídas de ar dos equipamentos.</p>
+        <p><strong>Temperatura recomendada:</strong> entre 18°C e 27°C no ambiente do rack. Acima de 35°C, o risco de falha dos equipamentos aumenta significativamente.</p>
+        <p>Em racks fechados, ventiladores ativos (instalados no teto do rack) podem ser necessários para expelir o ar quente — especialmente quando há alta densidade de equipamentos.</p>
+
+        <h3>Organização do Espaço Físico</h3>
+        <p>O rack deve ser posicionado com espaço suficiente para acesso frontal e traseiro:</p>
+        <ul>
+            <li><strong>Frente:</strong> mínimo de 1 metro para abrir portas e manusear equipamentos e patch cords</li>
+            <li><strong>Traseira:</strong> mínimo de 0,8 metros para acesso aos cabos de instalação e cabos de energia</li>
+        </ul>
+        <p>Em data centers, a organização em corredores quente/frio — onde fileiras de racks são posicionadas frente a frente (corredor frio, para entrada de ar) e costas com costas (corredor quente, para saída de ar) — é o padrão de eficiência energética.</p>
+
+        <h3>Segurança Física</h3>
+        <p>O rack concentra toda a infraestrutura crítica de rede — protegê-lo fisicamente é tão importante quanto protegê-lo eletricamente:</p>
+        <p><strong>Rack com chave:</strong> racks fechados devem ter fechadura — a chave deve ser controlada e entregue apenas a pessoas autorizadas.</p>
+        <p><strong>Sala de telecomunicações com acesso restrito:</strong> o ideal é que o rack fique numa sala dedicada, com acesso por chave ou controle biométrico, com registro de entrada e saída.</p>
+        <p><strong>Sem equipamentos não identificados:</strong> qualquer equipamento instalado no rack deve ser identificado e registrado. Dispositivos desconhecidos num rack podem representar riscos de segurança.</p>
+    </main>
+</body>
+</html>

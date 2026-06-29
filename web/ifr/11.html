@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AULA 11 — Dispositivos de Interconexão</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <main>
+        <header>
+            <h1>Dispositivos de Interconexão</h1>
+            <p class="eyebrow">Aula 11 — Infraestrutura Física de Redes</p>
+        </header>
+
+        <p><strong>Objetivo da aula:</strong> Conhecer os principais dispositivos ativos de uma infraestrutura de rede, compreender a função de cada um, entender em qual camada do modelo OSI operam e saber identificar o dispositivo correto para cada situação.</p>
+
+        <hr>
+
+        <h2>1. Componentes Passivos vs. Componentes Ativos</h2>
+        <p>Ao longo das últimas aulas estudamos os componentes passivos da infraestrutura de rede — cabos, conectores, patch panels, canaletas e racks. São chamados de passivos porque não processam dados: apenas os transportam ou organizam, sem nenhum processamento eletrônico.</p>
+        <p>Os <strong>componentes ativos</strong> — também chamados de <strong>dispositivos de interconexão</strong> — são equipamentos eletrônicos que processam, encaminham ou gerenciam o tráfego de dados. Eles precisam de energia elétrica para funcionar e tomam decisões sobre o que fazer com cada dado que recebem.</p>
+        <p>A infraestrutura física que estudamos até aqui é a fundação — os dispositivos ativos são o que dá vida à rede sobre essa fundação.</p>
+
+        <hr>
+
+        <h2>2. Hub</h2>
+
+        <h3>O que é e Como Funciona</h3>
+        <p>O <strong>hub</strong> foi o primeiro dispositivo usado para conectar múltiplos computadores numa rede local Ethernet. Sua função é simples: receber um sinal elétrico por uma porta e replicá-lo imediatamente para <strong>todas as outras portas</strong> — sem nenhuma inteligência sobre para onde o dado deve ir.</p>
+        <p>Isso significa que se o computador A envia dados para o computador B, todos os outros computadores conectados ao hub também recebem esses dados — e precisam verificar se são o destinatário correto antes de descartar ou processar o pacote.</p>
+
+        <h3>Problemas do Hub</h3>
+        <p>Essa abordagem de replicação total gera dois problemas sérios:</p>
+        <p><strong>Colisões:</strong> se dois computadores transmitem simultaneamente, os sinais colidem no cabo — ambos os dados são corrompidos e precisam ser retransmitidos. Em redes com muitos dispositivos, as colisões se tornam frequentes e degradam drasticamente o desempenho.</p>
+        <p><strong>Falta de privacidade:</strong> como todos recebem todos os dados, qualquer computador na rede pode capturar o tráfego destinado a outros — um problema grave de segurança.</p>
+
+        <h3>Relevância Atual</h3>
+        <p>O hub é um dispositivo obsoleto — substituído completamente pelo switch em qualquer instalação moderna. Não deve ser usado em novas instalações. Seu estudo é relevante para compreender a evolução tecnológica e para entender por que o switch representa uma melhoria tão significativa.</p>
+        <blockquote><strong>Camada OSI:</strong> o hub opera na <strong>camada 1 — Física</strong>. Não interpreta endereços — apenas amplifica e replica o sinal elétrico.</blockquote>
+
+        <hr>
+
+        <h2>3. Switch</h2>
+
+        <h3>O que é e Como Funciona</h3>
+        <p>O <strong>switch</strong> é o dispositivo central de qualquer rede local moderna. Assim como o hub, conecta múltiplos dispositivos — mas com uma diferença fundamental: o switch é inteligente.</p>
+        <p>Quando um dispositivo se conecta ao switch e transmite dados, o switch lê o <strong>endereço MAC</strong> de origem do quadro e registra em qual porta aquele dispositivo está conectado. Isso forma a <strong>tabela MAC</strong> — um mapa de qual endereço MAC está em qual porta.</p>
+        <p>A partir desse momento, quando chega um quadro destinado a um endereço MAC já registrado, o switch encaminha o quadro <strong>apenas para a porta correta</strong> — e não para todas as portas como o hub faz.</p>
+        <p>O resultado é uma rede sem colisões, com privacidade entre os dispositivos e com desempenho muito superior ao hub.</p>
+        <blockquote><strong>Camada OSI:</strong> o switch opera na <strong>camada 2 — Enlace de Dados</strong>. Toma decisões baseadas em endereços MAC.</blockquote>
+
+        <h3>Switch Não Gerenciável</h3>
+        <p>O switch não gerenciável (<em>unmanaged</em>) funciona imediatamente ao ser conectado — sem nenhuma configuração necessária. Liga, conecta os cabos e a rede funciona.</p>
+        <p>É a escolha correta para instalações simples onde não há necessidade de controle avançado — pequenas empresas, escritórios domésticos, expansões pontuais de rede.</p>
+        <p><strong>Limitações:</strong> sem configuração, sem VLANs, sem monitoramento de tráfego, sem controle de portas.</p>
+
+        <h3>Switch Gerenciável</h3>
+        <p>O switch gerenciável (<em>managed</em>) oferece controle completo sobre seu funcionamento através de uma interface de configuração — acessada por linha de comando (CLI), interface web ou protocolo SNMP.</p>
+        <p>Recursos típicos de um switch gerenciável:</p>
+        <ul>
+            <li><strong>VLANs:</strong> segmentação lógica da rede — dispositivos em VLANs diferentes não se comunicam diretamente, mesmo estando no mesmo switch físico</li>
+            <li><strong>QoS (Quality of Service):</strong> priorização de tráfego — garante que chamadas VoIP e videoconferências tenham prioridade sobre downloads</li>
+            <li><strong>Monitoramento de portas:</strong> visualização do tráfego, erros e status de cada porta</li>
+            <li><strong>Segurança de porta:</strong> limitar quais endereços MAC podem se conectar a cada porta</li>
+            <li><strong>STP/RSTP:</strong> prevenção de loops em redes com caminhos redundantes</li>
+        </ul>
+        <p>É a escolha correta para instalações corporativas, ambientes com múltiplas VLANs e qualquer instalação que exija controle e monitoramento.</p>
+
+        <h3>PoE — Power over Ethernet</h3>
+        <p>O <strong>PoE</strong> (<em>Power over Ethernet</em>) é uma tecnologia que permite transmitir energia elétrica pelo mesmo cabo de par trançado que transporta os dados — eliminando a necessidade de fonte de alimentação separada para dispositivos como câmeras IP, access points e telefones VoIP.</p>
+        <p>O switch com suporte a PoE injeta energia elétrica nos pares do cabo. O dispositivo receptor (câmera, AP, telefone) extrai essa energia para se alimentar.</p>
+        <p><strong>Padrões PoE:</strong></p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Padrão</th>
+                    <th>Potência por porta</th>
+                    <th>Uso típico</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>IEEE 802.3af (PoE)</td>
+                    <td>Até 15,4 W</td>
+                    <td>Telefones VoIP, câmeras IP simples</td>
+                </tr>
+                <tr>
+                    <td>IEEE 802.3at (PoE+)</td>
+                    <td>Até 30 W</td>
+                    <td>APs Wi-Fi, câmeras PTZ</td>
+                </tr>
+                <tr>
+                    <td>IEEE 802.3bt (PoE++)</td>
+                    <td>Até 60 W / 100 W</td>
+                    <td>APs Wi-Fi 6, painéis de acesso, TVs</td>
+                </tr>
+            </tbody>
+        </table>
+        <blockquote><strong>Importante:</strong> apenas par trançado suporta PoE — fibra óptica não conduz energia elétrica.</blockquote>
+
+        <h3>Velocidades e Portas</h3>
+        <p>Switches modernos são fabricados com diferentes combinações de portas:</p>
+        <p><strong>Portas de cobre RJ-45:</strong> Fast Ethernet (100 Mbps), Gigabit Ethernet (1 Gbps) ou Multi-Gigabit (2,5/5/10 Gbps). A maioria dos switches atuais para redes locais opera em Gigabit.</p>
+        <p><strong>Portas SFP e SFP+:</strong> portas para módulos transceptores removíveis — permitem instalar transceptores de fibra óptica ou cobre de alta velocidade. SFP suporta até 1 Gbps; SFP+ suporta até 10 Gbps. São usadas para uplinks — conexão entre switches ou conexão com o roteador.</p>
+
+        <hr>
+
+        <h2>4. Roteador</h2>
+
+        <h3>O que é e Como Funciona</h3>
+        <p>O <strong>roteador</strong> é o dispositivo responsável por interligar <strong>redes diferentes</strong> e determinar o melhor caminho para que os pacotes cheguem ao destino — mesmo atravessando múltiplas redes intermediárias.</p>
+        <p>Enquanto o switch trabalha com endereços MAC dentro de uma mesma rede local, o roteador trabalha com <strong>endereços IP</strong> e toma decisões de encaminhamento entre redes distintas.</p>
+        <p>Quando um pacote chega ao roteador, ele lê o endereço IP de destino, consulta sua <strong>tabela de roteamento</strong> e encaminha o pacote pela interface mais adequada — seja para outro roteador no caminho, seja diretamente para o destino.</p>
+        <blockquote><strong>Camada OSI:</strong> o roteador opera na <strong>camada 3 — Rede</strong>. Toma decisões baseadas em endereços IP.</blockquote>
+
+        <h3>Roteador Doméstico vs. Roteador Corporativo</h3>
+        <p><strong>Roteador doméstico:</strong> equipamento compacto que combina múltiplas funções num único dispositivo — roteador, switch de 4 portas, access point Wi-Fi, servidor DHCP, NAT e firewall básico. É o equipamento que a operadora instala na residência do cliente. Simples de configurar, mas com recursos limitados.</p>
+        <p><strong>Roteador corporativo:</strong> equipamento dedicado exclusivamente ao roteamento — sem switch embutido, sem Wi-Fi. Projetado para alto volume de tráfego, múltiplas interfaces WAN, protocolos de roteamento dinâmico (OSPF, BGP) e configuração avançada. Em ambientes corporativos, as funções de switch e Wi-Fi ficam em equipamentos separados e especializados.</p>
+
+        <h3>Funções Típicas do Roteador Doméstico/SMB</h3>
+        <ul>
+            <li><strong>NAT:</strong> traduz os endereços IP privados da rede interna para o IP público da operadora — permite que todos os dispositivos da rede acessem a internet compartilhando um único IP público.</li>
+            <li><strong>DHCP:</strong> atribui automaticamente endereços IP, máscara, gateway e DNS para cada dispositivo que se conecta à rede — elimina a necessidade de configuração manual em cada dispositivo.</li>
+            <li><strong>Firewall básico:</strong> bloqueia conexões não solicitadas vindas da internet, protegendo os dispositivos internos de acessos externos não autorizados.</li>
+        </ul>
+
+        <hr>
+
+        <h2>5. Access Point</h2>
+
+        <h3>O que é e Como Funciona</h3>
+        <p>O <strong>access point</strong> (AP) é o dispositivo que cria e gerencia a rede Wi-Fi — permitindo que dispositivos sem fio se conectem à rede local cabeada.</p>
+        <p>O AP recebe dados da rede cabeada pelo cabo de par trançado e os transmite pelo ar via ondas de rádio para os dispositivos wireless. No sentido inverso, recebe os dados transmitidos pelos dispositivos wireless e os encaminha para a rede cabeada.</p>
+        <blockquote><strong>Camada OSI:</strong> o access point opera nas camadas <strong>1 e 2</strong> — converte entre o meio físico cabeado e o meio sem fio, mantendo o endereçamento MAC.</blockquote>
+
+        <h3>AP Standalone vs. AP Gerenciado por Controlador</h3>
+        <p><strong>AP standalone:</strong> configurado individualmente, de forma independente. Adequado para instalações com um ou poucos APs. Cada AP tem sua própria interface de configuração — o que torna a gestão trabalhosa quando há muitos APs.</p>
+        <p><strong>AP gerenciado por controlador (<em>controller-based</em>):</strong> múltiplos APs são gerenciados centralmente por um controlador — físico (um equipamento dedicado no rack) ou virtual (software num servidor). O controlador configura todos os APs simultaneamente, monitora o tráfego wireless de toda a instalação e permite funcionalidades avançadas como roaming transparente entre APs e balanceamento de carga.</p>
+        <p>É a escolha correta para instalações com muitos APs — escolas, hospitais, hotéis, empresas com múltiplos andares.</p>
+
+        <h3>PoE como Forma de Alimentação</h3>
+        <p>A grande maioria dos access points corporativos é alimentada por <strong>PoE</strong> — recebem energia pelo mesmo cabo Cat6 que transporta os dados. Isso elimina a necessidade de tomada elétrica próxima ao ponto de instalação do AP, que frequentemente fica no teto ou em locais de difícil acesso.</p>
+
+        <h3>Posicionamento e Cobertura</h3>
+        <p>O posicionamento correto dos APs é fundamental para garantir cobertura adequada sem interferência entre eles. Fatores que afetam a cobertura:</p>
+        <ul>
+            <li><strong>Paredes e obstáculos:</strong> paredes de concreto, vidro metalizado e estruturas metálicas reduzem significativamente o alcance do sinal Wi-Fi</li>
+            <li><strong>Frequência:</strong> 2,4 GHz penetra melhor em obstáculos; 5 GHz oferece mais velocidade mas menor alcance</li>
+            <li><strong>Interferência entre APs:</strong> APs próximos devem operar em canais diferentes para evitar interferência mútua</li>
+        </ul>
+        <blockquote>O projeto de cobertura Wi-Fi — <em>site survey</em>, cálculo de APs necessários e posicionamento — será abordado em disciplinas específicas de redes sem fio.</blockquote>
+
+        <hr>
+
+        <h2>6. Firewall</h2>
+
+        <h3>O que é e Qual sua Função</h3>
+        <p>O <strong>firewall</strong> é o dispositivo de segurança responsável por controlar e filtrar o tráfego entre redes — geralmente entre a rede interna (confiável) e a internet (não confiável).</p>
+        <p>O firewall analisa cada pacote que tenta atravessar a barreira entre as redes e decide, com base em regras configuradas, se permite ou bloqueia a passagem. Essas regras podem ser baseadas em endereços IP, portas, protocolos, horários e outros critérios.</p>
+        <blockquote><strong>Camada OSI:</strong> firewalls básicos operam nas <strong>camadas 3 e 4</strong>. Firewalls de próxima geração (<em>NGFW</em>) inspecionam até a <strong>camada 7</strong>, analisando o conteúdo das aplicações.</blockquote>
+
+        <h3>Firewall de Hardware vs. Software</h3>
+        <p><strong>Firewall de hardware:</strong> appliance dedicado — um equipamento físico instalado no rack, projetado exclusivamente para função de firewall. Oferece alto desempenho, recursos avançados e não compete por recursos com outros sistemas. É a solução para ambientes corporativos.</p>
+        <p><strong>Firewall de software:</strong> programa instalado num servidor ou computador. Mais flexível e de menor custo, mas consome recursos do servidor onde está instalado. Exemplos: pfSense, OPNsense (soluções open source amplamente usadas em pequenas e médias empresas).</p>
+
+        <h3>Quando é Necessário um Firewall Dedicado</h3>
+        <p>O roteador doméstico inclui um firewall básico — suficiente para uso residencial e pequenas empresas com baixo nível de risco. Para ambientes que exigem:</p>
+        <ul>
+            <li>Regras de segurança detalhadas e auditáveis</li>
+            <li>Inspeção profunda de pacotes (DPI)</li>
+            <li>VPN corporativa</li>
+            <li>Controle de aplicações e filtragem de conteúdo</li>
+            <li>Relatórios de segurança</li>
+        </ul>
+        <p>— um firewall dedicado é necessário.</p>
+
+        <hr>
+
+        <h2>7. Modem</h2>
+
+        <h3>O que é e Qual seu Papel</h3>
+        <p>O <strong>modem</strong> é o dispositivo que conecta a rede local do cliente à infraestrutura da operadora de internet. Faz a conversão entre o sinal da rede local (digital Ethernet) e o sinal usado pela tecnologia de acesso da operadora.</p>
+        <p>O nome vem de <strong>Mo</strong>dulador/<strong>Dem</strong>odulador — como estudado na aula 02, converte sinais digitais em analógicos e vice-versa. Embora os modems modernos de fibra não façam mais modulação analógica no sentido original, o nome permanece por tradição.</p>
+
+        <h3>Tipos de Modem por Tecnologia de Acesso</h3>
+        <p><strong>Modem DSL (xDSL):</strong> conecta à linha telefônica de cobre da operadora. Tecnologia em declínio, substituída progressivamente pela fibra. Velocidades limitadas pela distância até a central da operadora.</p>
+        <p><strong>Modem a cabo (DOCSIS):</strong> conecta ao cabo coaxial da operadora de TV a cabo. Usado por operadoras como Claro/NET. Oferece velocidades altas, mas o meio é compartilhado entre vizinhos.</p>
+        <p><strong>ONT/ONU — Optical Network Terminal:</strong> o “modem” de fibra óptica. Converte o sinal óptico da fibra em sinal elétrico Ethernet para a rede do cliente. É o CPE padrão nas instalações FTTH. Tecnicamente não é um modem no sentido original — é um conversor óptico/elétrico — mas cumpre o mesmo papel de interface com a operadora.</p>
+
+        <h3>Diferença entre Modem e Roteador</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Modem / ONT</th>
+                    <th>Roteador</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Função</td>
+                    <td>Conecta à operadora</td>
+                    <td>Gerencia a rede interna</td>
+                </tr>
+                <tr>
+                    <td>Camada OSI</td>
+                    <td>1 e 2</td>
+                    <td>3</td>
+                </tr>
+                <tr>
+                    <td>NAT</td>
+                    <td>Não (geralmente)</td>
+                    <td>Sim</td>
+                </tr>
+                <tr>
+                    <td>DHCP interno</td>
+                    <td>Não</td>
+                    <td>Sim</td>
+                </tr>
+                <tr>
+                    <td>Wi-Fi</td>
+                    <td>Não</td>
+                    <td>Sim (em modelos combinados)</td>
+                </tr>
+            </tbody>
+        </table>
+        <p>Muitas operadoras fornecem um equipamento combinado — modem + roteador + Wi-Fi num único dispositivo, chamado de <strong>gateway residencial</strong> ou <strong>roteador da operadora</strong>. Em instalações corporativas, o correto é separar as funções: o modem/ONT faz a interface com a operadora, e um roteador dedicado gerencia a rede interna.</p>
+
+        <hr>
+
+        <h2>8. Comparativo entre os Dispositivos</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Dispositivo</th>
+                    <th>Camada OSI</th>
+                    <th>Função Principal</th>
+                    <th>Uso Típico</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Hub</td>
+                    <td>Camada 1</td>
+                    <td>Replica sinal para todas as portas</td>
+                    <td>Obsoleto — não usar</td>
+                </tr>
+                <tr>
+                    <td>Switch</td>
+                    <td>Camada 2</td>
+                    <td>Encaminha quadros por endereço MAC</td>
+                    <td>Rede local — conexão de dispositivos</td>
+                </tr>
+                <tr>
+                    <td>Roteador</td>
+                    <td>Camada 3</td>
+                    <td>Encaminha pacotes por endereço IP entre redes</td>
+                    <td>Conexão entre redes e internet</td>
+                </tr>
+                <tr>
+                    <td>Access Point</td>
+                    <td>Camadas 1 e 2</td>
+                    <td>Conecta dispositivos wireless à rede cabeada</td>
+                    <td>Cobertura Wi-Fi</td>
+                </tr>
+                <tr>
+                    <td>Firewall</td>
+                    <td>Camadas 3 a 7</td>
+                    <td>Filtra e controla tráfego entre redes</td>
+                    <td>Segurança de perímetro</td>
+                </tr>
+                <tr>
+                    <td>Modem / ONT</td>
+                    <td>Camadas 1 e 2</td>
+                    <td>Interface com a operadora de internet</td>
+                    <td>Ponto de entrada da internet</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <hr>
+
+        <h2>Síntese do Bloco 5</h2>
+        <p>Com esta aula, o Bloco 5 — Dispositivos de Interconexão — está concluído. O aluno agora conhece todos os dispositivos ativos que compõem uma infraestrutura de rede local:</p>
+        <ul>
+            <li><strong>Hub:</strong> dispositivo obsoleto, substituído pelo switch</li>
+            <li><strong>Switch:</strong> coração da rede local, opera na camada 2, suporta PoE e VLANs nos modelos gerenciáveis</li>
+            <li><strong>Roteador:</strong> interliga redes diferentes, opera na camada 3, inclui NAT e DHCP nos modelos domésticos</li>
+            <li><strong>Access Point:</strong> cria a rede Wi-Fi, alimentado por PoE, gerenciado individualmente ou por controlador</li>
+            <li><strong>Firewall:</strong> controla e filtra o tráfego entre redes, essencial para segurança corporativa</li>
+            <li><strong>Modem / ONT:</strong> interface com a operadora de internet, converte o sinal da tecnologia de acesso para Ethernet</li>
+        </ul>
+    </main>
+</body>
+</html>
