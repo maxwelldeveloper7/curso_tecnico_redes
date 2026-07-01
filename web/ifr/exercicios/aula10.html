@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avaliação – Aula 10: Racks e Alimentação</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 1rem;
+            color: #2d3748;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+        }
+
+        header p {
+            font-size: 0.85rem;
+            opacity: 0.95;
+        }
+
+        .content {
+            padding: 1.5rem;
+        }
+
+        .form-section {
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+            color: #2d3748;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+            font-family: inherit;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .question-card {
+            background: #f7fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.2s;
+        }
+
+        .question-card.correct {
+            background: #f0fdf4;
+            border-color: #86efac;
+        }
+
+        .question-card.incorrect {
+            background: #fef2f2;
+            border-color: #fca5a5;
+        }
+
+        .question-number {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 28px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .question-text {
+            font-weight: 600;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .question-content {
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: #4a5568;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            padding: 0.75rem;
+            border-radius: 6px;
+            transition: all 0.2s;
+            background: white;
+            border: 1px solid #cbd5e0;
+        }
+
+        .option:hover {
+            background: #edf2f7;
+        }
+
+        .option input[type="radio"] {
+            cursor: pointer;
+            width: 18px;
+            height: 18px;
+            margin-right: 0.75rem;
+            flex-shrink: 0;
+            accent-color: #667eea;
+        }
+
+        .option input[type="radio"]:disabled {
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        .option label {
+            margin: 0;
+            font-weight: 400;
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .feedback {
+            margin-top: 1rem;
+            padding: 0.75rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: none;
+        }
+
+        .feedback.show {
+            display: block;
+        }
+
+        .feedback.correct {
+            background: #dcfce7;
+            color: #166534;
+            border-left: 4px solid #22c55e;
+        }
+
+        .feedback.incorrect {
+            background: #fee2e2;
+            color: #991b1b;
+            border-left: 4px solid #f87171;
+        }
+
+        .attempts {
+            font-size: 0.8rem;
+            color: #718096;
+            margin-top: 0.75rem;
+            font-weight: 500;
+        }
+
+        .attempts.warning {
+            color: #d97706;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        button {
+            flex: 1;
+            padding: 1rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-submit:active {
+            transform: translateY(0);
+        }
+
+        .btn-reset {
+            background: #e2e8f0;
+            color: #2d3748;
+        }
+
+        .btn-reset:hover {
+            background: #cbd5e0;
+        }
+
+        .progress {
+            width: 100%;
+            height: 4px;
+            background: #e2e8f0;
+            border-radius: 2px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s;
+        }
+
+        .summary {
+            background: #f7fafc;
+            border: 2px solid #cbd5e0;
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            display: none;
+        }
+
+        .summary.show {
+            display: block;
+        }
+
+        .summary h2 {
+            color: #22c55e;
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+
+        .summary p {
+            color: #4a5568;
+            font-size: 0.95rem;
+        }
+
+        .status-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 0.75rem;
+            }
+
+            .container {
+                border-radius: 8px;
+            }
+
+            header {
+                padding: 1.25rem 1rem;
+            }
+
+            header h1 {
+                font-size: 1.1rem;
+            }
+
+            header p {
+                font-size: 0.8rem;
+            }
+
+            .content {
+                padding: 1rem;
+            }
+
+            .question-card {
+                padding: 1rem;
+                margin-bottom: 1.25rem;
+            }
+
+            .button-group {
+                flex-direction: column-reverse;
+            }
+
+            button {
+                padding: 0.875rem;
+                font-size: 0.95rem;
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Avaliação – Aula 10</h1>
+            <p>Racks e Alimentação</p>
+        </header>
+
+        <div class="content">
+            <div class="progress">
+                <div class="progress-bar" id="progressBar" style="width: 0%;"></div>
+            </div>
+
+            <form id="avaliacao-form">
+                <!-- Identificação do aluno -->
+                <div class="form-section">
+                    <div class="form-group">
+                        <label for="nomeAluno">Nome do Aluno *</label>
+                        <input type="text" id="nomeAluno" name="nomeAluno" required
+                            placeholder="Digite seu nome completo">
+                    </div>
+                </div>
+
+                <!-- Resumo de conclusão -->
+                <div class="summary" id="summary">
+                    <div class="status-icon">✅</div>
+                    <h2>Avaliação Concluída!</h2>
+                    <p>Você respondeu corretamente todas as questões.</p>
+                </div>
+
+                <!-- Questões -->
+                <div class="form-section" id="questoesContainer"></div>
+
+                <!-- Botões de ação -->
+                <div class="button-group">
+                    <button type="button" class="btn-reset" onclick="resetarFormulario()">Reiniciar</button>
+                    <button type="button" class="btn-submit" onclick="exportarResposta()">Enviar Resposta</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+
+        const questoes = [
+            {
+                id: 1,
+                tipo: 'sequencia_vf',
+                titulo: 'Analise as afirmativas sobre racks:',
+                texto: 'I. ( ) O rack centraliza equipamentos ativos e passivos da rede.\nII. ( ) O padrão EIA-310 define dimensões padronizadas para racks e equipamentos.\nIII. ( ) O rack substitui a necessidade de switches e patch panels.\nIV. ( ) A centralização dos equipamentos facilita a manutenção.',
+                opcoes: [
+                    { letra: 'A', texto: 'V – V – F – V' },
+                    { letra: 'B', texto: 'V – F – V – F' },
+                    { letra: 'C', texto: 'F – V – V – F' },
+                    { letra: 'D', texto: 'V – V – V – F' }
+                ],
+                resposta: 'A'
+            },
+            {
+                id: 2,
+                tipo: 'associacao',
+                titulo: 'Associe o equipamento à sua altura típica:',
+                texto: '1. Switch de 24 portas\n2. Patch panel de 48 portas\n3. Organizador de cabos horizontal\n4. Nobreak pequeno\n\n( ) 2U\n( ) 1U\n( ) 1U\n( ) 2U a 3U',
+                opcoes: [
+                    { letra: 'A', texto: '2 – 1 – 3 – 4' },
+                    { letra: 'B', texto: '1 – 2 – 3 – 4' },
+                    { letra: 'C', texto: '4 – 3 – 2 – 1' },
+                    { letra: 'D', texto: '2 – 3 – 1 – 4' }
+                ],
+                resposta: 'A'
+            },
+            {
+                id: 3,
+                tipo: 'combinacao_corretas',
+                titulo: 'Sobre as unidades de rack (U), analise:',
+                texto: '1. 1U corresponde a 44,45 mm.\n2. É utilizada para medir a altura dos equipamentos.\n3. Serve para medir a largura dos racks.\n4. Auxilia no dimensionamento do espaço necessário.',
+                opcoes: [
+                    { letra: 'A', texto: 'Apenas 1, 2 e 4' },
+                    { letra: 'B', texto: 'Apenas 1 e 3' },
+                    { letra: 'C', texto: 'Apenas 2, 3 e 4' },
+                    { letra: 'D', texto: '1, 2, 3 e 4' }
+                ],
+                resposta: 'A'
+            },
+            {
+                id: 4,
+                tipo: 'situacao_problema',
+                titulo: 'Escolha a solução mais adequada:',
+                texto: 'Uma empresa possui uma sala de telecomunicações pequena e precisa instalar poucos equipamentos sem ocupar espaço no piso.',
+                opcoes: [
+                    { letra: 'A', texto: 'Rack aberto de 42U' },
+                    { letra: 'B', texto: 'Rack de piso de 24U' },
+                    { letra: 'C', texto: 'Armário de parede (Wall Mount)' },
+                    { letra: 'D', texto: 'Instalar os equipamentos sobre uma mesa' }
+                ],
+                resposta: 'C'
+            },
+            {
+                id: 5,
+                tipo: 'lacuna',
+                titulo: 'Complete a lacuna:',
+                texto: 'O padrão EIA-310 estabelece a largura interna útil dos racks em ______ polegadas.',
+                opcoes: [
+                    { letra: 'A', texto: '12' },
+                    { letra: 'B', texto: '18' },
+                    { letra: 'C', texto: '19' },
+                    { letra: 'D', texto: '24' }
+                ],
+                resposta: 'C'
+            },
+            {
+                id: 6,
+                tipo: 'sequencia_logica',
+                titulo: 'Considere a organização recomendada de um rack:',
+                texto: 'I. Patch panel\nII. Switch\nIII. Nobreak\n\nAssinale a sequência correta de posicionamento (de cima para baixo).',
+                opcoes: [
+                    { letra: 'A', texto: 'I – II – III' },
+                    { letra: 'B', texto: 'III – II – I' },
+                    { letra: 'C', texto: 'II – I – III' },
+                    { letra: 'D', texto: 'I – III – II' }
+                ],
+                resposta: 'A'
+            },
+            {
+                id: 7,
+                tipo: 'excecao',
+                titulo: 'Assinale a alternativa que NÃO é uma vantagem do rack fechado:',
+                texto: 'Identifique a característica que não corresponde às vantagens de um rack fechado.',
+                opcoes: [
+                    { letra: 'A', texto: 'Proteção física dos equipamentos' },
+                    { letra: 'B', texto: 'Proteção contra poeira' },
+                    { letra: 'C', texto: 'Controle de acesso por fechadura' },
+                    { letra: 'D', texto: 'Ventilação natural superior ao rack aberto' }
+                ],
+                resposta: 'D'
+            },
+            {
+                id: 8,
+                tipo: 'multiplas_corretas',
+                titulo: 'Sobre a organização interna do rack, analise:',
+                texto: '1. Equipamentos pesados devem ficar próximos da base.\n2. Patch panels normalmente ficam na parte superior.\n3. Deve-se utilizar organizadores de cabos.\n4. Cabos de energia e dados devem ser separados sempre que possível.',
+                opcoes: [
+                    { letra: 'A', texto: '1, 2, 3 e 4' },
+                    { letra: 'B', texto: 'Apenas 1, 2 e 3' },
+                    { letra: 'C', texto: 'Apenas 2, 3 e 4' },
+                    { letra: 'D', texto: 'Apenas 1 e 4' }
+                ],
+                resposta: 'A'
+            },
+            {
+                id: 9,
+                tipo: 'interpretacao',
+                titulo: 'Analise a situação:',
+                texto: 'Após uma queda de energia, todos os equipamentos de rede de uma empresa desligaram imediatamente, causando interrupção dos serviços.\n\nQual equipamento poderia ter evitado esse problema?',
+                opcoes: [
+                    { letra: 'A', texto: 'Patch panel' },
+                    { letra: 'B', texto: 'Organizador horizontal' },
+                    { letra: 'C', texto: 'Nobreak (UPS)' },
+                    { letra: 'D', texto: 'Canaleta' }
+                ],
+                resposta: 'C'
+            },
+            {
+                id: 10,
+                tipo: 'combinacao_corretas',
+                titulo: 'Sobre alimentação e proteção elétrica, analise:',
+                texto: '1. A PDU distribui energia para os equipamentos do rack.\n2. O filtro de linha protege contra surtos elétricos.\n3. O nobreak fornece energia durante quedas de energia.\n4. O filtro de linha substitui completamente um nobreak.',
+                opcoes: [
+                    { letra: 'A', texto: 'Apenas 1, 2 e 3' },
+                    { letra: 'B', texto: 'Apenas 1 e 4' },
+                    { letra: 'C', texto: 'Apenas 2, 3 e 4' },
+                    { letra: 'D', texto: '1, 2, 3 e 4' }
+                ],
+                resposta: 'A'
+            }
+        ];
+
+
+
+        const tentativas = {};
+        const respostas = {};
+
+        function inicializarFormulario() {
+            const container = document.getElementById('questoesContainer');
+
+            questoes.forEach(q => {
+                tentativas[q.id] = 0;
+                respostas[q.id] = null;
+
+                const card = document.createElement('div');
+                card.className = 'question-card';
+                card.id = `questao-${q.id}`;
+
+                let conteudo = `
+                    <div class="question-number">${q.id}</div>
+                    <div class="question-text">${q.titulo}</div>
+                    <div class="question-content">${q.texto.replace(/\n/g, '<br>')}</div>
+                    <div class="options">
+                `;
+
+                q.opcoes.forEach(opcao => {
+                    conteudo += `
+                        <div class="option">
+                            <input type="radio" id="q${q.id}_${opcao.letra}" name="questao${q.id}" value="${opcao.letra}" onchange="responderQuestao(${q.id})">
+                            <label for="q${q.id}_${opcao.letra}"><strong>${opcao.letra})</strong> ${opcao.texto}</label>
+                        </div>
+                    `;
+                });
+
+                conteudo += `
+                    </div>
+                    <div class="feedback" id="feedback-${q.id}"></div>
+                    <div class="attempts" id="attempts-${q.id}"></div>
+                `;
+
+                card.innerHTML = conteudo;
+                container.appendChild(card);
+            });
+        }
+
+        function responderQuestao(id) {
+            const respostaSelecionada = document.querySelector(`input[name="questao${id}"]:checked`).value;
+            const questao = questoes.find(q => q.id === id);
+            const card = document.getElementById(`questao-${id}`);
+            const feedback = document.getElementById(`feedback-${id}`);
+            const options = card.querySelectorAll('.option input[type="radio"]');
+
+            tentativas[id]++;
+
+            if (respostaSelecionada === questao.resposta) {
+                respostas[id] = respostaSelecionada;
+                card.classList.remove('incorrect');
+                card.classList.add('correct');
+                feedback.className = 'feedback show correct';
+                feedback.textContent = '✓ Resposta correta!';
+            } else {
+                card.classList.remove('correct');
+                card.classList.add('incorrect');
+                feedback.className = 'feedback show incorrect';
+                feedback.textContent = `✗ Resposta incorreta.`;
+            }
+
+            // Desabilitar todas as opções após responder
+            options.forEach(option => {
+                option.disabled = true;
+            });
+
+            atualizarProgresso();
+            verificarConclusao();
+        }
+
+        function atualizarProgresso() {
+            const corretas = Object.values(respostas).filter(r => r !== null).length;
+            const percentual = (corretas / questoes.length) * 100;
+            document.getElementById('progressBar').style.width = percentual + '%';
+        }
+
+        function verificarConclusao() {
+            const todasCorretas = questoes.every(q => respostas[q.id] !== null);
+            if (todasCorretas) {
+                document.getElementById('summary').classList.add('show');
+            } else {
+                document.getElementById('summary').classList.remove('show');
+            }
+        }
+
+        function criptografarBase64(texto) {
+            return btoa(unescape(encodeURIComponent(texto)));
+        }
+
+        function exportarResposta() {
+            const nomeAluno = document.getElementById('nomeAluno').value.trim();
+
+            if (!nomeAluno) {
+                alert('Por favor, preencha o nome do aluno.');
+                return;
+            }
+
+            const dados = {
+                aluno: nomeAluno,
+                dataResposta: new Date().toISOString(),
+                respostas: {},
+                totalAcertos: 0
+            };
+
+            questoes.forEach(q => {
+                dados.respostas[`questao_${q.id}`] = respostas[q.id] || 'não respondida';
+                if (respostas[q.id]) {
+                    dados.totalAcertos++;
+                }
+            });
+
+            const jsonString = JSON.stringify(dados, null, 2);
+            const jsonCriptografado = criptografarBase64(jsonString);
+
+            const dataForDownload = {
+                encrypted: jsonCriptografado,
+                encrypted_type: 'base64'
+            };
+
+            const blob = new Blob([JSON.stringify(dataForDownload, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `resposta_${nomeAluno.replace(/\s+/g, '_')}_${new Date().getTime()}.json`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+
+            alert('Resposta exportada com sucesso!');
+        }
+
+        function resetarFormulario() {
+            if (confirm('Deseja realmente reiniciar a avaliação?')) {
+                document.getElementById('nomeAluno').value = '';
+                document.getElementById('avaliacao-form').reset();
+                Object.keys(tentativas).forEach(key => {
+                    tentativas[key] = 0;
+                    respostas[key] = null;
+                    const card = document.getElementById(`questao-${key}`);
+                    card.classList.remove('correct', 'incorrect');
+                    const feedback = document.getElementById(`feedback-${key}`);
+                    feedback.classList.remove('show');
+                    feedback.textContent = '';
+                    const options = card.querySelectorAll('.option input[type="radio"]');
+                    options.forEach(option => {
+                        option.disabled = false;
+                        option.checked = false;
+                    });
+                });
+                document.getElementById('summary').classList.remove('show');
+                atualizarProgresso();
+            }
+        }
+
+        // Inicializar formulário
+        document.addEventListener('DOMContentLoaded', inicializarFormulario);
+    </script>
+</body>
+
+</html>

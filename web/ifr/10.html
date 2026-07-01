@@ -9,8 +9,8 @@
 <body>
     <main>
         <header>
-            <h1>Racks e Alimentação</h1>
-            <p class="eyebrow">Aula 10 — Infraestrutura Física de Redes</p>
+            <h1>Infraestrutura Física de Redes</h1>
+            <p class="eyebrow">Aula 10 — Racks e Alimentação</p>
         </header>
 
         <p><strong>Objetivo da aula:</strong> Compreender o conceito e a função dos racks na infraestrutura de redes, conhecer os tipos disponíveis e suas especificações básicas, entender a organização interna e os sistemas de alimentação e proteção elétrica.</p>
@@ -45,7 +45,7 @@
         <p>A <strong>unidade de rack</strong> — abreviada como <strong>U</strong> — é a unidade de medida que define a altura dos equipamentos e dos racks.</p>
         <p><strong>1U = 44,45 mm (1,75 polegadas)</strong></p>
         <p>Todo equipamento para rack tem sua altura expressa em unidades U:</p>
-
+        <img src="../assets/images/ifr/10/unidades_rack.png" alt="Unidade de Rack">
         <table>
             <thead>
                 <tr>
@@ -87,13 +87,7 @@
 
         <h3>Como Calcular o Espaço Necessário</h3>
         <p>Para dimensionar o rack de uma instalação, some a altura em U de todos os equipamentos previstos e adicione uma margem de crescimento:</p>
-        <pre><code>2 switches de 24 portas:     2 × 1U =  2U
-2 patch panels de 24 portas: 2 × 1U =  2U
-1 organizador de cabos:      1 × 1U =  1U
-1 nobreak:                   1 × 3U =  3U
-Margem de crescimento (30%):           2U
-─────────────────────────────────────────
-Total necessário:                      10U → escolher rack de 12U</code></pre>
+        <img src="../assets/images/ifr/10/organizacao_rack.png" alt="Organização de Rack">
 
         <h3>Espaço de Folga</h3>
         <p>Nunca dimensionar um rack para ser ocupado 100%. As razões são práticas:</p>
@@ -110,6 +104,7 @@ Total necessário:                      10U → escolher rack de 12U</code></pre
         <h2>3. Tipos de Rack</h2>
 
         <h3>Rack Aberto</h3>
+        <img src="../assets/images/ifr/10/rack_aberto.png" alt="">
         <p>O rack aberto é uma estrutura metálica sem laterais, portas ou teto — apenas os montantes verticais com os trilhos de fixação e algumas travessas horizontais de reforço.</p>
         <p><strong>Vantagens:</strong></p>
         <ul>
@@ -127,6 +122,7 @@ Total necessário:                      10U → escolher rack de 12U</code></pre
         <p><strong>Quando usar:</strong> ambientes com acesso restrito e controlado — salas de servidores fechadas, armários de telecomunicações com chave. Não recomendado em ambientes abertos ou com trânsito de pessoas não autorizadas.</p>
 
         <h3>Rack Fechado (Gabinete)</h3>
+        <img src="../assets/images/ifr/10/rack_fechado.png" alt="">
         <p>O rack fechado é um gabinete completo — com laterais, teto, base e portas frontais e traseiras com fechadura. Os equipamentos ficam completamente enclausurados.</p>
         <p><strong>Vantagens:</strong></p>
         <ul>
@@ -144,6 +140,7 @@ Total necessário:                      10U → escolher rack de 12U</code></pre
         <p><strong>Quando usar:</strong> ambientes com acesso não controlado, recepções, corredores, ambientes onde a segurança física é prioritária.</p>
 
         <h3>Armário de Parede (Wall Mount)</h3>
+        <img src="../assets/images/ifr/10/rack_armario.png" alt="">
         <p>O armário de parede é um rack fechado compacto projetado para ser fixado diretamente na parede — sem ocupar espaço no piso.</p>
         <p><strong>Características:</strong></p>
         <ul>
@@ -191,18 +188,7 @@ Total necessário:                      10U → escolher rack de 12U</code></pre
 
         <h3>Ordem Recomendada dos Equipamentos</h3>
         <p>A organização do rack segue uma lógica de cima para baixo:</p>
-        <pre><code>┌─────────────────────────┐
-│  Patch panel (1U)       │  ← Terminação dos cabos
-│  Organizador de cabos   │
-│  Switch (1U)            │  ← Equipamento ativo
-│  Organizador de cabos   │
-│  Patch panel (1U)       │  ← Segundo andar de cabeamento
-│  Organizador de cabos   │
-│  Switch (1U)            │
-│  [espaço livre]         │  ← Margem para expansão
-│  Servidor               │  ← Equipamentos pesados na base
-│  Nobreak (3U)           │  ← Base — centro de gravidade baixo
-└─────────────────────────┘</code></pre>
+        <img src="../assets/images/ifr/10/organizacao_rack.png" alt="">
         <p><strong>Patch panels no topo:</strong> os cabos de instalação que chegam ao rack são normalmente roteados pelo teto ou pela parte superior — terminá-los nos patch panels do topo reduz o percurso dos cabos e mantém a organização.</p>
         <p><strong>Switches logo abaixo dos patch panels:</strong> o patch cord que conecta o patch panel ao switch fica curto — geralmente 0,5 m a 1 m — mantendo a organização e sem cabos longos soltos.</p>
         <p><strong>Equipamentos pesados na base:</strong> servidores e nobreaks são os componentes mais pesados. Posicioná-los na base mantém o centro de gravidade baixo, reduzindo o risco de tombamento.</p>
@@ -236,6 +222,7 @@ Total necessário:                      10U → escolher rack de 12U</code></pre
         <p>Os equipamentos de rede são equipamentos eletrônicos sensíveis — variações de tensão, picos elétricos e interrupções de energia podem danificá-los permanentemente ou causar perda de dados. A proteção elétrica é parte integrante da infraestrutura de rede.</p>
 
         <h3>Régua de Tomadas para Rack (PDU)</h3>
+        <img src="../assets/images/ifr/10/regua.png" alt="">
         <p>A <strong>PDU</strong> (<em>Power Distribution Unit</em>) é a régua de tomadas projetada para instalação em rack. Diferente de uma régua doméstica comum, a PDU para rack:</p>
         <ul>
             <li>É fixada verticalmente nas laterais internas do rack ou horizontalmente em 1U</li>
@@ -294,6 +281,11 @@ Total necessário:                      10U → escolher rack de 12U</code></pre
         <p><strong>Rack com chave:</strong> racks fechados devem ter fechadura — a chave deve ser controlada e entregue apenas a pessoas autorizadas.</p>
         <p><strong>Sala de telecomunicações com acesso restrito:</strong> o ideal é que o rack fique numa sala dedicada, com acesso por chave ou controle biométrico, com registro de entrada e saída.</p>
         <p><strong>Sem equipamentos não identificados:</strong> qualquer equipamento instalado no rack deve ser identificado e registrado. Dispositivos desconhecidos num rack podem representar riscos de segurança.</p>
+        <a href="./exercicios/aula10.html"
+        style="display: inline-flex; align-items: center; gap: 8px; text-decoration: none; color: #007BFF; font-weight: bold;">
+        <img src="../assets/images/exercises.png" alt="Exercícios" style="width: 48px; height: 48px;">
+        Exercícios de Fixação
+      </a>
     </main>
 </body>
 </html>
